@@ -4,15 +4,15 @@
  */
 package data.models;
 
-import data.interfaces.IManager;
+import data.interfaces.ICaretaker;
 
 /**
  *
  * @author uubu
  */
-public class Manager extends Role implements IManager{
+public class Caretaker extends Role implements ICaretaker {
 
-    public Manager() {
+    public Caretaker() {
         super();
     }
     

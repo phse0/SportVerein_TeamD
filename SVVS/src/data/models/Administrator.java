@@ -4,15 +4,15 @@
  */
 package data.models;
 
-import data.interfaces.IManager;
+import data.interfaces.IAdministrator;
 
 /**
  *
  * @author uubu
  */
-public class Manager extends Role implements IManager{
+public class Administrator extends Role implements IAdministrator{
 
-    public Manager() {
+    public Administrator() {
         super();
     }
     

@@ -4,15 +4,15 @@
  */
 package data.models;
 
-import data.interfaces.IManager;
+import data.interfaces.ISportsman;
 
 /**
  *
  * @author uubu
  */
-public class Manager extends Role implements IManager{
+public class Sportsman extends Role implements ISportsman{
 
-    public Manager() {
+    public Sportsman() {
         super();
     }
     

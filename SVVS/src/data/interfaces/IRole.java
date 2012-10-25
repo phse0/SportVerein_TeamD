@@ -9,5 +9,21 @@ package data.interfaces;
  * @author uubu
  */
 public interface IRole {
+
+    IDepartment getDepartment();
+
+    IPerson getPerson();
+
+    int getRoleID();
+
+    IRoleRights getRoleRight();
+
+    void setDepartment(IDepartment department);
+
+    void setPerson(IPerson person);
+
+    void setRoleID(int roleID);
+
+    void setRoleRight(IRoleRights roleRight);
     
 }

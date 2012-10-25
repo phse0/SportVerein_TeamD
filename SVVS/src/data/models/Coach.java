@@ -4,15 +4,15 @@
  */
 package data.models;
 
-import data.interfaces.IManager;
+import data.interfaces.ICoach;
 
 /**
  *
  * @author uubu
  */
-public class Manager extends Role implements IManager{
+public class Coach extends Role implements ICoach{
 
-    public Manager() {
+    public Coach() {
         super();
     }
     

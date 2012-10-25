@@ -4,6 +4,7 @@
  */
 package data.models;
 
+import data.interfaces.IAddress;
 import data.interfaces.IContributionHistory;
 import data.interfaces.IPerson;
 import java.sql.Date;
@@ -24,6 +25,8 @@ public class Person implements IPerson{
     protected String username;
     protected String password;
     protected List<IContributionHistory> contributionHistory;
+    protected List<IAddress> addresses;
+    protected IAddress mainAddress;
     protected int right;
     protected Date birthdate;
 
@@ -125,4 +128,29 @@ public class Person implements IPerson{
     public void removeContributionHistory(IContributionHistory contributionHistory){
         this.contributionHistory.remove(contributionHistory);
     }
+
+    public List<IAddress> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<IAddress> addresses) {
+        this.addresses = addresses;
+    }
+    
+    public void addAddress(IAddress address){
+        this.addresses.add(address);
+    }
+    
+    public void removeAddress(IAddress address){
+        this.addresses.remove(address);
+    }
+
+    public IAddress getMainAddress() {
+        return mainAddress;
+    }
+
+    public void setMainAddress(IAddress mainAddress) {
+        this.mainAddress = mainAddress;
+    }
+    
 }

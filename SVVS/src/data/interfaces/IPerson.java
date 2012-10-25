@@ -58,6 +58,20 @@ public interface IPerson {
     void setSex(String sex);
 
     void setUsername(String username);
+
+    void addAddress(IAddress address);
+
+    List<IAddress> getAddresses();
+
+    void removeAddress(IAddress address);
+
+    void removeContributionHistory(IContributionHistory contributionHistory);
+
+    void setAddresses(List<IAddress> addresses);
+
+    IAddress getMainAddress();
+
+    void setMainAddress(IAddress mainAddress);
   
    
     
