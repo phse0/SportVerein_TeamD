@@ -8,6 +8,10 @@ package data.interfaces;
  *
  * @author uubu
  */
-public interface ITournamentTeam {
+public interface ITournamentTeam extends ITrainingTeam{
+
+    ILeague getLeague();
+
+    void setLeague(ILeague league);
     
 }
