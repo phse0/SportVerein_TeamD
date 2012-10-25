@@ -8,6 +8,6 @@ package data.interfaces;
  *
  * @author uubu
  */
-public interface IAdministrator {
+public interface IAdministrator extends IRole {
     
 }

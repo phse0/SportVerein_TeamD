@@ -8,6 +8,6 @@ package data.interfaces;
  *
  * @author uubu
  */
-public interface ICoach {
+public interface ICoach extends IRole {
     
 }

@@ -9,5 +9,17 @@ package data.interfaces;
  * @author uubu
  */
 public interface IRight {
+
+    String getName();
+
+    int getRightID();
+
+    long getValue();
+
+    void setName(String name);
+
+    void setRightID(int rightID);
+
+    void setValue(long value);
     
 }

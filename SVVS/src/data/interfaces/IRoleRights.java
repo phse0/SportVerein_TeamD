@@ -9,5 +9,17 @@ package data.interfaces;
  * @author uubu
  */
 public interface IRoleRights {
+
+    String getName();
+
+    int getRight();
+
+    int getRoleRightsID();
+
+    void setName(String name);
+
+    void setRight(int right);
+
+    void setRoleRightsID(int roleRightsID);
     
 }

@@ -8,6 +8,6 @@ package data.interfaces;
  *
  * @author uubu
  */
-public interface IManager {
+public interface IManager extends IRole{
     
 }

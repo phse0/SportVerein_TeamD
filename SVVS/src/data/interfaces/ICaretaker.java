@@ -8,6 +8,6 @@ package data.interfaces;
  *
  * @author uubu
  */
-public interface ICaretaker {
+public interface ICaretaker extends IRole{
     
 }

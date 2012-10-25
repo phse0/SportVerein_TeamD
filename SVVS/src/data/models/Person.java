@@ -15,18 +15,21 @@ import java.util.List;
  */
 public class Person implements IPerson{
     
-    int personID;
-    String firstname;
-    String lastname;
-    String sex;
-    String phone;
-    String mail;
-    String username;
-    String password;
-    List<IContributionHistory> contributionHistory;
-    int right;
-    Date birthdate;
+    protected int personID;
+    protected String firstname;
+    protected String lastname;
+    protected String sex;
+    protected String phone;
+    protected String mail;
+    protected String username;
+    protected String password;
+    protected List<IContributionHistory> contributionHistory;
+    protected int right;
+    protected Date birthdate;
 
+    public Person() {
+    }
+    
     public int getPersonID() {
         return personID;
     }

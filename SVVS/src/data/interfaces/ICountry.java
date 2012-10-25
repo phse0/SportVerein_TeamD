@@ -9,5 +9,17 @@ package data.interfaces;
  * @author uubu
  */
 public interface ICountry {
+
+    String getCode();
+
+    int getCountryID();
+
+    String getName();
+
+    void setCode(String code);
+
+    void setCountryID(int countryID);
+
+    void setName(String name);
     
 }
