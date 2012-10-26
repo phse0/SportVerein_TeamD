@@ -10,7 +10,7 @@ import data.interfaces.models.IRight;
  *
  * @author uubu
  */
-public class Right implements IRight{
+public class Right implements IRight {
     
     protected int rightID;
     protected long value;

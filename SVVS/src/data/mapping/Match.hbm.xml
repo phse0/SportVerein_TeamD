@@ -6,9 +6,9 @@
             <generator class="increment"/>
         </id>
         
-        <many-to-one cascade="all" class="data.models.Tournament" column="tournamentID" name="tournament" not-null="true"/>
-        <many-to-one cascade="all" class="data.models.Team" column="team1ID" name="team1" not-null="true"/>
-        <many-to-one cascade="all" class="data.models.Team" column="team2ID" name="team2" not-null="true"/>
+        <many-to-one cascade="all" class="data.models.Tournament" column="tournamentID" name="tournament" />
+        <many-to-one cascade="all" class="data.models.Team" column="team1ID" name="team1" />
+        <many-to-one cascade="all" class="data.models.Team" column="team2ID" name="team2" />
         
     </class>
 </hibernate-mapping>
