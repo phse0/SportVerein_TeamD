@@ -1,0 +1,21 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="data.models.Address" table="address">
+
+      <property name="year" type="integer"> 
+          <column name="year" length="" not-null="true"/> 
+      </property>
+      <property name="month" type="integer"> 
+          <column name="month" length="" not-null="true"/> 
+      </property>
+      <property name="status" type="string"> 
+          <column name="status" length="45" not-null="true"/> 
+      </property>
+  </class>
+</hibernate-mapping>
+
+
+
+
