@@ -4,9 +4,9 @@
  */
 package data.models;
 
-import data.interfaces.ISportsman;
-import data.interfaces.ISportsmanTrainingTeam;
-import data.interfaces.ITrainingTeam;
+import data.interfaces.models.ISportsman;
+import data.interfaces.models.ISportsmanTrainingTeam;
+import data.interfaces.models.ITrainingTeam;
 
 /**
  *

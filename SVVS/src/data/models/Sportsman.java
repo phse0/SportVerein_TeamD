@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.ISportsman;
+import data.interfaces.models.ISportsman;
 
 /**
  *

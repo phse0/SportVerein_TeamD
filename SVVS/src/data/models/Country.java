@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.ICountry;
+import data.interfaces.models.ICountry;
 
 /**
  *

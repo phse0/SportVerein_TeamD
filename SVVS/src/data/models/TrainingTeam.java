@@ -4,11 +4,11 @@
  */
 package data.models;
 
-import data.interfaces.ICoach;
-import data.interfaces.IDepartment;
-import data.interfaces.ISport;
-import data.interfaces.ISportsmanTrainingTeam;
-import data.interfaces.ITrainingTeam;
+import data.interfaces.models.ICoach;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.ISport;
+import data.interfaces.models.ISportsmanTrainingTeam;
+import data.interfaces.models.ITrainingTeam;
 import java.util.List;
 
 /**

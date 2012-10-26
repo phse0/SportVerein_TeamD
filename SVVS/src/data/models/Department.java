@@ -4,9 +4,9 @@
  */
 package data.models;
 
-import data.interfaces.IDepartment;
-import data.interfaces.IManager;
-import data.interfaces.IRole;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.IManager;
+import data.interfaces.models.IRole;
 import java.util.List;
 
 /**

@@ -4,9 +4,9 @@
  */
 package data.models;
 
-import data.interfaces.IContribution;
-import data.interfaces.IContributionHistory;
-import data.interfaces.IPerson;
+import data.interfaces.models.IContribution;
+import data.interfaces.models.IContributionHistory;
+import data.interfaces.models.IPerson;
 
 /**
  *

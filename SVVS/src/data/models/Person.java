@@ -4,9 +4,9 @@
  */
 package data.models;
 
-import data.interfaces.IAddress;
-import data.interfaces.IContributionHistory;
-import data.interfaces.IPerson;
+import data.interfaces.models.IAddress;
+import data.interfaces.models.IContributionHistory;
+import data.interfaces.models.IPerson;
 import java.sql.Date;
 import java.util.List;
 

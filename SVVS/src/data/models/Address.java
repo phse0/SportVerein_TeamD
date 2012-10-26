@@ -4,8 +4,8 @@
  */
 package data.models;
 
-import data.interfaces.IAddress;
-import data.interfaces.ICountry;
+import data.interfaces.models.IAddress;
+import data.interfaces.models.ICountry;
 
 /**
  *

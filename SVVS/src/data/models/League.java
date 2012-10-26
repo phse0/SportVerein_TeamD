@@ -4,8 +4,8 @@
  */
 package data.models;
 
-import data.interfaces.ILeague;
-import data.interfaces.ITournamentTeam;
+import data.interfaces.models.ILeague;
+import data.interfaces.models.ITournamentTeam;
 import java.util.List;
 
 /**

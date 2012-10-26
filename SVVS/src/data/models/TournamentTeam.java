@@ -4,10 +4,10 @@
  */
 package data.models;
 
-import data.interfaces.IDepartment;
-import data.interfaces.ILeague;
-import data.interfaces.ISport;
-import data.interfaces.ITournamentTeam;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.ILeague;
+import data.interfaces.models.ISport;
+import data.interfaces.models.ITournamentTeam;
 
 /**
  *

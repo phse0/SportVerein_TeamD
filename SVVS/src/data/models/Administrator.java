@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.IAdministrator;
+import data.interfaces.models.IAdministrator;
 
 /**
  *

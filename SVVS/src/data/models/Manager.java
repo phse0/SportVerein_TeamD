@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.IManager;
+import data.interfaces.models.IManager;
 
 /**
  *

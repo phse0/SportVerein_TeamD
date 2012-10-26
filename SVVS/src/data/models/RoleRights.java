@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.IRoleRights;
+import data.interfaces.models.IRoleRights;
 
 /**
  *

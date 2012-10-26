@@ -4,10 +4,10 @@
  */
 package data.models;
 
-import data.interfaces.IMatch;
-import data.interfaces.ISport;
-import data.interfaces.ITeam;
-import data.interfaces.ITournament;
+import data.interfaces.models.IMatch;
+import data.interfaces.models.ISport;
+import data.interfaces.models.ITeam;
+import data.interfaces.models.ITournament;
 import java.util.List;
 
 /**

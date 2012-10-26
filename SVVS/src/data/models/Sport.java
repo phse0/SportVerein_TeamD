@@ -4,8 +4,8 @@
  */
 package data.models;
 
-import data.interfaces.ISport;
-import data.interfaces.ITeam;
+import data.interfaces.models.ISport;
+import data.interfaces.models.ITeam;
 import java.util.List;
 
 /**

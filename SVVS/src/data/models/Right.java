@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.IRight;
+import data.interfaces.models.IRight;
 
 /**
  *

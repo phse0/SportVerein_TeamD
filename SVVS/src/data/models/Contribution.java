@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.IContribution;
+import data.interfaces.models.IContribution;
 import java.math.BigDecimal;
 
 /**

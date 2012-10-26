@@ -4,10 +4,10 @@
  */
 package data.models;
 
-import data.interfaces.IDepartment;
-import data.interfaces.IPerson;
-import data.interfaces.IRole;
-import data.interfaces.IRoleRights;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
+import data.interfaces.models.IRoleRights;
 
 /**
  *

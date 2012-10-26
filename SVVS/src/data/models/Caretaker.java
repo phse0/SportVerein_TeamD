@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.ICaretaker;
+import data.interfaces.models.ICaretaker;
 
 /**
  *

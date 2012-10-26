@@ -4,7 +4,7 @@
  */
 package data.models;
 
-import data.interfaces.ICoach;
+import data.interfaces.models.ICoach;
 
 /**
  *
