@@ -1,22 +1,15 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="data.models.Address" table="address">
-        <id name="addressID" type="integer">
-            <column name="addressID" length=""/> 
+        <id name="addressID" column="addressID" type="integer">
             <generator class="increment"/> 
         </id>
-        <property name="street" type="string"> 
-            <column name="street" length="45" not-null="true"/> 
-        </property>
-        <property name="postcode" type="string"> 
-            <column name="postcode" length="45" not-null="true"/> 
-        </property>
-        <property name="city" type="string"> 
-            <column name="city" length="45" not-null="true"/> 
-        </property>
-        <many-to-one name="country" column="countryID" not-null="true"/>
+        
+        <property name="street" column="street" type="string" not-null="true" />
+        <property name="postcode" column="postcode" type="string" not-null="true" />
+        <property name="city" column="city" type="string" not-null="true" />
+        <many-to-one class="data.models.Country" name="country" column="countryID" not-null="true"/>
   
     </class>
 </hibernate-mapping>

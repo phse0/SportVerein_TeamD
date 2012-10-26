@@ -14,12 +14,12 @@
         <property name="name" column="name" not-null="true" type="string" />
         <bag cascade="all" name="teams" table="tournamentHasTeam">
             <key column="tournamentID" />
-            <many-to-many class="data.model.Team" column="teamID"/>
+            <many-to-many class="data.models.Team" column="teamID"/>
         </bag>
         
         <bag cascade="all" name="matches" table="match">
             <key column="tournamentID" />
-            <one-to-many class="data.model.Match" />
+            <one-to-many class="data.models.Match" />
         </bag>
         
     </class>

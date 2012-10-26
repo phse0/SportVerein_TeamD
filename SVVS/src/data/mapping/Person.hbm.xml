@@ -5,7 +5,7 @@
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="data.model.Person" table="person">
+    <class name="data.models.Person" table="person">
         
         <id name="personID" column="personID" type="integer">
             <generator class="increment" />
@@ -22,15 +22,15 @@
         
         <bag cascade="all" name="contributionHistory" table="contributionHistory">
             <key column="personID" />
-            <one-to-many class="data.model.ContributionHistory" />
+            <one-to-many class="data.models.ContributionHistory" />
         </bag>
         
         <bag cascade="all" name="addresses" table="personAddress">
             <key column="personID" />
-            <many-to-many class="data.model.Address" column="addressID" />
+            <many-to-many class="data.models.Address" column="addressID" />
         </bag>
         
-        <many-to-one class="data.model.Address" name="mainAddress" column="mainAddressID" />
+        <many-to-one class="data.models.Address" name="mainAddress" column="mainAddressID" />
         <property name="right" column="right" not-null="true" type="integer" />
         
     </class>

@@ -14,6 +14,7 @@ import data.interfaces.models.IPerson;
  */
 public class ContributionHistory implements IContributionHistory {
     
+    private int contributionHistoryID;
     private IPerson person;
     private IContribution contribution;
     private int year;
@@ -79,6 +80,14 @@ public class ContributionHistory implements IContributionHistory {
     @Override
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getContributionHistoryID() {
+        return contributionHistoryID;
+    }
+
+    public void setContributionHistoryID(int contributionHistoryID) {
+        this.contributionHistoryID = contributionHistoryID;
     }
     
 }

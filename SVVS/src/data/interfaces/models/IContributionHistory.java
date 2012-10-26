@@ -29,5 +29,9 @@ public interface IContributionHistory extends IModel {
     void setStatus(String status);
 
     void setYear(int year);
+
+    int getContributionHistoryID();
+
+    void setContributionHistoryID(int contributionHistoryID);
     
 }

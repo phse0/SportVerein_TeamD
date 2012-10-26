@@ -11,7 +11,7 @@
         
         <bag name="teams" cascade="all" table="team">
             <key column="sportID" />
-            <one-to-many class="data.model.Team" />
+            <one-to-many class="data.models.Team" />
         </bag>
         
     </class>

@@ -22,42 +22,52 @@ public class Address implements IAddress{
     public Address() {
     }
     
+    @Override
     public int getAddressID() {
         return addressID;
     }
 
+    @Override
     public void setAddressID(int addressID) {
         this.addressID = addressID;
     }
 
+    @Override
     public String getStreet() {
         return street;
     }
 
+    @Override
     public void setStreet(String street) {
         this.street = street;
     }
 
+    @Override
     public String getPostcode() {
         return postcode;
     }
 
+    @Override
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
+    @Override
     public String getCity() {
         return city;
     }
 
+    @Override
     public void setCity(String city) {
         this.city = city;
     }
 
+    @Override
     public ICountry getCountry() {
         return country;
     }
 
+    @Override
     public void setCountry(ICountry country) {
         this.country = country;
     }
