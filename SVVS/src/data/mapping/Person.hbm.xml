@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="data.model.Person" table="person">
+        
+        <id name="personID" column="personID" type="integer">
+            <generator class="increment" />
+        </id>
+        
+        <property name="firstname" column="firstname" not-null="true" type="string" />
+        <property name="lastname" column="lastname" not-null="true" type="string" />
+        <property name="sex" column="sex" not-null="true" type="string" />
+        <property name="birthdate" column="birthdate" type="date" />
+        <property name="phone" column="phone" type="string" />
+        <property name="mail" column="mail" type="string" />
+        <property name="username" column="username" type="string" />
+        <property name="password" column="password" type="string" />
+        
+        <bag cascade="all" name="contributionHistory" table="contributionHistory">
+            <key column="personID" />
+            <one-to-many class="data.model.ContributionHistory" />
+        </bag>
+        
+        <bag cascade="all" name="addresses" table="personAddress">
+            <key column="personID" />
+            <many-to-many class="data.model.Address" column="addressID" />
+        </bag>
+        
+        <many-to-one class="data.model.Address" name="mainAddress" column="mainAddressID" />
+        <property name="right" column="right" not-null="true" type="integer" />
+        
+    </class>
+  
+
+</hibernate-mapping>

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="data.models.Sport" table="sport">
-      <id name="rightID" column="sportID">
-		<generator class="increment"/>
-      </id>
+    <class name="data.models.Sport" table="sport">
+        <id name="sportID" column="sportID">
+            <generator class="increment"/>
+        </id>
 
- <property name="maxPlayers" column="maxPlayers" not-null="false" type="integer"/>
- <property name="name" column="name" not-null="true" type="string"/>
-   
-  </class>
+        <property name="maxPlayers" column="maxPlayers" not-null="false" type="integer"/>
+        <property name="name" column="name" not-null="true" type="string"/>
+        
+        <bag name="teams" cascade="all" table="team">
+            <key column="sportID" />
+            <one-to-many class="data.model.Team" />
+        </bag>
+        
+    </class>
 </hibernate-mapping>

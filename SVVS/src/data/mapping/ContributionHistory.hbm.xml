@@ -2,17 +2,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="data.models.Address" table="address">
+  <class name="data.models.ContributionHistory" table="contributionHistory">
 
-      <property name="year" type="integer"> 
-          <column name="year" length="" not-null="true"/> 
-      </property>
-      <property name="month" type="integer"> 
-          <column name="month" length="" not-null="true"/> 
-      </property>
-      <property name="status" type="string"> 
-          <column name="status" length="45" not-null="true"/> 
-      </property>
+      <composite-id class="data.model.ContributionHistory.hbm.xml">
+          <key-many-to-one column="personID" name="person" class="data.model.Person" />
+          <key-many-to-one column="contributionID" name="contribution" class="data.model.Contribution" />
+      </composite-id>
+      
+      <property name="year" column="year" not-null="true" type="integer" />
+      <property name="month" column="month" not-null="true" type="integer" />
+      <property name="status" column="status" not-null="true" type="string" />
+      
+      
   </class>
 </hibernate-mapping>
 
