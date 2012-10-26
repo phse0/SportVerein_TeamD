@@ -7,7 +7,7 @@
         </id>
 
         <property name="value" column="value" not-null="true" type="long"/>
-        <property name="name" column="name" not-null="true" type="string"/>
+        <property name="name" column="name" not-null="true" type="string" length="45"/>
    
     </class>
 </hibernate-mapping>

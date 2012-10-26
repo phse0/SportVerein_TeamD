@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE hibernate-mapping PUBLIC
-  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="data.models.Match" table="match">
-        
         <id name="matchID" column="matchID" type="integer">
-            <generator class="increment" />
+            <generator class="increment"/>
         </id>
         
-        <many-to-one class="data.models.Tournament" column="tournamentID" name="tournament" />
-        <many-to-one class="data.models.Team" column="team1ID" name="team1" />
-        <many-to-one class="data.models.Team" column="team2ID" name="team2" />
+        <many-to-one cascade="all" class="data.models.Tournament" column="tournamentID" name="tournament" not-null="true"/>
+        <many-to-one cascade="all" class="data.models.Team" column="team1ID" name="team1" not-null="true"/>
+        <many-to-one cascade="all" class="data.models.Team" column="team2ID" name="team2" not-null="true"/>
         
     </class>
-  
-
 </hibernate-mapping>

@@ -5,7 +5,8 @@
 package data;
 
 import data.hibernate.HibernateUtil;
-import data.models.Country;
+import data.models.Person;
+import java.sql.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -20,14 +21,8 @@ public class test {
         Session s = HibernateUtil.getCurrentSession();
         Transaction tx = s.beginTransaction();
         
+   
         
-        Country country = new Country();
-        country.setCode("666");
-        country.setName("Dörkadörkistan");
-        
-        
-        s.save(country);
-
         tx.commit();
         
     }

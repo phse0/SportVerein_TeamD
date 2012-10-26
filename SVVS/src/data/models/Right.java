@@ -19,26 +19,32 @@ public class Right implements IRight{
     public Right() {
     }
     
+    @Override
     public int getRightID() {
         return rightID;
     }
 
+    @Override
     public void setRightID(int rightID) {
         this.rightID = rightID;
     }
 
+    @Override
     public long getValue() {
         return value;
     }
 
+    @Override
     public void setValue(long value) {
         this.value = value;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

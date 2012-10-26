@@ -14,18 +14,17 @@
     
         <mapping resource="data/mapping/Address.hbm.xml"/>
         <mapping resource="data/mapping/Contribution.hbm.xml"/>
-        
         <mapping resource="data/mapping/Country.hbm.xml"/>
         <mapping resource="data/mapping/Department.hbm.xml"/>
         <mapping resource="data/mapping/League.hbm.xml"/>
-        <mapping resource="data/mapping/Match.hbm.xml"/>
-        <mapping resource="data/mapping/Person.hbm.xml"/>
         <mapping resource="data/mapping/Right.hbm.xml"/>
-        <mapping resource="data/mapping/Role.hbm.xml"/>
-        <mapping resource="data/mapping/RoleRights.hbm.xml"/>
         <mapping resource="data/mapping/Sport.hbm.xml"/>
         <mapping resource="data/mapping/Team.hbm.xml"/>
         <mapping resource="data/mapping/Tournament.hbm.xml"/>
         <mapping resource="data/mapping/ContributionHistory.hbm.xml"/>
+        <mapping resource="data/mapping/Match.hbm.xml"/>
+        <mapping resource="data/mapping/Person.hbm.xml"/>
+        <mapping resource="data/mapping/Role.hbm.xml"/>
+        <mapping resource="data/mapping/RoleRights.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

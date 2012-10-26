@@ -9,6 +9,10 @@
         <property name="name" column="name" not-null="true" type="string" />
 
         <many-to-one name="sport" column="sportID" not-null="true" class="data.models.Sport"/>
+        <bag name="matches" cascade="all" table="match">
+            <key column="teamID" />
+            <one-to-many class="data.models.Team" />
+        </bag>
 
         <joined-subclass name="data.models.TrainingTeam" table="trainingTeam">
             <key column="teamID"/>
