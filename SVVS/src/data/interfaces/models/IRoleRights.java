@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface IRoleRights {
+public interface IRoleRights extends IModel {
 
     String getName();
 

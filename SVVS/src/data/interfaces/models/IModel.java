@@ -6,12 +6,8 @@ package data.interfaces.models;
 
 /**
  *
- * @author uubu
+ * @author Michael
  */
-public interface ITournamentTeam extends ITrainingTeam {
-
-    ILeague getLeague();
-
-    void setLeague(ILeague league);
+public interface IModel {
     
 }

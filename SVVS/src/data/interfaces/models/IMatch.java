@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface IMatch {
+public interface IMatch extends IModel {
 
     int getMatchID();
 

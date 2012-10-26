@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface ISportsmanTrainingTeam {
+public interface ISportsmanTrainingTeam extends IModel {
 
     String getPosition();
 

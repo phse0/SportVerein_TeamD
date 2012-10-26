@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface IRight {
+public interface IRight extends IModel {
 
     String getName();
 

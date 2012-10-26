@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @author uubu
  */
-public interface IContribution {
+public interface IContribution extends IModel {
 
     int getContributionID();
 

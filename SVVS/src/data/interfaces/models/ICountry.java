@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface ICountry {
+public interface ICountry extends IModel {
 
     String getCode();
 

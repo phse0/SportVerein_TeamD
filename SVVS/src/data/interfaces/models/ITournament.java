@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface ITournament {
+public interface ITournament extends IModel {
 
     void addMatch(IMatch match);
 

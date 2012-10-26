@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface ITeam {
+public interface ITeam extends IModel {
 
     String getName();
 

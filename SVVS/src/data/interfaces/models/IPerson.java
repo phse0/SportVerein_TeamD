@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface IPerson {
+public interface IPerson extends IModel {
 
     void addContributionHistory(IContributionHistory contributionHistory);
 

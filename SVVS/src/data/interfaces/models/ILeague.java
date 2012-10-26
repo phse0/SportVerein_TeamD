@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface ILeague {
+public interface ILeague extends IModel {
 
     int getLeagueID();
 

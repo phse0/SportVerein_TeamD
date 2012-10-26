@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface IAddress {
+public interface IAddress extends IModel {
 
     int getAddressID();
 

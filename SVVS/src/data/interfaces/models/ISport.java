@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface ISport {
+public interface ISport extends IModel {
 
     void addTeam(ITeam team);
 

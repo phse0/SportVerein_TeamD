@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface IContributionHistory {
+public interface IContributionHistory extends IModel {
 
     IContribution getContribution();
 

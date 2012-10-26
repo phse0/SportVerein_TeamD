@@ -8,7 +8,7 @@ package data.interfaces.models;
  *
  * @author uubu
  */
-public interface IRole {
+public interface IRole extends IModel {
 
     IDepartment getDepartment();
 

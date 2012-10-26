@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface IDepartment {
+public interface IDepartment extends IModel {
 
     int getDepartmentID();
 
