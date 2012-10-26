@@ -11,5 +11,7 @@
     <property name="hibernate.hbm2ddl.auto">validate</property>
     <mapping resource="data/mapping/Country.hbm.xml"/>
     <mapping resource="data/mapping/League.hbm.xml"/>
+    <mapping resource="data/mapping/Right.hbm.xml"/>
+    <mapping resource="data/mapping/Sport.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
