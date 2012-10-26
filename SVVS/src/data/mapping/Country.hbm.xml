@@ -6,8 +6,8 @@
             <generator class="increment"/>
         </id>
 
-        <property name="name" column="name" not-null="true" type="string"/>
-        <property name="code" column="code" not-null="true" type="string"/>
+        <property name="name" column="name" not-null="true" type="string" unique="true"/>
+        <property name="code" column="code" not-null="true" type="string" unique="true"/>
    
     </class>
 </hibernate-mapping>
