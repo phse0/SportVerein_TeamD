@@ -31,7 +31,7 @@
         </bag>
         
         <many-to-one class="data.models.Address" name="mainAddress" column="mainAddressID" />
-        <property name="right" column="right" not-null="true" type="integer" />
+        <property name="right" column="rights" not-null="true" type="integer" />
         
     </class>
   
