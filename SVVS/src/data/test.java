@@ -11,8 +11,6 @@ import data.hibernate.HibernateUtil;
 import data.interfaces.models.IAddress;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
-import data.models.Person;
-import java.sql.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
