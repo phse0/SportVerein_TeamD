@@ -2,19 +2,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="data.models.ContributionHistory" table="contributionHistory">
+    <class name="data.models.ContributionHistory" table="contributionHistory">
 
-      <composite-id class="data.model.ContributionHistory.hbm.xml">
-          <key-many-to-one column="personID" name="person" class="data.model.Person" />
-          <key-many-to-one column="contributionID" name="contribution" class="data.model.Contribution" />
-      </composite-id>
+        <composite-id class="data.model.ContributionHistory.hbm.xml">
+            <key-many-to-one column="personID" name="person" class="data.model.Person" />
+            <key-many-to-one column="contributionID" name="contribution" class="data.model.Contribution" />
+        </composite-id>
       
-      <property name="year" column="year" not-null="true" type="integer" />
-      <property name="month" column="month" not-null="true" type="integer" />
-      <property name="status" column="status" not-null="true" type="string" />
+        <property name="year" column="year" not-null="true" type="integer" />
+        <property name="month" column="month" not-null="true" type="integer" />
+        <property name="status" column="status" not-null="true" type="string" />
       
       
-  </class>
+    </class>
 </hibernate-mapping>
 
 

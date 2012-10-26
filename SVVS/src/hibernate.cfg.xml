@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://mysql.fhv.at:3306/ffi0875?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">ffi0875</property>
-    <property name="hibernate.connection.password">singpeco</property>
-    <property name="hibernate.show_sql">true </property>
-    <property name="hibernate.hbm2ddl.auto">validate</property>
-    <mapping resource="data/mapping/Country.hbm.xml"/>
-    <mapping resource="data/mapping/League.hbm.xml"/>
-    <mapping resource="data/mapping/Right.hbm.xml"/>
-    <mapping resource="data/mapping/Sport.hbm.xml"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://mysql.fhv.at:3306/ffi0875?zeroDateTimeBehavior=convertToNull</property>
+        <property name="hibernate.connection.username">ffi0875</property>
+        <property name="hibernate.connection.password">singpeco</property>
+        <property name="hibernate.show_sql">true </property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.transaction.auto_close_session">false</property>
+    
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.acquire_increment">5</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">15</property>
+        <property name="hibernate.c3p0.timeout">28800</property>
+        <property name="hibernate.c3p0.idle_test_period">60</property>
+        <property name="hibernate.c3p0.preferredTestQuery">select 1;</property>
+        
+    
+        <mapping resource="data/mapping/Address.hbm.xml"/>
+        <mapping resource="data/mapping/Contribution.hbm.xml"/>
+        <mapping resource="data/mapping/ContributionHistory.hbm.xml"/>
+        <mapping resource="data/mapping/Country.hbm.xml"/>
+        <mapping resource="data/mapping/Department.hbm.xml"/>
+        <mapping resource="data/mapping/League.hbm.xml"/>
+        <mapping resource="data/mapping/Match.hbm.xml"/>
+        <mapping resource="data/mapping/Person.hbm.xml"/>
+        <mapping resource="data/mapping/Right.hbm.xml"/>
+        <mapping resource="data/mapping/Role.hbm.xml"/>
+        <mapping resource="data/mapping/RoleRights.hbm.xml"/>
+        <mapping resource="data/mapping/Sport.hbm.xml"/>
+        <mapping resource="data/mapping/Team.hbm.xml"/>
+        <mapping resource="data/mapping/Tournament.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="data.models.Team" table="team">
+        <id name="teamID" column="teamID">
+            <generator class="increment"/>
+        </id>
+      
+        <property name="name" column="name" not-null="true" type="string" />
+
+        <many-to-one name="sport" column="sportID" not-null="true" class="data.models.Sport"/>
+
+        <joined-subclass name="data.models.TrainingTeam" table="trainingTeam">
+            <key column="teamID"/>
+            <many-to-one name="department" column="departmentID" not-null="true" class="data.models.Department"/>
+    
+            <joined-subclass name="data.models.TrainingTeam" table="trainingTeam">
+                <key column="teamID"/>
+                <many-to-one name="league" column="leagueID" not-null="false" class="data.models.League"/>
+            </joined-subclass> 
+        </joined-subclass> 
+  
+    </class>
+  
+</hibernate-mapping>
