@@ -9,5 +9,17 @@ package data.interfaces;
  * @author uubu
  */
 public interface ISportsmanTrainingTeam {
+
+    String getPosition();
+
+    ISportsman getSportsman();
+
+    ITrainingTeam getTeam();
+
+    void setPosition(String position);
+
+    void setSportsman(ISportsman sportsman);
+
+    void setTeam(ITrainingTeam team);
     
 }
