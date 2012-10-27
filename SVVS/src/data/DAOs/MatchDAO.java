@@ -1,0 +1,35 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package data.DAOs;
+
+import data.interfaces.DAOs.IMatchDAO;
+import data.interfaces.models.IMatch;
+import data.models.Match;
+
+/**
+ *
+ * @author uubu
+ */
+public class MatchDAO extends AbstractDAO<IMatch> implements IMatchDAO{
+
+    private static MatchDAO instance;
+    
+    private MatchDAO(){
+        super("data.models.Match");
+    }
+    
+    public static MatchDAO getInstance(){
+        if(instance == null){
+            instance = new MatchDAO();
+        }
+        return instance;
+    }
+    
+    @Override
+    public IMatch create() {
+        return new Match();
+    }
+    
+}

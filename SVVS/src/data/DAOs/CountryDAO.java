@@ -4,7 +4,6 @@
  */
 package data.DAOs;
 
-import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.ICountryDAO;
 import data.interfaces.models.ICountry;
 import data.models.Country;
@@ -36,17 +35,15 @@ public class CountryDAO extends AbstractDAO<ICountry> implements ICountryDAO {
     }
 
     @Override
-    public ICountry getByName(String name) {
-        Session s = HibernateUtil.getCurrentSession();
-
+    public ICountry getByName(Session s,String name) {
+ 
         Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
         query.setString(":name", name);
         return (ICountry) query.list().get(0);
     }
 
     @Override
-    public ICountry getByCode(String code) {
-        Session s = HibernateUtil.getCurrentSession();
+    public ICountry getByCode(Session s,String code) {
 
         Query query = s.createQuery("FROM " + getTable() + " WHERE code = :code");
         query.setString(":code", code);

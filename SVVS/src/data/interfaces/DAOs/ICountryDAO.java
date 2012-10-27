@@ -5,6 +5,7 @@
 package data.interfaces.DAOs;
 
 import data.interfaces.models.ICountry;
+import org.hibernate.Session;
 
 /**
  *
@@ -12,8 +13,8 @@ import data.interfaces.models.ICountry;
  */
 public interface ICountryDAO extends IDAOs<ICountry> {
     
-    public ICountry getByName(String name);
+    public ICountry getByName(Session s,String name);
     
-    public ICountry getByCode(String code);
+    public ICountry getByCode(Session s,String code);
     
 }

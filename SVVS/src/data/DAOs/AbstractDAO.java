@@ -4,7 +4,6 @@
  */
 package data.DAOs;
 
-import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.IDAOs;
 import data.interfaces.models.IModel;
 import java.util.List;
@@ -28,27 +27,23 @@ public abstract class AbstractDAO<V extends IModel> implements IDAOs<V> {
     }
 
     @Override
-    public List<V> getAll() {
-        Session s = HibernateUtil.getCurrentSession();
+    public List<V> getAll(Session s) {
         Query query = s.createQuery("FROM " + getTable() + "");
         return query.list();
     }
 
     @Override
-    public void add(V model) {
-        Session s = HibernateUtil.getCurrentSession();
+    public void add(Session s,V model) {
         s.save(model);
     }
 
     @Override
-    public void remove(V model) {
-        Session s = HibernateUtil.getCurrentSession();
+    public void remove(Session s,V model) {
         s.delete(model);
     }
 
     @Override
-    public void update(V model) {
-        Session s = HibernateUtil.getCurrentSession();
+    public void update(Session s,V model) {
         s.update(model);
     }
     

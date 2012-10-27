@@ -6,6 +6,7 @@ package data.interfaces.DAOs;
 
 import data.interfaces.models.IPerson;
 import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -13,10 +14,10 @@ import java.util.List;
  */
 public interface IPersonDAO extends IDAOs<IPerson> {
     
-    public List<IPerson> getByLastName(String name);
+    public List<IPerson> getByLastName(Session s,String name);
     
-    public List<IPerson> getByFirstName(String name);
+    public List<IPerson> getByFirstName(Session s, String name);
     
-    public List<IPerson> getLikeName(String name);
+    public List<IPerson> getLikeName(Session s,String name);
     
 }

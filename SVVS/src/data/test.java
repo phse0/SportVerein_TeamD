@@ -29,7 +29,7 @@ public class test {
         System.out.println("######## COUNTRY ########");
 
         CountryDAO countryDAO = CountryDAO.getInstance();
-        List<ICountry> countryList = countryDAO.getAll();
+        List<ICountry> countryList = countryDAO.getAll(s);
 
         for (ICountry country : countryList) {
             System.out.println(country.getName() + ", " + country.getCode());
@@ -37,7 +37,7 @@ public class test {
 
         System.out.println("######## ADDRESS ########");
         AddressDAO addressDAO = AddressDAO.getInstance();
-        List<IAddress> addressList = addressDAO.getAll();
+        List<IAddress> addressList = addressDAO.getAll(s);
 
         for (IAddress address : addressList) {
             System.out.println(address.getStreet() + ", " + address.getPostcode() + ", "
@@ -46,7 +46,7 @@ public class test {
 
         System.out.println("######## PERSON ########");
         PersonDAO personDAO = PersonDAO.getInstance();
-        List<IPerson> personList = personDAO.getLikeName("ste");
+        List<IPerson> personList = personDAO.getLikeName(s,"ste");
 
         for (IPerson person : personList) {
             System.out.println(person.getLastname() + " " + person.getFirstname()
@@ -55,6 +55,8 @@ public class test {
         
         
         tx.commit();
-
+        if (s.isOpen()) {
+            s.close();
+        }
     }
 }

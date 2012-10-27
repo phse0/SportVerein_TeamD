@@ -37,8 +37,7 @@ public class PersonDAO extends AbstractDAO<IPerson> implements IPersonDAO {
     }
 
     @Override
-    public List<IPerson> getLikeName(String name) {
-        Session s = HibernateUtil.getCurrentSession();
+    public List<IPerson> getLikeName(Session s,String name) {
         
         Query query = s.createQuery("FROM " + getTable() + " WHERE firstname LIKE '%"+name+"%' "
                 + "OR lastname LIKE '%"+name+"%'");
@@ -46,8 +45,7 @@ public class PersonDAO extends AbstractDAO<IPerson> implements IPersonDAO {
     }
 
     @Override
-    public List<IPerson> getByLastName(String name) {
-        Session s = HibernateUtil.getCurrentSession();
+    public List<IPerson> getByLastName(Session s,String name) {
         
         Query query = s.createQuery("FROM " + getTable() + " WHERE lastname = :lname");
         query.setString("lname", name);
@@ -55,8 +53,7 @@ public class PersonDAO extends AbstractDAO<IPerson> implements IPersonDAO {
     }
 
     @Override
-    public List<IPerson> getByFirstName(String name) {
-        Session s = HibernateUtil.getCurrentSession();
+    public List<IPerson> getByFirstName(Session s,String name) {
         
         Query query = s.createQuery("FROM " + getTable() + " WHERE firstname = :fname");
         query.setString("fname", name);

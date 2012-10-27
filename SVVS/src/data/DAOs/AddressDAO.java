@@ -37,9 +37,8 @@ public class AddressDAO extends AbstractDAO<IAddress> implements IAddressDAO {
     }
 
     @Override
-    public List<IAddress> getByCity(String city) {
-        Session s = HibernateUtil.getCurrentSession();
-
+    public List<IAddress> getByCity(Session s,String city) {
+       
         Query query = s.createQuery("FROM " + getTable() + " WHERE city = :city");
         query.setString(":city", city);
         return query.list();
