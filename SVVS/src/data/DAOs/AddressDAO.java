@@ -4,7 +4,6 @@
  */
 package data.DAOs;
 
-import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.IAddressDAO;
 import data.interfaces.models.IAddress;
 import data.models.Address;
@@ -18,13 +17,13 @@ import org.hibernate.Session;
  */
 public class AddressDAO extends AbstractDAO<IAddress> implements IAddressDAO {
 
-    private static AddressDAO instance;
+    private static IAddressDAO instance;
 
     private AddressDAO() {
         super("data.models.Address");
     }
 
-    public static AddressDAO getInstance() {
+    public static IAddressDAO getInstance() {
         if (instance == null) {
             instance = new AddressDAO();
         }

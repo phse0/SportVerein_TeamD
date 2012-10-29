@@ -6,6 +6,7 @@ package data.DAOs;
 
 import data.interfaces.DAOs.IManagerDAO;
 import data.interfaces.models.IManager;
+import data.models.Manager;
 
 /**
  *
@@ -13,13 +14,13 @@ import data.interfaces.models.IManager;
  */
 public class ManagerDAO extends AbstractDAO<IManager> implements IManagerDAO {
 
-    private static ManagerDAO instance;
+    private static IManagerDAO instance;
     
     private ManagerDAO(){
         super("data.models.Manager");
     }
     
-    private ManagerDAO getInstance(){
+    public static IManagerDAO getInstance(){
         if(instance == null){
             instance = new ManagerDAO();
         }
@@ -28,7 +29,7 @@ public class ManagerDAO extends AbstractDAO<IManager> implements IManagerDAO {
     
     @Override
     public IManager create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Manager();
     }
     
 }

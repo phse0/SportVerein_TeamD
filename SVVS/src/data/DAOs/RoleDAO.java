@@ -14,13 +14,13 @@ import data.models.Role;
  */
 public class RoleDAO extends AbstractDAO<IRole> implements IRoleDAO{
     
-    private static RoleDAO instance;
+    private static IRoleDAO instance;
     
     private RoleDAO(){
         super("data.models.Role");
     }
     
-    public static RoleDAO getInstance(){
+    public static IRoleDAO getInstance(){
         if (instance == null){
             instance = new RoleDAO();
         }

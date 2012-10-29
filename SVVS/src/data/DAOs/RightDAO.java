@@ -6,6 +6,7 @@ package data.DAOs;
 
 import data.interfaces.DAOs.IRightDAO;
 import data.interfaces.models.IRight;
+import data.models.Right;
 
 /**
  *
@@ -13,13 +14,13 @@ import data.interfaces.models.IRight;
  */
 public class RightDAO extends AbstractDAO<IRight> implements IRightDAO{
 
-    private static RightDAO instance;
+    private static IRightDAO instance;
     
     private RightDAO(){
         super("data.models.Right");
     }
     
-    public static RightDAO getInstance(){
+    public static IRightDAO getInstance(){
         if ( instance == null){
             instance = new RightDAO();
         }
@@ -28,7 +29,7 @@ public class RightDAO extends AbstractDAO<IRight> implements IRightDAO{
     
     @Override
     public IRight create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Right();
     }
     
 }

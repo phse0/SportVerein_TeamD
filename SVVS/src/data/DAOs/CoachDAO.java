@@ -6,6 +6,7 @@ package data.DAOs;
 
 import data.interfaces.DAOs.ICoachDAO;
 import data.interfaces.models.ICoach;
+import data.models.Coach;
 
 /**
  *
@@ -13,13 +14,13 @@ import data.interfaces.models.ICoach;
  */
 public class CoachDAO extends AbstractDAO<ICoach> implements ICoachDAO {
 
-    private static CoachDAO instance;
+    private static ICoachDAO instance;
     
     private CoachDAO() {
         super("data.models.Coach");
     }
     
-    private static CoachDAO getInstance(){
+    public static ICoachDAO getInstance(){
         if ( instance == null){
             instance = new CoachDAO();
         }
@@ -28,7 +29,7 @@ public class CoachDAO extends AbstractDAO<ICoach> implements ICoachDAO {
     
     @Override
     public ICoach create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Coach();
     }
     
 }

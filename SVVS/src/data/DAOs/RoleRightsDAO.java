@@ -14,13 +14,13 @@ import data.models.RoleRights;
  */
 public class RoleRightsDAO extends AbstractDAO<IRoleRights> implements IRoleRightsDAO{
 
-    private static RoleRightsDAO instance;
+    private static IRoleRightsDAO instance;
     
     private RoleRightsDAO(){
         super("data.models.RoleRights");
     }
     
-    public static RoleRightsDAO getInstance(){
+    public static IRoleRightsDAO getInstance(){
         if (instance == null){
             instance = new RoleRightsDAO();
         }

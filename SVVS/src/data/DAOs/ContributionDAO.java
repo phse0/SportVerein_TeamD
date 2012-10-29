@@ -6,6 +6,7 @@ package data.DAOs;
 
 import data.interfaces.DAOs.IContributionDAO;
 import data.interfaces.models.IContribution;
+import data.models.Contribution;
 
 /**
  *
@@ -13,13 +14,13 @@ import data.interfaces.models.IContribution;
  */
 public class ContributionDAO extends AbstractDAO<IContribution> implements IContributionDAO{
 
-    private static ContributionDAO instance;
+    private static IContributionDAO instance;
     
     private ContributionDAO() {
         super("data.models.Contribution");
     }
     
-    private static ContributionDAO getInstance(){
+    public static IContributionDAO getInstance(){
         if (instance == null){
             instance = new ContributionDAO();
         }
@@ -28,7 +29,7 @@ public class ContributionDAO extends AbstractDAO<IContribution> implements ICont
     
     @Override
     public IContribution create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Contribution();
     }
     
 }

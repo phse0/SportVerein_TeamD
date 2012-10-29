@@ -14,13 +14,13 @@ import data.models.Team;
  */
 public class TeamDAO extends AbstractDAO<ITeam> implements ITeamDAO{
 
-    private static TeamDAO instance;
+    private static ITeamDAO instance;
     
     private TeamDAO(){
         super("data.models.Team");
     }
     
-    public static TeamDAO getInstance(){
+    public static ITeamDAO getInstance(){
         if(instance == null){
             instance = new TeamDAO();
         }

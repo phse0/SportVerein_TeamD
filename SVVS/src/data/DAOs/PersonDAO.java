@@ -4,7 +4,6 @@
  */
 package data.DAOs;
 
-import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.models.IPerson;
 import data.models.Person;
@@ -18,9 +17,9 @@ import org.hibernate.Session;
  */
 public class PersonDAO extends AbstractDAO<IPerson> implements IPersonDAO {
 
-    private static PersonDAO instance;
+    private static IPersonDAO instance;
     
-    public static PersonDAO getInstance() {
+    public static IPersonDAO getInstance() {
         if(instance == null) {
             instance = new PersonDAO();
         }

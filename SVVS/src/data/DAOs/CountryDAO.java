@@ -16,13 +16,13 @@ import org.hibernate.Session;
  */
 public class CountryDAO extends AbstractDAO<ICountry> implements ICountryDAO {
 
-    private static CountryDAO instance;
+    private static ICountryDAO instance;
 
     private CountryDAO() {
         super("data.models.Country");
     }
 
-    public static CountryDAO getInstance() {
+    public static ICountryDAO getInstance() {
         if (instance == null) {
             instance = new CountryDAO();
         }

@@ -14,13 +14,13 @@ import data.models.Department;
  */
 public class DepartmentDAO extends AbstractDAO<IDepartment> implements IDepartmentDAO{
 
-    private static DepartmentDAO instance;
+    private static IDepartmentDAO instance;
     
     private DepartmentDAO(){
         super("data.models.Department");
     }
     
-    private static DepartmentDAO getInstance(){
+    public static IDepartmentDAO getInstance(){
         if ( instance == null){
             instance = new DepartmentDAO();
         }

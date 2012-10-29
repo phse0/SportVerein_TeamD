@@ -14,13 +14,13 @@ import data.models.Sport;
  */
 public class SportDAO extends AbstractDAO<ISport> implements ISportDAO{
 
-    private static SportDAO instance;
+    private static ISportDAO instance;
     
     private SportDAO(){
         super("data.models.Sport");
     }
     
-    public static SportDAO getInstance(){
+    public static ISportDAO getInstance(){
         if ( instance == null){
             instance = new SportDAO();
         }

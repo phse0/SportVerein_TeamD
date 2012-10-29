@@ -14,13 +14,13 @@ import data.models.Caretaker;
  */
 public class CaretakerDAO extends AbstractDAO<ICaretaker> implements ICaretakerDAO{
 
-    private static CaretakerDAO instance;
+    private static ICaretakerDAO instance;
     
     private CaretakerDAO() {
         super("data.models.Address");
     }
     
-    private static CaretakerDAO getInstance(){
+    public static ICaretakerDAO getInstance(){
         if ( instance == null){
             instance = new CaretakerDAO();
         }

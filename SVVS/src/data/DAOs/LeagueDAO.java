@@ -14,13 +14,13 @@ import data.models.League;
  */
 public class LeagueDAO extends AbstractDAO<ILeague> implements ILeagueDAO {
 
-    private static LeagueDAO instance;
+    private static ILeagueDAO instance;
     
     private LeagueDAO(){
         super("data.models.League");
     }
     
-    public static LeagueDAO getInstance(){
+    public static ILeagueDAO getInstance(){
         if (instance == null){
             instance = new LeagueDAO();
         }

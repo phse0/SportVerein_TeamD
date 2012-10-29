@@ -14,13 +14,13 @@ import data.models.Match;
  */
 public class MatchDAO extends AbstractDAO<IMatch> implements IMatchDAO{
 
-    private static MatchDAO instance;
+    private static IMatchDAO instance;
     
     private MatchDAO(){
         super("data.models.Match");
     }
     
-    public static MatchDAO getInstance(){
+    public static IMatchDAO getInstance(){
         if(instance == null){
             instance = new MatchDAO();
         }

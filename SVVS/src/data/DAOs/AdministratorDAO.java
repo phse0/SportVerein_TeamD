@@ -14,13 +14,13 @@ import data.models.Administrator;
  */
 public class AdministratorDAO extends AbstractDAO<IAdministrator> implements IAdministratorDAO {
 
-    private static AdministratorDAO instance;
+    private static IAdministratorDAO instance;
     
     private AdministratorDAO(){
         super("data.models.Administrator");
     }
     
-    private static AdministratorDAO getInstance(){
+    public static IAdministratorDAO getInstance(){
         if ( instance == null){
             instance = new AdministratorDAO();
         }

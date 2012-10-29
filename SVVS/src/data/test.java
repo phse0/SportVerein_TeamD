@@ -8,6 +8,9 @@ import data.DAOs.AddressDAO;
 import data.DAOs.CountryDAO;
 import data.DAOs.PersonDAO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DAOs.IAddressDAO;
+import data.interfaces.DAOs.ICountryDAO;
+import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.models.IAddress;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
@@ -28,7 +31,7 @@ public class test {
 
         System.out.println("######## COUNTRY ########");
 
-        CountryDAO countryDAO = CountryDAO.getInstance();
+        ICountryDAO countryDAO = CountryDAO.getInstance();
         List<ICountry> countryList = countryDAO.getAll(s);
 
         for (ICountry country : countryList) {
@@ -36,7 +39,7 @@ public class test {
         }
 
         System.out.println("######## ADDRESS ########");
-        AddressDAO addressDAO = AddressDAO.getInstance();
+        IAddressDAO addressDAO = AddressDAO.getInstance();
         List<IAddress> addressList = addressDAO.getAll(s);
 
         for (IAddress address : addressList) {
@@ -45,7 +48,8 @@ public class test {
         }
 
         System.out.println("######## PERSON ########");
-        PersonDAO personDAO = PersonDAO.getInstance();
+        
+        IPersonDAO personDAO = PersonDAO.getInstance();
         List<IPerson> personList = personDAO.getLikeName(s,"ste");
 
         for (IPerson person : personList) {
