@@ -14,9 +14,14 @@
             <key column="teamID"/>
             <many-to-one name="department" column="departmentID" not-null="true" class="data.models.Department"/>
             
-            <bag cascade="all" name="sportsmen" table="sportsmanTrainingTeam">
+            <bag cascade="all" name="sportsmen" table="sportsmanHasTrainingTeam">
                 <key column="teamID" />
-                <one-to-many class="data.model.sSportsmanTrainingTeam" />
+                <one-to-many class="data.models.SportsmanTrainingTeam" />
+            </bag>
+            
+            <bag cascade="all" name="coaches" table="coachHasTrainingTeam">
+                <key column="teamID" />
+                <many-to-many class="data.models.Coach" column="roleID" />
             </bag>
             
             <joined-subclass name="data.models.TournamentTeam" table="tournamentTeam">

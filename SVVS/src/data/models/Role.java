@@ -8,6 +8,7 @@ import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.IRoleRights;
+import java.util.List;
 
 /**
  *
@@ -51,5 +52,4 @@ public class Role implements IRole {
     public void setDepartment(IDepartment department) {
         this.department = department;
     }
-   
 }

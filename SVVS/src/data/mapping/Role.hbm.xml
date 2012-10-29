@@ -20,6 +20,12 @@
 
         <joined-subclass name="data.models.Coach" table="coach">
             <key column="roleID"/>
+            
+            <bag cascade="all" name="teams" table="coachHasTrainingTeam">
+                <key column="roleID" />
+                <many-to-many class="data.models.TrainingTeam" column="teamID" />
+            </bag>
+            
         </joined-subclass>
 
         <joined-subclass name="data.models.Manager" table="manager">
@@ -29,7 +35,7 @@
         <joined-subclass name="data.models.Sportsman" table="sportsman">
             <key column="roleID"/>
             
-            <bag cascade="all" name="teams" table="sportsmanTrainingTeam">
+            <bag cascade="all" name="teams" table="sportsmanHasTrainingTeam">
                 <key column="roleID" />
                 <one-to-many class="data.models.SportsmanTrainingTeam" />
             </bag>

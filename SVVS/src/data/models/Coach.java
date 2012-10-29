@@ -5,6 +5,7 @@
 package data.models;
 
 import data.interfaces.models.ICoach;
+import java.util.List;
 
 /**
  *
@@ -12,8 +13,20 @@ import data.interfaces.models.ICoach;
  */
 public class Coach extends Role implements ICoach{
 
+    private List<TrainingTeam> teams;
+    
     public Coach() {
         super();
     }
-    
+
+    @Override
+    public List<TrainingTeam> getTeams() {
+        return teams;
+    }
+
+    @Override
+    public void setTeams(List<TrainingTeam> teams) {
+        this.teams = teams;
+    }
+
 }

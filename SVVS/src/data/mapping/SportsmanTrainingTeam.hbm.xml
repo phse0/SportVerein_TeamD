@@ -5,13 +5,13 @@
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="data.models.SportsmanTrainingTeam" table="sportsmanTrainingTeam">
+    <class name="data.models.SportsmanTrainingTeam" table="sportsmanHasTrainingTeam">
         
         <id name="sportsmanTrainingTeamID" column="sportsmanTrainingTeamID">
             <generator class="increment" />
         </id>
         
-        <many-to-one column="sportsmanID" name="sportsman" class="data.models.Sportsman" />
+        <many-to-one column="roleID" name="sportsman" class="data.models.Sportsman" />
         <many-to-one column="teamID" name="team" class="data.models.TrainingTeam" />
         
         <property name="position" column="position" type="string" />        
