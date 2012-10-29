@@ -28,6 +28,12 @@
 
         <joined-subclass name="data.models.Sportsman" table="sportsman">
             <key column="roleID"/>
+            
+            <bag cascade="all" name="teams" table="sportsmanTrainingTeam">
+                <key column="roleID" />
+                <one-to-many class="data.models.SportsmanTrainingTeam" />
+            </bag>
+            
         </joined-subclass>
   
     </class>

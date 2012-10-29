@@ -13,7 +13,12 @@
         <joined-subclass name="data.models.TrainingTeam" table="trainingTeam">
             <key column="teamID"/>
             <many-to-one name="department" column="departmentID" not-null="true" class="data.models.Department"/>
-    
+            
+            <bag cascade="all" name="sportsmen" table="sportsmanTrainingTeam">
+                <key column="teamID" />
+                <one-to-many class="data.model.sSportsmanTrainingTeam" />
+            </bag>
+            
             <joined-subclass name="data.models.TournamentTeam" table="tournamentTeam">
                 <key column="teamID"/>
                 <many-to-one name="league" column="leagueID" not-null="false" class="data.models.League"/>

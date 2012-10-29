@@ -14,6 +14,7 @@ import data.interfaces.models.ITrainingTeam;
  */
 public class SportsmanTrainingTeam implements ISportsmanTrainingTeam {
     
+    private int sportsmanTrainingTeamID;
     private ISportsman sportsman;
     private ITrainingTeam team;
     private String position;
@@ -27,6 +28,16 @@ public class SportsmanTrainingTeam implements ISportsmanTrainingTeam {
         this.position = position;
     }
 
+    @Override
+    public int getSportsmanTrainingTeamID() {
+        return sportsmanTrainingTeamID;
+    }
+
+    @Override
+    public void setSportsmanTrainingTeamID(int sportsmanTrainingTeamID) {
+        this.sportsmanTrainingTeamID = sportsmanTrainingTeamID;
+    }
+    
     @Override
     public ISportsman getSportsman() {
         return sportsman;

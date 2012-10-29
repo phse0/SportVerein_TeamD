@@ -21,5 +21,9 @@ public interface ISportsmanTrainingTeam extends IModel {
     void setSportsman(ISportsman sportsman);
 
     void setTeam(ITrainingTeam team);
+
+    int getSportsmanTrainingTeamID();
+
+    void setSportsmanTrainingTeamID(int sportsmanTrainingTeamID);
     
 }

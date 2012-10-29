@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="data.models.SportsmanTrainingTeam" table="sportsmanTrainingTeam">
+        
+        <id name="sportsmanTrainingTeamID" column="sportsmanTrainingTeamID">
+            <generator class="increment" />
+        </id>
+        
+        <many-to-one column="sportsmanID" name="sportsman" class="data.models.Sportsman" />
+        <many-to-one column="teamID" name="team" class="data.models.TrainingTeam" />
+        
+        <property name="position" column="position" type="string" />        
+    </class>
+</hibernate-mapping>

@@ -5,6 +5,7 @@
 package data.models;
 
 import data.interfaces.models.ISportsman;
+import java.util.List;
 
 /**
  *
@@ -12,8 +13,19 @@ import data.interfaces.models.ISportsman;
  */
 public class Sportsman extends Role implements ISportsman{
 
+    private List<SportsmanTrainingTeam> teams;
+    
     public Sportsman() {
         super();
     }
-    
+
+    @Override
+    public List<SportsmanTrainingTeam> getTeams() {
+        return teams;
+    }
+
+    @Override
+    public void setTeams(List<SportsmanTrainingTeam> teams) {
+        this.teams = teams;
+    }    
 }

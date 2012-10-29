@@ -7,6 +7,7 @@ package business.controller.tournament;
 import data.interfaces.models.IMatch;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
+import data.models.Tournament;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class TournamentController {
     public ITournament CreateTournament(/*add necessary data here:
      * Datum, Ort, [Gast- und Heim-] Mannschaften,
      * Wettkampfgebühr, Begegnungen, etc.*/){
-    return new ITournament();
+    return new Tournament();
     }
     
     /**
