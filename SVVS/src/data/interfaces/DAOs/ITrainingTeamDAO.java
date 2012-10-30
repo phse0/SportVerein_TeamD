@@ -5,11 +5,14 @@
 package data.interfaces.DAOs;
 
 import data.interfaces.models.ITrainingTeam;
+import org.hibernate.Session;
 
 /**
  *
  * @author uubu
  */
 public interface ITrainingTeamDAO extends IDAOs<ITrainingTeam>{
+
+    ITrainingTeam getByName(Session s, String name);
     
 }

@@ -11,8 +11,8 @@
             <generator class="increment" />
         </id>
         
-        <many-to-one column="roleID" name="sportsman" class="data.models.Sportsman" />
-        <many-to-one column="teamID" name="team" class="data.models.TrainingTeam" />
+        <many-to-one column="roleID" name="sportsman" class="data.models.Sportsman"/>
+        <many-to-one column="teamID" name="team" class="data.models.TrainingTeam"/>
         
         <property name="position" column="position" type="string" />        
     </class>
