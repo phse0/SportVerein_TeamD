@@ -62,6 +62,10 @@ public class Person implements IPerson {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+    
+    public String getName() {
+        return this.firstname + ", " + this.lastname;
+    }
 
     @Override
     public String getSex() {

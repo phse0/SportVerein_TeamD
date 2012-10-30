@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface ICoach extends IRole {
 
-    List<TrainingTeam> getTeams();
+    List<ITrainingTeam> getTeams();
 
-    void setTeams(List<TrainingTeam> teams);
+    void setTeams(List<ITrainingTeam> teams);
     
 }
