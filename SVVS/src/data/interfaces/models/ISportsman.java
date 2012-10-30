@@ -5,6 +5,7 @@
 package data.interfaces.models;
 
 import data.models.SportsmanTrainingTeam;
+import data.models.TournamentInvite;
 import java.util.List;
 
 /**
@@ -16,5 +17,13 @@ public interface ISportsman extends IRole{
     List<SportsmanTrainingTeam> getTeams();
 
     void setTeams(List<SportsmanTrainingTeam> teams);
+
+    List<ITournamentInvite> getInvites();
+
+    void setInvites(List<ITournamentInvite> invites);
+
+    void addInvite(ITournamentInvite invite);
+
+    void removeInvite(TournamentInvite invite);
     
 }

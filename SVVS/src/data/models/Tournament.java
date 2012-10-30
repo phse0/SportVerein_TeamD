@@ -7,6 +7,9 @@ package data.models;
 import data.interfaces.models.IMatch;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
+import data.interfaces.models.ITournamentInvite;
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -17,8 +20,12 @@ public class Tournament implements ITournament {
     
     private int tournamentID;
     private String name;
+    private String location;
+    private Date date;
+    private BigDecimal fee;
     private List<ITeam> teams;
     private List<IMatch> matches;
+    private List<ITournamentInvite> invites;
 
     public Tournament() {
     }
@@ -86,5 +93,55 @@ public class Tournament implements ITournament {
     public void removeMatch(IMatch match) {
         this.matches.add(match);
     }
+
+    @Override
+    public String getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @Override
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Override
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    @Override
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
+
+    @Override
+    public List<ITournamentInvite> getInvites() {
+        return invites;
+    }
+
+    @Override
+    public void setInvites(List<ITournamentInvite> invites) {
+        this.invites = invites;
+    }
     
+    @Override
+    public void addInvite(ITournamentInvite invite) {
+        this.invites.add(invite);
+    }
+    
+    @Override
+    public void removeInvite(ITournamentInvite invite) {
+        this.invites.remove(invite);
+    }
+        
 }

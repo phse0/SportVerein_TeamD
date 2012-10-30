@@ -10,6 +10,12 @@
         </id>
         
         <property name="name" column="name" not-null="true" type="string" />
+        <property name="location" column="location" type="string" />
+        <property name="date" column="date" type="date" />
+        <property name="fee" not-null="true" type="big_decimal">
+            <column name="fee" sql-type="decimal(10,2)" />
+        </property>
+        
         <bag cascade="all" name="teams" table="tournamentHasTeam">
             <key column="tournamentID" />
             <many-to-many class="data.models.Team" column="teamID"/>
@@ -18,6 +24,11 @@
         <bag cascade="all" name="matches" table="match">
             <key column="tournamentID" />
             <one-to-many class="data.models.Match" />
+        </bag>
+        
+        <bag cascade="all" name="invites" table="tournamentInvites">
+            <key column="tournamentID" />
+            <one-to-many class="data.models.TournamentInvite" />
         </bag>
         
     </class>
