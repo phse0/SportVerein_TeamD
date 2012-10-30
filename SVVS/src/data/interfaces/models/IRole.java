@@ -25,5 +25,7 @@ public interface IRole extends IModel {
     void setRoleID(int roleID);
 
     void setRoleRight(IRoleRights roleRight);
+
+    String getPersonName();
     
 }

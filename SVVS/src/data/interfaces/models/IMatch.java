@@ -25,5 +25,9 @@ public interface IMatch extends IModel {
     void setTeam2(ITeam team2);
 
     void setTournament(ITournament tournament);
+
+    String getResult();
+
+    void setResult(String result);
     
 }

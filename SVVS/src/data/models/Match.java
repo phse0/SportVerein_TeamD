@@ -18,6 +18,7 @@ public class Match implements IMatch {
     private ITournament tournament;
     private ITeam team1;
     private ITeam team2;
+    private String result;
 
     public Match() {
     }
@@ -67,7 +68,14 @@ public class Match implements IMatch {
     public void setTeam2(ITeam team2) {
         this.team2 = team2;
     }
-    
-    
-    
+
+    @Override
+    public String getResult() {
+        return result;
+    }
+
+    @Override
+    public void setResult(String result) {
+        this.result = result;
+    }
 }

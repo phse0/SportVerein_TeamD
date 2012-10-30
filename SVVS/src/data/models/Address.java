@@ -71,5 +71,12 @@ public class Address implements IAddress{
     public void setCountry(ICountry country) {
         this.country = country;
     }
+
+    @Override
+    public String toString() {
+        return street + ", " + postcode + " " + city + ", " + country.getName();
+    }
+    
+    
     
 }

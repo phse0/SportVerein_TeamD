@@ -59,4 +59,9 @@ public class Role implements IRole {
     public void setDepartment(IDepartment department) {
         this.department = department;
     }
+    
+    @Override
+    public String getPersonName() {
+        return this.person.getName();
+    }
 }

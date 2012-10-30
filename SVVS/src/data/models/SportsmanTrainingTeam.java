@@ -68,6 +68,15 @@ public class SportsmanTrainingTeam implements ISportsmanTrainingTeam {
         this.position = position;
     }
     
+    @Override
+    public String getTeamName() {
+        return this.team.getName();
+    }
+    
+    @Override
+    public String getSportsmanName() {
+        return this.sportsman.getPersonName();
+    }
     
     
 }
