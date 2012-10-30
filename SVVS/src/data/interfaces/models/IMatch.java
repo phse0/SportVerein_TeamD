@@ -4,6 +4,8 @@
  */
 package data.interfaces.models;
 
+import java.sql.Date;
+
 /**
  *
  * @author uubu
@@ -26,8 +28,22 @@ public interface IMatch extends IModel {
 
     void setTournament(ITournament tournament);
 
-    String getResult();
+    Date getDate();
 
-    void setResult(String result);
+    Integer getGoalsTeam1();
+
+    Integer getGoalsTeam2();
+
+    String getLocation();
+
+    void setDate(Date date);
+
+    void setGoalsTeam1(Integer goalsTeam1);
+
+    void setGoalsTeam2(Integer goalsTeam2);
+
+    void setLocation(String location);
+
+    String getResult();
     
 }

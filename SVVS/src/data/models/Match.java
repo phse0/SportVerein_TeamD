@@ -7,6 +7,7 @@ package data.models;
 import data.interfaces.models.IMatch;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
+import java.sql.Date;
 
 /**
  *
@@ -16,9 +17,12 @@ public class Match implements IMatch {
     
     private int matchID;
     private ITournament tournament;
+    private String location;
+    private Date date;
     private ITeam team1;
     private ITeam team2;
-    private String result;
+    private Integer goalsTeam1;
+    private Integer goalsTeam2;
 
     public Match() {
     }
@@ -70,12 +74,51 @@ public class Match implements IMatch {
     }
 
     @Override
-    public String getResult() {
-        return result;
+    public String getLocation() {
+        return location;
     }
 
     @Override
-    public void setResult(String result) {
-        this.result = result;
+    public void setLocation(String location) {
+        this.location = location;
     }
+
+    @Override
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Override
+    public Integer getGoalsTeam1() {
+        return goalsTeam1;
+    }
+
+    @Override
+    public void setGoalsTeam1(Integer goalsTeam1) {
+        this.goalsTeam1 = goalsTeam1;
+    }
+
+    @Override
+    public Integer getGoalsTeam2() {
+        return goalsTeam2;
+    }
+
+    @Override
+    public void setGoalsTeam2(Integer goalsTeam2) {
+        this.goalsTeam2 = goalsTeam2;
+    }
+    
+    public String getResult() {
+        if(goalsTeam1 != null && goalsTeam2 != null) {
+            return goalsTeam1 + " : " + goalsTeam2;
+        } else {
+            return "Noch keine Ergebnisse";
+        }
+    }
+    
 }

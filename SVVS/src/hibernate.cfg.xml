@@ -26,5 +26,6 @@
     <mapping resource="data/mapping/Role.hbm.xml"/>
     <mapping resource="data/mapping/RoleRights.hbm.xml"/>
     <mapping resource="data/mapping/SportsmanTrainingTeam.hbm.xml"/>
+    <mapping resource="data/mapping/TouramentInvite.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

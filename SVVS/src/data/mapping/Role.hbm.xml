@@ -40,6 +40,11 @@
                 <one-to-many class="data.models.SportsmanTrainingTeam" />
             </bag>
             
+            <bag cascade="all" name="invites" table="tournamentInvites">
+                <key column="roleID" />
+                <one-to-many class="data.models.TournamentInvite" />
+            </bag>
+            
         </joined-subclass>
   
     </class>

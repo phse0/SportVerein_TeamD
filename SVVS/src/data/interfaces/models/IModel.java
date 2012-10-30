@@ -4,6 +4,9 @@
  */
 package data.interfaces.models;
 
+import java.sql.Date;
+import java.util.List;
+
 /**
  *
  * @author Michael

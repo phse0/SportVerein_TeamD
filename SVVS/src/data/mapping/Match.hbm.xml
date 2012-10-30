@@ -6,7 +6,10 @@
             <generator class="increment"/>
         </id>
         
-        <property name="result" column="result" type="string" />
+        <property name="location" column="location" type="string" />
+        <property name="date" column="date" type="date" />
+        <property name="goalsTeam1" column="goalsTeam1" type="integer" />
+        <property name="goalsTeam2" column="goalsTeam2" type="integer" />
         
         <many-to-one cascade="all" class="data.models.Tournament" column="tournamentID" name="tournament" />
         <many-to-one cascade="all" class="data.models.Team" column="team1ID" name="team1" />
