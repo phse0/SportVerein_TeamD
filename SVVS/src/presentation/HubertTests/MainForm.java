@@ -15,9 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import presentation.PersonListener.DeletePersonListener;
-import presentation.PersonListener.EditPersonListener;
-import presentation.PersonListener.SearchPersonsListener;
+import presentation.OverviewListeners.DeletePersonListener;
+import presentation.OverviewListeners.EditPersonListener;
+import presentation.OverviewListeners.SearchPersonsListener;
 
 /**
  *

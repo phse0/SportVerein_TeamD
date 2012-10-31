@@ -21,9 +21,9 @@ import javax.swing.RowFilter.Entry;
 import javax.swing.table.TableRowSorter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import presentation.PersonListener.CreateNewPersonListener;
-import presentation.PersonListener.DeletePersonListener;
-import presentation.PersonListener.EditPersonListener;
+import presentation.OverviewListeners.CreateNewPersonListener;
+import presentation.OverviewListeners.DeletePersonListener;
+import presentation.OverviewListeners.EditPersonListener;
 
 /**
  *

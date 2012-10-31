@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentation.PersonListener;
+package presentation.OverviewListeners;
 
 import data.interfaces.DTOs.IPersonDTO;
 import java.awt.event.ActionEvent;
