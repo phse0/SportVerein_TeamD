@@ -13,14 +13,15 @@ import javax.swing.table.AbstractTableModel;
  * @author Michael
  */
 public class PersonTableModel extends AbstractTableModel {
-
+    
+    
     private List<IPersonDTO> persons;
-    private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse", "ID"};
-
+    private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse"};
+    
     public PersonTableModel(List<IPersonDTO> persons) {
         this.persons = persons;
     }
-
+    
     @Override
     public int getRowCount() {
         return (persons == null) ? 0 : persons.size();
@@ -34,8 +35,8 @@ public class PersonTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         IPersonDTO person = persons.get(rowIndex);
-
-        switch (columnIndex) {
+        
+        switch(columnIndex) {
             case 0:
                 return person.getLastname();
             case 1:
@@ -50,15 +51,11 @@ public class PersonTableModel extends AbstractTableModel {
                 return null;
             case 6:
                 return person.getMainAddress().toString();
-            case 7:
-                return person.getId();
             default:
                 return null;
         }
     }
-
-    @Override
-    public String getColumnName(int column) {
-        return (colNames[column]);
-    }
+    
+    
+    
 }
