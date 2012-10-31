@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.IRoleRightsDTO;
 import data.interfaces.models.IRoleRights;
 
 /**
  *
  * @author uubu
  */
-public interface IRoleRightsDAO extends IDAOs<IRoleRights>{
+public interface IRoleRightsDAO extends IDAOs<IRoleRights, IRoleRightsDTO>{
     
 }

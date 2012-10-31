@@ -5,6 +5,7 @@
 package data.DAOs;
 
 import data.interfaces.DAOs.ILeagueDAO;
+import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.models.ILeague;
 import data.models.League;
 
@@ -12,7 +13,7 @@ import data.models.League;
  *
  * @author uubu
  */
-public class LeagueDAO extends AbstractDAO<ILeague> implements ILeagueDAO {
+public class LeagueDAO extends AbstractDAO<ILeague, ILeagueDTO> implements ILeagueDAO {
 
     private static ILeagueDAO instance;
     
@@ -30,6 +31,11 @@ public class LeagueDAO extends AbstractDAO<ILeague> implements ILeagueDAO {
     @Override
     public ILeague create() {
         return new League();
+    }
+
+    @Override
+    public ILeagueDTO extractDTO(ILeague model) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

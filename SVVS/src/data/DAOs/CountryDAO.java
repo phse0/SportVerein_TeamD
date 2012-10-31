@@ -16,7 +16,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public class CountryDAO extends AbstractDAO<ICountry> implements ICountryDAO {
+public class CountryDAO extends AbstractDAO<ICountry,ICountryDTO> implements ICountryDAO {
 
     private static ICountryDAO instance;
 

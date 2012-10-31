@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ISport;
 
 /**
  *
  * @author uubu
  */
-public interface ISportDAO extends IDAOs<ISport>{
+public interface ISportDAO extends IDAOs<ISport, ISportDTO>{
     
 }

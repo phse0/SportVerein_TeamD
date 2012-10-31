@@ -4,17 +4,21 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.IDTO;
 import data.interfaces.models.IModel;
 import java.util.List;
 import org.hibernate.Session;
 
 /**
- *
- * @author Michael
+ * * @author Michael
  */
-public interface IDAOs<V extends IModel> {
+public interface IDAOs<V extends IModel, X extends IDTO> {
     
     public List<V> getAll(Session s);
+    
+    public List<X> getAllDTO(Session s);
+    
+    public X extractDTO(V model);
     
     public void add(Session s, V model);
     

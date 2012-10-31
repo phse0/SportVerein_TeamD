@@ -11,7 +11,7 @@ import data.interfaces.models.IModel;
  *
  * @author uubu
  */
-public abstract class AbstractDTO<V extends IModel> implements IDTO {
+public abstract class AbstractDTO<V extends IModel> implements IDTO<V> {
     
     protected int id;
     
@@ -20,6 +20,7 @@ public abstract class AbstractDTO<V extends IModel> implements IDTO {
         return id;
     }
     
-    abstract void extract(V model);
+    @Override
+    public abstract void extract(V model);
     
 }

@@ -12,12 +12,10 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public interface ICountryDAO extends IDAOs<ICountry> {
+public interface ICountryDAO extends IDAOs<ICountry, ICountryDTO> {
     
     public ICountry getByName(Session s,String name);
     
     public ICountry getByCode(Session s,String code);
-
-    ICountryDTO extractDTO(ICountry country);
     
 }
