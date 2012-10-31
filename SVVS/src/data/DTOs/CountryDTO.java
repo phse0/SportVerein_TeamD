@@ -4,6 +4,7 @@
  */
 package data.DTOs;
 
+
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.models.ICountry;
 
@@ -11,19 +12,20 @@ import data.interfaces.models.ICountry;
  *
  * @author uubu
  */
-public class CountryDTO implements ICountryDTO{
+public class CountryDTO extends AbstractDTO<ICountry> implements ICountryDTO{
 
-    private int id;
     private String name;
     private String code;
-    
-    public CountryDTO(){ 
+
+    public CountryDTO(ICountry model){
+        extract(model);
     }
     
-    public CountryDTO(ICountry country){
-        this.id = country.getCountryID();
-        this.name = country.getName();
-        this.code = country.getCode();
+    @Override
+    public final void extract(ICountry model){
+        this.id = model.getCountryID();
+        this.name = model.getName();
+        this.code = model.getCode();
     }
     
     @Override
@@ -33,22 +35,17 @@ public class CountryDTO implements ICountryDTO{
 
     @Override
     public void setName(String name) {
-       this.name = name;
+        this.name = name;
     }
 
     @Override
     public String getCode() {
-        return this.code;
+        return code;
     }
 
     @Override
     public void setCode(String code) {
         this.code = code;
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
     
 }
