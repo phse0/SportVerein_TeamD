@@ -20,7 +20,7 @@ public class Team implements ITeam {
     protected String name;
     protected ISport sport;
     protected List<ITournament> tournaments;
-    protected List<IMatch> matches;
+
 
     public Team() {
     }
@@ -68,16 +68,6 @@ public class Team implements ITeam {
     @Override
     public void setTournaments(List<ITournament> tournaments) {
         this.tournaments = tournaments;
-    }
-
-    @Override
-    public List<IMatch> getMatches() {
-        return matches;
-    }
-
-    @Override
-    public void setMatches(List<IMatch> matches) {
-        this.matches = matches;
     }
     
 }

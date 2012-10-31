@@ -8,8 +8,11 @@ package data.interfaces.DTOs;
  *
  * @author uubu
  */
-public interface IDTO{
+public interface IContributionDTO extends IDTO{
     
-   int getId();
-   
+    String getName();
+    void setName(String name);
+    
+    double getValue();
+    void setValue(double value);
 }
