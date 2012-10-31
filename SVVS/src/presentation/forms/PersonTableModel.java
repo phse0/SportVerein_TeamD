@@ -4,6 +4,7 @@
  */
 package presentation.forms;
 
+import data.interfaces.DTOs.IPersonDTO;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,11 +15,11 @@ import javax.swing.table.AbstractTableModel;
 public class PersonTableModel extends AbstractTableModel {
     
     
-    private List<Object> persons;
+    private List<IPersonDTO> persons;
     private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse"};
     
-    public PersonTableModel() {
-        
+    public PersonTableModel(List<IPersonDTO> persons) {
+        this.persons = persons;
     }
     
     @Override
@@ -33,7 +34,26 @@ public class PersonTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IPersonDTO person = persons.get(rowIndex);
+        
+        switch(columnIndex) {
+            case 0:
+                return person.getLastname();
+            case 1:
+                return person.getFirstname();
+            case 2:
+                return person.getBirthdate();
+            case 3:
+                return person.getPhone();
+            case 4:
+                return person.getMail();
+            case 5:
+                return null;
+            case 6:
+                return person.getMainAddress().toString();
+            default:
+                return null;
+        }
     }
     
     

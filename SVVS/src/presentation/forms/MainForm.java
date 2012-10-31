@@ -4,6 +4,17 @@
  */
 package presentation.forms;
 
+import data.DAOs.PersonDAO;
+import data.DTOs.PersonDTO;
+import data.hibernate.HibernateUtil;
+import data.interfaces.DAOs.IPersonDAO;
+import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.models.IPerson;
+import java.util.LinkedList;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  *
  * @author Michael
@@ -15,6 +26,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        initControls();
     }
 
     /**
@@ -55,6 +67,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getAccessibleContext().setAccessibleName("tblMembers");
 
         jTextField1.setText("jTextField1");
 
@@ -176,12 +189,7 @@ public class MainForm extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainForm().setVisible(true);
-            }
-        });
+        new MainForm().setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -198,4 +206,20 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void initControls() {
+        
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+        
+        PersonDAO persondao = (PersonDAO) PersonDAO.getInstance();
+        List<IPerson> persons = persondao.getAll(s);
+        List<IPersonDTO> personsDTO = new LinkedList<>();
+        
+        for(IPerson p : persons) {
+            personsDTO.add(new PersonDTO(p));
+        }
+        
+        this.jTable1.setModel(new PersonTableModel(personsDTO));
+    }
 }

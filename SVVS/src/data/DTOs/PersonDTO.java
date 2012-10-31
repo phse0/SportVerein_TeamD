@@ -26,6 +26,10 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     protected String birthdate;
 
     
+    public PersonDTO(IPerson person) {
+        extract(person);
+    }
+    
     @Override
     void extract(IPerson model) {
         this.firstname = model.getFirstname();
@@ -37,7 +41,7 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
         this.password = model.getPassword();
         this.mainAddress = new AddressDTO(model.getMainAddress());
         this.right = model.getRight();
-        this.birthdate = model.getBirthdate().toString();              
+        this.birthdate = (model.getBirthdate() == null) ? "" : model.getBirthdate().toString();              
                 
     }
     
