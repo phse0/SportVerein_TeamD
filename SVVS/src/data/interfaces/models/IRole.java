@@ -15,8 +15,12 @@ public interface IRole extends IModel {
     IPerson getPerson();
 
     int getRoleID();
+    
+    ISport getSport();
 
     IRoleRights getRoleRight();
+    
+    void setSport(ISport sport);
 
     void setDepartment(IDepartment department);
 

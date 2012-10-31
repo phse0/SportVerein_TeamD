@@ -31,7 +31,7 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     }
     
     @Override
-    void extract(IPerson model) {
+    public void extract(IPerson model) {
         this.firstname = model.getFirstname();
         this.lastname = model.getLastname();
         this.sex = model.getSex();

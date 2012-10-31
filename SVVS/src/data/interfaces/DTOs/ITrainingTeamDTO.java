@@ -4,15 +4,12 @@
  */
 package data.interfaces.DTOs;
 
-import data.interfaces.models.IModel;
+import data.interfaces.models.ITrainingTeam;
 
 /**
  *
  * @author uubu
  */
-public interface IDTO<V extends IModel>{
+public interface ITrainingTeamDTO extends IDTO<ITrainingTeam>{
     
-   int getId();
-   
-   void extract(V model);
 }

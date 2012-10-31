@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.AddressDTO;
 import data.interfaces.DAOs.IAddressDAO;
+import data.interfaces.DTOs.IAddressDTO;
 import data.interfaces.models.IAddress;
 import data.models.Address;
 import java.util.List;
@@ -15,7 +17,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public class AddressDAO extends AbstractDAO<IAddress> implements IAddressDAO {
+public class AddressDAO extends AbstractDAO<IAddress, IAddressDTO> implements IAddressDAO {
 
     private static IAddressDAO instance;
 
@@ -42,4 +44,10 @@ public class AddressDAO extends AbstractDAO<IAddress> implements IAddressDAO {
         query.setString(":city", city);
         return query.list();
     }
+
+    @Override
+    public IAddressDTO extractDTO(IAddress model) {
+        return new AddressDTO(model);
+    }
+
 }

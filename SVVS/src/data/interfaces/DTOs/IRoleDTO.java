@@ -4,15 +4,12 @@
  */
 package data.interfaces.DTOs;
 
-import data.interfaces.models.IModel;
+import data.interfaces.models.IRole;
 
 /**
  *
  * @author uubu
  */
-public interface IDTO<V extends IModel>{
+public interface IRoleDTO extends IDTO<IRole>{
     
-   int getId();
-   
-   void extract(V model);
 }

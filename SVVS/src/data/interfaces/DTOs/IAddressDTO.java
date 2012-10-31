@@ -4,13 +4,13 @@
  */
 package data.interfaces.DTOs;
 
-import data.interfaces.models.ICountry;
+import data.interfaces.models.IAddress;
 
 /**
  *
  * @author uubu
  */
-public interface IAddressDTO extends IDTO{
+public interface IAddressDTO extends IDTO<IAddress>{
 
     void setStreet(String street);
     String getStreet();

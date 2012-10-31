@@ -4,11 +4,13 @@
  */
 package data.interfaces.DTOs;
 
+import data.interfaces.models.IPerson;
+
 /**
  *
  * @author uubu
  */
-public interface IPersonDTO extends IDTO {
+public interface IPersonDTO extends IDTO<IPerson>{
 
     String getBirthdate();
 

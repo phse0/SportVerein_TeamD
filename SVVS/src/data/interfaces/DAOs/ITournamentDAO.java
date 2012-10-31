@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ITournament;
 
 /**
  *
  * @author uubu
  */
-public interface ITournamentDAO extends IDAOs<ITournament>{
+public interface ITournamentDAO extends IDAOs<ITournament, ITournamentDTO>{
     
 }

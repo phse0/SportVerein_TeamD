@@ -4,11 +4,13 @@
  */
 package data.interfaces.DTOs;
 
+import data.interfaces.models.IContribution;
+
 /**
  *
  * @author uubu
  */
-public interface IContributionDTO extends IDTO{
+public interface IContributionDTO extends IDTO<IContribution>{
     
     String getName();
     void setName(String name);

@@ -4,15 +4,12 @@
  */
 package data.interfaces.DTOs;
 
-import data.interfaces.models.IModel;
+import data.interfaces.models.IManager;
 
 /**
  *
  * @author uubu
  */
-public interface IDTO<V extends IModel>{
+public interface IManagerDTO extends IDTO<IManager>{
     
-   int getId();
-   
-   void extract(V model);
 }

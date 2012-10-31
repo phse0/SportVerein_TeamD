@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.models.IContribution;
 
 /**
  *
  * @author uubu
  */
-public interface IContributionDAO extends IDAOs<IContribution>{
+public interface IContributionDAO extends IDAOs<IContribution, IContributionDTO>{
     
 }
