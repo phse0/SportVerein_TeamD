@@ -4,8 +4,16 @@
  */
 package data.DTOs;
 
+import data.interfaces.DTOs.IMatchDTO;
+import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
+import data.interfaces.DTOs.ITournamentInviteDTO;
+import data.interfaces.models.IMatch;
+import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
+import data.interfaces.models.ITournamentInvite;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -17,11 +25,14 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     private String location;
     private String date;
     private double fee;
-    //private List<ITeamDTO> teams;
-   // private List<IMatchDTO> matches;
-    //private List<ITournamentInviteDTO> invites;
+    private List<ITeamDTO> teams;
+    private List<IMatchDTO> matches;
+    private List<ITournamentInviteDTO> invites;
     
     public TournamentDTO(ITournament model){
+        teams = new LinkedList<>();
+        matches = new LinkedList<>();
+        invites = new LinkedList<>();
         extract(model);
     }
     
@@ -31,6 +42,19 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
         this.name = model.getName();
         this.date = model.getDate().toString();
         this.fee = model.getFee().doubleValue();
+        this.location = model.getLocation();
+        
+        for(ITeam team:model.getTeams()){
+            teams.add(new TeamDTO(team));
+        }
+        
+        for(IMatch match:model.getMatches()){
+            matches.add(new MatchDTO(match));
+        }
+        
+        for(ITournamentInvite ti: model.getInvites()){
+            invites.add(new TournamentInviteDTO(ti));
+        }
     }
 
     @Override

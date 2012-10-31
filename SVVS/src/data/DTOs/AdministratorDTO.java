@@ -21,12 +21,6 @@ public class AdministratorDTO extends AbstractRoleDTO<IAdministrator> implements
     public void extract(IAdministrator model) {
         extractRole(model);
         //zusätzliche Entitäten hier dazufügen
-    }
-    
-   
-    
-   
-    
-    
+    }  
     
 }

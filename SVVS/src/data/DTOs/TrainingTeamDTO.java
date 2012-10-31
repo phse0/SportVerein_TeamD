@@ -6,41 +6,27 @@ package data.DTOs;
 
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
-import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
-import data.interfaces.DTOs.ITournamentTeamDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ICoach;
 import data.interfaces.models.ISportsmanTrainingTeam;
-import data.interfaces.models.ITournamentTeam;
+import data.interfaces.models.ITrainingTeam;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author uubu
  */
-public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implements ITournamentTeamDTO {
+public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements ITrainingTeamDTO {
 
-    protected ILeagueDTO league;
-     protected IDepartmentDTO department;
+    protected IDepartmentDTO department;
     protected List<ISportsmanTrainingTeamDTO> sportsmen;
     protected List<ICoachDTO> coaches;
-    
-    public TournamentTeamDTO(ITournamentTeam model){
-        extract(model);
-    }
-
-    public ILeagueDTO getLeague() {
-        return league;
-    }
-
-    public void setLeague(ILeagueDTO league) {
-        this.league = league;
-    }
 
     @Override
-    public void extract(ITournamentTeam model) {
+    public void extract(ITrainingTeam model) {
         extractTeam(model);
-        this.league = new LeagueDTO(model.getLeague());
         this.department = new DepartmentDTO(model.getDepartment());
         
         for(ISportsmanTrainingTeam stt: model.getSportsmen()){
@@ -50,6 +36,12 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         for(ICoach coach: model.getCoaches()){
             coaches.add(new CoachDTO(coach));
         }
+    }
+    
+    public TrainingTeamDTO(ITrainingTeam model){
+        sportsmen = new LinkedList<>();
+        coaches = new LinkedList<>();
+        extract(model);
     }
 
     public IDepartmentDTO getDepartment() {
@@ -76,6 +68,4 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         this.coaches = coaches;
     }
 
-   
-    
 }
