@@ -8,8 +8,6 @@ import data.DAOs.DepartmentDAO;
 import data.DAOs.PersonDAO;
 import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
-import data.interfaces.DAOs.IDepartmentDAO;
-import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
@@ -17,10 +15,12 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
-import javax.swing.RowSorter;
 import javax.swing.table.TableRowSorter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import presentation.PersonListener.CreateNewPersonListener;
+import presentation.PersonListener.DeletePersonListener;
+import presentation.PersonListener.EditPersonListener;
 /**
  *
  * @author Michael
@@ -33,6 +33,7 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         initControls();
+        setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
     }
 
     /**
@@ -48,25 +49,25 @@ public class MainForm extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        personTable = new javax.swing.JTable();
         txtName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cobAbteilung = new javax.swing.JComboBox();
+        cobDepartment = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cobContribution = new javax.swing.JComboBox();
         btnFilter = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCreatePerson = new javax.swing.JButton();
+        btnEditPerson = new javax.swing.JButton();
+        btnDeletePerson = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        personTable.setAutoCreateRowSorter(true);
+        personTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -77,17 +78,16 @@ public class MainForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getAccessibleContext().setAccessibleName("tblMembers");
+        personTable.setRowHeight(24);
+        personTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(personTable);
+        personTable.getAccessibleContext().setAccessibleName("tblMembers");
 
         jLabel1.setText("Name");
 
         jLabel3.setText("Abteilung");
 
         jLabel4.setText("Mitgliedsbeitrag gezahlt");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Ja", "Nein" }));
 
         btnFilter.setText("Filtern");
         btnFilter.addActionListener(new java.awt.event.ActionListener() {
@@ -96,14 +96,14 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Mitglied anlegen");
-        jButton2.setActionCommand("");
+        btnCreatePerson.setText("Mitglied anlegen");
+        btnCreatePerson.setActionCommand("");
 
-        jButton3.setText("Mitglied bearbeiten");
-        jButton3.setActionCommand("");
+        btnEditPerson.setText("Mitglied bearbeiten");
+        btnEditPerson.setActionCommand("");
 
-        jButton4.setText("Mitglied löschen");
-        jButton4.setActionCommand("");
+        btnDeletePerson.setText("Mitglied löschen");
+        btnDeletePerson.setActionCommand("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,21 +120,21 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cobAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cobDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addGap(30, 30, 30)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(btnFilter))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnCreatePerson)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnEditPerson)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnDeletePerson)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -147,19 +147,21 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(cobAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cobDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFilter))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnCreatePerson)
+                    .addComponent(btnEditPerson)
+                    .addComponent(btnDeletePerson))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        cobContribution.getAccessibleContext().setAccessibleName("");
 
         jTabbedPane1.addTab("Mitglieder", jPanel1);
 
@@ -198,20 +200,23 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
         
-        TableRowSorter<PersonTableModel> sorter = new TableRowSorter<>((PersonTableModel)jTable1.getModel());
+        TableRowSorter<PersonTableModel> sorter = new TableRowSorter<>((PersonTableModel)personTable.getModel());
         RowFilter<Object, Object> filter = new RowFilter<Object, Object>() {
 
             @Override
             public boolean include(Entry<? extends Object, ? extends Object> entry) {
+                
                 String lastname = entry.getValue(0).toString().toLowerCase();
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText();
+                String abteilungen = entry.getValue(5).toString().toLowerCase();
+                String abteilungenTxt = cobDepartment.getSelectedItem().toString();
                 
-                if(txtName.getText().equals("")) {
+                if(nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0) {
                     return true;
                 }
                 
-                if(lastname.contains(nameTxt) || firstname.contains(nameTxt)) {
+                if((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
                     return true;
                 }
                 
@@ -220,7 +225,7 @@ public class MainForm extends javax.swing.JFrame {
         };
         
         sorter.setRowFilter(filter);
-        jTable1.setRowSorter(sorter);
+        personTable.setRowSorter(sorter);
     }//GEN-LAST:event_btnFilterActionPerformed
 
     /**
@@ -253,13 +258,13 @@ public class MainForm extends javax.swing.JFrame {
         new MainForm().setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreatePerson;
+    private javax.swing.JButton btnDeletePerson;
+    private javax.swing.JButton btnEditPerson;
     private javax.swing.JButton btnFilter;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox cobAbteilung;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox cobContribution;
+    private javax.swing.JComboBox cobDepartment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -268,7 +273,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable personTable;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
@@ -288,11 +293,19 @@ public class MainForm extends javax.swing.JFrame {
         DepartmentDAO deptdao = (DepartmentDAO) DepartmentDAO.getInstance();
         List<IDepartment> depts = deptdao.getAll(s);
         
-        cobAbteilung.addItem("");
+        cobDepartment.addItem("");
         for(IDepartment d : depts) {
-            cobAbteilung.addItem(d.getName());
+            cobDepartment.addItem(d.getName());
         }
         
-        this.jTable1.setModel(new PersonTableModel(personsDTO));
+        cobContribution.addItem("");
+        cobContribution.addItem("Ja");
+        cobContribution.addItem("Nein");
+        
+        this.personTable.setModel(new PersonTableModel(personsDTO));
+        
+        btnCreatePerson.addActionListener(new CreateNewPersonListener());
+        btnEditPerson.addActionListener(new EditPersonListener(personTable));
+        btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
     }
 }

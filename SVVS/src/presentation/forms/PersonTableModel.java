@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 public class PersonTableModel extends AbstractTableModel {
 
     private List<IPersonDTO> persons;
-    private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse", "ID"};
+    private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse"};
 
     public PersonTableModel(List<IPersonDTO> persons) {
         this.persons = persons;
@@ -47,7 +47,7 @@ public class PersonTableModel extends AbstractTableModel {
             case 4:
                 return person.getMail();
             case 5:
-                return null;
+                return "";
             case 6:
                 return person.getMainAddress().toString();
             case 7:
