@@ -18,19 +18,27 @@ import javax.swing.JTable;
  */
 public class DeletePersonListener implements ActionListener {
 
-    public DeletePersonListener() {
+    JTable _table;
+
+    public DeletePersonListener(JTable table) {
+        _table = table;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (JOptionPane.showConfirmDialog(new JFrame(),
-                "Wollen sie die Person wirklich löschen?", "",
-                JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-            System.out.println("JA");
+        if (_table.getSelectedRow() != -1) {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Wollen sie die Person wirklich löschen?", "",
+                    JOptionPane.YES_NO_OPTION)
+                    == JOptionPane.YES_OPTION) {
+                //LÖSCHEN
+                System.out.println(_table.getSelectedRow() + " wird gelöscht!!!");
+            } else {
+                //will doch nicht löschen!
+            }
         } else {
-            System.out.println("NEIN");
+            JOptionPane.showMessageDialog(null, "Bitte wählen Sie erst eine Person aus, die sie löschen möchten.");
         }
     }
 }

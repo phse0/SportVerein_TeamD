@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import presentation.PersonListener.DeletePersonListener;
+import presentation.PersonListener.EditPersonListener;
 import presentation.PersonListener.SearchPersonsListener;
 
 /**
@@ -223,6 +225,6 @@ public class MainForm extends javax.swing.JFrame {
         }
         
         this.jTable1.setModel(new PersonTableModel(personsDTO));
-        jButton1.addActionListener(new SearchPersonsListener(jTextField1, jTextField1, jCheckBox1, jTable1));
+        jButton1.addActionListener(new EditPersonListener(jTable1));
 }
 }
