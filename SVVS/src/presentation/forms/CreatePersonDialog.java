@@ -4,20 +4,32 @@
  */
 package presentation.forms;
 
+import data.interfaces.DTOs.IPersonDTO;
+
 /**
  *
  * @author Michael
  */
 public class CreatePersonDialog extends javax.swing.JDialog {
 
+    IPersonDTO person;
     /**
      * Creates new form CreatePersonDialog
      */
     public CreatePersonDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setTitle("Mitglied anlegen");
         
         setLocationRelativeTo(null);
+    }
+    
+    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonDTO person) {
+        this(parent, modal);
+        this.person = person;
+        this.setTitle("Mitglied bearbeiten");
+        
+        initiateFields();
     }
 
     /**
@@ -60,7 +72,6 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Mitglied anlegen");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basis Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -159,7 +170,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbxStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tbxStreet))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -167,15 +178,15 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbxMail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(tbxPostCode, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tbxCity, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tbxPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(tbxCity))
+                            .addComponent(tbxPhone)
+                            .addComponent(tbxMail))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,8 +227,8 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,9 +284,31 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void initiateFields() {
+        
+        if(person != null) {
+            tbxFirstname.setText(person.getFirstname());
+            tbxLastname.setText(person.getLastname());
+            tbxBirthdate.setText(person.getBirthdate());
+            
+            if("m".equals(person.getSex())) {
+                rdbMale.doClick();
+            } else {
+                rdbFemale.doClick();
+            }
+            
+            tbxStreet.setText(person.getMainAddress().getStreet());
+            tbxPostCode.setText(person.getMainAddress().getPostcode());
+            tbxCity.setText(person.getMainAddress().getCity());
+            tbxPhone.setText(person.getPhone());
+            tbxMail.setText(person.getMail());
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
