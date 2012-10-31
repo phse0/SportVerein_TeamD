@@ -6,13 +6,13 @@ package presentation.forms;
 
 import data.interfaces.DTOs.IPersonDTO;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Michael
  */
-public class PersonTableModel extends AbstractTableModel {
+public class PersonTableModel extends DefaultTableModel {
 
     private List<IPersonDTO> persons;
     private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse"};
@@ -30,7 +30,7 @@ public class PersonTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return colNames.length;
     }
-
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         IPersonDTO person = persons.get(rowIndex);
@@ -69,4 +69,15 @@ public class PersonTableModel extends AbstractTableModel {
     public String getColumnName(int column) {
         return (colNames[column]);
     }
+   
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+    
+    public IPersonDTO getPersonDTO(int index) {
+        return persons.get(index);
+    }
+    
+    
 }

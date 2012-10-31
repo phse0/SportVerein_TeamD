@@ -11,6 +11,9 @@ import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.RowFilter;
@@ -21,19 +24,23 @@ import org.hibernate.Transaction;
 import presentation.PersonListener.CreateNewPersonListener;
 import presentation.PersonListener.DeletePersonListener;
 import presentation.PersonListener.EditPersonListener;
+
 /**
  *
  * @author Michael
  */
 public class MainForm extends javax.swing.JFrame {
 
+    TableRowSorter<PersonTableModel> sorter;
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
         initControls();
-        setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
+        
+        this.setLocationRelativeTo(null);
+        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
     }
 
     /**
@@ -65,8 +72,8 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
+        setResizable(false);
 
-        personTable.setAutoCreateRowSorter(true);
         personTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -127,7 +134,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
                         .addComponent(btnFilter))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCreatePerson)
@@ -169,7 +176,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
+            .addGap(0, 1058, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,34 +206,67 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        
-        TableRowSorter<PersonTableModel> sorter = new TableRowSorter<>((PersonTableModel)personTable.getModel());
-        RowFilter<Object, Object> filter = new RowFilter<Object, Object>() {
 
+        sorter = new TableRowSorter<>((PersonTableModel) personTable.getModel());
+        RowFilter<Object, Object> filter = new RowFilter<Object, Object>() {
             @Override
             public boolean include(Entry<? extends Object, ? extends Object> entry) {
-                
+
                 String lastname = entry.getValue(0).toString().toLowerCase();
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
                 String abteilungenTxt = cobDepartment.getSelectedItem().toString();
-                
-                if(nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0) {
+
+                if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0) {
                     return true;
                 }
-                
-                if((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
+
+                if ((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
                     return true;
                 }
-                
+
                 return false;
             }
         };
-        
+
         sorter.setRowFilter(filter);
         personTable.setRowSorter(sorter);
     }//GEN-LAST:event_btnFilterActionPerformed
+
+    private void initControls() {
+
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+
+        PersonDAO persondao = (PersonDAO) PersonDAO.getInstance();
+        List<IPerson> persons = persondao.getAll(s);
+        List<IPersonDTO> personsDTO = new LinkedList<>();
+
+        for (IPerson p : persons) {
+            personsDTO.add(new PersonDTO(p));
+        }
+
+        DepartmentDAO deptdao = (DepartmentDAO) DepartmentDAO.getInstance();
+        List<IDepartment> depts = deptdao.getAll(s);
+
+        cobDepartment.addItem("");
+        for (IDepartment d : depts) {
+            cobDepartment.addItem(d.getName());
+        }
+
+        cobContribution.addItem("");
+        cobContribution.addItem("Ja");
+        cobContribution.addItem("Nein");
+
+        this.personTable.setModel(new PersonTableModel(personsDTO));
+        sorter = new TableRowSorter<PersonTableModel>();
+        personTable.setAutoCreateRowSorter(true);
+        
+        btnCreatePerson.addActionListener(new CreateNewPersonListener());
+        btnEditPerson.addActionListener(new EditPersonListener(personTable));
+        btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
+    }
 
     /**
      * @param args the command line arguments
@@ -276,36 +316,4 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable personTable;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
-
-    private void initControls() {
-        
-        Session s = HibernateUtil.getCurrentSession();
-        Transaction tx = s.beginTransaction();
-        
-        PersonDAO persondao = (PersonDAO) PersonDAO.getInstance();
-        List<IPerson> persons = persondao.getAll(s);
-        List<IPersonDTO> personsDTO = new LinkedList<>();
-        
-        for(IPerson p : persons) {
-            personsDTO.add(new PersonDTO(p));
-        }
-        
-        DepartmentDAO deptdao = (DepartmentDAO) DepartmentDAO.getInstance();
-        List<IDepartment> depts = deptdao.getAll(s);
-        
-        cobDepartment.addItem("");
-        for(IDepartment d : depts) {
-            cobDepartment.addItem(d.getName());
-        }
-        
-        cobContribution.addItem("");
-        cobContribution.addItem("Ja");
-        cobContribution.addItem("Nein");
-        
-        this.personTable.setModel(new PersonTableModel(personsDTO));
-        
-        btnCreatePerson.addActionListener(new CreateNewPersonListener());
-        btnEditPerson.addActionListener(new EditPersonListener(personTable));
-        btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
-    }
 }

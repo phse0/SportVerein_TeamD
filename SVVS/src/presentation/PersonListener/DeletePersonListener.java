@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import presentation.forms.PersonTableModel;
 
 /**
  * DeletePersonListener benötigt die JTable damit er den aktuellen Datensatz
@@ -33,7 +34,11 @@ public class DeletePersonListener implements ActionListener {
                     JOptionPane.YES_NO_OPTION)
                     == JOptionPane.YES_OPTION) {
                 //LÖSCHEN
-                System.out.println(_table.getSelectedRow() + " wird gelöscht!!!");
+                
+                int index = _table.convertRowIndexToModel(_table.getSelectedRow());
+                PersonTableModel personModel = (PersonTableModel) _table.getModel();
+                System.out.println(personModel.getPersonDTO(index).getLastname() + " wird gelöscht!!!");
+                
             } else {
                 //will doch nicht löschen!
             }

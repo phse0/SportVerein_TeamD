@@ -6,6 +6,7 @@ package presentation.PersonListener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import presentation.forms.CreatePersonDialog;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.awt.event.ActionListener;
 public class CreateNewPersonListener implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        new CreatePersonDialog(null, true).setVisible(true);
     }
     
 }
