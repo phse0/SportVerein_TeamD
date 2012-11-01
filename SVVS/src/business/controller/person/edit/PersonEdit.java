@@ -14,7 +14,9 @@ import java.sql.Date;
 import java.util.LinkedList;
 
 /**
- *
+ * First loadsports
+ * Second EditPerson
+ * Third AssignToSport
  * @author phil
  */
 public class PersonEdit  extends UnicastRemoteObject  implements IPersonEdit {
