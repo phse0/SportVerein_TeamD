@@ -8,25 +8,17 @@ import business.controller.RMI.IControllerFactory;
 import business.controller.departments.DepartmentController;
 import business.controller.person.PersonController;
 import business.controller.tournament.TournamentController;
-import data.DAOs.TournamentDAO;
-import data.DTOs.TournamentDTO;
-import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.models.IDepartment;
-import data.interfaces.models.ITournament;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.table.TableRowSorter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
@@ -52,8 +44,13 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        try {
+        
+            initControls();
+        } catch (RemoteException | NotBoundException | MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        }
 
-        initControls();
     }
 
     /**
@@ -286,18 +283,16 @@ public class MainForm extends javax.swing.JFrame {
         personTable.setRowSorter(personSorter);
     }//GEN-LAST:event_btnFilterActionPerformed
 
-    private void initControls() {
+    private void initControls() throws RemoteException, NotBoundException, MalformedURLException {
 
         this.setLocationRelativeTo(null);
         //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
-        try {
-            controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
-            personController = (PersonController) controllerFactory.loadController("PersonController");
-            departmentController = (DepartmentController) controllerFactory.loadController("DepartmentController");
-            tournamentController = (TournamentController) controllerFactory.loadController("TournamentController");
-        } catch (NotBoundException | MalformedURLException | RemoteException ex) {
-            System.out.println("Could not load Person Controller");
-        }
+
+        controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
+        personController = (PersonController) controllerFactory.loadController("PersonController");
+        departmentController = (DepartmentController) controllerFactory.loadController("DepartmentController");
+        tournamentController = (TournamentController) controllerFactory.loadController("TournamentController");
+
 
         // ############## INITIATE PERSONS ################
 
