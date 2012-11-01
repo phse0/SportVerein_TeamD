@@ -4,6 +4,9 @@
  */
 package business.controller.person.create;
 
+import business.controller.person.create.States.IPersonCreateState;
+import business.controller.person.create.States.PersonCreateLoadCountryState;
+import data.interfaces.models.IContribution;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.ISport;
@@ -15,8 +18,10 @@ import java.util.LinkedList;
 /**
  * First loadCountries
  * Second loadSports
- * Third CreatePerson
- * Fourth AssignToSport
+ * Third LoadContributions
+ * Fourth CreatePerson
+ * Fifth AssignToSport
+ *
  * @author phil
  */
 public class PersonCreation extends UnicastRemoteObject implements IPersonCreation {
@@ -42,17 +47,23 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
     }
 
     @Override
-    public void CreatePerson(String firstname, String lastname,
-            String sex, String phone, String mail,
-            String username, String password, Date birthday,
-            String street, String postcode, String city, ICountry country) {
-        _state.CreatePerson(firstname, lastname, sex, phone, mail,
-                username, password, birthday, street, postcode, city, country);
+    public LinkedList<ISport> loadSports() {
+        return _state.loadSports();
     }
 
     @Override
-    public LinkedList<ISport> loadSports() {
-        return _state.loadSports();
+    public LinkedList<IContribution> loadContributions() {
+        return _state.loadContributions();
+    }
+
+    @Override
+    public void CreatePerson(String firstname, String lastname,
+            String sex, String phone, String mail,
+            String username, String password, Date birthday, int right,
+            String street, String postcode, String city, String country, int contributionID) {
+        _state.CreatePerson(firstname, lastname, sex, phone, mail,
+                username, password, birthday, right,
+                street, postcode, city, country, contributionID);
     }
 
     @Override

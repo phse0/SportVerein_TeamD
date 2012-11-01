@@ -2,10 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.controller.person.create;
+package business.controller.person.create.States;
 
+import business.controller.person.create.PersonCreation;
 import data.DAOs.CountryDAO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.models.IContribution;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.ISport;
@@ -39,8 +41,8 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
     @Override
     public void CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
-            String username, String password, Date birthday,
-            String street, String postcode, String city, ICountry country) {
+            String username, String password, Date birthday, int right,
+            String street, String postcode, String city, String country, int contributionID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -51,6 +53,11 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
 
     @Override
     public void AssignToSport(LinkedList<ISport> sport, IPerson person) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<IContribution> loadContributions() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
