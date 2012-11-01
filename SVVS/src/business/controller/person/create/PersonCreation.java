@@ -16,11 +16,8 @@ import java.sql.Date;
 import java.util.LinkedList;
 
 /**
- * First loadCountries
- * Second loadSports
- * Third LoadContributions
- * Fourth CreatePerson
- * Fifth AssignToSport
+ * First loadCountries Second loadSports Third LoadContributions Fourth
+ * CreatePerson Fifth AssignToSport
  *
  * @author phil
  */
@@ -36,6 +33,13 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
         this._state = _state;
     }
 
+    /**
+     * First loadCountries
+     * Second loadSports
+     * Third LoadContributions 
+     * Fourth CreatePerson
+     * Fifth AssignToSport
+     */
     public PersonCreation() throws RemoteException {
         super();
         setState(new PersonCreateLoadCountryState(this));

@@ -12,12 +12,13 @@ import data.interfaces.models.ISport;
 import java.rmi.Remote;
 import java.sql.Date;
 import java.util.LinkedList;
-
 /**
  * First loadCountries
  * Second loadSports
- * Third CreatePerson
- * Fourth AssignToSport
+ * Third LoadContributions
+ * Fourth CreatePerson
+ * Fifth AssignToSport
+ *
  * @author phil
  */
 public interface IPersonCreation extends Remote, IController {

@@ -72,6 +72,7 @@ public class PersonCreateState implements IPersonCreateState {
 
         ContributionHistory ch = new ContributionHistory(person, getContributionByID(contributionID),
                 DateTime.now().getYear(), DateTime.now().getMonthOfYear(), "0");
+        
         LinkedList<IContributionHistory> chh = new LinkedList<IContributionHistory>();
         chh.add(ch);
         person.setContributionHistory(chh);

@@ -4,20 +4,26 @@
  */
 package business.controller.tournament.Create;
 
-import data.interfaces.models.IMatch;
+import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
+import java.math.BigDecimal;
 import java.rmi.Remote;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
- * Interface für den Context
+ * Context für den Use Case neues Tournament, GUI sollte interface von dem
+ * kriegen
+ *
+ * First LoadSport
+ * Second LoadTeams
+ * Third CreateTournament
  * @author phil
  */
 public interface ITournamentCreation extends Remote  {
-     public LinkedList<ITeam> loadTeams();
-
-    public void CreateTournament(List<ITeam> Teams);
-
-    public void AddMatches(LinkedList<IMatch> encounters);
+    public LinkedList<ISport> loadSport();
+    public LinkedList<ITeam> loadTeams(ISport sport);
+    public void CreateTournament(String name, String location, BigDecimal fee,
+    String sportname, List<String> TeamNames);
 }
