@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.RightDTO;
 import data.interfaces.DAOs.IRightDAO;
 import data.interfaces.DTOs.IRightDTO;
 import data.interfaces.models.IRight;
@@ -35,7 +36,7 @@ public class RightDAO extends AbstractDAO<IRight, IRightDTO> implements IRightDA
 
     @Override
     public IRightDTO extractDTO(IRight model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new RightDTO(model);
     }
     
 }

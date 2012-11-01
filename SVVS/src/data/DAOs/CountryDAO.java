@@ -56,4 +56,5 @@ public class CountryDAO extends AbstractDAO<ICountry,ICountryDTO> implements ICo
         query.setString(":code", code);
         return (ICountry) query.list().get(0);
     }
+
 }

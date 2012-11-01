@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.TrainingTeamDTO;
 import data.interfaces.DAOs.ITrainingTeamDAO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ITrainingTeam;
@@ -44,7 +45,7 @@ public class TrainingTeamDAO extends AbstractDAO<ITrainingTeam, ITrainingTeamDTO
 
     @Override
     public ITrainingTeamDTO extractDTO(ITrainingTeam model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new TrainingTeamDTO(model);
     }
     
 }

@@ -38,58 +38,72 @@ public class MatchDTO extends AbstractDTO<IMatch> implements IMatchDTO{
         this.goalsTeam2 = model.getGoalsTeam2();
     }
 
+    @Override
     public ITournamentDTO getTournament() {
         return tournament;
     }
 
+    @Override
     public void setTournament(ITournamentDTO tournament) {
         this.tournament = tournament;
     }
 
+    @Override
     public String getLocation() {
         return location;
     }
 
+    @Override
     public void setLocation(String location) {
         this.location = location;
     }
 
+    @Override
     public String getDate() {
         return date;
     }
 
+    @Override
     public void setDate(String date) {
         this.date = date;
     }
 
+    @Override
     public ITeamDTO getTeam1() {
         return team1;
     }
 
+    @Override
     public void setTeam1(ITeamDTO team1) {
         this.team1 = team1;
     }
 
+    @Override
     public ITeamDTO getTeam2() {
         return team2;
     }
 
+    @Override
     public void setTeam2(ITeamDTO team2) {
         this.team2 = team2;
     }
 
+    @Override
     public Integer getGoalsTeam1() {
         return goalsTeam1;
     }
 
+    @Override
     public void setGoalsTeam1(Integer goalsTeam1) {
         this.goalsTeam1 = goalsTeam1;
     }
 
+    @Override
     public Integer getGoalsTeam2() {
         return goalsTeam2;
     }
 
+    @Override
     public void setGoalsTeam2(Integer goalsTeam2) {
         this.goalsTeam2 = goalsTeam2;
     }

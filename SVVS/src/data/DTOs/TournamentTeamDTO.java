@@ -21,7 +21,7 @@ import java.util.List;
 public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implements ITournamentTeamDTO {
 
     protected ILeagueDTO league;
-     protected IDepartmentDTO department;
+    protected IDepartmentDTO department;
     protected List<ISportsmanTrainingTeamDTO> sportsmen;
     protected List<ICoachDTO> coaches;
     
@@ -29,10 +29,12 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         extract(model);
     }
 
+    @Override
     public ILeagueDTO getLeague() {
         return league;
     }
 
+    @Override
     public void setLeague(ILeagueDTO league) {
         this.league = league;
     }
@@ -52,26 +54,32 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         }
     }
 
+    @Override
     public IDepartmentDTO getDepartment() {
         return department;
     }
 
+    @Override
     public void setDepartment(IDepartmentDTO department) {
         this.department = department;
     }
 
+    @Override
     public List<ISportsmanTrainingTeamDTO> getSportsmen() {
         return sportsmen;
     }
 
+    @Override
     public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
         this.sportsmen = sportsmen;
     }
 
+    @Override
     public List<ICoachDTO> getCoaches() {
         return coaches;
     }
 
+    @Override
     public void setCoaches(List<ICoachDTO> coaches) {
         this.coaches = coaches;
     }

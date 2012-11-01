@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.TournamentTeamDTO;
 import data.interfaces.DAOs.ITournamentTeamDAO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.models.ITournamentTeam;
@@ -35,7 +36,7 @@ public class TournamentTeamDAO extends AbstractDAO<ITournamentTeam, ITournamentT
 
     @Override
     public ITournamentTeamDTO extractDTO(ITournamentTeam model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new TournamentTeamDTO(model);
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.SportsmanDTO;
 import data.interfaces.DAOs.ISportsmanDAO;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.models.ISportsman;
@@ -35,7 +36,7 @@ public class SportsmanDAO extends AbstractDAO<ISportsman, ISportsmanDTO> impleme
 
     @Override
     public ISportsmanDTO extractDTO(ISportsman model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return new SportsmanDTO(model);
     }
     
 }

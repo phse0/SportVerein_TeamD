@@ -44,26 +44,32 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
         extract(model);
     }
 
+    @Override
     public IDepartmentDTO getDepartment() {
         return department;
     }
 
+    @Override
     public void setDepartment(IDepartmentDTO department) {
         this.department = department;
     }
 
+    @Override
     public List<ISportsmanTrainingTeamDTO> getSportsmen() {
         return sportsmen;
     }
 
+    @Override
     public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
         this.sportsmen = sportsmen;
     }
 
+    @Override
     public List<ICoachDTO> getCoaches() {
         return coaches;
     }
 
+    @Override
     public void setCoaches(List<ICoachDTO> coaches) {
         this.coaches = coaches;
     }

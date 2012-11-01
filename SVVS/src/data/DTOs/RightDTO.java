@@ -27,18 +27,22 @@ public class RightDTO extends AbstractDTO<IRight> implements IRightDTO{
         this.name = model.getName();
     }
 
+    @Override
     public long getValue() {
         return value;
     }
 
+    @Override
     public void setValue(long value) {
         this.value = value;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

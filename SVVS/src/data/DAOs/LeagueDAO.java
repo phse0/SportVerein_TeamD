@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.LeagueDTO;
 import data.interfaces.DAOs.ILeagueDAO;
 import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.models.ILeague;
@@ -35,7 +36,7 @@ public class LeagueDAO extends AbstractDAO<ILeague, ILeagueDTO> implements ILeag
 
     @Override
     public ILeagueDTO extractDTO(ILeague model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new LeagueDTO(model);
     }
     
 }

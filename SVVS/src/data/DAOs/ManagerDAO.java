@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.ManagerDTO;
 import data.interfaces.DAOs.IManagerDAO;
 import data.interfaces.DTOs.IManagerDTO;
 import data.interfaces.models.IManager;
@@ -35,7 +36,7 @@ public class ManagerDAO extends AbstractDAO<IManager, IManagerDTO> implements IM
 
     @Override
     public IManagerDTO extractDTO(IManager model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ManagerDTO(model);
     }
     
 }

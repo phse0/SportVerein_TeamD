@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.SportDTO;
 import data.interfaces.DAOs.ISportDAO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ISport;
@@ -35,7 +36,7 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
 
     @Override
     public ISportDTO extractDTO(ISport model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new SportDTO(model);
     }
     
 }

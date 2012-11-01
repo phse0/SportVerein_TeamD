@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.RoleRightsDTO;
 import data.interfaces.DAOs.IRoleRightsDAO;
 import data.interfaces.DTOs.IDTO;
 import data.interfaces.DTOs.IRoleRightsDTO;
@@ -38,18 +39,8 @@ public class RoleRightsDAO extends AbstractDAO<IRoleRights, IRoleRightsDTO> impl
     }
 
     @Override
-    public List getAll(Session s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public List getAllDTO(Session s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public IRoleRightsDTO extractDTO(IRoleRights model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new RoleRightsDTO(model);
     }
     
 }

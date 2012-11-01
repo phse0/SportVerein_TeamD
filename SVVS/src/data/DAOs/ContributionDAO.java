@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.ContributionDTO;
 import data.interfaces.DAOs.IContributionDAO;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.models.IContribution;
@@ -35,7 +36,7 @@ public class ContributionDAO extends AbstractDAO<IContribution, IContributionDTO
 
     @Override
     public IContributionDTO extractDTO(IContribution model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ContributionDTO(model);
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.DepartmentDTO;
 import data.interfaces.DAOs.IDepartmentDAO;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.models.IDepartment;
@@ -35,6 +36,6 @@ public class DepartmentDAO extends AbstractDAO<IDepartment, IDepartmentDTO> impl
 
     @Override
     public IDepartmentDTO extractDTO(IDepartment model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new DepartmentDTO(model);
     }
 }

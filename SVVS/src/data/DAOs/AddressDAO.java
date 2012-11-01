@@ -50,4 +50,5 @@ public class AddressDAO extends AbstractDAO<IAddress, IAddressDTO> implements IA
         return new AddressDTO(model);
     }
 
+
 }

@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.CoachDTO;
 import data.interfaces.DAOs.ICoachDAO;
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.models.ICoach;
@@ -35,7 +36,7 @@ public class CoachDAO extends AbstractDAO<ICoach, ICoachDTO> implements ICoachDA
 
     @Override
     public ICoachDTO extractDTO(ICoach model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new CoachDTO(model);
     }
     
 }

@@ -20,6 +20,8 @@ public interface IDAOs<V extends IModel, X extends IDTO> {
     
     public X extractDTO(V model);
     
+   // public V extractModel(X dto);
+    
     public void add(Session s, V model);
     
     public void remove(Session s, V model);

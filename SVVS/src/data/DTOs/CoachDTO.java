@@ -34,10 +34,12 @@ public class CoachDTO extends AbstractRoleDTO<ICoach> implements ICoachDTO {
         }
     }
 
+    @Override
     public List<ITrainingTeamDTO> getTeams() {
         return teams;
     }
 
+    @Override
     public void setTeams(List<ITrainingTeamDTO> teams) {
         this.teams = teams;
     }

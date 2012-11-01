@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.MatchDTO;
 import data.interfaces.DAOs.IMatchDAO;
 import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.models.IMatch;
@@ -35,7 +36,7 @@ public class MatchDAO extends AbstractDAO<IMatch, IMatchDTO> implements IMatchDA
 
     @Override
     public IMatchDTO extractDTO(IMatch model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new MatchDTO(model);
     }
     
 }

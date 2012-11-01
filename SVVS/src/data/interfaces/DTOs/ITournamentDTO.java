@@ -5,6 +5,7 @@
 package data.interfaces.DTOs;
 
 import data.interfaces.models.ITournament;
+import java.util.List;
 
 /**
  *
@@ -27,6 +28,18 @@ public interface ITournamentDTO extends IDTO<ITournament> {
     void setLocation(String location);
 
     void setName(String name);
+
+    List<ITournamentInviteDTO> getInvites();
+
+    List<IMatchDTO> getMatches();
+
+    List<ITeamDTO> getTeams();
+
+    void setInvites(List<ITournamentInviteDTO> invites);
+
+    void setMatches(List<IMatchDTO> matches);
+
+    void setTeams(List<ITeamDTO> teams);
 
     
 }

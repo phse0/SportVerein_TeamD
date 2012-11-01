@@ -25,18 +25,22 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public int getDepartmentID() {
         return departmentID;
     }
 
+    @Override
     public void setDepartmentID(int departmentID) {
         this.departmentID = departmentID;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.CaretakerDTO;
 import data.interfaces.DAOs.ICaretakerDAO;
 import data.interfaces.DTOs.ICaretakerDTO;
 import data.interfaces.models.ICaretaker;
@@ -35,7 +36,7 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
 
     @Override
     public ICaretakerDTO extractDTO(ICaretaker model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new CaretakerDTO(model);
     }
     
 }

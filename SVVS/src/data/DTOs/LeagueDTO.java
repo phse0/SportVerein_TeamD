@@ -32,18 +32,22 @@ public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public List<ITournamentTeamDTO> getTournamentTeams() {
         return tournamentTeams;
     }
 
+    @Override
     public void setTournamentTeams(List<ITournamentTeamDTO> tournamentTeams) {
         this.tournamentTeams = tournamentTeams;
     }

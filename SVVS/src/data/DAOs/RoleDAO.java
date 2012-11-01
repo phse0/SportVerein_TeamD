@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.RoleDTO;
 import data.interfaces.DAOs.IRoleDAO;
 import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.models.IRole;
@@ -35,7 +36,7 @@ public class RoleDAO extends AbstractDAO<IRole, IRoleDTO> implements IRoleDAO{
 
     @Override
     public IRoleDTO extractDTO(IRole model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new RoleDTO(model);
     }
     
     

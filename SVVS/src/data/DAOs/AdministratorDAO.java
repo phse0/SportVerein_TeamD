@@ -4,6 +4,7 @@
  */
 package data.DAOs;
 
+import data.DTOs.AdministratorDTO;
 import data.interfaces.DAOs.IAdministratorDAO;
 import data.interfaces.DTOs.IAdministratorDTO;
 import data.interfaces.models.IAdministrator;
@@ -35,7 +36,7 @@ public class AdministratorDAO extends AbstractDAO<IAdministrator, IAdministrator
 
     @Override
     public IAdministratorDTO extractDTO(IAdministrator model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new AdministratorDTO(model);
     }
     
 }

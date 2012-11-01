@@ -96,5 +96,35 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     public void setFee(double fee) {
         this.fee = fee;
     }
+
+    @Override
+    public List<ITeamDTO> getTeams() {
+        return teams;
+    }
+
+    @Override
+    public void setTeams(List<ITeamDTO> teams) {
+        this.teams = teams;
+    }
+
+    @Override
+    public List<IMatchDTO> getMatches() {
+        return matches;
+    }
+
+    @Override
+    public void setMatches(List<IMatchDTO> matches) {
+        this.matches = matches;
+    }
+
+    @Override
+    public List<ITournamentInviteDTO> getInvites() {
+        return invites;
+    }
+
+    @Override
+    public void setInvites(List<ITournamentInviteDTO> invites) {
+        this.invites = invites;
+    }
    
 }

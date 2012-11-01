@@ -28,18 +28,22 @@ public class RoleRightsDTO extends AbstractDTO<IRoleRights> implements IRoleRigh
         this.right = model.getRight();
     }
     
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public int getRight() {
         return right;
     }
 
+    @Override
     public void setRight(int right) {
         this.right = right;
     }
