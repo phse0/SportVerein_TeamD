@@ -9,6 +9,8 @@ import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.models.Tournament;
@@ -29,12 +31,12 @@ class TournamentCreateState implements ITournamentCreateState {
     }
 
     @Override
-    public LinkedList<ISport> loadSport() {
+    public LinkedList<ISportDTO> loadSport() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public LinkedList<ITeam> loadTeams(ISport sport) {
+    public LinkedList<ITeamDTO> loadTeams(String sport) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

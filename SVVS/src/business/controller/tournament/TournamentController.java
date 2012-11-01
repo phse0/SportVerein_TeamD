@@ -4,10 +4,19 @@
  */
 package business.controller.tournament;
 
-import data.interfaces.models.IMatch;
+import data.DAOs.SportDAO;
+import data.DAOs.TeamDAO;
+import data.DAOs.TournamentDAO;
+import data.DTOs.SportDTO;
+import data.DTOs.TeamDTO;
+import data.DTOs.TournamentDTO;
+import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.DTOs.ITournamentDTO;
+import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
-import data.models.Tournament;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,55 +25,53 @@ import java.util.List;
  * @author phil
  */
 public class TournamentController {
-    
-        
-    /**
-     * Returns a list of the current Tournaments
-     * @return a List of Tournaments beginning from the current day
-     */
-    public LinkedList<ITournament> LoadCurrentTournaments(){
-    LinkedList<ITournament> iTournaments = new LinkedList<ITournament>();
-    //loading all Tourmanets from current Date
-    return iTournaments;
+
+    private static TournamentController instance;
+
+    private TournamentController() {
+    }
+
+    public static TournamentController getInstance() {
+        if (instance == null) {
+            return (instance = new TournamentController());
+        }
+        return instance;
+    }
+
+    public LinkedList<ISportDTO >loadSport() {
+        LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
+
+        for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
+            sports.add(new SportDTO(iS));
+        }
+
+        return sports;
+    }
+
+    public LinkedList<ITeamDTO> loadTeams(String sportname) {
+        ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
+        LinkedList<ITeamDTO> teams = new LinkedList<ITeamDTO>();
+        for (ITeam iTeam : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
+            teams.add(new TeamDTO(iTeam));
+        }
+        return teams;
+    }
+
+    public LinkedList<ITournamentDTO> loadTournaments() {
+        LinkedList<ITournamentDTO> tournaments = new LinkedList<ITournamentDTO>();
+        for (ITournament iT : TournamentDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
+            tournaments.add(new TournamentDTO(iT));
+        }
+        return tournaments;
     }
     
-    
-    /**
-     * Creates a new Tournament
-     * @return the new created Tournament
-     */
-    public ITournament CreateTournament(/*add necessary data here:
-     * Datum, Ort, [Gast- und Heim-] Mannschaften,
-     * Wettkampfgebühr, Begegnungen, etc.*/){
-    return new Tournament();
+     public ITournament loadTournament(int ID) {
+        List<ITournament> tournaments = TournamentDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
+        for (ITournament iT : tournaments) {
+            if (iT.getTournamentID() == ID) {
+                return iT;
+            }
+        }
+        return null;
     }
-    
-    /**
-     * Adds A Participant to an Existing Tournament
-     * @param TounamentID 
-     */
-    public void AddParticipant(int TounamentID/*add his data here*/){
-    
-    }
-    
-    /**
-     * Adds a result to a match
-     * @param MatchID
-     * @param ResultOponent
-     * @param ResultHome 
-     */
-    public void AddResult(int MatchID, int ResultOponent, int ResultHome){
-    
-    }
-    
-    /**
-     * Loads a Tournament and Returns the List of Matches
-     * @param TournamentID
-     * @return a List of Matches
-     */
-    public List<IMatch> loadMatches(int TournamentID){
-    ITournament curTournament = null; //addloadingstuff
-    return curTournament.getMatches();
-    }
-    
 }

@@ -5,11 +5,12 @@
 package business.controller.tournament.Create;
 
 import business.controller.tournament.Create.States.ITournamentCreateState;
-import data.interfaces.models.IMatch;
-import data.interfaces.models.ISport;
-import data.interfaces.models.ITeam;
+import business.controller.tournament.Create.States.TournamentCreateLoadSportState;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.DTOs.ITeamDTO;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
  * Third CreateTournament
  * @author phil
  */
-public class TournamentCreation implements ITournamentCreation {
+public class TournamentCreation  extends UnicastRemoteObject implements ITournamentCreation {
 
     ITournamentCreateState _curState;
     
@@ -34,17 +35,18 @@ public class TournamentCreation implements ITournamentCreation {
         this._curState = curState;
     }
     
-    public TournamentCreation(ITournamentCreateState curState) {
-        _curState = curState;
+    public TournamentCreation() throws RemoteException {
+        super();
+        setCurState(new TournamentCreateLoadSportState(this));
     }
     
     @Override
-    public LinkedList<ISport> loadSport() {
+    public LinkedList<ISportDTO> loadSport() {
         return _curState.loadSport();
     }
     
     @Override
-    public LinkedList<ITeam> loadTeams(ISport sport) {
+    public LinkedList<ITeamDTO> loadTeams(String sport) {
         return _curState.loadTeams(sport);
     }
     

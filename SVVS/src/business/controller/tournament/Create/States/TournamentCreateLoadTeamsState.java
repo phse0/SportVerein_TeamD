@@ -5,11 +5,9 @@
 package business.controller.tournament.Create.States;
 
 import business.controller.tournament.Create.TournamentCreation;
-import data.DAOs.TeamDAO;
-import data.hibernate.HibernateUtil;
-import data.interfaces.models.IMatch;
-import data.interfaces.models.ISport;
-import data.interfaces.models.ITeam;
+import business.controller.tournament.TournamentController;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.DTOs.ITeamDTO;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,18 +25,20 @@ public class TournamentCreateLoadTeamsState implements ITournamentCreateState {
     }
 
     @Override
-    public LinkedList<ISport> loadSport() {
+    public LinkedList<ISportDTO> loadSport() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public LinkedList<ITeam> loadTeams(ISport sport) {
-        LinkedList<ITeam> teams = new LinkedList<ITeam>();
+    public LinkedList<ITeamDTO> loadTeams(String sport) {
+        /*LinkedList<ITeam> teams = new LinkedList<ITeam>();
         for (ITeam iTeam : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
             teams.add(iTeam);
         }
         _creator.setCurState(new TournamentCreateState(_creator));
-        return teams;
+        return teams;*/
+        _creator.setCurState(new TournamentCreateState(_creator));
+        return TournamentController.getInstance().loadTeams(sport);
     }
 
     @Override

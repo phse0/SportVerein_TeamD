@@ -9,18 +9,21 @@ import data.DAOs.AddressDAO;
 import data.DAOs.ContributionDAO;
 import data.DAOs.CountryDAO;
 import data.DAOs.PersonDAO;
-import data.DTOs.AddressDTO;
+import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IContribution;
 import data.interfaces.models.IContributionHistory;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
-import data.interfaces.models.ISport;
 import data.models.Address;
 import data.models.ContributionHistory;
 import data.models.Person;
 import java.sql.Date;
 import java.util.LinkedList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
@@ -36,12 +39,12 @@ public class PersonCreateState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ICountry> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void CreatePerson(String firstname, String lastname,
+    public PersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
             String street, String postcode, String city, String country, int contributionID) {
@@ -80,6 +83,14 @@ public class PersonCreateState implements IPersonCreateState {
         PersonDAO.getInstance().add(HibernateUtil.getCurrentSession(), person);
 
         _creator.setState(new PersonCreateAssignSportState(_creator));
+        
+        List<IPerson> lp = PersonDAO.getInstance().getByFirstName(HibernateUtil.getCurrentSession(), lastname);
+        for (IPerson ip : lp) {
+            if (ip.getLastname().equals(lastname)) {
+                return new PersonDTO(ip);
+            }
+        }
+        return null;
     }
 
     /**
@@ -98,17 +109,17 @@ public class PersonCreateState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ISport> loadSports() {
+    public LinkedList<ISportDTO> loadSports() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AssignToSport(LinkedList<ISport> sport, IPerson person) {
+    public LinkedList<IContributionDTO> loadContributions() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public LinkedList<IContribution> loadContributions() {
+    public void AssignToSport(LinkedList<String> sport, int personID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

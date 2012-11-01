@@ -4,13 +4,12 @@
  */
 package business.controller.person.create.States;
 
+import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
-import data.DAOs.CountryDAO;
-import data.hibernate.HibernateUtil;
-import data.interfaces.models.IContribution;
-import data.interfaces.models.ICountry;
-import data.interfaces.models.IPerson;
-import data.interfaces.models.ISport;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.ISportDTO;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -27,37 +26,39 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ICountry> loadCountries() {
-        LinkedList<ICountry> countries = new LinkedList<ICountry>();
+    public LinkedList<ICountryDTO> loadCountries() {
+      /* LinkedList<ICountry> countries = new LinkedList<ICountry>();
         
         for (ICountry iC : CountryDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             countries.add(iC);
         }
         _creator.setState(new PersonCreateLoadSportState(_creator));
 
-        return countries;
+        return countries;*/
+         _creator.setState(new PersonCreateLoadSportState(_creator));
+        return PersonController.getInstance().loadCountries();
     }
 
+
     @Override
-    public void CreatePerson(String firstname, String lastname,
-            String sex, String phone, String mail,
-            String username, String password, Date birthday, int right,
-            String street, String postcode, String city, String country, int contributionID) {
+    public LinkedList<ISportDTO> loadSports() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
+
+    @Override
+    public LinkedList<IContributionDTO> loadContributions() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public LinkedList<ISport> loadSports() {
+    public IPersonDTO CreatePerson(String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country, int contributionID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AssignToSport(LinkedList<ISport> sport, IPerson person) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public LinkedList<IContribution> loadContributions() {
+    public void AssignToSport(LinkedList<String> sport, int personID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

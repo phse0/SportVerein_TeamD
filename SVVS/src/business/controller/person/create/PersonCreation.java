@@ -6,10 +6,10 @@ package business.controller.person.create;
 
 import business.controller.person.create.States.IPersonCreateState;
 import business.controller.person.create.States.PersonCreateLoadCountryState;
-import data.interfaces.models.IContribution;
-import data.interfaces.models.ICountry;
-import data.interfaces.models.IPerson;
-import data.interfaces.models.ISport;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.ISportDTO;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
@@ -46,32 +46,32 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
     }
 
     @Override
-    public LinkedList<ICountry> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() {
         return _state.loadCountries();
     }
 
     @Override
-    public LinkedList<ISport> loadSports() {
+    public LinkedList<ISportDTO> loadSports() {
         return _state.loadSports();
     }
 
     @Override
-    public LinkedList<IContribution> loadContributions() {
+    public LinkedList<IContributionDTO> loadContributions() {
         return _state.loadContributions();
     }
 
     @Override
-    public void CreatePerson(String firstname, String lastname,
+    public IPersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
             String street, String postcode, String city, String country, int contributionID) {
-        _state.CreatePerson(firstname, lastname, sex, phone, mail,
+       return _state.CreatePerson(firstname, lastname, sex, phone, mail,
                 username, password, birthday, right,
                 street, postcode, city, country, contributionID);
     }
 
     @Override
-    public void AssignToSport(LinkedList<ISport> sport, IPerson person) {
-        _state.AssignToSport(sport, person);;
+    public void AssignToSport(LinkedList<String> sport, int personID) {
+        _state.AssignToSport(sport, personID);;
     }
 }
