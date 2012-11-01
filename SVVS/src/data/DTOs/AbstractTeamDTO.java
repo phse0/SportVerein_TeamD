@@ -18,15 +18,16 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
    
     protected String name;
    // protected ISportDTO sport;
-    protected List<ITournamentDTO> tournaments;
+   // protected List<ITournamentDTO> tournaments;
    
     public void extractTeam(V model) {
         this.id = model.getTeamID();
+        this.name = model.getName();
         //this.sport = new SportDTO(model.getSport());
         
-        for(ITournament tournament : model.getTournaments()){
-            tournaments.add(new TournamentDTO(tournament));
-        }
+//        for(ITournament tournament : model.getTournaments()){
+//            tournaments.add(new TournamentDTO(tournament));
+//        }
         
     }
     
@@ -48,11 +49,11 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
 //        this.sport = sport;
 //    }
 
-    public List<ITournamentDTO> getTournaments() {
-        return tournaments;
-    }
-
-    public void setTournaments(List<ITournamentDTO> tournaments) {
-        this.tournaments = tournaments;
-    }
+//    public List<ITournamentDTO> getTournaments() {
+//        return tournaments;
+//    }
+//
+//    public void setTournaments(List<ITournamentDTO> tournaments) {
+//        this.tournaments = tournaments;
+//    }
 }
