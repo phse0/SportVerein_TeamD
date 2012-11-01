@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import presentation.forms.PersonTableModel;
+import presentation.tableModels.PersonTableModel;
 
 /**
  * DeletePersonListener benötigt die JTable damit er den aktuellen Datensatz

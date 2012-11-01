@@ -4,11 +4,25 @@
  */
 package presentation.forms;
 
+import data.DAOs.SportDAO;
+import data.DAOs.TeamDAO;
+import data.hibernate.HibernateUtil;
+import data.interfaces.DAOs.ISportDAO;
+import data.interfaces.DAOs.ITeamDAO;
+import data.interfaces.models.ISport;
+import data.interfaces.models.ITeam;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  *
  * @author Michael
  */
 public class CreateTournamentDialog extends javax.swing.JDialog {
+
+    Session s;
 
     /**
      * Creates new form CreateTournamentDialog
@@ -16,6 +30,10 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     public CreateTournamentDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        setLocationRelativeTo(null);
+
+        initiateControls();
     }
 
     /**
@@ -60,7 +78,11 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Gebühr");
 
-        cobSport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cobSport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cobSportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,6 +166,11 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
         btnSave.setText("Speichern");
 
         btnCancel.setText("Abbrechen");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,6 +206,40 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void cobSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobSportActionPerformed
+
+        ITeamDAO teamDAO = TeamDAO.getInstance();
+        ISportDAO sportDAO = SportDAO.getInstance();
+        ISport sport = (ISport) sportDAO.getByName(s, cobSport.getSelectedItem().toString());
+        List<ITeam> teams = teamDAO.getBySport(s, sport);
+
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (ITeam team : teams) {
+            listModel.addElement(team.getName());
+        }
+        lbxTeams.setModel(listModel);
+
+
+    }//GEN-LAST:event_cobSportActionPerformed
+
+    private void initiateControls() {
+
+        s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+
+        ISportDAO sportDAO = SportDAO.getInstance();
+        List<ISport> sports = sportDAO.getAll(s);
+
+        for (ISport sp : sports) {
+            cobSport.addItem(sp.getName());
+        }
+
+    }
 
     /**
      * @param args the command line arguments

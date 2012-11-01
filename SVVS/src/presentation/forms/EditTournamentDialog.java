@@ -4,18 +4,32 @@
  */
 package presentation.forms;
 
+import data.interfaces.DTOs.IMatchDTO;
+import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.DTOs.ITournamentDTO;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import presentation.tableModels.MatchTableModel;
+
 /**
  *
  * @author Michael
  */
 public class EditTournamentDialog extends javax.swing.JDialog {
 
+    ITournamentDTO tournament;
+
     /**
      * Creates new form CreateTournamentDialog
      */
-    public EditTournamentDialog(java.awt.Frame parent, boolean modal) {
+    public EditTournamentDialog(java.awt.Frame parent, boolean modal, ITournamentDTO tournament) {
         super(parent, modal);
         initComponents();
+
+        this.tournament = tournament;
+
+        setLocationRelativeTo(null);
+        initiateControls();
     }
 
     /**
@@ -45,7 +59,7 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        matchTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -64,8 +78,6 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         jLabel4.setText("Ort");
 
         jLabel5.setText("Gebühr");
-
-        cobSport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,11 +134,6 @@ public class EditTournamentDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manschaften", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        lbxTeams.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(lbxTeams);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -149,11 +156,16 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         btnSave.setText("Speichern");
 
         btnCancel.setText("Abbrechen");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Begegnungen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel3.setToolTipText("");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        matchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -164,7 +176,8 @@ public class EditTournamentDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        matchTable.setRowHeight(26);
+        jScrollPane2.setViewportView(matchTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,47 +242,33 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void initiateControls() {
+        
+        if(tournament != null) {
+            tbxName.setText(tournament.getName());
+            cobSport.setEnabled(false);
+            tbxDate.setText(tournament.getDate());
+            tbxLocation.setText(tournament.getLocation());
+            tbxFee.setText(Double.toString(tournament.getFee()));
+            
+            DefaultListModel<String> listModel = new DefaultListModel<>();
+            for(ITeamDTO team : tournament.getTeams()) {
+                listModel.addElement(team.getName());
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            lbxTeams.setModel(listModel);
+            lbxTeams.setEnabled(false);
+            
+            List<IMatchDTO> matches = tournament.getMatches();
+            MatchTableModel matchModel = new MatchTableModel(matches);
+            matchTable.setModel(matchModel);
+            
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EditTournamentDialog dialog = new EditTournamentDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+        
     }
+    
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
@@ -286,8 +285,8 @@ public class EditTournamentDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JList lbxTeams;
+    private javax.swing.JTable matchTable;
     private javax.swing.JTextField tbxDate;
     private javax.swing.JTextField tbxFee;
     private javax.swing.JTextField tbxLocation;

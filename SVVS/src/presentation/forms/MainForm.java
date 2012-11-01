@@ -4,6 +4,8 @@
  */
 package presentation.forms;
 
+import presentation.tableModels.TournamentTableModel;
+import presentation.tableModels.PersonTableModel;
 import data.DAOs.DepartmentDAO;
 import data.DAOs.PersonDAO;
 import data.DAOs.TournamentDAO;
@@ -15,9 +17,6 @@ import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.ITournament;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.RowFilter;
@@ -28,6 +27,8 @@ import org.hibernate.Transaction;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
+import presentation.tournamentListeners.CreateNewTournamentListener;
+import presentation.tournamentListeners.EditTournamentListener;
 
 /**
  *
@@ -77,7 +78,7 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tournamentTable = new javax.swing.JTable();
         btnCreateTournament = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnEditTournament = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
@@ -198,7 +199,7 @@ public class MainForm extends javax.swing.JFrame {
 
         btnCreateTournament.setText("Wettkampf anlegen");
 
-        jButton1.setText("Wettkampf bearbeiten");
+        btnEditTournament.setText("Wettkampf bearbeiten");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -211,7 +212,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnCreateTournament)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnEditTournament)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -223,7 +224,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreateTournament)
-                    .addComponent(jButton1))
+                    .addComponent(btnEditTournament))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -325,6 +326,12 @@ public class MainForm extends javax.swing.JFrame {
 
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
+        
+        btnCreateTournament.addActionListener(new CreateNewTournamentListener());
+        btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable));
+        
+        tx.commit();
+        s.close();
     }
 
     /**
@@ -361,11 +368,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateTournament;
     private javax.swing.JButton btnDeletePerson;
     private javax.swing.JButton btnEditPerson;
+    private javax.swing.JButton btnEditTournament;
     private javax.swing.JButton btnFilter;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cobContribution;
     private javax.swing.JComboBox cobDepartment;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
