@@ -4,6 +4,7 @@
  */
 package business.controller.tournament.Create;
 
+import business.controller.RMI.IController;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ import java.util.List;
  * Third CreateTournament
  * @author phil
  */
-public interface ITournamentCreation extends Remote  {
+public interface ITournamentCreation extends Remote, IController  {
     public LinkedList<ISportDTO> loadSport();
     public LinkedList<ITeamDTO> loadTeams(String sport);
     public void CreateTournament(String name, String location, BigDecimal fee,

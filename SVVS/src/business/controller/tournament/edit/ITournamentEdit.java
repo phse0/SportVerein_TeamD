@@ -4,8 +4,10 @@
  */
 package business.controller.tournament.edit;
 
+import business.controller.RMI.IController;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
+import java.rmi.Remote;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -13,7 +15,7 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public interface ITournamentEdit {
+public interface ITournamentEdit extends Remote, IController {
 
     public LinkedList<ITournamentDTO> loadTournaments();
     public LinkedList<ITeamDTO> loadTeams(String sport);

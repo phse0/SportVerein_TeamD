@@ -4,6 +4,7 @@
  */
 package business.controller.tournament;
 
+import business.controller.RMI.IController;
 import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
@@ -17,6 +18,7 @@ import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
+import java.rmi.Remote;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ import java.util.List;
  *
  * @author phil
  */
-public class TournamentController {
+public class TournamentController implements Remote, IController {
 
     private static TournamentController instance;
 

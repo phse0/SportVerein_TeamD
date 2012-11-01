@@ -4,6 +4,7 @@
  */
 package business.controller.person.create.States;
 
+import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
 import data.DAOs.SportDAO;
 import data.DTOs.SportDTO;
@@ -35,7 +36,7 @@ public class PersonCreateLoadSportState implements IPersonCreateState {
 
     @Override
     public LinkedList<ISportDTO> loadSports() {
-        LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
+        /*LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             SportDTO sdto = new SportDTO(iS);
@@ -44,7 +45,9 @@ public class PersonCreateLoadSportState implements IPersonCreateState {
         _creator.setState(new PersonCreateLoadContributionState(_creator));
 
 
-        return sports;
+        return sports;*/
+        _creator.setState(new PersonCreateLoadContributionState(_creator));
+        return PersonController.getInstance().loadSports();
     }
 
 

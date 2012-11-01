@@ -6,15 +6,18 @@ package business.controller.person.create.States;
 
 import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
+import data.DAOs.PersonDAO;
 import data.DAOs.RoleDAO;
 import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.models.IPerson;
 import data.models.Role;
 import java.sql.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -58,11 +61,13 @@ public class PersonCreateAssignSportState implements IPersonCreateState{
         for (String sportname : sport) {
              //assigning values
             Role role = new Role();
-            role.setPerson(PersonController.getInstance().loadPersonWithID(personID));
+            role.setPerson(PersonController.getInstance().loadPersonWithIDNonDTO(personID));
             role.setSport(PersonController.getInstance().loadSport(sportname));
             
             RoleDAO.getInstance().add(HibernateUtil.getCurrentSession(), role);
         }
     }
+    
+    
     
 }
