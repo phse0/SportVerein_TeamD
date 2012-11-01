@@ -4,6 +4,7 @@
  */
 package presentation.personListeners;
 
+import business.controller.person.create.IPersonCreation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,13 +14,14 @@ import java.awt.event.ActionListener;
  */
 public class SavePersonListener implements ActionListener {
     
-    public SavePersonListener() {
-        
+    IPersonCreation creation;
+    
+    public SavePersonListener(IPersonCreation creation) {
+        this.creation = creation;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
