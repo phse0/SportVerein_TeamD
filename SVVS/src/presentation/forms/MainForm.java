@@ -37,6 +37,7 @@ import presentation.tournamentListeners.EditTournamentListener;
 public class MainForm extends javax.swing.JFrame {
 
     TableRowSorter<PersonTableModel> personSorter;
+    
 
     /**
      * Creates new form MainForm
