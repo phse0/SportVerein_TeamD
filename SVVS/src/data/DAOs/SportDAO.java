@@ -42,6 +42,7 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
         return new SportDTO(model);
     }
 
+    @Override
     public List<ISport> getByName(Session s,String name) {
         
         Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");

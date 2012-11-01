@@ -6,13 +6,14 @@ package data.interfaces.DAOs;
 
 import data.interfaces.DTOs.IDTO;
 import data.interfaces.models.IModel;
+import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 
 /**
  * * @author Michael
  */
-public interface IDAOs<V extends IModel, X extends IDTO> {
+public interface IDAOs<V extends IModel, X extends IDTO> extends Serializable {
     
     public List<V> getAll(Session s);
     

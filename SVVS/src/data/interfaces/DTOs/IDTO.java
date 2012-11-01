@@ -5,12 +5,13 @@
 package data.interfaces.DTOs;
 
 import data.interfaces.models.IModel;
+import java.io.Serializable;
 
 /**
  *
  * @author uubu
  */
-public interface IDTO<V extends IModel>{
+public interface IDTO<V extends IModel> extends Serializable{
     
    int getId();
    
