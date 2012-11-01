@@ -46,17 +46,17 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
     }
 
     @Override
-    public LinkedList<ICountryDTO> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException{
         return _state.loadCountries();
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException{
         return _state.loadSports();
     }
 
     @Override
-    public LinkedList<IContributionDTO> loadContributions() {
+    public LinkedList<IContributionDTO> loadContributions() throws RemoteException{
         return _state.loadContributions();
     }
 
@@ -64,14 +64,14 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
     public IPersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
-            String street, String postcode, String city, String country, int contributionID) {
+            String street, String postcode, String city, String country, int contributionID) throws RemoteException {
        return _state.CreatePerson(firstname, lastname, sex, phone, mail,
                 username, password, birthday, right,
                 street, postcode, city, country, contributionID);
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
         _state.AssignToSport(sport, personID);;
     }
 }

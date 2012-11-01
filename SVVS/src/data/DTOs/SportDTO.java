@@ -30,7 +30,7 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO{
         this.name = model.getName();
         
         for(ITeam team : model.getTeams()){
-            teams.add(new TeamDTO(team));
+            //teams.add(new TeamDTO(team));
         }
     }
 
@@ -63,6 +63,10 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO{
     public void setTeams(List<ITeamDTO> teams) {
         this.teams = teams;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

@@ -4,19 +4,22 @@
  */
 package presentation.forms;
 
-import presentation.tableModels.TournamentTableModel;
-import presentation.tableModels.PersonTableModel;
-import data.DAOs.DepartmentDAO;
-import data.DAOs.PersonDAO;
+import business.controller.RMI.IControllerFactory;
+import business.controller.departments.DepartmentController;
+import business.controller.person.PersonController;
+import business.controller.tournament.TournamentController;
 import data.DAOs.TournamentDAO;
-import data.DTOs.PersonDTO;
 import data.DTOs.TournamentDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.IDepartment;
-import data.interfaces.models.IPerson;
 import data.interfaces.models.ITournament;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.RowFilter;
@@ -27,6 +30,8 @@ import org.hibernate.Transaction;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
+import presentation.tableModels.PersonTableModel;
+import presentation.tableModels.TournamentTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
 
@@ -37,17 +42,18 @@ import presentation.tournamentListeners.EditTournamentListener;
 public class MainForm extends javax.swing.JFrame {
 
     TableRowSorter<PersonTableModel> personSorter;
-    
+    IControllerFactory controllerFactory;
+    PersonController personController;
+    DepartmentController departmentController;
+    TournamentController tournamentController;
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
-        initControls();
 
-        this.setLocationRelativeTo(null);
-        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
+        initControls();
     }
 
     /**
@@ -282,25 +288,25 @@ public class MainForm extends javax.swing.JFrame {
 
     private void initControls() {
 
-        // ############## INITIATE PERSONS ################
-
-        Session s = HibernateUtil.getCurrentSession();
-        Transaction tx = s.beginTransaction();
-
-        PersonDAO persondao = (PersonDAO) PersonDAO.getInstance();
-        List<IPerson> persons = persondao.getAll(s);
-        List<IPersonDTO> personsDTO = new LinkedList<>();
-
-        for (IPerson p : persons) {
-            personsDTO.add(new PersonDTO(p));
+        this.setLocationRelativeTo(null);
+        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
+        try {
+            controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
+            personController = (PersonController) controllerFactory.loadController("PersonController");
+            departmentController = (DepartmentController) controllerFactory.loadController("DepartmentController");
+            tournamentController = (TournamentController) controllerFactory.loadController("TournamentController");
+        } catch (NotBoundException | MalformedURLException | RemoteException ex) {
+            System.out.println("Could not load Person Controller");
         }
 
-        DepartmentDAO deptdao = (DepartmentDAO) DepartmentDAO.getInstance();
-        List<IDepartment> depts = deptdao.getAll(s);
+        // ############## INITIATE PERSONS ################
+
+        List<IPersonDTO> personsDTO = personController.loadPersons();
+        List<IDepartmentDTO> depts = departmentController.loadDepartments();
 
         cobDepartment.addItem("");
-        for (IDepartment d : depts) {
-            cobDepartment.addItem(d.getName());
+        for (IDepartmentDTO d : depts) {
+            cobDepartment.addItem(d);
         }
 
         cobContribution.addItem("");
@@ -311,28 +317,21 @@ public class MainForm extends javax.swing.JFrame {
         personSorter = new TableRowSorter<PersonTableModel>();
         personTable.setAutoCreateRowSorter(true);
 
-        btnCreatePerson.addActionListener(new CreateNewPersonListener());
+        btnCreatePerson.addActionListener(new CreateNewPersonListener(controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable));
         btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
 
 
         // ################### INITIATE TOURNAMENTS ############################
-        TournamentDAO tournDAO = (TournamentDAO) TournamentDAO.getInstance();
-        List<ITournament> tournaments = tournDAO.getAll(s);
-        List<ITournamentDTO> tournamentsDTO = new LinkedList<>();
 
-        for (ITournament t : tournaments) {
-            tournamentsDTO.add(new TournamentDTO(t));
-        }
 
+        List<ITournamentDTO> tournamentsDTO = tournamentController.loadTournaments();
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
-        
+
         btnCreateTournament.addActionListener(new CreateNewTournamentListener());
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable));
-        
-        tx.commit();
-        s.close();
+
     }
 
     /**

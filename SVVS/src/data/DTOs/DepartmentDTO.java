@@ -44,6 +44,12 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+    
     
     
 }

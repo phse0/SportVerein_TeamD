@@ -13,15 +13,15 @@ import java.awt.event.ActionListener;
  * @author Michael
  */
 public class SavePersonListener implements ActionListener {
-    
+
     IPersonCreation creation;
-    
+
     public SavePersonListener(IPersonCreation creation) {
         this.creation = creation;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("");
     }
-    
 }

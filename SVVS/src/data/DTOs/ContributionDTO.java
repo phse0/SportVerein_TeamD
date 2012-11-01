@@ -48,4 +48,9 @@ public class ContributionDTO extends AbstractDTO<IContribution> implements ICont
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

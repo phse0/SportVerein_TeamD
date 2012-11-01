@@ -6,6 +6,9 @@ package presentation.personListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import presentation.forms.CreatePersonDialog;
@@ -30,7 +33,12 @@ public class EditPersonListener implements ActionListener {
         } else {
             int index = _table.convertRowIndexToModel(_table.getSelectedRow());
             PersonTableModel personModel = (PersonTableModel) _table.getModel();
-            new CreatePersonDialog(null, true, personModel.getPersonDTO(index)).setVisible(true);
+            
+            try {
+                new CreatePersonDialog(null, true, personModel.getPersonDTO(index)).setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

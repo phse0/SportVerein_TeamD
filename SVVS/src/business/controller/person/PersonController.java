@@ -56,20 +56,20 @@ public class PersonController implements Remote, IController {
     public ISport loadSport(String name) {
         return SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), name);
     }
-    
-      public LinkedList<ISportDTO> loadSports() {
+
+    public LinkedList<ISportDTO> loadSports() {
         LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             SportDTO sdto = new SportDTO(iS);
             sports.add(sdto);
         }
-        
+
         return sports;
     }
 
     public IPersonDTO loadPersonWithID(int personID) {
-     List<IPerson> persons =    PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
+        List<IPerson> persons = PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
         for (IPerson ip : persons) {
             if (ip.getPersonID() == personID) {
                 return new PersonDTO(ip);
@@ -77,30 +77,30 @@ public class PersonController implements Remote, IController {
         }
         return null;
     }
-    
-    public List<IPersonDTO> loadPersonsWithContribution(String ContributionName){
+
+    public List<IPersonDTO> loadPersonsWithContribution(String ContributionName) {
         List<IPersonDTO> persons = new LinkedList<IPersonDTO>();
-        for (IPerson ip : loadPersons()) {
-           for(IContributionHistory ch: ip.getContributionHistory()){
-               if(ch.getContribution().getName().equals(ContributionName)){
-               persons.add(new PersonDTO(ip));
-               //TODO Check if break or continue
-               break;
-               }
-           }
+        for (IPerson ip : loadPersonsModel()) {
+            for (IContributionHistory ch : ip.getContributionHistory()) {
+                if (ch.getContribution().getName().equals(ContributionName)) {
+                    persons.add(new PersonDTO(ip));
+                    //TODO Check if break or continue
+                    break;
+                }
+            }
         }
         return persons;
     }
-    
-    public List<IPersonDTO> loadPersonsWithSports(List<String> SportNames){
+
+    public List<IPersonDTO> loadPersonsWithSports(List<String> SportNames) {
         List<IPersonDTO> persons = new LinkedList<IPersonDTO>();
         for (IRole ir : RoleDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             for (String name : SportNames) {
                 if (ir.getSport().getName().equals(name)) {
                     for (IPersonDTO iPersonDTO : persons) {
                         //Wenn Person mit gleichen vor und nachnamen nicht schon vorhanden ist hinzufügen
-                        if (!((iPersonDTO.getFirstname().equals(ir.getPerson().getFirstname())) &&
-                                (iPersonDTO.getLastname().equals(ir.getPerson().getLastname())))) {
+                        if (!((iPersonDTO.getFirstname().equals(ir.getPerson().getFirstname()))
+                                && (iPersonDTO.getLastname().equals(ir.getPerson().getLastname())))) {
                             persons.add(iPersonDTO);
                         }
                     }
@@ -109,14 +109,23 @@ public class PersonController implements Remote, IController {
         }
         return persons;
     }
-    
-    
-    public List<IPerson> loadPersons(){
-    return PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
+
+    private List<IPerson> loadPersonsModel() {
+        return PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
     }
     
-     public IPerson loadPersonWithIDNonDTO(int personID) {
-     List<IPerson> persons =    PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
+    public List<IPersonDTO> loadPersons() {
+        List<IPersonDTO> personsDTO = new LinkedList<>();
+        
+        for(IPerson ip : loadPersonsModel()) {
+            personsDTO.add(new PersonDTO(ip));
+        }
+        
+        return personsDTO;
+    }
+
+    public IPerson loadPersonWithIDNonDTO(int personID) {
+        List<IPerson> persons = PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
         for (IPerson ip : persons) {
             if (ip.getPersonID() == personID) {
                 return ip;

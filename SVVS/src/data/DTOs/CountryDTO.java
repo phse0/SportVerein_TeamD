@@ -47,5 +47,10 @@ public class CountryDTO extends AbstractDTO<ICountry> implements ICountryDTO{
     public void setCode(String code) {
         this.code = code;
     }
-    
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }
