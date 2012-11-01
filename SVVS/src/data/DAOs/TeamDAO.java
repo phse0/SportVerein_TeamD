@@ -46,7 +46,8 @@ public class TeamDAO extends AbstractDAO<ITeam, ITeamDTO> implements ITeamDAO{
     @Override
     public List<ITeam> getBySport(Session s,ISport model) {
         
-        Query query = s.createQuery("FROM " + getTable() + " WHERE sport = model");
+        Query query = s.createQuery("FROM " + getTable() + " WHERE sport = :model");
+        query.setParameter("model", model);
         return query.list();    
     }
     

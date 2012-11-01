@@ -43,11 +43,11 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
     }
 
     @Override
-    public List<ISport> getByName(Session s,String name) {
+    public ISport getByName(Session s,String name) {
         
         Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
         query.setString("name", name);
-        return query.list();       
+        return (ISport)query.uniqueResult();       
     }
     
 }

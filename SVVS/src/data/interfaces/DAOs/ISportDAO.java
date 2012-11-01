@@ -6,7 +6,6 @@ package data.interfaces.DAOs;
 
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ISport;
-import java.util.List;
 import org.hibernate.Session;
 
 /**
@@ -15,6 +14,6 @@ import org.hibernate.Session;
  */
 public interface ISportDAO extends IDAOs<ISport, ISportDTO>{
 
-    List<ISport> getByName(Session s, String name);
+    ISport getByName(Session s, String name);
     
 }
