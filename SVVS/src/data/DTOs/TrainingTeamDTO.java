@@ -22,7 +22,7 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
 
     protected IDepartmentDTO department;
     protected List<ISportsmanTrainingTeamDTO> sportsmen;
-    protected List<ICoachDTO> coaches;
+//    protected List<ICoachDTO> coaches;
 
     @Override
     public void extract(ITrainingTeam model) {
@@ -32,15 +32,15 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
         for(ISportsmanTrainingTeam stt: model.getSportsmen()){
             sportsmen.add(new SportsmanTrainingTeamDTO(stt));
         }
-        
-        for(ICoach coach: model.getCoaches()){
-            coaches.add(new CoachDTO(coach));
-        }
+//        
+//        for(ICoach coach: model.getCoaches()){
+//            coaches.add(new CoachDTO(coach));
+//        }
     }
     
     public TrainingTeamDTO(ITrainingTeam model){
         sportsmen = new LinkedList<>();
-        coaches = new LinkedList<>();
+//        coaches = new LinkedList<>();
         extract(model);
     }
 
@@ -64,14 +64,14 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
         this.sportsmen = sportsmen;
     }
 
-    @Override
-    public List<ICoachDTO> getCoaches() {
-        return coaches;
-    }
-
-    @Override
-    public void setCoaches(List<ICoachDTO> coaches) {
-        this.coaches = coaches;
-    }
+//    @Override
+//    public List<ICoachDTO> getCoaches() {
+//        return coaches;
+//    }
+//
+//    @Override
+//    public void setCoaches(List<ICoachDTO> coaches) {
+//        this.coaches = coaches;
+//    }
 
 }

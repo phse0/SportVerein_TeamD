@@ -13,13 +13,13 @@ import java.util.List;
  */
 public interface ITrainingTeamDTO extends IDTO<ITrainingTeam>{
 
-    List<ICoachDTO> getCoaches();
+//    List<ICoachDTO> getCoaches();
 
     IDepartmentDTO getDepartment();
 
     List<ISportsmanTrainingTeamDTO> getSportsmen();
 
-    void setCoaches(List<ICoachDTO> coaches);
+//    void setCoaches(List<ICoachDTO> coaches);
 
     void setDepartment(IDepartmentDTO department);
 

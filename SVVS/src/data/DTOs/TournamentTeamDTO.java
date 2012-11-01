@@ -23,7 +23,7 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
     protected ILeagueDTO league;
     protected IDepartmentDTO department;
     protected List<ISportsmanTrainingTeamDTO> sportsmen;
-    protected List<ICoachDTO> coaches;
+    //protected List<ICoachDTO> coaches;
     
     public TournamentTeamDTO(ITournamentTeam model){
         extract(model);
@@ -49,9 +49,9 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
             sportsmen.add(new SportsmanTrainingTeamDTO(stt));
         }
         
-        for(ICoach coach: model.getCoaches()){
-            coaches.add(new CoachDTO(coach));
-        }
+//        for(ICoach coach: model.getCoaches()){
+//            coaches.add(new CoachDTO(coach));
+//        }
     }
 
     @Override
@@ -74,15 +74,15 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         this.sportsmen = sportsmen;
     }
 
-    @Override
-    public List<ICoachDTO> getCoaches() {
-        return coaches;
-    }
-
-    @Override
-    public void setCoaches(List<ICoachDTO> coaches) {
-        this.coaches = coaches;
-    }
+//    @Override
+//    public List<ICoachDTO> getCoaches() {
+//        return coaches;
+//    }
+//
+//    @Override
+//    public void setCoaches(List<ICoachDTO> coaches) {
+//        this.coaches = coaches;
+//    }
 
    
     

@@ -9,6 +9,9 @@ import data.interfaces.DAOs.ISportDAO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ISport;
 import data.models.Sport;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,6 +40,13 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
     @Override
     public ISportDTO extractDTO(ISport model) {
         return new SportDTO(model);
+    }
+
+    public List<ISport> getByName(Session s,String name) {
+        
+        Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
+        query.setString("name", name);
+        return query.list();       
     }
     
 }

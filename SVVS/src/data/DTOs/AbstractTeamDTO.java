@@ -4,11 +4,7 @@
  */
 package data.DTOs;
 
-import data.interfaces.DTOs.ISportDTO;
-import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ITeam;
-import data.interfaces.models.ITournament;
-import java.util.List;
 
 /**
  *

@@ -5,7 +5,6 @@
 package data.interfaces.DTOs;
 
 import data.interfaces.models.ITeam;
-import java.util.List;
 
 /**
  *
