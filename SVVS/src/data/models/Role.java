@@ -8,6 +8,7 @@ import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.IRoleRights;
+import data.interfaces.models.ISport;
 
 /**
  *
@@ -19,7 +20,8 @@ public class Role implements IRole {
     protected IPerson person;
     protected IRoleRights roleRight;
     protected IDepartment department;
-
+    protected ISport sport;
+    
     @Override
     public int getRoleID() {
         return roleID;
@@ -63,5 +65,15 @@ public class Role implements IRole {
     @Override
     public String getPersonName() {
         return this.person.getName();
+    }
+
+    @Override
+    public ISport getSport() {
+        return this.sport;
+    }
+
+    @Override
+    public void setSport(ISport sport) {
+        this.sport = sport;
     }
 }

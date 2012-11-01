@@ -21,6 +21,7 @@ import data.interfaces.DAOs.ISportsmanDAO;
 import data.interfaces.DAOs.ITeamDAO;
 import data.interfaces.DAOs.ITournamentDAO;
 import data.interfaces.DAOs.ITrainingTeamDAO;
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.models.IAddress;
 import data.interfaces.models.ICoach;
 import data.interfaces.models.ICountry;
@@ -31,6 +32,7 @@ import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
 import data.interfaces.models.ITrainingTeam;
+import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -173,6 +175,28 @@ public class test {
             
             System.out.println("\n\n");
         }
+        
+        System.out.println("######## TEST COUNTRYDTO ########");
+        
+        countryDAO = CountryDAO.getInstance();
+        countryList = countryDAO.getAll(s);
+        List<ICountryDTO> countryDTOs = new LinkedList<>();
+        
+         for (ICountry country : countryList) {
+            countryDTOs.add(countryDAO.extractDTO(country));
+        }
+        
+         for (int i = 0; i < countryDTOs.size(); i++) {
+            ICountry iCountry = countryList.get(i);
+            ICountryDTO iCountryDTO = countryDTOs.get(i);
+            
+            System.out.println(iCountry.getName() + ", " + iCountry.getCode());
+            System.out.println(iCountryDTO.getName() + ", " + iCountryDTO.getCode());
+            System.out.println();
+                               
+        }
+         
+  
 
     }
 }

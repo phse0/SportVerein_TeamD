@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.RoleDTO;
 import data.interfaces.DAOs.IRoleDAO;
+import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.models.IRole;
 import data.models.Role;
 
@@ -12,7 +14,7 @@ import data.models.Role;
  *
  * @author uubu
  */
-public class RoleDAO extends AbstractDAO<IRole> implements IRoleDAO{
+public class RoleDAO extends AbstractDAO<IRole, IRoleDTO> implements IRoleDAO{
     
     private static IRoleDAO instance;
     
@@ -30,6 +32,11 @@ public class RoleDAO extends AbstractDAO<IRole> implements IRoleDAO{
     @Override
     public IRole create() {
         return new Role();
+    }
+
+    @Override
+    public IRoleDTO extractDTO(IRole model) {
+        return new RoleDTO(model);
     }
     
     

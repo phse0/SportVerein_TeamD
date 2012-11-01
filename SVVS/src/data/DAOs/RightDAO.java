@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.RightDTO;
 import data.interfaces.DAOs.IRightDAO;
+import data.interfaces.DTOs.IRightDTO;
 import data.interfaces.models.IRight;
 import data.models.Right;
 
@@ -12,7 +14,7 @@ import data.models.Right;
  *
  * @author uubu
  */
-public class RightDAO extends AbstractDAO<IRight> implements IRightDAO{
+public class RightDAO extends AbstractDAO<IRight, IRightDTO> implements IRightDAO{
 
     private static IRightDAO instance;
     
@@ -30,6 +32,11 @@ public class RightDAO extends AbstractDAO<IRight> implements IRightDAO{
     @Override
     public IRight create() {
         return new Right();
+    }
+
+    @Override
+    public IRightDTO extractDTO(IRight model) {
+        return new RightDTO(model);
     }
     
 }

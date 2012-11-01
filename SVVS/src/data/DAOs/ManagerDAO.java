@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.ManagerDTO;
 import data.interfaces.DAOs.IManagerDAO;
+import data.interfaces.DTOs.IManagerDTO;
 import data.interfaces.models.IManager;
 import data.models.Manager;
 
@@ -12,7 +14,7 @@ import data.models.Manager;
  *
  * @author uubu
  */
-public class ManagerDAO extends AbstractDAO<IManager> implements IManagerDAO {
+public class ManagerDAO extends AbstractDAO<IManager, IManagerDTO> implements IManagerDAO {
 
     private static IManagerDAO instance;
     
@@ -30,6 +32,11 @@ public class ManagerDAO extends AbstractDAO<IManager> implements IManagerDAO {
     @Override
     public IManager create() {
         return new Manager();
+    }
+
+    @Override
+    public IManagerDTO extractDTO(IManager model) {
+        return new ManagerDTO(model);
     }
     
 }

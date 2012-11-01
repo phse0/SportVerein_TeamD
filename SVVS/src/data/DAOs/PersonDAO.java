@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.PersonDTO;
 import data.interfaces.DAOs.IPersonDAO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IPerson;
 import data.models.Person;
 import java.util.List;
@@ -15,7 +17,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public class PersonDAO extends AbstractDAO<IPerson> implements IPersonDAO {
+public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPersonDAO {
 
     private static IPersonDAO instance;
     
@@ -57,6 +59,11 @@ public class PersonDAO extends AbstractDAO<IPerson> implements IPersonDAO {
         Query query = s.createQuery("FROM " + getTable() + " WHERE firstname = :fname");
         query.setString("fname", name);
         return query.list();    
+    }
+
+    @Override
+    public IPersonDTO extractDTO(IPerson model) {
+        return new PersonDTO(model);
     }
 
 }

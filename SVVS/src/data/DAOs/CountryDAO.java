@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.CountryDTO;
 import data.interfaces.DAOs.ICountryDAO;
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.models.ICountry;
 import data.models.Country;
 import org.hibernate.Query;
@@ -14,7 +16,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public class CountryDAO extends AbstractDAO<ICountry> implements ICountryDAO {
+public class CountryDAO extends AbstractDAO<ICountry,ICountryDTO> implements ICountryDAO {
 
     private static ICountryDAO instance;
 
@@ -29,6 +31,11 @@ public class CountryDAO extends AbstractDAO<ICountry> implements ICountryDAO {
         return instance;
     }
 
+    @Override
+    public ICountryDTO extractDTO(ICountry country){
+        return new CountryDTO(country);
+    }
+    
     @Override
     public ICountry create() {
         return new Country();
@@ -49,4 +56,5 @@ public class CountryDAO extends AbstractDAO<ICountry> implements ICountryDAO {
         query.setString(":code", code);
         return (ICountry) query.list().get(0);
     }
+
 }

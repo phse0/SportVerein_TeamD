@@ -9,6 +9,7 @@
         <many-to-one name="person" column="personID" not-null="true" class="data.models.Person"/>
         <many-to-one name="roleRight" column="roleRightsID" class="data.models.RoleRights"/>
         <many-to-one name="department" column="departmentID" class="data.models.Department"/>
+        <many-to-one name="sport" column="sportID" not-null="false" class="data.models.Sport"/>
 
         <joined-subclass name="data.models.Administrator" table="administrator">
             <key column="roleID"/>

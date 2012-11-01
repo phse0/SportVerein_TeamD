@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ICaretakerDTO;
 import data.interfaces.models.ICaretaker;
 
 /**
  *
  * @author uubu
  */
-public interface ICaretakerDAO extends IDAOs<ICaretaker> {
+public interface ICaretakerDAO extends IDAOs<ICaretaker, ICaretakerDTO> {
     
 }

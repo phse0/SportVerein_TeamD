@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.models.ICoach;
 
 /**
  *
  * @author uubu
  */
-public interface ICoachDAO extends IDAOs<ICoach>{
+public interface ICoachDAO extends IDAOs<ICoach, ICoachDTO>{
     
 }

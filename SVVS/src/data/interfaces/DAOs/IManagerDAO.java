@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.IManagerDTO;
 import data.interfaces.models.IManager;
 
 /**
  *
  * @author uubu
  */
-public interface IManagerDAO extends IDAOs<IManager>{
+public interface IManagerDAO extends IDAOs<IManager, IManagerDTO>{
     
 }

@@ -24,11 +24,7 @@ public interface ITeam extends IModel {
 
     void setTeamID(int teamID);
 
-    List<IMatch> getMatches();
-
     List<ITournament> getTournaments();
-
-    void setMatches(List<IMatch> matches);
 
     void setTournaments(List<ITournament> tournaments);
     

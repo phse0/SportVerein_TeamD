@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.models.IMatch;
 
 /**
  *
  * @author uubu
  */
-public interface IMatchDAO extends IDAOs<IMatch>{
+public interface IMatchDAO extends IDAOs<IMatch, IMatchDTO>{
     
 }

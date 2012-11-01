@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.CoachDTO;
 import data.interfaces.DAOs.ICoachDAO;
+import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.models.ICoach;
 import data.models.Coach;
 
@@ -12,7 +14,7 @@ import data.models.Coach;
  *
  * @author uubu
  */
-public class CoachDAO extends AbstractDAO<ICoach> implements ICoachDAO {
+public class CoachDAO extends AbstractDAO<ICoach, ICoachDTO> implements ICoachDAO {
 
     private static ICoachDAO instance;
     
@@ -30,6 +32,11 @@ public class CoachDAO extends AbstractDAO<ICoach> implements ICoachDAO {
     @Override
     public ICoach create() {
         return new Coach();
+    }
+
+    @Override
+    public ICoachDTO extractDTO(ICoach model) {
+        return new CoachDTO(model);
     }
     
 }

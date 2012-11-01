@@ -4,6 +4,7 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.IAddressDTO;
 import data.interfaces.models.IAddress;
 import java.util.List;
 import org.hibernate.Session;
@@ -12,7 +13,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public interface IAddressDAO extends IDAOs<IAddress> {
+public interface IAddressDAO extends IDAOs<IAddress,IAddressDTO> {
     
     public List<IAddress> getByCity(Session s, String city);
     

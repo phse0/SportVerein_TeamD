@@ -4,6 +4,7 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.models.ICountry;
 import org.hibernate.Session;
 
@@ -11,7 +12,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public interface ICountryDAO extends IDAOs<ICountry> {
+public interface ICountryDAO extends IDAOs<ICountry, ICountryDTO> {
     
     public ICountry getByName(Session s,String name);
     

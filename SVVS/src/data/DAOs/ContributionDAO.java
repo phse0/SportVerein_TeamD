@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.ContributionDTO;
 import data.interfaces.DAOs.IContributionDAO;
+import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.models.IContribution;
 import data.models.Contribution;
 
@@ -12,7 +14,7 @@ import data.models.Contribution;
  *
  * @author uubu
  */
-public class ContributionDAO extends AbstractDAO<IContribution> implements IContributionDAO{
+public class ContributionDAO extends AbstractDAO<IContribution, IContributionDTO> implements IContributionDAO{
 
     private static IContributionDAO instance;
     
@@ -30,6 +32,11 @@ public class ContributionDAO extends AbstractDAO<IContribution> implements ICont
     @Override
     public IContribution create() {
         return new Contribution();
+    }
+
+    @Override
+    public IContributionDTO extractDTO(IContribution model) {
+        return new ContributionDTO(model);
     }
     
 }

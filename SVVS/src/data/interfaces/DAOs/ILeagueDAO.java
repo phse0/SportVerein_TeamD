@@ -4,12 +4,13 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.models.ILeague;
 
 /**
  *
  * @author uubu
  */
-public interface ILeagueDAO extends IDAOs<ILeague>{
+public interface ILeagueDAO extends IDAOs<ILeague, ILeagueDTO>{
     
 }

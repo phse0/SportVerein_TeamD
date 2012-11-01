@@ -4,6 +4,7 @@
  */
 package data.interfaces.DAOs;
 
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ITrainingTeam;
 import org.hibernate.Session;
 
@@ -11,7 +12,7 @@ import org.hibernate.Session;
  *
  * @author uubu
  */
-public interface ITrainingTeamDAO extends IDAOs<ITrainingTeam>{
+public interface ITrainingTeamDAO extends IDAOs<ITrainingTeam, ITrainingTeamDTO>{
 
     ITrainingTeam getByName(Session s, String name);
     

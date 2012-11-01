@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.SportsmanDTO;
 import data.interfaces.DAOs.ISportsmanDAO;
+import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.models.ISportsman;
 import data.models.Sportsman;
 
@@ -12,7 +14,7 @@ import data.models.Sportsman;
  *
  * @author uubu
  */
-public class SportsmanDAO extends AbstractDAO<ISportsman> implements ISportsmanDAO{
+public class SportsmanDAO extends AbstractDAO<ISportsman, ISportsmanDTO> implements ISportsmanDAO{
 
     private static ISportsmanDAO instance;
     
@@ -30,6 +32,11 @@ public class SportsmanDAO extends AbstractDAO<ISportsman> implements ISportsmanD
     @Override
     public ISportsman create() {
         return new Sportsman();
+    }
+
+    @Override
+    public ISportsmanDTO extractDTO(ISportsman model) {
+       return new SportsmanDTO(model);
     }
     
 }

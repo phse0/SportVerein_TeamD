@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.TournamentDTO;
 import data.interfaces.DAOs.ITournamentDAO;
+import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ITournament;
 import data.models.Tournament;
 
@@ -12,7 +14,7 @@ import data.models.Tournament;
  *
  * @author uubu
  */
-public class TournamentDAO extends AbstractDAO<ITournament> implements ITournamentDAO{
+public class TournamentDAO extends AbstractDAO<ITournament, ITournamentDTO> implements ITournamentDAO{
 
     private static ITournamentDAO instance;
     
@@ -30,6 +32,11 @@ public class TournamentDAO extends AbstractDAO<ITournament> implements ITourname
     @Override
     public ITournament create() {
         return new Tournament();
+    }
+
+    @Override
+    public ITournamentDTO extractDTO(ITournament model) {
+        return new TournamentDTO(model);
     }
     
 }

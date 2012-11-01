@@ -4,15 +4,21 @@
  */
 package data.DAOs;
 
+import data.DTOs.TeamDTO;
 import data.interfaces.DAOs.ITeamDAO;
+import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.models.Team;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
  * @author uubu
  */
-public class TeamDAO extends AbstractDAO<ITeam> implements ITeamDAO{
+public class TeamDAO extends AbstractDAO<ITeam, ITeamDTO> implements ITeamDAO{
 
     private static ITeamDAO instance;
     
@@ -30,6 +36,19 @@ public class TeamDAO extends AbstractDAO<ITeam> implements ITeamDAO{
     @Override
     public ITeam create() {
         return new Team();
+    }
+
+    @Override
+    public ITeamDTO extractDTO(ITeam model) {
+        return new TeamDTO(model);
+    }
+    
+    @Override
+    public List<ITeam> getBySport(Session s,ISport model) {
+        
+        Query query = s.createQuery("FROM " + getTable() + " WHERE sport = :model");
+        query.setParameter("model", model);
+        return query.list();    
     }
     
 }

@@ -4,7 +4,9 @@
  */
 package data.DAOs;
 
+import data.DTOs.MatchDTO;
 import data.interfaces.DAOs.IMatchDAO;
+import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.models.IMatch;
 import data.models.Match;
 
@@ -12,7 +14,7 @@ import data.models.Match;
  *
  * @author uubu
  */
-public class MatchDAO extends AbstractDAO<IMatch> implements IMatchDAO{
+public class MatchDAO extends AbstractDAO<IMatch, IMatchDTO> implements IMatchDAO{
 
     private static IMatchDAO instance;
     
@@ -30,6 +32,11 @@ public class MatchDAO extends AbstractDAO<IMatch> implements IMatchDAO{
     @Override
     public IMatch create() {
         return new Match();
+    }
+
+    @Override
+    public IMatchDTO extractDTO(IMatch model) {
+        return new MatchDTO(model);
     }
     
 }
