@@ -7,7 +7,9 @@ package data.models;
 import data.interfaces.models.IAddress;
 import data.interfaces.models.IContribution;
 import data.interfaces.models.IContributionHistory;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +30,8 @@ public class Person implements IPerson {
     protected String password;
     protected List<IContributionHistory> contributionHistory;
     protected List<IAddress> addresses;
+    protected List<IRole> roles;
+    protected List<IDepartment> departments;
     protected IAddress mainAddress;
     protected int right;
     protected Date birthdate;
@@ -35,7 +39,30 @@ public class Person implements IPerson {
     public Person() {
         contributionHistory = new LinkedList<>();
         addresses = new LinkedList<>();
+        roles = new LinkedList<>();
+        departments = new LinkedList<>(); 
     }
+
+    @Override
+    public List<IRole> getRoles() {
+        return roles;
+    }
+
+    @Override
+    public void setRoles(List<IRole> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public List<IDepartment> getDepartments() {
+        return departments;
+    }
+
+    @Override
+    public void setDepartments(List<IDepartment> departments) {
+        this.departments = departments;
+    }
+    
     
     @Override
     public int getPersonID() {
@@ -127,6 +154,12 @@ public class Person implements IPerson {
         return contributionHistory;
     }
 
+    @Override
+    public String getLastContributionStatus(){
+        LinkedList<IContributionHistory> temp = new LinkedList(contributionHistory);
+        return temp.getLast().getStatus();
+    }
+    
     @Override
     public void setContributionHistory(List<IContributionHistory> contributionHistory) {
         this.contributionHistory = contributionHistory;

@@ -25,6 +25,16 @@
             <one-to-many class="data.models.ContributionHistory" />
         </bag>
         
+        <bag cascade="all" name="roles" table="role">
+            <key column="personID" />
+            <one-to-many class="data.models.Role" />
+        </bag>
+        
+        <bag cascade="all" name="departments" table="role">
+            <key column="personID" />
+            <many-to-many class="data.models.Department" column="departmentID" />
+        </bag>
+        
         <bag cascade="all" name="addresses" table="personAddress">
             <key column="personID" />
             <many-to-many class="data.models.Address" column="addressID" />
