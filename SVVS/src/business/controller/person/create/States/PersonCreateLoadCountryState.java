@@ -10,6 +10,7 @@ import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -26,7 +27,7 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ICountryDTO> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException {
       /* LinkedList<ICountry> countries = new LinkedList<ICountry>();
         
         for (ICountry iC : CountryDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {

@@ -13,7 +13,6 @@ import data.interfaces.models.IDepartment;
  */
 public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartmentDTO{
 
-    protected int departmentID;
     protected String name;
               
     public DepartmentDTO(IDepartment model){
@@ -22,17 +21,8 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
     
     @Override
     public void extract(IDepartment model) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public int getDepartmentID() {
-        return departmentID;
-    }
-
-    @Override
-    public void setDepartmentID(int departmentID) {
-        this.departmentID = departmentID;
+        this.id = model.getDepartmentID();
+        this.name = model.getName();
     }
 
     @Override

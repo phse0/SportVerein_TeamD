@@ -8,6 +8,7 @@ import data.DTOs.PersonDTO;
 import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
 import data.models.Person;
 import java.util.List;
 import org.hibernate.Query;
@@ -37,6 +38,14 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         return new Person();
     }
 
+    @Override
+    public List<IRole> getAllRoles(Session s, IPerson model){
+        
+        Query query = s.createQuery("From" + "data.models.Role" + "WHERE person = :model");
+        query.setParameter("model", model);
+        return query.list(); 
+    }
+    
     @Override
     public List<IPerson> getLikeName(Session s,String name) {
         

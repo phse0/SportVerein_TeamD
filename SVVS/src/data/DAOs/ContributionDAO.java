@@ -8,7 +8,11 @@ import data.DTOs.ContributionDTO;
 import data.interfaces.DAOs.IContributionDAO;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.models.IContribution;
+import data.interfaces.models.IPerson;
 import data.models.Contribution;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,6 +41,13 @@ public class ContributionDAO extends AbstractDAO<IContribution, IContributionDTO
     @Override
     public IContributionDTO extractDTO(IContribution model) {
         return new ContributionDTO(model);
+    }
+    
+    public List<IContribution> getByPerson(Session s,IPerson model) {
+        
+        Query query = s.createQuery("FROM " + getTable() + " WHERE person = :model");
+        query.setParameter("model", model);
+        return query.list();    
     }
     
 }

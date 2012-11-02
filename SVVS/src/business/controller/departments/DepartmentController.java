@@ -11,6 +11,7 @@ import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.models.IDepartment;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @author phil
  */
-public class DepartmentController implements Remote, IController  {
+public class DepartmentController implements IDepartmentController{
     private static DepartmentController instance;
 
     private DepartmentController() {
@@ -31,7 +32,8 @@ public class DepartmentController implements Remote, IController  {
         return instance;
     }
     
-    public List<IDepartmentDTO> loadDepartments(){
+    @Override
+    public List<IDepartmentDTO> loadDepartments() throws RemoteException{
     LinkedList<IDepartmentDTO> deps = new LinkedList<IDepartmentDTO>();
         for (IDepartment iDep : DepartmentDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             deps.add(new DepartmentDTO(iDep));

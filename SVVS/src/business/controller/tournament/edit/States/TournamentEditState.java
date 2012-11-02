@@ -15,6 +15,7 @@ import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class TournamentEditState implements ITournamentEditState  {
     }
 
     @Override
-    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) {
+    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException {
  
         ITournament tournament = TournamentController.getInstance().loadTournament(ID);
         tournament.setName(name);

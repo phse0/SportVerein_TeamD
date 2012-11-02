@@ -74,6 +74,18 @@ public interface IPerson extends IModel {
     void setMainAddress(IAddress mainAddress);
 
     String getName();
+
+    IContribution getLastContribution();
+
+    List<IDepartment> getDepartments();
+
+    List<IRole> getRoles();
+
+    void setDepartments(List<IDepartment> departments);
+
+    void setRoles(List<IRole> roles);
+
+    String getLastContributionStatus();
   
    
     

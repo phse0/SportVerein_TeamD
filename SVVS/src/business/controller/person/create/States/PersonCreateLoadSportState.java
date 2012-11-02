@@ -14,6 +14,7 @@ import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ISport;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -35,7 +36,7 @@ public class PersonCreateLoadSportState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException {
         /*LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
