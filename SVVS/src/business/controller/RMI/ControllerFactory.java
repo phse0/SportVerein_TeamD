@@ -5,11 +5,18 @@
 package business.controller.RMI;
 
 import business.controller.departments.DepartmentController;
+import business.controller.departments.IDepartmentController;
+import business.controller.person.IPersonController;
 import business.controller.person.PersonController;
+import business.controller.person.create.IPersonCreation;
 import business.controller.person.create.PersonCreation;
+import business.controller.person.edit.IPersonEdit;
 import business.controller.person.edit.PersonEdit;
+import business.controller.tournament.Create.ITournamentCreation;
 import business.controller.tournament.Create.TournamentCreation;
+import business.controller.tournament.ITournamentController;
 import business.controller.tournament.TournamentController;
+import business.controller.tournament.edit.ITournamentEdit;
 import business.controller.tournament.edit.TournamentEdit;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -25,37 +32,37 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     }
 
     @Override
-    public IController loadPersonCreateController() throws RemoteException {
+    public IPersonCreation loadPersonCreateController() throws RemoteException {
         return new PersonCreation();
     }
 
     @Override
-    public IController loadPersonEditController() throws RemoteException {
+    public IPersonEdit loadPersonEditController() throws RemoteException {
         return new PersonEdit();
     }
 
     @Override
-    public IController loadPersonController() throws RemoteException {
+    public IPersonController loadPersonController() throws RemoteException {
         return PersonController.getInstance();
     }
 
     @Override
-    public IController loadTournamentCreateController() throws RemoteException {
+    public ITournamentCreation loadTournamentCreateController() throws RemoteException {
         return new TournamentCreation();
     }
     
     @Override
-    public IController loadTournamentEditController() throws RemoteException {
+    public ITournamentEdit loadTournamentEditController() throws RemoteException {
         return new TournamentEdit();
     }
     
     @Override
-    public IController loadTournamentController() throws RemoteException {
+    public ITournamentController loadTournamentController() throws RemoteException {
         return TournamentController.getInstance();
     }
     
     @Override
-    public IController loadDepartmentController() throws RemoteException {
+    public IDepartmentController loadDepartmentController() throws RemoteException {
         return DepartmentController.getInstance();
     }
 }

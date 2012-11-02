@@ -4,6 +4,8 @@
  */
 package presentation.personListeners;
 
+import business.controller.RMI.IControllerFactory;
+import business.controller.person.edit.IPersonEdit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -21,9 +23,11 @@ import presentation.tableModels.PersonTableModel;
 public class EditPersonListener implements ActionListener {
 
     JTable _table;
+    IControllerFactory factory;
 
-    public EditPersonListener(JTable table) {
+    public EditPersonListener(JTable table, IControllerFactory factory) {
         _table = table;
+        this.factory = factory;
     }
 
     @Override
@@ -33,9 +37,10 @@ public class EditPersonListener implements ActionListener {
         } else {
             int index = _table.convertRowIndexToModel(_table.getSelectedRow());
             PersonTableModel personModel = (PersonTableModel) _table.getModel();
-            
+
             try {
-                new CreatePersonDialog(null, true, personModel.getPersonDTO(index)).setVisible(true);
+                IPersonEdit personEdit = factory.loadPersonEditController();
+                new CreatePersonDialog(null, true, personEdit, personModel.getPersonDTO(index)).setVisible(true);
             } catch (RemoteException ex) {
                 Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);
             }

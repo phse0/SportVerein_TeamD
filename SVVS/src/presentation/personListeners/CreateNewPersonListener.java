@@ -27,7 +27,7 @@ public class CreateNewPersonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             IPersonCreation createController;
-            createController = (IPersonCreation) controllerfactory.loadPersonCreateController();
+            createController = controllerfactory.loadPersonCreateController();
             new CreatePersonDialog(null, true, createController).setVisible(true);
         } catch (RemoteException ex) {
             System.out.println("Coud not load controller");

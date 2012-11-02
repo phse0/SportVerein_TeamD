@@ -5,6 +5,7 @@
 package presentation.forms;
 
 import business.controller.person.create.IPersonCreation;
+import business.controller.person.edit.IPersonEdit;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
@@ -25,6 +26,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
 
     IPersonDTO person;
     IPersonCreation personCreation;
+    IPersonEdit personEdit;
 
     /**
      * Creates new form CreatePersonDialog
@@ -39,9 +41,10 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
 
-    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonDTO person) throws RemoteException {
+    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonEdit personEdit, IPersonDTO person) throws RemoteException {
         super(parent, modal);
         initComponents();
+        this.personEdit = personEdit;
         this.person = person;
         this.setTitle("Mitglied bearbeiten");
 
@@ -70,8 +73,8 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         tbxBirthdate = new javax.swing.JTextField();
         cobContribution = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tbxUsername = new javax.swing.JTextField();
+        tbxPassword = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -134,7 +137,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13)
                         .addGap(28, 28, 28)
-                        .addComponent(jTextField2))
+                        .addComponent(tbxPassword))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -147,7 +150,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1))
+                                .addComponent(tbxUsername))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -181,13 +184,13 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbxUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -371,7 +374,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             btnSave.addActionListener(new SavePersonListener(personCreation, this));
         }
 
-        if (person != null) {
+        if (person != null && personEdit != null) {
             tbxFirstname.setText(person.getFirstname());
             tbxLastname.setText(person.getLastname());
             tbxBirthdate.setText(person.getBirthdate());
@@ -382,6 +385,10 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 rdbFemale.doClick();
             }
 
+            
+            
+            tbxUsername.setText(person.getUsername());
+            tbxPassword.setText(person.getPassword());
             tbxStreet.setText(person.getMainAddress().getStreet());
             tbxPostCode.setText(person.getMainAddress().getPostcode());
             tbxCity.setText(person.getMainAddress().getCity());
@@ -416,8 +423,6 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JList lbxSports;
     private javax.swing.JRadioButton rdbFemale;
     private javax.swing.JRadioButton rdbMale;
@@ -426,9 +431,11 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tbxFirstname;
     private javax.swing.JTextField tbxLastname;
     private javax.swing.JTextField tbxMail;
+    private javax.swing.JTextField tbxPassword;
     private javax.swing.JTextField tbxPhone;
     private javax.swing.JTextField tbxPostCode;
     private javax.swing.JTextField tbxStreet;
+    private javax.swing.JTextField tbxUsername;
     // End of variables declaration//GEN-END:variables
 
     public String getBirthdate() {
@@ -490,11 +497,11 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     }
 
     public String getUserName() {
-        return jTextField1.getText();
+        return tbxUsername.getText();
     }
 
     public String getPassword() {
-        return jTextField2.getText();
+        return tbxPassword.getText();
     }
 
     public int getContribution() {

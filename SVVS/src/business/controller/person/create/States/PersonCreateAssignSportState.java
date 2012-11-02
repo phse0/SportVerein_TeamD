@@ -18,6 +18,7 @@ import data.models.Role;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -60,11 +61,15 @@ public class PersonCreateAssignSportState implements IPersonCreateState{
     public void AssignToSport(LinkedList<String> sport, int personID) {
         for (String sportname : sport) {
              //assigning values
+            Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
+            
             Role role = new Role();
             role.setPerson(PersonController.getInstance().loadPersonWithIDNonDTO(personID));
             role.setSport(PersonController.getInstance().loadSport(sportname));
             
             RoleDAO.getInstance().add(HibernateUtil.getCurrentSession(), role);
+            
+            tx.commit();
         }
     }
     

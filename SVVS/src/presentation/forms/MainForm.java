@@ -317,7 +317,7 @@ public class MainForm extends javax.swing.JFrame {
         personTable.setAutoCreateRowSorter(true);
 
         btnCreatePerson.addActionListener(new CreateNewPersonListener(controllerFactory));
-        btnEditPerson.addActionListener(new EditPersonListener(personTable));
+        btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
         btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
 
 
