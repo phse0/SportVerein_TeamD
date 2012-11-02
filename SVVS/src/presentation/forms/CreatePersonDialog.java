@@ -385,8 +385,6 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 rdbFemale.doClick();
             }
 
-            
-            
             tbxUsername.setText(person.getUsername());
             tbxPassword.setText(person.getPassword());
             tbxStreet.setText(person.getMainAddress().getStreet());
@@ -394,6 +392,31 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             tbxCity.setText(person.getMainAddress().getCity());
             tbxPhone.setText(person.getPhone());
             tbxMail.setText(person.getMail());
+
+            List<ICountryDTO> countries = personEdit.loadCountries();
+            for (ICountryDTO c : countries) {
+                cobCountry.addItem(c);
+            }
+            
+            List<IContributionDTO> contributions = personEdit.loadContributions();
+            for(IContributionDTO c : contributions) {
+                cobContribution.addItem(c);
+            }
+            
+            List<ISportDTO> sports = personEdit.loadSports();
+            DefaultListModel<ISportDTO> sportsList = new DefaultListModel<>();
+            for(int i = 0; i < sports.size(); i++) {
+                ISportDTO s = sports.get(i);
+                sportsList.addElement(s);
+                
+                if(person.getSports().contains(s)) {
+                    lbxSports.addSelectionInterval(i, i);
+                }
+            }
+            lbxSports.setModel(sportsList);
+            
+            cobCountry.setSelectedItem(person.getMainAddress().getCountry());
+            cobContribution.setSelectedItem(person.getContribution());
         }
 
     }
@@ -485,15 +508,15 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     }
 
     public LinkedList<String> getSports() {
-        
+
         List<ISportDTO> sports = lbxSports.getSelectedValuesList();
         LinkedList<String> sportnames = new LinkedList<>();
-        for(ISportDTO s : sports) {
+        for (ISportDTO s : sports) {
             sportnames.add(s.getName());
         }
-        
+
         return sportnames;
-        
+
     }
 
     public String getUserName() {
