@@ -6,6 +6,7 @@ package business.controller.person.create.States;
 
 import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
+import data.DAOs.PersonDAO;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
@@ -65,7 +66,7 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
 
     @Override
     public IPersonDTO CreatePersonDTO() {
-        throw new UnsupportedOperationException("Not supported yet.");
+         return PersonDAO.getInstance().createPersonDTO();
     }
 
     @Override
