@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author phil
  */
-public class PersonController implements Remote, IController {
+public class PersonController implements IPersonController {
 
     private static PersonController instance;
 
@@ -43,6 +43,7 @@ public class PersonController implements Remote, IController {
         return instance;
     }
 
+    @Override
     public LinkedList<ICountryDTO> loadCountries() {
         LinkedList<ICountryDTO> countries = new LinkedList<ICountryDTO>();
 
@@ -57,6 +58,7 @@ public class PersonController implements Remote, IController {
         return SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), name);
     }
 
+    @Override
     public LinkedList<ISportDTO> loadSports() {
         LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
 
@@ -114,6 +116,7 @@ public class PersonController implements Remote, IController {
         return PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
     }
     
+    @Override
     public List<IPersonDTO> loadPersons() {
         List<IPersonDTO> personsDTO = new LinkedList<>();
         

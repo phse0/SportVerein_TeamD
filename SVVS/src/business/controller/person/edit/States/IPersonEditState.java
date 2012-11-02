@@ -4,6 +4,7 @@
  */
 package business.controller.person.edit.States;
 
+import business.controller.RMI.IController;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import java.sql.Date;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public interface IPersonEditState {
+public interface IPersonEditState extends IController {
     public LinkedList<ISportDTO> loadSports();
     public IPersonDTO editPerson(int PersonID, String firstname, String lastname,
             String sex, String phone, String mail,

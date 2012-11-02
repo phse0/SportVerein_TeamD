@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author phil
  */
-public class TournamentController implements Remote, IController {
+public class TournamentController implements ITournamentController{
 
     private static TournamentController instance;
 

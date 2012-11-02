@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author phil
  */
-public class DepartmentController implements Remote, IController  {
+public class DepartmentController implements IDepartmentController{
     private static DepartmentController instance;
 
     private DepartmentController() {
@@ -31,6 +31,7 @@ public class DepartmentController implements Remote, IController  {
         return instance;
     }
     
+    @Override
     public List<IDepartmentDTO> loadDepartments(){
     LinkedList<IDepartmentDTO> deps = new LinkedList<IDepartmentDTO>();
         for (IDepartment iDep : DepartmentDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
