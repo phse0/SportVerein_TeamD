@@ -6,6 +6,8 @@ package business.controller.person.edit.States;
 
 import business.controller.person.PersonController;
 import business.controller.person.edit.PersonEdit;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import java.rmi.RemoteException;
@@ -16,11 +18,11 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public class PersonEditSearchPersonState implements IPersonEditState{
+public class PersonEditLoadSportState implements IPersonEditState{
 
     PersonEdit _editor;
 
-    public PersonEditSearchPersonState(PersonEdit editor) {
+    public PersonEditLoadSportState(PersonEdit editor) {
         _editor = editor;
     }
 
@@ -33,12 +35,22 @@ public class PersonEditSearchPersonState implements IPersonEditState{
     @Override
     public IPersonDTO editPerson(int PersonID, String firstname, String lastname,
     String sex, String phone, String mail, String username, String password, Date birthday,
-    int right, String street, String postcode, String city, String country/*, int contributionID*/) {
+    int right, String street, String postcode, String city, String country, int contributionID)throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException{
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<IContributionDTO> loadContributions()throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

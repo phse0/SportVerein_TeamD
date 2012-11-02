@@ -26,7 +26,7 @@ public class PersonCreateLoadSportState implements IPersonCreateState {
 
     PersonCreation _creator;
 
-    PersonCreateLoadSportState(PersonCreation creator) {
+   public PersonCreateLoadSportState(PersonCreation creator) {
         _creator = creator;
     }
 

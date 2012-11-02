@@ -8,9 +8,12 @@ import business.controller.person.PersonController;
 import business.controller.person.edit.IPersonEdit;
 import data.DAOs.RoleDAO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.models.Role;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -26,17 +29,17 @@ class PersonEditAssignSportState implements IPersonEditState {
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public IPersonDTO editPerson(int PersonID, String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country) {
+    public IPersonDTO editPerson(int PersonID, String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country, int contributionID)throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
           for (String sportname : sport) {
              //assigning values
             Role role = new Role();
@@ -45,6 +48,16 @@ class PersonEditAssignSportState implements IPersonEditState {
             
             RoleDAO.getInstance().add(HibernateUtil.getCurrentSession(), role);
         }
+    }
+
+    @Override
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<IContributionDTO> loadContributions() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
