@@ -4,6 +4,7 @@
  */
 package presentation.tableModels;
 
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -47,7 +48,17 @@ public class PersonTableModel extends DefaultTableModel {
             case 4:
                 return person.getMail();
             case 5:
-                return "";
+                String departments = "";
+                for(int i = 0; i < person.getDepartments().size(); i++) {
+                    IDepartmentDTO d = person.getDepartments().get(i);
+                    
+                    if(i == person.getDepartments().size() - 1) {
+                        departments += d.getName();
+                    } else {
+                        departments += d.getName() + ", ";
+                    }
+                }
+                return departments;
             case 6:
                 return person.getMainAddress().toString();
             case 7:

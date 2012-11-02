@@ -10,6 +10,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,17 +36,20 @@ public class SavePersonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //funktioniert die Speicherung?
         String error = isValide();
-
+        System.out.println(_dialog.getLand());
         if (!error.equals("")) {
             JOptionPane.showMessageDialog(null, "Speichern nicht möglich! \n"
                     + "Bitte korrigieren sie folgende Punkte: \n \n" + error);
         } else {
             try {
-                creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), new java.sql.Date(new java.util.Date(_dialog.getBirthdate()).getTime()), 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+                Date birthdate = new Date(sdf.parse(_dialog.getBirthdate()).getTime());
+                creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthdate, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution());
                 JOptionPane.showMessageDialog(null, "Person wurde gespeichert. \n");
                 _dialog.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Fehler ohne Sinn ist aufgetreten");
+                ex.printStackTrace();
             }
         }
     }
@@ -65,7 +69,8 @@ public class SavePersonListener implements ActionListener {
 
         if (!_dialog.getBirthdate().equals("")) {
             try {
-                new java.sql.Date(new java.util.Date(_dialog.getBirthdate()).getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+                sdf.parse(_dialog.getBirthdate());
             } catch (Exception e) {
                 errormessage += "Geburtsdatum \n";
             }
