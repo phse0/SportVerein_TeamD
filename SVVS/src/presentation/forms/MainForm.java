@@ -265,8 +265,12 @@ public class MainForm extends javax.swing.JFrame {
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
-                String abteilungenTxt = cobDepartment.getSelectedItem().toString();
-
+                
+                String abteilungenTxt = "";
+                if(cobDepartment.getSelectedItem() instanceof IDepartmentDTO) {
+                    abteilungenTxt = ((IDepartmentDTO)cobDepartment.getSelectedItem()).getName();
+                }
+                
                 if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0) {
                     return true;
                 }

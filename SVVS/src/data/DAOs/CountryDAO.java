@@ -44,8 +44,7 @@ public class CountryDAO extends AbstractDAO<ICountry,ICountryDTO> implements ICo
     @Override
     public ICountry getByName(Session s,String name) {
  
-        Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
-        query.setString(":name", name);
+        Query query = s.createQuery("FROM " + getTable() + " WHERE name = '"+ name +"'");
         return (ICountry) query.list().get(0);
     }
 
