@@ -12,6 +12,8 @@ import data.interfaces.DTOs.ISportDTO;
 import java.rmi.RemoteException;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import presentation.personListeners.SavePersonListener;
 
 /**
@@ -67,6 +69,10 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         tbxBirthdate = new javax.swing.JTextField();
         cobContribution = new javax.swing.JComboBox();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         tbxStreet = new javax.swing.JTextField();
@@ -109,6 +115,10 @@ public class CreatePersonDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Mitgliedsbeitrag");
 
+        jLabel12.setText("Benutzername");
+
+        jLabel13.setText("Passwort");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -119,7 +129,11 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel13)
+                        .addGap(28, 28, 28)
+                        .addComponent(jTextField2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -128,17 +142,25 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tbxFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel2)
+                                .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tbxLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rdbFemale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rdbMale))
-                            .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(tbxFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(15, 15, 15)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tbxLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(rdbFemale)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rdbMale)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,11 +179,15 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -313,7 +339,12 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();
+        if (JOptionPane.showConfirmDialog(null,
+                "Wollen sie wirklich abbrechen? Alle eingegebenen Daten gehen für immer verloren", "",
+                JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void initiateFields() throws RemoteException {
@@ -330,13 +361,13 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 sportsList.addElement(s);
             }
             lbxSports.setModel(sportsList);
-            
+
             List<IContributionDTO> contributions = personCreation.loadContributions();
             for (IContributionDTO cont : contributions) {
                 cobContribution.addItem(cont);
             }
 
-            btnSave.addActionListener(new SavePersonListener(personCreation));
+            btnSave.addActionListener(new SavePersonListener(personCreation, this));
         }
 
         if (person != null) {
@@ -358,7 +389,6 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         }
 
     }
-
     /**
      * @param args the command line arguments
      */
@@ -371,6 +401,8 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -383,6 +415,8 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JList lbxSports;
     private javax.swing.JRadioButton rdbFemale;
     private javax.swing.JRadioButton rdbMale;
@@ -395,4 +429,66 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tbxPostCode;
     private javax.swing.JTextField tbxStreet;
     // End of variables declaration//GEN-END:variables
+
+    public String getBirthdate() {
+        return tbxBirthdate.getText();
+    }
+
+    public String getCity() {
+        return tbxCity.getText();
+    }
+
+    public String getFirstName() {
+        return tbxFirstname.getText();
+    }
+
+    public String getLastName() {
+        return tbxLastname.getText();
+    }
+
+    public String getMail() {
+        return tbxMail.getText();
+    }
+
+    public String getPhone() {
+        return tbxPhone.getText();
+    }
+
+    public String getPostCode() {
+        return tbxPostCode.getText();
+    }
+
+    public String getStreet() {
+        return tbxStreet.getText();
+    }
+
+    public String getGender() {
+        if (rdbFemale.isSelected()) {
+            return "w";
+        }
+        if (rdbMale.isSelected()) {
+            return "m";
+        }
+        return " ";
+    }
+
+    public String getLand() {
+        return ((ICountryDTO) cobCountry.getSelectedItem()).getName();
+    }
+
+    public JList getSports() {
+        return lbxSports;
+    }
+
+    public String getUserName() {
+        return jTextField1.getText();
+    }
+
+    public String getPassword() {
+        return jTextField2.getText();
+    }
+
+    public int getContribution() {
+        return ((IContributionDTO) cobContribution.getSelectedItem()).getId();
+    }
 }
