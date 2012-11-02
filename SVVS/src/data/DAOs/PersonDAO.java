@@ -8,7 +8,9 @@ import data.DTOs.PersonDTO;
 import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.models.IAddress;
 import data.interfaces.models.IContributionHistory;
+import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.ISport;
@@ -167,8 +169,11 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
     @Override
     public IPersonDTO createPersonDTO(){
         
+        ICountry country = CountryDAO.getInstance().create();
+        IAddress address = AddressDAO.getInstance().create();
+        address.setCountry(country);
         IPerson person = create();
-        person.setMainAddress(AddressDAO.getInstance().create());
+        person.setMainAddress(address);
         
         return new PersonDTO(person);
     }
