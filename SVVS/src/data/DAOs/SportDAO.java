@@ -17,21 +17,21 @@ import org.hibernate.Session;
  *
  * @author uubu
  */
-public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDAO{
+public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDAO {
 
     private static ISportDAO instance;
-    
-    private SportDAO(){
+
+    private SportDAO() {
         super("data.models.Sport");
     }
-    
-    public static ISportDAO getInstance(){
-        if ( instance == null){
+
+    public static ISportDAO getInstance() {
+        if (instance == null) {
             instance = new SportDAO();
         }
         return instance;
     }
-    
+
     @Override
     public ISport create() {
         return new Sport();
@@ -43,13 +43,12 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
     }
 
     @Override
-    public ISport getByName(Session s,String name) {
-        
+    public ISport getByName(Session s, String name) {
+
         Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
         query.setString("name", name);
-        return (ISport)query.uniqueResult();       
+        return (ISport) query.uniqueResult();
     }
-    
 
     public ISport getById(Session s, int id) {
 
@@ -64,7 +63,7 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
             return null;
         }
 
-        ISport sport = getById(s, dto.getId());
+        ISport sport = (dto.getId() == 0) ? null : getById(s, dto.getId());
 
         if (sport == null) {
             sport = create();
@@ -76,7 +75,6 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
 
         return sport;
     }
-
 
     public ISportDTO saveDTO(Session s, ISportDTO dto) {
 

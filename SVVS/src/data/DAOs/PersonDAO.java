@@ -52,7 +52,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
     @Override
     public List<IRole> getAllRoles(Session s, IPerson model){
         
-        Query query = s.createQuery("From" + "data.models.Role" + "WHERE person = :model");
+        Query query = s.createQuery("From " + "data.models.Role" + " WHERE person = :model");
         query.setParameter("model", model);
         return query.list(); 
     }

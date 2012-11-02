@@ -72,7 +72,7 @@ public class CountryDAO extends AbstractDAO<ICountry, ICountryDTO> implements IC
             return null;
         }
 
-        ICountry country = getById(s, dto.getId());
+        ICountry country = (dto.getId()==0)? null:getById(s, dto.getId());
 
         if (country == null) {
             country = create();

@@ -62,33 +62,33 @@ public class AddressDAO extends AbstractDAO<IAddress, IAddressDTO> implements IA
     }
 
     @Override
-    public IAddressDTO saveDTO(Session s, IAddressDTO dto){
-        
-        if(dto == null){
+    public IAddressDTO saveDTO(Session s, IAddressDTO dto) {
+
+        if (dto == null) {
             return null;
         }
-        
-        return new AddressDTO(saveDTOgetModel(s,dto));
+
+        return new AddressDTO(saveDTOgetModel(s, dto));
     }
-    
+
     @Override
     public IAddress saveDTOgetModel(Session s, IAddressDTO dto) {
 
-        if(dto == null){
+        if (dto == null) {
             return null;
         }
-        
-        IAddress address = getById(s, dto.getId());
+
+        IAddress address = (dto.getId() == 0) ? null : getById(s, dto.getId());
 
         if (address == null) {
             address = create();
         }
-        
+
         address.setCountry(CountryDAO.getInstance().saveDTOgetModel(s, dto.getCountry()));
         address.setCity(dto.getCity());
         address.setPostcode(dto.getPostcode());
         address.setStreet(dto.getStreet());
-        
+
         s.saveOrUpdate(address);
 
         return address;
