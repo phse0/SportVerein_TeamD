@@ -63,14 +63,13 @@ public class SavePersonListener implements ActionListener {
         }
 
 
-        if (_dialog.getBirthdate() != null) {
+        if (!_dialog.getBirthdate().equals("")) {
             try {
                 new java.sql.Date(new java.util.Date(_dialog.getBirthdate()).getTime());
             } catch (Exception e) {
                 errormessage += "Geburtsdatum \n";
             }
         }
-        errormessage += "Geburtsdatum \n";
         if (_dialog.getStreet().equals("")) {
             errormessage += "Straße \n";
         }
