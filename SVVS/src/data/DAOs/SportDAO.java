@@ -50,4 +50,36 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
         return (ISport)query.uniqueResult();       
     }
     
+
+    public ISport getById(Session s, int id) {
+
+        Query query = s.createQuery("FROM" + getTable() + "Where sportID =:id");
+        query.setInteger("id", id);
+        return (ISport) query.uniqueResult();
+    }
+
+    public ISport saveDTOgetModel(Session s, ISportDTO dto) {
+
+        if (dto == null) {
+            return null;
+        }
+
+        ISport sport = getById(s, dto.getId());
+
+        if (sport == null) {
+            sport = create();
+        }
+        sport.setName(dto.getName());
+        sport.setMaxPlayers(dto.getMaxPlayers());
+
+        s.saveOrUpdate(sport);
+
+        return sport;
+    }
+
+
+    public ISportDTO saveDTO(Session s, ISportDTO dto) {
+
+        return new SportDTO(saveDTOgetModel(s, dto));
+    }
 }

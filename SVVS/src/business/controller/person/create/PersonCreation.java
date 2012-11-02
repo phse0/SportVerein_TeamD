@@ -76,12 +76,12 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
     }
     
      @Override
-    public IPersonDTO CreatePersonDTO(){
+    public IPersonDTO CreatePersonDTO() throws RemoteException{
         return _state.CreatePersonDTO();
     }
     
     @Override
-    public IPersonDTO SaveDTO(IPersonDTO dto){
+    public IPersonDTO SaveDTO(IPersonDTO dto) throws RemoteException{
         
         return _state.SaveDTO(dto);
     }

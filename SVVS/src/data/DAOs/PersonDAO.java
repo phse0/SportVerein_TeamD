@@ -7,8 +7,11 @@ package data.DAOs;
 import data.DTOs.PersonDTO;
 import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.models.IContributionHistory;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Person;
 import java.sql.Date;
 import java.text.ParseException;
@@ -18,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -119,6 +123,8 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         person.setRight(personDTO.getRight());
         person.setMail(personDTO.getMail());
         person.setSex(personDTO.getSex());
+        
+        
         SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
         Date birthdate = null;
         try {
@@ -129,8 +135,31 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         person.setBirthdate(birthdate);
         person.setMainAddress(AddressDAO.getInstance().saveDTOgetModel(s,personDTO.getMainAddress()));
         
+        
+        
         s.saveOrUpdate(person);
         
+        IContributionHistory ch = ContributionHistoryDAO.getInstance().create();
+        ch.setPerson(person);
+        ch.setContribution(ContributionDAO.getInstance().getById(s, personDTO.getContribution().getId()));
+        ch.setMonth(DateTime.now().getMonthOfYear());
+        ch.setYear(DateTime.now().getYear());
+        ch.setStatus("0");
+        
+        s.saveOrUpdate(ch);
+        
+         IRole role;
+         
+        for(ISportDTO sport:personDTO.getSports()){
+            
+            ISport sportModel = SportDAO.getInstance().getById(s, sport.getId());
+            role = RoleDAO.getInstance().create();
+            role.setPerson(person);
+            role.setSport(sportModel);
+            
+            RoleDAO.getInstance().add(s, role);
+        }
+
         return person;
             
     }

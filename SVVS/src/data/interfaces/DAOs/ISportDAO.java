@@ -15,5 +15,11 @@ import org.hibernate.Session;
 public interface ISportDAO extends IDAOs<ISport, ISportDTO>{
 
     ISport getByName(Session s, String name);
+
+    ISport getById(Session s, int id);
+
+    ISportDTO saveDTO(Session s, ISportDTO dto);
+
+    ISport saveDTOgetModel(Session s, ISportDTO dto);
     
 }
