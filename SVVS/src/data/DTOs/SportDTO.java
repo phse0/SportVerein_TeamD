@@ -14,22 +14,22 @@ import java.util.List;
  *
  * @author uubu
  */
-public class SportDTO extends AbstractDTO<ISport> implements ISportDTO{
+public class SportDTO extends AbstractDTO<ISport> implements ISportDTO {
 
     private String name;
     private int maxPlayers;
     private List<ITeamDTO> teams;
-    
-    public SportDTO(ISport model){
+
+    public SportDTO(ISport model) {
         extract(model);
     }
-    
+
     @Override
     public void extract(ISport model) {
         this.id = model.getSportID();
         this.name = model.getName();
-        
-        for(ITeam team : model.getTeams()){
+
+        for (ITeam team : model.getTeams()) {
             //teams.add(new TeamDTO(team));
         }
     }
@@ -69,4 +69,14 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO{
         return getName();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (((ISportDTO) obj).getName().equals(this.getName())) {
+
+            return true;
+        }
+
+        return false;
+    }
 }
