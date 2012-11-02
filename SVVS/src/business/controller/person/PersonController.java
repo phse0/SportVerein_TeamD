@@ -22,6 +22,7 @@ import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.ISport;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class PersonController implements IPersonController {
     }
 
     @Override
-    public LinkedList<ICountryDTO> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException{
         LinkedList<ICountryDTO> countries = new LinkedList<ICountryDTO>();
 
         for (ICountry iC : CountryDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -59,7 +60,7 @@ public class PersonController implements IPersonController {
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException{
         LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -117,7 +118,7 @@ public class PersonController implements IPersonController {
     }
     
     @Override
-    public List<IPersonDTO> loadPersons() {
+    public List<IPersonDTO> loadPersons() throws RemoteException {
         List<IPersonDTO> personsDTO = new LinkedList<>();
         
         for(IPerson ip : loadPersonsModel()) {

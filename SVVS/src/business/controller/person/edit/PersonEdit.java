@@ -34,17 +34,17 @@ public class PersonEdit  extends UnicastRemoteObject  implements IPersonEdit {
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException {
         return _state.loadSports();
     }
 
     @Override
-    public IPersonDTO editPerson(int PersonID, String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country) {
+    public IPersonDTO editPerson(int PersonID, String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country) throws RemoteException {
         return _state.editPerson(PersonID, firstname, lastname, sex, phone, mail, username, password, birthday, right, street, postcode, city, country);
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
         _state.AssignToSport(sport, personID);
     }
 

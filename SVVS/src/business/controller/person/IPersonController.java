@@ -9,6 +9,7 @@ import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * @author phil
  */
 public interface IPersonController extends Remote, IController {
-    public LinkedList<ICountryDTO> loadCountries();
-    public LinkedList<ISportDTO> loadSports();
-    public List<IPersonDTO> loadPersons();
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException;
+    public LinkedList<ISportDTO> loadSports() throws RemoteException;
+    public List<IPersonDTO> loadPersons() throws RemoteException;
 }
