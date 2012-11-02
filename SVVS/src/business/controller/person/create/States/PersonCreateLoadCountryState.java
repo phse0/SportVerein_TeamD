@@ -62,4 +62,14 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
     public void AssignToSport(LinkedList<String> sport, int personID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public IPersonDTO CreatePersonDTO() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

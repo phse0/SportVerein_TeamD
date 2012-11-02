@@ -12,6 +12,7 @@ import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IPerson;
 import data.models.Role;
@@ -71,6 +72,16 @@ public class PersonCreateAssignSportState implements IPersonCreateState{
             
             tx.commit();
         }
+    }
+
+    @Override
+    public IPersonDTO CreatePersonDTO() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     

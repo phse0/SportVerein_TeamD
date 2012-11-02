@@ -46,11 +46,13 @@ public class PersonCreateState implements IPersonCreateState {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    @Override
     public IPersonDTO CreatePersonDTO(){
         
-        return PersonDAO.getInstance().createPersonDTO(HibernateUtil.getCurrentSession());
+        return PersonDAO.getInstance().createPersonDTO();
     }
     
+    @Override
     public IPersonDTO SaveDTO(IPersonDTO dto){
         
         Session s = HibernateUtil.getCurrentSession();

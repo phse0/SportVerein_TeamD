@@ -74,4 +74,15 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
     public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
         _state.AssignToSport(sport, personID);;
     }
+    
+     @Override
+    public IPersonDTO CreatePersonDTO(){
+        return _state.CreatePersonDTO();
+    }
+    
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto){
+        
+        return _state.SaveDTO(dto);
+    }
 }

@@ -30,6 +30,6 @@ public interface IPersonDAO extends IDAOs<IPerson, IPersonDTO> {
 
     IPerson saveDTOgetModel(Session s, IPersonDTO personDTO);
 
-    IPersonDTO createPersonDTO(Session s);
+    IPersonDTO createPersonDTO();
     
 }

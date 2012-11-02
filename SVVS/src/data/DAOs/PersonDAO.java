@@ -136,12 +136,10 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
     }
     
     @Override
-    public IPersonDTO createPersonDTO(Session s){
+    public IPersonDTO createPersonDTO(){
         
         IPerson person = create();
         person.setMainAddress(AddressDAO.getInstance().create());
-        
-        s.saveOrUpdate(person);
         
         return new PersonDTO(person);
     }

@@ -29,4 +29,8 @@ public interface IPersonCreateState extends IController {
     
     
     public void AssignToSport(LinkedList<String> sport, int personID);
+
+    IPersonDTO CreatePersonDTO();
+
+    IPersonDTO SaveDTO(IPersonDTO dto);
 }

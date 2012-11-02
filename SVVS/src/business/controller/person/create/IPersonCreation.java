@@ -33,4 +33,8 @@ public interface IPersonCreation extends Remote, IController {
             String street, String postcode, String city, String country, int contributionID) throws RemoteException;
     
     public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException;
+
+    IPersonDTO CreatePersonDTO();
+
+    IPersonDTO SaveDTO(IPersonDTO dto);
 }
