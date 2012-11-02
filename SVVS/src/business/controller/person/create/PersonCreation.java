@@ -72,7 +72,7 @@ public class PersonCreation extends UnicastRemoteObject implements IPersonCreati
 
     @Override
     public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
-        _state.AssignToSport(sport, personID);;
+        _state.AssignToSport(sport, personID);
     }
     
      @Override
