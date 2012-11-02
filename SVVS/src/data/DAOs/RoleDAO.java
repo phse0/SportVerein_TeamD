@@ -62,4 +62,34 @@ public class RoleDAO extends AbstractDAO<IRole, IRoleDTO> implements IRoleDAO{
                 
     }
     
+    @Override
+    public List<IRole> getBySport(Session s,ISport sport){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE  sport =:sport");
+        query.setParameter("sport", sport);
+        List<IRole> roles = new LinkedList<>();
+        roles = query.list();
+        
+        if (roles.isEmpty()){
+            return null;
+        }
+        
+        return roles;
+                
+    }
+    @Override
+    public List<IRole> getByPerson(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        List<IRole> roles = new LinkedList<>();
+        roles = query.list();
+        
+        if (roles.isEmpty()){
+            return null;
+        }
+        
+        return roles;
+                
+    }
 }

@@ -18,5 +18,9 @@ import org.hibernate.Session;
 public interface IRoleDAO extends IDAOs<IRole, IRoleDTO> {
 
     List<IRole> getBySportAndPerson(Session s, ISport sport, IPerson person);
+
+    List<IRole> getByPerson(Session s, IPerson person);
+
+    List<IRole> getBySport(Session s, ISport sport);
     
 }
