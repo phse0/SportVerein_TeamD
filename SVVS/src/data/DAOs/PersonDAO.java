@@ -162,8 +162,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
             RoleDAO.getInstance().add(s, role);
         }
 
-        return person;
-            
+        return person;     
     }
     
     @Override
@@ -177,4 +176,12 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         
         return new PersonDTO(person);
     }
+    
+    @Override
+    public void removeDTO(Session s,IPersonDTO dto){
+        
+        IPerson person = getById(s, dto.getId());
+        remove(s, person);
+    }
+    
 }
