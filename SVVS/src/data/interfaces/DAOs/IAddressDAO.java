@@ -16,5 +16,11 @@ import org.hibernate.Session;
 public interface IAddressDAO extends IDAOs<IAddress,IAddressDTO> {
     
     public List<IAddress> getByCity(Session s, String city);
+
+    IAddress getById(Session s, int id);
+
+    IAddressDTO saveDTO(Session s, IAddressDTO dto);
+
+    IAddress saveDTOgetModel(Session s, IAddressDTO dto);
     
 }

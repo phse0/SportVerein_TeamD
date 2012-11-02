@@ -10,7 +10,12 @@ import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.models.Person;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -75,4 +80,58 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         return new PersonDTO(model);
     }
 
+    @Override
+    public IPerson getById(Session s, int id){
+        
+        Query query = s.createQuery("FROM" + getTable() + "Where personID =:id");
+        query.setInteger("id", id);
+        return (IPerson)query.uniqueResult();
+    }
+    
+    @Override
+    public IPersonDTO saveDTO(Session s, IPersonDTO personDTO){
+        
+        if (personDTO == null){
+            return null;
+        }
+        
+        return new PersonDTO(saveDTOgetModel(s,personDTO));
+    }
+    
+    @Override
+    public IPerson saveDTOgetModel(Session s,IPersonDTO personDTO){
+           
+        if (personDTO == null){
+            return null;
+        }
+        
+        IPerson person = getById(s,personDTO.getId()) ;
+        //IAddress address = 
+        if(person == null){
+            person = create();
+        }
+        
+        person.setFirstname(personDTO.getFirstname());
+        person.setLastname(personDTO.getLastname());
+        person.setUsername(personDTO.getUsername());
+        person.setPassword(personDTO.getPassword());
+        person.setPhone(personDTO.getPhone());
+        person.setRight(personDTO.getRight());
+        person.setMail(personDTO.getMail());
+        person.setSex(personDTO.getSex());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+        Date birthdate = null;
+        try {
+            birthdate = new Date(sdf.parse(personDTO.getBirthdate()).getTime());
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        person.setBirthdate(birthdate);
+        person.setMainAddress(AddressDAO.getInstance().saveDTOgetModel(s,personDTO.getMainAddress()));
+        
+        s.saveOrUpdate(person);
+        
+        return person;
+            
+    }
 }

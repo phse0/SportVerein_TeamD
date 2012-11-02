@@ -23,5 +23,11 @@ public interface IPersonDAO extends IDAOs<IPerson, IPersonDTO> {
     public List<IPerson> getLikeName(Session s,String name);
 
     List<IRole> getAllRoles(Session s, IPerson model);
+
+    IPerson getById(Session s, int id);
+
+    IPersonDTO saveDTO(Session s, IPersonDTO personDTO);
+
+    IPerson saveDTOgetModel(Session s, IPersonDTO personDTO);
     
 }

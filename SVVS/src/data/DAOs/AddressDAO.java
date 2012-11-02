@@ -5,8 +5,11 @@
 package data.DAOs;
 
 import data.DTOs.AddressDTO;
+import data.DTOs.CountryDTO;
 import data.interfaces.DAOs.IAddressDAO;
+import data.interfaces.DAOs.ICountryDAO;
 import data.interfaces.DTOs.IAddressDTO;
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.models.IAddress;
 import data.models.Address;
 import java.util.List;
@@ -38,8 +41,8 @@ public class AddressDAO extends AbstractDAO<IAddress, IAddressDTO> implements IA
     }
 
     @Override
-    public List<IAddress> getByCity(Session s,String city) {
-       
+    public List<IAddress> getByCity(Session s, String city) {
+
         Query query = s.createQuery("FROM " + getTable() + " WHERE city = :city");
         query.setString(":city", city);
         return query.list();
@@ -50,5 +53,44 @@ public class AddressDAO extends AbstractDAO<IAddress, IAddressDTO> implements IA
         return new AddressDTO(model);
     }
 
+    @Override
+    public IAddress getById(Session s, int id) {
 
+        Query query = s.createQuery("FROM" + getTable() + "Where addressID =:id");
+        query.setInteger("id", id);
+        return (IAddress) query.uniqueResult();
+    }
+
+    @Override
+    public IAddressDTO saveDTO(Session s, IAddressDTO dto){
+        
+        if(dto == null){
+            return null;
+        }
+        
+        return new AddressDTO(saveDTOgetModel(s,dto));
+    }
+    
+    @Override
+    public IAddress saveDTOgetModel(Session s, IAddressDTO dto) {
+
+        if(dto == null){
+            return null;
+        }
+        
+        IAddress address = getById(s, dto.getId());
+
+        if (address == null) {
+            address = create();
+        }
+        
+        address.setCountry(CountryDAO.getInstance().saveDTOgetModel(s, dto.getCountry()));
+        address.setCity(dto.getCity());
+        address.setPostcode(dto.getPostcode());
+        address.setStreet(dto.getStreet());
+        
+        s.saveOrUpdate(address);
+
+        return address;
+    }
 }
