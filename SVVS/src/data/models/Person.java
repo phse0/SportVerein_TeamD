@@ -157,7 +157,12 @@ public class Person implements IPerson {
     @Override
     public String getLastContributionStatus(){
         LinkedList<IContributionHistory> temp = new LinkedList(contributionHistory);
-        return temp.getLast().getStatus();
+       
+        try {
+            return temp.getLast().getStatus();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     @Override
@@ -168,7 +173,14 @@ public class Person implements IPerson {
     @Override
     public IContribution getLastContribution(){
         LinkedList<IContributionHistory> temp = new LinkedList(contributionHistory);
-        return temp.getLast().getContribution();
+        IContribution cont;
+        
+        try {
+            return temp.getLast().getContribution();
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
 
     @Override

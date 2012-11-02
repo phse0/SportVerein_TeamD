@@ -89,7 +89,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
     @Override
     public IPerson getById(Session s, int id){
         
-        Query query = s.createQuery("FROM" + getTable() + "Where personID =:id");
+        Query query = s.createQuery("FROM " + getTable() + " where personID =:id");
         query.setInteger("id", id);
         return (IPerson)query.uniqueResult();
     }
@@ -111,7 +111,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
             return null;
         }
         
-        IPerson person = getById(s,personDTO.getId()) ;
+        IPerson person = (personDTO.getId() == 0) ? null : getById(s,personDTO.getId()) ;
         //IAddress address = 
         if(person == null){
             person = create();

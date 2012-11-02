@@ -46,13 +46,7 @@ public class PersonController implements IPersonController {
 
     @Override
     public LinkedList<ICountryDTO> loadCountries() throws RemoteException{
-        LinkedList<ICountryDTO> countries = new LinkedList<ICountryDTO>();
-
-        for (ICountry iC : CountryDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            CountryDTO cdto = new CountryDTO(iC);
-            countries.add(cdto);
-        }
-        return countries;
+        return new LinkedList<>(CountryDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
     }
 
     public ISport loadSport(String name) {
@@ -61,14 +55,7 @@ public class PersonController implements IPersonController {
 
     @Override
     public LinkedList<ISportDTO> loadSports() throws RemoteException{
-        LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
-
-        for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            SportDTO sdto = new SportDTO(iS);
-            sports.add(sdto);
-        }
-
-        return sports;
+        return new LinkedList<>(SportDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
     }
 
     public IPersonDTO loadPersonWithID(int personID) {

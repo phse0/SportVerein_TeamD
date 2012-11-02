@@ -60,7 +60,7 @@ public class CountryDAO extends AbstractDAO<ICountry, ICountryDTO> implements IC
     @Override
     public ICountry getById(Session s, int id) {
 
-        Query query = s.createQuery("FROM" + getTable() + "Where countryID =:id");
+        Query query = s.createQuery("FROM " + getTable() + " Where countryID =:id");
         query.setInteger("id", id);
         return (ICountry) query.uniqueResult();
     }

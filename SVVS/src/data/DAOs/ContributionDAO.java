@@ -55,7 +55,7 @@ public class ContributionDAO extends AbstractDAO<IContribution, IContributionDTO
     @Override
     public IContribution getById(Session s, int id) {
 
-        Query query = s.createQuery("FROM" + getTable() + "Where contributionID =:id");
+        Query query = s.createQuery("FROM " + getTable() + " Where contributionID =:id");
         query.setInteger("id", id);
         return (IContribution) query.uniqueResult();
     }

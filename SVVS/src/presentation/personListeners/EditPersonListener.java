@@ -5,6 +5,7 @@
 package presentation.personListeners;
 
 import business.controller.RMI.IControllerFactory;
+import business.controller.person.create.IPersonCreation;
 import business.controller.person.edit.IPersonEdit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +40,7 @@ public class EditPersonListener implements ActionListener {
             PersonTableModel personModel = (PersonTableModel) _table.getModel();
 
             try {
-                IPersonEdit personEdit = factory.loadPersonEditController();
+                IPersonCreation personEdit = factory.loadPersonCreateController();
                 new CreatePersonDialog(null, true, personEdit, personModel.getPersonDTO(index)).setVisible(true);
             } catch (RemoteException ex) {
                 Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);

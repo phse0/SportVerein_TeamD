@@ -23,32 +23,37 @@ import presentation.personListeners.SavePersonListener;
  * @author Michael
  */
 public class CreatePersonDialog extends javax.swing.JDialog {
-
+    
     IPersonDTO person;
     IPersonCreation personCreation;
-    IPersonEdit personEdit;
+    boolean create;
 
     /**
      * Creates new form CreatePersonDialog
      */
     public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonCreation controller) throws RemoteException {
+        
         super(parent, modal);
-        this.personCreation = controller;
         initComponents();
+        this.personCreation = controller;
+        this.person = controller.CreatePersonDTO();
         this.setTitle("Mitglied anlegen");
-
+        create = true;
+        
         initiateFields();
         setLocationRelativeTo(null);
     }
-
-    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonEdit personEdit, IPersonDTO person) throws RemoteException {
+    
+    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonCreation controller, IPersonDTO person) throws RemoteException {
         super(parent, modal);
         initComponents();
-        this.personEdit = personEdit;
+        this.personCreation = controller;
         this.person = person;
         this.setTitle("Mitglied bearbeiten");
-
+        create = false;
+        
         initiateFields();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -350,41 +355,38 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelActionPerformed
-
+    
     private void initiateFields() throws RemoteException {
-
-        if (personCreation != null) {
+        
+        if (create) {
             List<ICountryDTO> countries = personCreation.loadCountries();
             for (ICountryDTO c : countries) {
                 cobCountry.addItem(c);
             }
-
+            
             List<ISportDTO> sports = personCreation.loadSports();
             DefaultListModel<ISportDTO> sportsList = new DefaultListModel<>();
             for (ISportDTO s : sports) {
                 sportsList.addElement(s);
             }
             lbxSports.setModel(sportsList);
-
+            
             List<IContributionDTO> contributions = personCreation.loadContributions();
             for (IContributionDTO cont : contributions) {
                 cobContribution.addItem(cont);
             }
-
-            btnSave.addActionListener(new SavePersonListener(personCreation, this));
-        }
-
-        if (person != null && personEdit != null) {
+            
+        } else {
             tbxFirstname.setText(person.getFirstname());
             tbxLastname.setText(person.getLastname());
             tbxBirthdate.setText(person.getBirthdate());
-
+            
             if ("m".equals(person.getSex())) {
                 rdbMale.doClick();
             } else {
                 rdbFemale.doClick();
             }
-
+            
             tbxUsername.setText(person.getUsername());
             tbxPassword.setText(person.getPassword());
             tbxStreet.setText(person.getMainAddress().getStreet());
@@ -392,33 +394,40 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             tbxCity.setText(person.getMainAddress().getCity());
             tbxPhone.setText(person.getPhone());
             tbxMail.setText(person.getMail());
-
-            List<ICountryDTO> countries = personEdit.loadCountries();
+            
+            List<ICountryDTO> countries = personCreation.loadCountries();
             for (ICountryDTO c : countries) {
                 cobCountry.addItem(c);
             }
             
-            List<IContributionDTO> contributions = personEdit.loadContributions();
-            for(IContributionDTO c : contributions) {
+            List<IContributionDTO> contributions = personCreation.loadContributions();
+            for (IContributionDTO c : contributions) {
                 cobContribution.addItem(c);
             }
             
-            List<ISportDTO> sports = personEdit.loadSports();
+            List<ISportDTO> sports = personCreation.loadSports();
             DefaultListModel<ISportDTO> sportsList = new DefaultListModel<>();
-            for(int i = 0; i < sports.size(); i++) {
+            for (int i = 0; i < sports.size(); i++) {
                 ISportDTO s = sports.get(i);
                 sportsList.addElement(s);
                 
-                if(person.getSports().contains(s)) {
+                if (person.getSports().contains(s)) {
                     lbxSports.addSelectionInterval(i, i);
                 }
             }
             lbxSports.setModel(sportsList);
             
+            cobCountry.setEditable(true);
             cobCountry.setSelectedItem(person.getMainAddress().getCountry());
+            cobCountry.setEditable(false);
+            
+            cobContribution.setEditable(true);
             cobContribution.setSelectedItem(person.getContribution());
+            cobContribution.setEditable(false);
         }
-
+        
+        btnSave.addActionListener(new SavePersonListener(personCreation, this, person));
+        
     }
     /**
      * @param args the command line arguments
@@ -464,35 +473,35 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     public String getBirthdate() {
         return tbxBirthdate.getText();
     }
-
+    
     public String getCity() {
         return tbxCity.getText();
     }
-
+    
     public String getFirstName() {
         return tbxFirstname.getText();
     }
-
+    
     public String getLastName() {
         return tbxLastname.getText();
     }
-
+    
     public String getMail() {
         return tbxMail.getText();
     }
-
+    
     public String getPhone() {
         return tbxPhone.getText();
     }
-
+    
     public String getPostCode() {
         return tbxPostCode.getText();
     }
-
+    
     public String getStreet() {
         return tbxStreet.getText();
     }
-
+    
     public String getGender() {
         if (rdbFemale.isSelected()) {
             return "w";
@@ -502,32 +511,29 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         }
         return " ";
     }
-
+    
     public String getLand() {
         return ((ICountryDTO) cobCountry.getSelectedItem()).getName();
     }
-
-    public LinkedList<String> getSports() {
-
-        List<ISportDTO> sports = lbxSports.getSelectedValuesList();
-        LinkedList<String> sportnames = new LinkedList<>();
-        for (ISportDTO s : sports) {
-            sportnames.add(s.getName());
-        }
-
-        return sportnames;
-
+    
+    public ICountryDTO getCountry() {
+        return (ICountryDTO) cobCountry.getSelectedItem();
     }
-
+    
+    public List<ISportDTO> getSports() {
+        List<ISportDTO> sports = lbxSports.getSelectedValuesList();
+        return sports;
+    }
+    
     public String getUserName() {
         return tbxUsername.getText();
     }
-
+    
     public String getPassword() {
         return tbxPassword.getText();
     }
-
-    public int getContribution() {
-        return ((IContributionDTO) cobContribution.getSelectedItem()).getId();
+    
+    public IContributionDTO getContribution() {
+        return (IContributionDTO) cobContribution.getSelectedItem();
     }
 }

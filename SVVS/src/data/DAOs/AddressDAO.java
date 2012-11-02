@@ -56,7 +56,7 @@ public class AddressDAO extends AbstractDAO<IAddress, IAddressDTO> implements IA
     @Override
     public IAddress getById(Session s, int id) {
 
-        Query query = s.createQuery("FROM" + getTable() + "Where addressID =:id");
+        Query query = s.createQuery("FROM " + getTable() + " Where addressID =:id");
         query.setInteger("id", id);
         return (IAddress) query.uniqueResult();
     }
