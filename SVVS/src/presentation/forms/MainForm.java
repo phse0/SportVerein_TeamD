@@ -147,8 +147,8 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
+                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                         .addComponent(btnFilter))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCreatePerson)
@@ -265,18 +265,30 @@ public class MainForm extends javax.swing.JFrame {
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
+                String contStatus = entry.getValue(8).toString().toLowerCase();
                 
                 String abteilungenTxt = "";
                 if(cobDepartment.getSelectedItem() instanceof IDepartmentDTO) {
-                    abteilungenTxt = ((IDepartmentDTO)cobDepartment.getSelectedItem()).getName();
+                    abteilungenTxt = ((IDepartmentDTO)cobDepartment.getSelectedItem()).getName().toLowerCase();
                 }
                 
-                if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0) {
+                if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0 && cobContribution.getSelectedIndex() == 0) {
                     return true;
                 }
 
                 if ((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
-                    return true;
+                    
+                    if(cobContribution.getSelectedIndex() == 0) {
+                        return true;
+                    }
+                    
+                    if(("1".equals(contStatus) && cobContribution.getSelectedIndex() == 1) || 
+                            ("0".equals(contStatus) && cobContribution.getSelectedIndex() == 2)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                  
                 }
 
                 return false;
@@ -312,13 +324,13 @@ public class MainForm extends javax.swing.JFrame {
         cobContribution.addItem("Ja");
         cobContribution.addItem("Nein");
 
-        this.personTable.setModel(new PersonTableModel(personsDTO));
+        this.personTable.setModel(new PersonTableModel(personsDTO, personController));
         personSorter = new TableRowSorter<PersonTableModel>();
         personTable.setAutoCreateRowSorter(true);
 
-        btnCreatePerson.addActionListener(new CreateNewPersonListener(controllerFactory));
+        btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
-        btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
+        btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));
 
 
         // ################### INITIATE TOURNAMENTS ############################

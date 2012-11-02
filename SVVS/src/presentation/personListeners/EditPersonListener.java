@@ -46,5 +46,7 @@ public class EditPersonListener implements ActionListener {
                 Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        ((PersonTableModel) _table.getModel()).fireTableDataChanged();
     }
 }

@@ -10,6 +10,8 @@ import business.controller.person.IPersonController;
 import business.controller.person.PersonController;
 import business.controller.person.create.IPersonCreation;
 import business.controller.person.create.PersonCreation;
+import business.controller.person.delete.IPersonDelete;
+import business.controller.person.delete.PersonDelete;
 import business.controller.person.edit.IPersonEdit;
 import business.controller.person.edit.PersonEdit;
 import business.controller.tournament.Create.ITournamentCreation;
@@ -64,5 +66,10 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     @Override
     public IDepartmentController loadDepartmentController() throws RemoteException {
         return DepartmentController.getInstance();
+    }
+
+    @Override
+    public IPersonDelete loadPersonDeleteController() throws RemoteException {
+        return new PersonDelete();
     }
 }

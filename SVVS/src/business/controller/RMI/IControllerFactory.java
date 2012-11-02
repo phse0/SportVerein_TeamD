@@ -7,6 +7,7 @@ package business.controller.RMI;
 import business.controller.departments.IDepartmentController;
 import business.controller.person.IPersonController;
 import business.controller.person.create.IPersonCreation;
+import business.controller.person.delete.IPersonDelete;
 import business.controller.person.edit.IPersonEdit;
 import business.controller.tournament.Create.ITournamentCreation;
 import business.controller.tournament.ITournamentController;
@@ -33,6 +34,8 @@ public interface IControllerFactory extends Remote  {
     ITournamentCreation loadTournamentCreateController() throws RemoteException;
 
     ITournamentEdit loadTournamentEditController() throws RemoteException;
+    
+    IPersonDelete loadPersonDeleteController() throws RemoteException;
     
 
 }

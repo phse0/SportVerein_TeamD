@@ -5,16 +5,13 @@
 package presentation.forms;
 
 import business.controller.person.create.IPersonCreation;
-import business.controller.person.edit.IPersonEdit;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import presentation.personListeners.SavePersonListener;
 
@@ -23,7 +20,7 @@ import presentation.personListeners.SavePersonListener;
  * @author Michael
  */
 public class CreatePersonDialog extends javax.swing.JDialog {
-    
+
     IPersonDTO person;
     IPersonCreation personCreation;
     boolean create;
@@ -32,18 +29,18 @@ public class CreatePersonDialog extends javax.swing.JDialog {
      * Creates new form CreatePersonDialog
      */
     public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonCreation controller) throws RemoteException {
-        
+
         super(parent, modal);
         initComponents();
         this.personCreation = controller;
         this.person = controller.CreatePersonDTO();
         this.setTitle("Mitglied anlegen");
         create = true;
-        
+
         initiateFields();
         setLocationRelativeTo(null);
     }
-    
+
     public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonCreation controller, IPersonDTO person) throws RemoteException {
         super(parent, modal);
         initComponents();
@@ -51,7 +48,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         this.person = person;
         this.setTitle("Mitglied bearbeiten");
         create = false;
-        
+
         initiateFields();
         setLocationRelativeTo(null);
     }
@@ -135,14 +132,19 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel13)
-                        .addGap(28, 28, 28)
-                        .addComponent(tbxPassword))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel13))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tbxPassword)
+                                .addComponent(tbxUsername))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -150,26 +152,18 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12)
+                                .addComponent(tbxFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tbxUsername))
+                                .addComponent(tbxLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(tbxFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(15, 15, 15)
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tbxLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rdbFemale)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rdbMale)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addComponent(rdbFemale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbMale)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,15 +182,19 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbxUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(tbxBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(tbxUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(tbxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -291,15 +289,15 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         btnSave.setText("Speichern");
@@ -318,30 +316,35 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSave)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSave)
+                        .addGap(8, 8, 8))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnSave))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -355,38 +358,38 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelActionPerformed
-    
+
     private void initiateFields() throws RemoteException {
-        
+
         if (create) {
             List<ICountryDTO> countries = personCreation.loadCountries();
             for (ICountryDTO c : countries) {
                 cobCountry.addItem(c);
             }
-            
+
             List<ISportDTO> sports = personCreation.loadSports();
             DefaultListModel<ISportDTO> sportsList = new DefaultListModel<>();
             for (ISportDTO s : sports) {
                 sportsList.addElement(s);
             }
             lbxSports.setModel(sportsList);
-            
+
             List<IContributionDTO> contributions = personCreation.loadContributions();
             for (IContributionDTO cont : contributions) {
                 cobContribution.addItem(cont);
             }
-            
+
         } else {
             tbxFirstname.setText(person.getFirstname());
             tbxLastname.setText(person.getLastname());
             tbxBirthdate.setText(person.getBirthdate());
-            
+
             if ("m".equals(person.getSex())) {
                 rdbMale.doClick();
             } else {
                 rdbFemale.doClick();
             }
-            
+
             tbxUsername.setText(person.getUsername());
             tbxPassword.setText(person.getPassword());
             tbxStreet.setText(person.getMainAddress().getStreet());
@@ -394,40 +397,43 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             tbxCity.setText(person.getMainAddress().getCity());
             tbxPhone.setText(person.getPhone());
             tbxMail.setText(person.getMail());
-            
+
             List<ICountryDTO> countries = personCreation.loadCountries();
             for (ICountryDTO c : countries) {
                 cobCountry.addItem(c);
             }
-            
-            List<IContributionDTO> contributions = personCreation.loadContributions();
-            for (IContributionDTO c : contributions) {
-                cobContribution.addItem(c);
-            }
-            
+
             List<ISportDTO> sports = personCreation.loadSports();
             DefaultListModel<ISportDTO> sportsList = new DefaultListModel<>();
+            for(ISportDTO s : sports) {
+                sportsList.addElement(s);
+            }
+            lbxSports.setModel(sportsList);
             for (int i = 0; i < sports.size(); i++) {
                 ISportDTO s = sports.get(i);
-                sportsList.addElement(s);
-                
+
                 if (person.getSports().contains(s)) {
                     lbxSports.addSelectionInterval(i, i);
                 }
             }
-            lbxSports.setModel(sportsList);
-            
+
+
+            List<IContributionDTO> contributions = personCreation.loadContributions();
+            for (IContributionDTO c : contributions) {
+                cobContribution.addItem(c);
+            }
+
             cobCountry.setEditable(true);
             cobCountry.setSelectedItem(person.getMainAddress().getCountry());
             cobCountry.setEditable(false);
-            
+
             cobContribution.setEditable(true);
             cobContribution.setSelectedItem(person.getContribution());
             cobContribution.setEditable(false);
         }
-        
+
         btnSave.addActionListener(new SavePersonListener(personCreation, this, person));
-        
+
     }
     /**
      * @param args the command line arguments
@@ -473,35 +479,35 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     public String getBirthdate() {
         return tbxBirthdate.getText();
     }
-    
+
     public String getCity() {
         return tbxCity.getText();
     }
-    
+
     public String getFirstName() {
         return tbxFirstname.getText();
     }
-    
+
     public String getLastName() {
         return tbxLastname.getText();
     }
-    
+
     public String getMail() {
         return tbxMail.getText();
     }
-    
+
     public String getPhone() {
         return tbxPhone.getText();
     }
-    
+
     public String getPostCode() {
         return tbxPostCode.getText();
     }
-    
+
     public String getStreet() {
         return tbxStreet.getText();
     }
-    
+
     public String getGender() {
         if (rdbFemale.isSelected()) {
             return "w";
@@ -511,28 +517,28 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         }
         return " ";
     }
-    
+
     public String getLand() {
         return ((ICountryDTO) cobCountry.getSelectedItem()).getName();
     }
-    
+
     public ICountryDTO getCountry() {
         return (ICountryDTO) cobCountry.getSelectedItem();
     }
-    
+
     public List<ISportDTO> getSports() {
         List<ISportDTO> sports = lbxSports.getSelectedValuesList();
         return sports;
     }
-    
+
     public String getUserName() {
         return tbxUsername.getText();
     }
-    
+
     public String getPassword() {
         return tbxPassword.getText();
     }
-    
+
     public IContributionDTO getContribution() {
         return (IContributionDTO) cobContribution.getSelectedItem();
     }

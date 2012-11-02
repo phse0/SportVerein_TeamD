@@ -9,7 +9,9 @@ import business.controller.person.create.IPersonCreation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import javax.swing.JTable;
 import presentation.forms.CreatePersonDialog;
+import presentation.tableModels.PersonTableModel;
 
 /**
  *
@@ -17,10 +19,12 @@ import presentation.forms.CreatePersonDialog;
  */
 public class CreateNewPersonListener implements ActionListener {
 
+    JTable table;
     IControllerFactory controllerfactory;
 
-    public CreateNewPersonListener(IControllerFactory factory) {
+    public CreateNewPersonListener(JTable table, IControllerFactory factory) {
         this.controllerfactory = factory;
+        this.table = table;
     }
 
     @Override
@@ -32,8 +36,8 @@ public class CreateNewPersonListener implements ActionListener {
         } catch (RemoteException ex) {
             System.out.println("Coud not load controller");
         }
-
-
+        
+        ((PersonTableModel) table.getModel()).fireTableDataChanged();
 
     }
 }
