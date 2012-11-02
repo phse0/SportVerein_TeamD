@@ -12,12 +12,14 @@ import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IPerson;
 import data.models.Role;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -60,12 +62,26 @@ public class PersonCreateAssignSportState implements IPersonCreateState{
     public void AssignToSport(LinkedList<String> sport, int personID) {
         for (String sportname : sport) {
              //assigning values
+            Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
+            
             Role role = new Role();
             role.setPerson(PersonController.getInstance().loadPersonWithIDNonDTO(personID));
             role.setSport(PersonController.getInstance().loadSport(sportname));
             
             RoleDAO.getInstance().add(HibernateUtil.getCurrentSession(), role);
+            
+            tx.commit();
         }
+    }
+
+    @Override
+    public IPersonDTO CreatePersonDTO() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     

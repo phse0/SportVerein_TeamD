@@ -5,11 +5,20 @@
 package business.controller.RMI;
 
 import business.controller.departments.DepartmentController;
+import business.controller.departments.IDepartmentController;
+import business.controller.person.IPersonController;
 import business.controller.person.PersonController;
+import business.controller.person.create.IPersonCreation;
 import business.controller.person.create.PersonCreation;
+import business.controller.person.delete.IPersonDelete;
+import business.controller.person.delete.PersonDelete;
+import business.controller.person.edit.IPersonEdit;
 import business.controller.person.edit.PersonEdit;
+import business.controller.tournament.Create.ITournamentCreation;
 import business.controller.tournament.Create.TournamentCreation;
+import business.controller.tournament.ITournamentController;
 import business.controller.tournament.TournamentController;
+import business.controller.tournament.edit.ITournamentEdit;
 import business.controller.tournament.edit.TournamentEdit;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -20,33 +29,47 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ControllerFactory extends UnicastRemoteObject implements IControllerFactory {
 
-   public ControllerFactory() throws RemoteException{
-    super();
-   }
-    
+    public ControllerFactory() throws RemoteException {
+        super();
+    }
+
     @Override
-    public IController loadController(String name) throws RemoteException {
-        if (name.equals("PersonCreate")) {
-            return new PersonCreation();
-        }else if (name.equals("PersonEdit")) {
-            return new PersonEdit();
-        }else if (name.equals("PersonController")) {
-            return PersonController.getInstance();
-        }
-        
-        else if (name.equals("TournamentCreate")) {
-            return new TournamentCreation();
-        }else if (name.equals("TournamentEdit")) {
-            return new TournamentEdit();
-        }else if (name.equals("TournamentController")) {
-            return TournamentController.getInstance();
-        }
-        
-        else if (name.equals("DepartmentController")) {
-            return DepartmentController.getInstance();
-        }
-                
-        return null;
+    public IPersonCreation loadPersonCreateController() throws RemoteException {
+        return new PersonCreation();
+    }
+
+    @Override
+    public IPersonEdit loadPersonEditController() throws RemoteException {
+        return new PersonEdit();
+    }
+
+    @Override
+    public IPersonController loadPersonController() throws RemoteException {
+        return PersonController.getInstance();
+    }
+
+    @Override
+    public ITournamentCreation loadTournamentCreateController() throws RemoteException {
+        return new TournamentCreation();
     }
     
+    @Override
+    public ITournamentEdit loadTournamentEditController() throws RemoteException {
+        return new TournamentEdit();
+    }
+    
+    @Override
+    public ITournamentController loadTournamentController() throws RemoteException {
+        return TournamentController.getInstance();
+    }
+    
+    @Override
+    public IDepartmentController loadDepartmentController() throws RemoteException {
+        return DepartmentController.getInstance();
+    }
+
+    @Override
+    public IPersonDelete loadPersonDeleteController() throws RemoteException {
+        return new PersonDelete();
+    }
 }

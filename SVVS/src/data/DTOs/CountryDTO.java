@@ -17,9 +17,14 @@ public class CountryDTO extends AbstractDTO<ICountry> implements ICountryDTO{
     private String name;
     private String code;
 
+    public CountryDTO(){
+        
+    }
+    
     public CountryDTO(ICountry model){
         extract(model);
     }
+    
     
     @Override
     public final void extract(ICountry model){
@@ -47,5 +52,10 @@ public class CountryDTO extends AbstractDTO<ICountry> implements ICountryDTO{
     public void setCode(String code) {
         this.code = code;
     }
-    
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

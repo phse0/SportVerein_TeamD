@@ -11,6 +11,7 @@ import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IContribution;
 import java.sql.Date;
@@ -60,6 +61,16 @@ public class PersonCreateLoadContributionState implements IPersonCreateState {
 
     @Override
     public void AssignToSport(LinkedList<String> sport, int personID) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public IPersonDTO CreatePersonDTO() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

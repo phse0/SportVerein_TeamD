@@ -4,8 +4,11 @@
  */
 package presentation.personListeners;
 
+import business.controller.RMI.IControllerFactory;
+import data.interfaces.DTOs.IPersonDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -20,9 +23,11 @@ import presentation.tableModels.PersonTableModel;
 public class DeletePersonListener implements ActionListener {
 
     JTable _table;
+    IControllerFactory controller;
 
-    public DeletePersonListener(JTable table) {
+    public DeletePersonListener(JTable table, IControllerFactory controller) {
         _table = table;
+        this.controller = controller;
     }
 
     @Override
@@ -37,8 +42,13 @@ public class DeletePersonListener implements ActionListener {
                 
                 int index = _table.convertRowIndexToModel(_table.getSelectedRow());
                 PersonTableModel personModel = (PersonTableModel) _table.getModel();
-                System.out.println(personModel.getPersonDTO(index).getLastname() + " wird gelöscht!!!");
+                IPersonDTO person = personModel.getPersonDTO(index);
                 
+                try {
+                controller.loadPersonDeleteController().removePerson(person);
+                } catch (RemoteException ex) {
+                    System.out.println("Löschen fehlgeschlagen");
+                }
             } else {
                 //will doch nicht löschen!
             }

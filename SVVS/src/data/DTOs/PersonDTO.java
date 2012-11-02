@@ -5,8 +5,15 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.IAddressDTO;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -24,9 +31,20 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     protected IAddressDTO mainAddress;
     protected int right;
     protected String birthdate;
-
+    
+    protected IContributionDTO contribution;
+    protected List<ISportDTO> sports;
+    protected List<IDepartmentDTO> departments;
+    protected String contributionStatus;
+    
+    public PersonDTO(){
+        sports = new LinkedList<>();
+        departments = new LinkedList<>();
+    }
     
     public PersonDTO(IPerson person) {
+        sports = new LinkedList<>();
+        departments = new LinkedList<>();
         extract(person);
     }
     
@@ -42,8 +60,19 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
         this.password = model.getPassword();
         this.mainAddress = new AddressDTO(model.getMainAddress());
         this.right = model.getRight();
-        this.birthdate = (model.getBirthdate() == null) ? "" : model.getBirthdate().toString();              
-                
+        this.birthdate = (model.getBirthdate() == null) ? "" : model.getBirthdate().toString();
+        
+        this.contribution = (model.getLastContribution() == null) ? null : new ContributionDTO(model.getLastContribution());
+        
+        for(IRole role:model.getRoles()){
+            sports.add(new SportDTO(role.getSport()));
+        }
+        
+        for(IDepartment dept: model.getDepartments()){
+            departments.add(new DepartmentDTO(dept));
+        }
+        
+        this.contributionStatus = model.getLastContributionStatus();
     }
     
     @Override
@@ -145,5 +174,46 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
-        
+
+    @Override
+    public IContributionDTO getContribution() {
+        return contribution;
+    }
+
+    @Override
+    public void setContribution(IContributionDTO contribution) {
+        this.contribution = contribution;
+    }
+
+    @Override
+    public List<ISportDTO> getSports() {
+        return sports;
+    }
+
+    @Override
+    public void setSports(List<ISportDTO> sports) {
+        this.sports = sports;
+    }
+
+    @Override
+    public List<IDepartmentDTO> getDepartments() {
+        return departments;
+    }
+
+    @Override
+    public void setDepartments(List<IDepartmentDTO> departments) {
+        this.departments = departments;
+    }
+
+    @Override
+    public String getContributionStatus() {
+        return contributionStatus;
+    }
+
+    @Override
+    public void setContributionStatus(String contributionStatus) {
+        this.contributionStatus = contributionStatus;
+    }
+    
+    
 }

@@ -17,5 +17,11 @@ public interface ICountryDAO extends IDAOs<ICountry, ICountryDTO> {
     public ICountry getByName(Session s,String name);
     
     public ICountry getByCode(Session s,String code);
+
+    ICountry getById(Session s, int id);
+
+    ICountryDTO saveDTO(Session s, ICountryDTO dto);
+
+    ICountry saveDTOgetModel(Session s, ICountryDTO dto);
     
 }

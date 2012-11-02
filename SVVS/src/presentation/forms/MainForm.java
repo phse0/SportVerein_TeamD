@@ -4,29 +4,26 @@
  */
 package presentation.forms;
 
-import presentation.tableModels.TournamentTableModel;
-import presentation.tableModels.PersonTableModel;
-import data.DAOs.DepartmentDAO;
-import data.DAOs.PersonDAO;
-import data.DAOs.TournamentDAO;
-import data.DTOs.PersonDTO;
-import data.DTOs.TournamentDTO;
-import data.hibernate.HibernateUtil;
+import business.controller.RMI.IControllerFactory;
+import business.controller.departments.DepartmentController;
+import business.controller.person.PersonController;
+import business.controller.tournament.TournamentController;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.models.IDepartment;
-import data.interfaces.models.IPerson;
-import data.interfaces.models.ITournament;
-import java.util.LinkedList;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.table.TableRowSorter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
+import presentation.tableModels.PersonTableModel;
+import presentation.tableModels.TournamentTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
 
@@ -37,17 +34,23 @@ import presentation.tournamentListeners.EditTournamentListener;
 public class MainForm extends javax.swing.JFrame {
 
     TableRowSorter<PersonTableModel> personSorter;
-    
+    IControllerFactory controllerFactory;
+    PersonController personController;
+    DepartmentController departmentController;
+    TournamentController tournamentController;
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
-        initControls();
+        try {
+        
+            initControls();
+        } catch (RemoteException | NotBoundException | MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        }
 
-        this.setLocationRelativeTo(null);
-        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
     }
 
     /**
@@ -144,8 +147,8 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
+                        .addComponent(cobContribution, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                         .addComponent(btnFilter))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCreatePerson)
@@ -262,14 +265,30 @@ public class MainForm extends javax.swing.JFrame {
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
-                String abteilungenTxt = cobDepartment.getSelectedItem().toString();
-
-                if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0) {
+                String contStatus = entry.getValue(8).toString().toLowerCase();
+                
+                String abteilungenTxt = "";
+                if(cobDepartment.getSelectedItem() instanceof IDepartmentDTO) {
+                    abteilungenTxt = ((IDepartmentDTO)cobDepartment.getSelectedItem()).getName().toLowerCase();
+                }
+                
+                if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0 && cobContribution.getSelectedIndex() == 0) {
                     return true;
                 }
 
                 if ((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
-                    return true;
+                    
+                    if(cobContribution.getSelectedIndex() == 0) {
+                        return true;
+                    }
+                    
+                    if(("1".equals(contStatus) && cobContribution.getSelectedIndex() == 1) || 
+                            ("0".equals(contStatus) && cobContribution.getSelectedIndex() == 2)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                  
                 }
 
                 return false;
@@ -280,59 +299,50 @@ public class MainForm extends javax.swing.JFrame {
         personTable.setRowSorter(personSorter);
     }//GEN-LAST:event_btnFilterActionPerformed
 
-    private void initControls() {
+    private void initControls() throws RemoteException, NotBoundException, MalformedURLException {
+
+        this.setLocationRelativeTo(null);
+        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
+
+        controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
+        personController = (PersonController) controllerFactory.loadPersonController();
+        departmentController = (DepartmentController) controllerFactory.loadDepartmentController();
+        tournamentController = (TournamentController) controllerFactory.loadTournamentController();
+
 
         // ############## INITIATE PERSONS ################
 
-        Session s = HibernateUtil.getCurrentSession();
-        Transaction tx = s.beginTransaction();
-
-        PersonDAO persondao = (PersonDAO) PersonDAO.getInstance();
-        List<IPerson> persons = persondao.getAll(s);
-        List<IPersonDTO> personsDTO = new LinkedList<>();
-
-        for (IPerson p : persons) {
-            personsDTO.add(new PersonDTO(p));
-        }
-
-        DepartmentDAO deptdao = (DepartmentDAO) DepartmentDAO.getInstance();
-        List<IDepartment> depts = deptdao.getAll(s);
+        List<IPersonDTO> personsDTO = personController.loadPersons();
+        List<IDepartmentDTO> depts = departmentController.loadDepartments();
 
         cobDepartment.addItem("");
-        for (IDepartment d : depts) {
-            cobDepartment.addItem(d.getName());
+        for (IDepartmentDTO d : depts) {
+            cobDepartment.addItem(d);
         }
 
         cobContribution.addItem("");
         cobContribution.addItem("Ja");
         cobContribution.addItem("Nein");
 
-        this.personTable.setModel(new PersonTableModel(personsDTO));
+        this.personTable.setModel(new PersonTableModel(personsDTO, personController));
         personSorter = new TableRowSorter<PersonTableModel>();
         personTable.setAutoCreateRowSorter(true);
 
-        btnCreatePerson.addActionListener(new CreateNewPersonListener());
-        btnEditPerson.addActionListener(new EditPersonListener(personTable));
-        btnDeletePerson.addActionListener(new DeletePersonListener(personTable));
+        btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
+        btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
+        btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));
 
 
         // ################### INITIATE TOURNAMENTS ############################
-        TournamentDAO tournDAO = (TournamentDAO) TournamentDAO.getInstance();
-        List<ITournament> tournaments = tournDAO.getAll(s);
-        List<ITournamentDTO> tournamentsDTO = new LinkedList<>();
 
-        for (ITournament t : tournaments) {
-            tournamentsDTO.add(new TournamentDTO(t));
-        }
 
+        List<ITournamentDTO> tournamentsDTO = tournamentController.loadTournaments();
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
-        
+
         btnCreateTournament.addActionListener(new CreateNewTournamentListener());
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable));
-        
-        tx.commit();
-        s.close();
+
     }
 
     /**

@@ -17,21 +17,21 @@ import org.hibernate.Session;
  *
  * @author uubu
  */
-public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDAO{
+public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDAO {
 
     private static ISportDAO instance;
-    
-    private SportDAO(){
+
+    private SportDAO() {
         super("data.models.Sport");
     }
-    
-    public static ISportDAO getInstance(){
-        if ( instance == null){
+
+    public static ISportDAO getInstance() {
+        if (instance == null) {
             instance = new SportDAO();
         }
         return instance;
     }
-    
+
     @Override
     public ISport create() {
         return new Sport();
@@ -43,11 +43,41 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
     }
 
     @Override
-    public ISport getByName(Session s,String name) {
-        
+    public ISport getByName(Session s, String name) {
+
         Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
         query.setString("name", name);
-        return (ISport)query.uniqueResult();       
+        return (ISport) query.uniqueResult();
     }
-    
+
+    public ISport getById(Session s, int id) {
+
+        Query query = s.createQuery("FROM " + getTable() + " Where sportID =:id");
+        query.setInteger("id", id);
+        return (ISport) query.uniqueResult();
+    }
+
+    public ISport saveDTOgetModel(Session s, ISportDTO dto) {
+
+        if (dto == null) {
+            return null;
+        }
+
+        ISport sport = (dto.getId() == 0) ? null : getById(s, dto.getId());
+
+        if (sport == null) {
+            sport = create();
+        }
+        sport.setName(dto.getName());
+        sport.setMaxPlayers(dto.getMaxPlayers());
+
+        s.saveOrUpdate(sport);
+
+        return sport;
+    }
+
+    public ISportDTO saveDTO(Session s, ISportDTO dto) {
+
+        return new SportDTO(saveDTOgetModel(s, dto));
+    }
 }

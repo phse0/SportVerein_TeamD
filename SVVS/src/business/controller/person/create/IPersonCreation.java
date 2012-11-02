@@ -10,6 +10,7 @@ import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 /**
@@ -22,14 +23,18 @@ import java.util.LinkedList;
  * @author phil
  */
 public interface IPersonCreation extends Remote, IController {
-    public LinkedList<ICountryDTO> loadCountries();
-    public LinkedList<ISportDTO> loadSports();
-    public LinkedList<IContributionDTO> loadContributions();
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException;
+    public LinkedList<ISportDTO> loadSports() throws RemoteException;
+    public LinkedList<IContributionDTO> loadContributions() throws RemoteException;
     
     public IPersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
-            String street, String postcode, String city, String country, int contributionID);
+            String street, String postcode, String city, String country, int contributionID) throws RemoteException;
     
-    public void AssignToSport(LinkedList<String> sport, int personID);
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException;
+
+    IPersonDTO CreatePersonDTO() throws RemoteException;
+
+    IPersonDTO SaveDTO(IPersonDTO dto) throws RemoteException;
 }

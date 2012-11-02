@@ -13,6 +13,7 @@ import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IContribution;
 import data.interfaces.models.IContributionHistory;
@@ -24,6 +25,8 @@ import data.models.Person;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.joda.time.DateTime;
 
 /**
@@ -42,12 +45,30 @@ public class PersonCreateState implements IPersonCreateState {
     public LinkedList<ICountryDTO> loadCountries() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public IPersonDTO CreatePersonDTO(){
+        
+        return PersonDAO.getInstance().createPersonDTO();
+    }
+    
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto){
+        
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+        IPersonDTO personDTO = PersonDAO.getInstance().saveDTO(s, dto);
+        tx.commit();
+        return personDTO;
+    }
 
     @Override
     public PersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
             String street, String postcode, String city, String country, int contributionID) {
+        Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
+        
         Address address = new Address();
         //assigning values
         address.setStreet(street);
@@ -90,6 +111,8 @@ public class PersonCreateState implements IPersonCreateState {
                 return new PersonDTO(ip);
             }
         }
+        
+        tx.commit();
         return null;
     }
 

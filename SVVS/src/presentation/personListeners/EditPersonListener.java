@@ -4,8 +4,14 @@
  */
 package presentation.personListeners;
 
+import business.controller.RMI.IControllerFactory;
+import business.controller.person.IPersonController;
+import business.controller.person.create.IPersonCreation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import presentation.forms.CreatePersonDialog;
@@ -18,9 +24,11 @@ import presentation.tableModels.PersonTableModel;
 public class EditPersonListener implements ActionListener {
 
     JTable _table;
+    IControllerFactory factory;
 
-    public EditPersonListener(JTable table) {
+    public EditPersonListener(JTable table, IControllerFactory factory) {
         _table = table;
+        this.factory = factory;
     }
 
     @Override
@@ -30,7 +38,18 @@ public class EditPersonListener implements ActionListener {
         } else {
             int index = _table.convertRowIndexToModel(_table.getSelectedRow());
             PersonTableModel personModel = (PersonTableModel) _table.getModel();
-            new CreatePersonDialog(null, true, personModel.getPersonDTO(index)).setVisible(true);
+
+            try {
+                IPersonCreation personEdit = factory.loadPersonCreateController();
+                new CreatePersonDialog(null, true, personEdit, personModel.getPersonDTO(index)).setVisible(true);
+                
+                IPersonController controller = factory.loadPersonController();
+                PersonTableModel personModelNew = new PersonTableModel(controller.loadPersons(), controller);
+                _table.setModel(personModelNew);
+                
+            } catch (RemoteException ex) {
+                Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

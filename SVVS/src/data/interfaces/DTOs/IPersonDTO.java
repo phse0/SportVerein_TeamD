@@ -5,6 +5,7 @@
 package data.interfaces.DTOs;
 
 import data.interfaces.models.IPerson;
+import java.util.List;
 
 /**
  *
@@ -51,6 +52,22 @@ public interface IPersonDTO extends IDTO<IPerson>{
     void setSex(String sex);
 
     void setUsername(String username);
+
+    IContributionDTO getContribution();
+
+    String getContributionStatus();
+
+    List<IDepartmentDTO> getDepartments();
+
+    List<ISportDTO> getSports();
+
+    void setContribution(IContributionDTO contribution);
+
+    void setContributionStatus(String contributionStatus);
+
+    void setDepartments(List<IDepartmentDTO> departments);
+
+    void setSports(List<ISportDTO> sports);
 
     
 }

@@ -12,20 +12,27 @@ import data.DAOs.CountryDAO;
 import data.DAOs.PersonDAO;
 import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IContributionDTO;
+import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IAddress;
 import data.interfaces.models.IContribution;
+import data.interfaces.models.IContributionHistory;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IPerson;
+import data.models.ContributionHistory;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
+import java.util.List;
+import org.joda.time.DateTime;
 
 /**
  *
  * @author phil
  */
-class PersonEditState implements IPersonEditState {
+public class PersonEditState implements IPersonEditState {
 
     PersonEdit _editor; 
     
@@ -34,14 +41,14 @@ class PersonEditState implements IPersonEditState {
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public IPersonDTO editPerson(int PersonID, String firstname, String lastname,
     String sex, String phone, String mail, String username, String password,
-    Date birthday, int right, String street, String postcode, String city, String country/*, int contributionID*/) {
+    Date birthday, int right, String street, String postcode, String city, String country, int contributionID) throws RemoteException{
         IPerson person = PersonController.getInstance().loadPersonWithIDNonDTO(PersonID);
 
         IAddress address = person.getMainAddress();
@@ -67,12 +74,12 @@ class PersonEditState implements IPersonEditState {
         person.setBirthdate(birthday);
         person.setRight(right);
 
-       /* ContributionHistory ch = new ContributionHistory(person, getContributionByID(contributionID),
+        ContributionHistory ch = new ContributionHistory(person, getContributionByID(contributionID),
                 DateTime.now().getYear(), DateTime.now().getMonthOfYear(), "0");
 
         List<IContributionHistory> chh = person.getContributionHistory();
         chh.add(ch);
-        person.setContributionHistory(chh);*/
+        person.setContributionHistory(chh);
 
         PersonDAO.getInstance().update(HibernateUtil.getCurrentSession(), person);
 
@@ -96,7 +103,17 @@ class PersonEditState implements IPersonEditState {
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID)throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<IContributionDTO> loadContributions() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

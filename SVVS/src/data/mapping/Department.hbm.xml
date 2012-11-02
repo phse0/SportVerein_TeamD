@@ -7,7 +7,7 @@
         </id>
         
         <property name="name" column="name" not-null="true" type="string" />
-        <bag name="roles" table="role" cascade="all">
+        <bag name="roles" table="role" cascade="all" lazy="true">
             <key column="departmentID"></key>
             <one-to-many class="data.models.Role"/>
         </bag>

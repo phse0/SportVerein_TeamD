@@ -6,10 +6,12 @@ package business.controller.person.create.States;
 
 import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
+import data.DAOs.PersonDAO;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -26,7 +28,7 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ICountryDTO> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException {
       /* LinkedList<ICountry> countries = new LinkedList<ICountry>();
         
         for (ICountry iC : CountryDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -59,6 +61,16 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
 
     @Override
     public void AssignToSport(LinkedList<String> sport, int personID) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public IPersonDTO CreatePersonDTO() {
+         return PersonDAO.getInstance().createPersonDTO();
+    }
+
+    @Override
+    public IPersonDTO SaveDTO(IPersonDTO dto) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -4,12 +4,10 @@
  */
 package data.DTOs;
 
-import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
-import data.interfaces.models.ICoach;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITournamentTeam;
 import java.util.List;

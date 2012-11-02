@@ -7,8 +7,12 @@ package data.DAOs;
 import data.DTOs.RightDTO;
 import data.interfaces.DAOs.IRightDAO;
 import data.interfaces.DTOs.IRightDTO;
+import data.interfaces.models.IPerson;
 import data.interfaces.models.IRight;
+import data.interfaces.models.ISport;
 import data.models.Right;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *

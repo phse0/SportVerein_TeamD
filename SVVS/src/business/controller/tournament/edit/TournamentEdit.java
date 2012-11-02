@@ -38,23 +38,23 @@ public class TournamentEdit   extends UnicastRemoteObject  implements ITournamen
     }
     
     @Override
-    public LinkedList<ITournamentDTO> loadTournaments() {
+    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException {
         return TournamentController.getInstance().loadTournaments();
     }
 
     @Override
-    public LinkedList<ITeamDTO> loadTeams(String sport) {
+    public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException {
         return TournamentController.getInstance().loadTeams(sport);
     }
 
     @Override
-    public ITournamentDTO loadTournament(int ID) {
+    public ITournamentDTO loadTournament(int ID) throws RemoteException {
         return _curState.loadTournament(ID);
     }
 
     @Override
     public void AddMatch(int TournamentID, String location, Date date, String Team1Name,
-    String Team2Name, Integer goalsTeam1, Integer goalsTeam2) {
+    String Team2Name, Integer goalsTeam1, Integer goalsTeam2) throws RemoteException {
         _curState.AddMatch(TournamentID, location, date, Team1Name, Team2Name, goalsTeam1, goalsTeam2);
     }
     

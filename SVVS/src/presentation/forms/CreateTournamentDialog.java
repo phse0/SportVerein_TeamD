@@ -9,10 +9,14 @@ import data.DAOs.TeamDAO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.ISportDAO;
 import data.interfaces.DAOs.ITeamDAO;
+import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -208,7 +212,12 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();
+         if (JOptionPane.showConfirmDialog(null,
+                "Wollen sie wirklich abbrechen? \nAlle eingegebenen Daten gehen für immer verloren", "",
+                JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cobSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobSportActionPerformed
@@ -300,4 +309,34 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tbxLocation;
     private javax.swing.JTextField tbxName;
     // End of variables declaration//GEN-END:variables
+
+    public String getName() {
+        return tbxName.getName();
+    }
+
+    public String getDate() {
+        return tbxDate.getText();
+    }
+
+    public String getPlace() {
+        return tbxLocation.getText();
+    }
+
+    public String getFee() {
+        return tbxFee.getText();
+    }
+    public String getSports()
+    {
+       return ((ITournamentDTO) cobSport.getSelectedItem()).getName();
+    }
+    public LinkedList<String> getTeams()
+    {
+        List<ITeamDTO> teams = lbxTeams.getSelectedValuesList();
+        LinkedList<String> teamNames = new LinkedList<>();
+        for(ITeamDTO t : teams) {
+            teamNames.add(t.getName());
+        }
+        
+        return teamNames;
+    }
 }

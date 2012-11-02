@@ -10,6 +10,7 @@ import data.DTOs.TournamentDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ITournament;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class TournamentEditLoadState implements ITournamentEditState {
      * @return Tournament or null
      */
     @Override
-    public ITournamentDTO loadTournament(int ID) {
+    public ITournamentDTO loadTournament(int ID) throws RemoteException{
         /*LinkedList<ITournament> tournaments = TournamentController.getInstance().loadTournaments();
          for (ITournament iT : tournaments) {
          if (iT.getTournamentID() == ID) {

@@ -225,6 +225,6 @@ public class MainForm extends javax.swing.JFrame {
         }
         
         this.jTable1.setModel(new PersonTableModel(personsDTO));
-        jButton1.addActionListener(new EditPersonListener(jTable1));
+        //jButton1.addActionListener(new EditPersonListener(jTable1));
 }
 }

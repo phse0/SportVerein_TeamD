@@ -196,6 +196,12 @@ public class test {
                                
         }
          
+//         ICountry testCountry = countryDAO.create();
+//         testCountry.setName("Test");
+//         testCountry.setCode("Test");
+//         countryDAO.add(s, testCountry);
+//         
+//         System.out.println(testCountry.getCountryID());
   
 
     }
