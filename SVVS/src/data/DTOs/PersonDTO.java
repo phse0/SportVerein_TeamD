@@ -5,6 +5,7 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.IAddressDTO;
+import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IPerson;
 
@@ -24,9 +25,12 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     protected IAddressDTO mainAddress;
     protected int right;
     protected String birthdate;
-
+    
+    protected IContributionDTO contribution;
+    //protected List<ISportDTO> sports;
     
     public PersonDTO(IPerson person) {
+        //sports = new LinkedList<>();
         extract(person);
     }
     
@@ -42,8 +46,10 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
         this.password = model.getPassword();
         this.mainAddress = new AddressDTO(model.getMainAddress());
         this.right = model.getRight();
-        this.birthdate = (model.getBirthdate() == null) ? "" : model.getBirthdate().toString();              
-                
+        this.birthdate = (model.getBirthdate() == null) ? "" : model.getBirthdate().toString();
+        
+        this.contribution = (model.getLastContribution() == null) ? null : new ContributionDTO(model.getLastContribution());
+    
     }
     
     @Override

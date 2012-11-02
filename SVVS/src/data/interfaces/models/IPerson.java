@@ -74,6 +74,8 @@ public interface IPerson extends IModel {
     void setMainAddress(IAddress mainAddress);
 
     String getName();
+
+    IContribution getLastContribution();
   
    
     

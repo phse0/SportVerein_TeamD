@@ -12,11 +12,7 @@ import data.interfaces.models.IDepartment;
  */
 public interface IDepartmentDTO extends IDTO<IDepartment> {
 
-    int getDepartmentID();
-
     String getName();
-
-    void setDepartmentID(int departmentID);
-
+    
     void setName(String name);
 }

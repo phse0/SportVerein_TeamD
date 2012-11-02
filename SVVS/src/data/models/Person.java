@@ -5,9 +5,11 @@
 package data.models;
 
 import data.interfaces.models.IAddress;
+import data.interfaces.models.IContribution;
 import data.interfaces.models.IContributionHistory;
 import data.interfaces.models.IPerson;
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,6 +33,8 @@ public class Person implements IPerson {
     protected Date birthdate;
 
     public Person() {
+        contributionHistory = new LinkedList<>();
+        addresses = new LinkedList<>();
     }
     
     @Override
@@ -63,6 +67,7 @@ public class Person implements IPerson {
         this.lastname = lastname;
     }
     
+    @Override
     public String getName() {
         return this.firstname + ", " + this.lastname;
     }
@@ -125,6 +130,12 @@ public class Person implements IPerson {
     @Override
     public void setContributionHistory(List<IContributionHistory> contributionHistory) {
         this.contributionHistory = contributionHistory;
+    }
+    
+    @Override
+    public IContribution getLastContribution(){
+        LinkedList<IContributionHistory> temp = new LinkedList(contributionHistory);
+        return temp.getLast().getContribution();
     }
 
     @Override
