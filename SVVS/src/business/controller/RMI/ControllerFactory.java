@@ -25,51 +25,37 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     }
 
     @Override
-    public IController loadController(String name) throws RemoteException {
-        if (name.equals("PersonCreate")) {
-            return new PersonCreation();
-        } else if (name.equals("PersonEdit")) {
-            return new PersonEdit();
-        } else if (name.equals("PersonController")) {
-            return PersonController.getInstance();
-        } else if (name.equals("TournamentCreate")) {
-            return new TournamentCreation();
-        } else if (name.equals("TournamentEdit")) {
-            return new TournamentEdit();
-        } else if (name.equals("TournamentController")) {
-            return TournamentController.getInstance();
-        } else if (name.equals("DepartmentController")) {
-            return DepartmentController.getInstance();
-        }
-
-        return null;
-    }
-
     public IController loadPersonCreateController() throws RemoteException {
         return new PersonCreation();
     }
 
+    @Override
     public IController loadPersonEditController() throws RemoteException {
         return new PersonEdit();
     }
 
+    @Override
     public IController loadPersonController() throws RemoteException {
         return PersonController.getInstance();
     }
 
+    @Override
     public IController loadTournamentCreateController() throws RemoteException {
         return new TournamentCreation();
     }
     
+    @Override
     public IController loadTournamentEditController() throws RemoteException {
         return new TournamentEdit();
     }
     
+    @Override
     public IController loadTournamentController() throws RemoteException {
         return TournamentController.getInstance();
     }
     
-    public IController laodDepartmentController() throws RemoteException {
+    @Override
+    public IController loadDepartmentController() throws RemoteException {
         return DepartmentController.getInstance();
     }
 }

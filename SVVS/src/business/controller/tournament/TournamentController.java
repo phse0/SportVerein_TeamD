@@ -19,6 +19,7 @@ import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class TournamentController implements ITournamentController{
         return instance;
     }
 
-    public LinkedList<ISportDTO >loadSport() {
+    public LinkedList<ISportDTO >loadSport() throws RemoteException{
         LinkedList<ISportDTO> sports = new LinkedList<ISportDTO>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -50,7 +51,7 @@ public class TournamentController implements ITournamentController{
         return sports;
     }
 
-    public LinkedList<ITeamDTO> loadTeams(String sportname) {
+    public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException{
         ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
         LinkedList<ITeamDTO> teams = new LinkedList<ITeamDTO>();
         for (ITeam iTeam : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
@@ -59,7 +60,7 @@ public class TournamentController implements ITournamentController{
         return teams;
     }
 
-    public LinkedList<ITournamentDTO> loadTournaments() {
+    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException{
         LinkedList<ITournamentDTO> tournaments = new LinkedList<ITournamentDTO>();
         for (ITournament iT : TournamentDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             tournaments.add(new TournamentDTO(iT));
@@ -67,7 +68,7 @@ public class TournamentController implements ITournamentController{
         return tournaments;
     }
     
-     public ITournament loadTournament(int ID) {
+     public ITournament loadTournament(int ID) throws RemoteException{
         List<ITournament> tournaments = TournamentDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
         for (ITournament iT : tournaments) {
             if (iT.getTournamentID() == ID) {

@@ -9,6 +9,7 @@ import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import java.math.BigDecimal;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ import java.util.List;
  * @author phil
  */
 public interface ITournamentCreation extends Remote, IController  {
-    public LinkedList<ISportDTO> loadSport();
-    public LinkedList<ITeamDTO> loadTeams(String sport);
+    public LinkedList<ISportDTO> loadSport() throws RemoteException;
+    public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException;
     public void CreateTournament(String name, String location, BigDecimal fee,
-    String sportname, List<String> TeamNames);
+    String sportname, List<String> TeamNames) throws RemoteException;
 }

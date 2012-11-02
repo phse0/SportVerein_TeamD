@@ -289,9 +289,9 @@ public class MainForm extends javax.swing.JFrame {
         //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
 
         controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
-        personController = (PersonController) controllerFactory.loadController("PersonController");
-        departmentController = (DepartmentController) controllerFactory.loadController("DepartmentController");
-        tournamentController = (TournamentController) controllerFactory.loadController("TournamentController");
+        personController = (PersonController) controllerFactory.loadPersonController();
+        departmentController = (DepartmentController) controllerFactory.loadDepartmentController();
+        tournamentController = (TournamentController) controllerFactory.loadTournamentController();
 
 
         // ############## INITIATE PERSONS ################

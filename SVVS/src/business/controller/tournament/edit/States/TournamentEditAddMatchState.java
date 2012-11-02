@@ -14,6 +14,7 @@ import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
 import data.models.Match;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ class TournamentEditAddMatchState implements ITournamentEditState {
     }
 
     @Override
-    public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2) {
+    public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2) throws RemoteException {
         Match match = new Match();
         ITournament itour = TournamentController.getInstance().loadTournament(TournamentID);
         match.setTournament(itour);

@@ -8,6 +8,7 @@ import business.controller.person.PersonController;
 import business.controller.person.edit.PersonEdit;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 
@@ -24,7 +25,7 @@ public class PersonEditSearchPersonState implements IPersonEditState{
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException {
         _editor.setState(new PersonEditState(_editor));
         return PersonController.getInstance().loadSports();
     }

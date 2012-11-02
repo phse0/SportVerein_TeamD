@@ -41,17 +41,17 @@ public class TournamentCreation  extends UnicastRemoteObject implements ITournam
     }
     
     @Override
-    public LinkedList<ISportDTO> loadSport() {
+    public LinkedList<ISportDTO> loadSport() throws RemoteException {
         return _curState.loadSport();
     }
     
     @Override
-    public LinkedList<ITeamDTO> loadTeams(String sport) {
+    public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException {
         return _curState.loadTeams(sport);
     }
     
     @Override
-    public void CreateTournament(String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) {
+    public void CreateTournament(String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException {
         _curState.CreateTournament(name, location, fee, sportname, TeamNames);
     }
 }

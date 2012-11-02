@@ -7,6 +7,7 @@ package business.controller.tournament.edit.States;
 import business.controller.RMI.IController;
 import data.interfaces.DTOs.ITournamentDTO;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author phil
  */
 public interface ITournamentEditState extends IController{
-    public ITournamentDTO loadTournament(int ID);
-    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames);
-    public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2);
+    public ITournamentDTO loadTournament(int ID) throws RemoteException;
+    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException;
+    public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2) throws RemoteException;
 }

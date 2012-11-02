@@ -10,6 +10,7 @@ import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ITournament;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 
 /**
@@ -17,8 +18,8 @@ import java.util.LinkedList;
  * @author phil
  */
 public interface ITournamentController extends Remote, IController  {
-    public LinkedList<ISportDTO >loadSport();
-    public LinkedList<ITournamentDTO> loadTournaments();
-    public ITournament loadTournament(int ID) ;
-    public LinkedList<ITeamDTO> loadTeams(String sportname);
+    public LinkedList<ISportDTO >loadSport() throws RemoteException;
+    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException;
+    public ITournament loadTournament(int ID) throws RemoteException;
+    public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException;
 }

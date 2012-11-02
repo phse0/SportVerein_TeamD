@@ -12,10 +12,20 @@ import java.rmi.RemoteException;
  * @author phil
  */
 public interface IControllerFactory extends Remote  {
-    /**
-     * @param name
-     * PersonCreate for Create a new Person
-     * @return 
-     */
-    public IController loadController(String name)  throws RemoteException ;
+
+    IController loadDepartmentController() throws RemoteException;
+
+    IController loadPersonController() throws RemoteException;
+
+    IController loadPersonCreateController() throws RemoteException;
+
+    IController loadPersonEditController() throws RemoteException;
+
+    IController loadTournamentController() throws RemoteException;
+
+    IController loadTournamentCreateController() throws RemoteException;
+
+    IController loadTournamentEditController() throws RemoteException;
+    
+
 }

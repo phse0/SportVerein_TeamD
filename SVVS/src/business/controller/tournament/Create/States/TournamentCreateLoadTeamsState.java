@@ -9,6 +9,7 @@ import business.controller.tournament.TournamentController;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class TournamentCreateLoadTeamsState implements ITournamentCreateState {
     }
 
     @Override
-    public LinkedList<ITeamDTO> loadTeams(String sport) {
+    public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException{
         /*LinkedList<ITeam> teams = new LinkedList<ITeam>();
         for (ITeam iTeam : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
             teams.add(iTeam);
