@@ -37,6 +37,11 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     protected List<IDepartmentDTO> departments;
     protected String contributionStatus;
     
+    public PersonDTO(){
+        sports = new LinkedList<>();
+        departments = new LinkedList<>();
+    }
+    
     public PersonDTO(IPerson person) {
         sports = new LinkedList<>();
         departments = new LinkedList<>();

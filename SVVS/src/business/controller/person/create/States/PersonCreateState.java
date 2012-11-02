@@ -13,6 +13,7 @@ import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IContribution;
 import data.interfaces.models.IContributionHistory;
@@ -24,6 +25,7 @@ import data.models.Person;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.joda.time.DateTime;
 
@@ -42,6 +44,20 @@ public class PersonCreateState implements IPersonCreateState {
     @Override
     public LinkedList<ICountryDTO> loadCountries() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public IPersonDTO CreatePersonDTO(){
+        
+        return PersonDAO.getInstance().createPersonDTO(HibernateUtil.getCurrentSession());
+    }
+    
+    public IPersonDTO SaveDTO(IPersonDTO dto){
+        
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+        IPersonDTO personDTO = PersonDAO.getInstance().saveDTO(s, dto);
+        tx.commit();
+        return personDTO;
     }
 
     @Override

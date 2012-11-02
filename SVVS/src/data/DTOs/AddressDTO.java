@@ -19,6 +19,10 @@ public class AddressDTO extends AbstractDTO<IAddress> implements IAddressDTO{
     protected String city;
     protected ICountryDTO country;
     
+    public AddressDTO(){
+        
+    }
+    
     public AddressDTO(IAddress model){
         extract(model);
     }
