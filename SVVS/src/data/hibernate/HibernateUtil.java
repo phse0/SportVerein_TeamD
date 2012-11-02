@@ -43,13 +43,15 @@ public class HibernateUtil {
         }
         return cur;
     }
-    
-    public static Session getNewSession(){
-         cur.flush();
-         cur.close();
-         sessionFactory.close();
-         cur = sessionFactory.openSession();
-         return cur;
-        
+
+    public static Session getNewSession() {
+        if (cur != null) {
+            cur.flush();
+            cur.close();
+            sessionFactory.close();
+        }
+        cur = sessionFactory.openSession();
+        return cur;
+
     }
 }

@@ -9,7 +9,7 @@
         <property name="maxPlayers" column="maxPlayers" not-null="false" type="integer"/>
         <property name="name" column="name" not-null="true" type="string"/>
         
-        <bag name="teams" cascade="all" table="team">
+        <bag name="teams" cascade="all" table="team" lazy="true">
             <key column="sportID" />
             <one-to-many class="data.models.Team" />
         </bag>

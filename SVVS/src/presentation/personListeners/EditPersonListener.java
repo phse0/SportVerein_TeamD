@@ -5,8 +5,8 @@
 package presentation.personListeners;
 
 import business.controller.RMI.IControllerFactory;
+import business.controller.person.IPersonController;
 import business.controller.person.create.IPersonCreation;
-import business.controller.person.edit.IPersonEdit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -42,11 +42,14 @@ public class EditPersonListener implements ActionListener {
             try {
                 IPersonCreation personEdit = factory.loadPersonCreateController();
                 new CreatePersonDialog(null, true, personEdit, personModel.getPersonDTO(index)).setVisible(true);
+                
+                IPersonController controller = factory.loadPersonController();
+                PersonTableModel personModelNew = new PersonTableModel(controller.loadPersons(), controller);
+                _table.setModel(personModelNew);
+                
             } catch (RemoteException ex) {
                 Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        ((PersonTableModel) _table.getModel()).fireTableDataChanged();
     }
 }

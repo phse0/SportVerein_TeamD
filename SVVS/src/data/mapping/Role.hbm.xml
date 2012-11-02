@@ -22,7 +22,7 @@
         <joined-subclass name="data.models.Coach" table="coach">
             <key column="roleID"/>
             
-            <bag cascade="all" name="teams" table="coachHasTrainingTeam">
+            <bag cascade="all" name="teams" table="coachHasTrainingTeam" lazy="true">
                 <key column="roleID" />
                 <many-to-many class="data.models.TrainingTeam" column="teamID" />
             </bag>
@@ -36,12 +36,12 @@
         <joined-subclass name="data.models.Sportsman" table="sportsman">
             <key column="roleID"/>
             
-            <bag cascade="all" name="teams" table="sportsmanHasTrainingTeam">
+            <bag cascade="all" name="teams" table="sportsmanHasTrainingTeam" lazy="true">
                 <key column="roleID" />
                 <one-to-many class="data.models.SportsmanTrainingTeam" />
             </bag>
             
-            <bag cascade="all" name="invites" table="tournamentInvites">
+            <bag cascade="all" name="invites" table="tournamentInvites" lazy="true">
                 <key column="roleID" />
                 <one-to-many class="data.models.TournamentInvite" />
             </bag>

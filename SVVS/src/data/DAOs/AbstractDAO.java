@@ -9,6 +9,7 @@ import data.interfaces.DTOs.IDTO;
 import data.interfaces.models.IModel;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.CacheMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -41,6 +42,7 @@ public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements I
     @Override
     public List<V> getAll(Session s) {
         Query query = s.createQuery("FROM " + getTable() + "");
+        query.setCacheMode(CacheMode.IGNORE);
         return query.list();
     }
 
