@@ -10,6 +10,7 @@ import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -476,8 +477,16 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         return ((ICountryDTO) cobCountry.getSelectedItem()).getName();
     }
 
-    public JList getSports() {
-        return lbxSports;
+    public LinkedList<String> getSports() {
+        
+        List<ISportDTO> sports = lbxSports.getSelectedValuesList();
+        LinkedList<String> sportnames = new LinkedList<>();
+        for(ISportDTO s : sports) {
+            sportnames.add(s.getName());
+        }
+        
+        return sportnames;
+        
     }
 
     public String getUserName() {

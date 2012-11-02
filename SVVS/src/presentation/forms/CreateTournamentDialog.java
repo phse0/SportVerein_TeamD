@@ -9,6 +9,7 @@ import data.DAOs.TeamDAO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.ISportDAO;
 import data.interfaces.DAOs.ITeamDAO;
+import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
@@ -330,6 +331,12 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     }
     public LinkedList<String> getTeams()
     {
-        return lbxTeams.get ????? ich brauch die stringliste hier!!!
+        List<ITeamDTO> teams = lbxTeams.getSelectedValuesList();
+        LinkedList<String> teamNames = new LinkedList<>();
+        for(ITeamDTO t : teams) {
+            teamNames.add(t.getName());
+        }
+        
+        return teamNames;
     }
 }

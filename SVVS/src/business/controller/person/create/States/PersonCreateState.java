@@ -24,6 +24,7 @@ import data.models.Person;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Transaction;
 import org.joda.time.DateTime;
 
 /**
@@ -48,6 +49,8 @@ public class PersonCreateState implements IPersonCreateState {
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
             String street, String postcode, String city, String country, int contributionID) {
+        Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
+        
         Address address = new Address();
         //assigning values
         address.setStreet(street);
@@ -90,6 +93,8 @@ public class PersonCreateState implements IPersonCreateState {
                 return new PersonDTO(ip);
             }
         }
+        
+        tx.commit();
         return null;
     }
 

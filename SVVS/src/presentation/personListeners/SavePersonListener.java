@@ -5,17 +5,15 @@
 package presentation.personListeners;
 
 import business.controller.person.create.IPersonCreation;
-import java.awt.Dialog;
+import data.interfaces.DTOs.IPersonDTO;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import presentation.forms.CreatePersonDialog;
 
 /**
@@ -36,7 +34,6 @@ public class SavePersonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //funktioniert die Speicherung?
         String error = isValide();
-        System.out.println(_dialog.getLand());
         if (!error.equals("")) {
             JOptionPane.showMessageDialog(null, "Speichern nicht möglich! \n"
                     + "Bitte korrigieren sie folgende Punkte: \n \n" + error);
@@ -44,10 +41,13 @@ public class SavePersonListener implements ActionListener {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
                 Date birthdate = new Date(sdf.parse(_dialog.getBirthdate()).getTime());
-                creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthdate, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution());
+                
+                IPersonDTO createdPerson = creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthdate, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution());
+                creation.AssignToSport(_dialog.getSports(), createdPerson.getId());
+                
                 JOptionPane.showMessageDialog(null, "Person wurde gespeichert. \n");
                 _dialog.dispose();
-            } catch (Exception ex) {
+            } catch (ParseException | RemoteException | HeadlessException ex) {
                 JOptionPane.showMessageDialog(null, "Fehler ohne Sinn ist aufgetreten");
                 ex.printStackTrace();
             }
