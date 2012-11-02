@@ -46,7 +46,7 @@ public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements I
 
     @Override
     public void add(Session s,V model) {
-        s.save(model);
+        s.saveOrUpdate(model);
     }
 
     @Override

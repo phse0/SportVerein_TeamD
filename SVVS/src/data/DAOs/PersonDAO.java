@@ -100,7 +100,6 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         if (personDTO == null){
             return null;
         }
-        
         return new PersonDTO(saveDTOgetModel(s,personDTO));
     }
     
@@ -126,7 +125,6 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         person.setMail(personDTO.getMail());
         person.setSex(personDTO.getSex());
         
-        
         SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
         Date birthdate = null;
         try {
@@ -136,9 +134,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         }
         person.setBirthdate(birthdate);
         person.setMainAddress(AddressDAO.getInstance().saveDTOgetModel(s,personDTO.getMainAddress()));
-        
-        
-        
+ 
         s.saveOrUpdate(person);
         
         IContributionHistory ch = ContributionHistoryDAO.getInstance().create();
@@ -149,19 +145,25 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         ch.setStatus("0");
         
         s.saveOrUpdate(ch);
-        
-         IRole role;
-         
+              
         for(ISportDTO sport:personDTO.getSports()){
             
             ISport sportModel = SportDAO.getInstance().getById(s, sport.getId());
-            role = RoleDAO.getInstance().create();
-            role.setPerson(person);
-            role.setSport(sportModel);
+            List<IRole> roleModels = RoleDAO.getInstance().getBySportAndPerson(s, sportModel, person);
             
-            RoleDAO.getInstance().add(s, role);
+            if( roleModels == null){
+                IRole role = RoleDAO.getInstance().create();
+                role.setPerson(person);
+                role.setSport(sportModel);
+                RoleDAO.getInstance().add(s, role);
+            }else{
+                for(IRole r: roleModels){
+                    r.setPerson(person);
+                    r.setSport(sportModel);
+                    RoleDAO.getInstance().add(s,r);
+                }
+            }
         }
-
         return person;     
     }
     
