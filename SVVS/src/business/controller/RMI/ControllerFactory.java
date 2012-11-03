@@ -14,6 +14,10 @@ import business.controller.person.delete.IPersonDelete;
 import business.controller.person.delete.PersonDelete;
 import business.controller.person.edit.IPersonEdit;
 import business.controller.person.edit.PersonEdit;
+import business.controller.team.ITeamController;
+import business.controller.team.TeamController;
+import business.controller.team.playerToTeam.IPlayerToTeam;
+import business.controller.team.playerToTeam.PlayerToTeam;
 import business.controller.tournament.Create.ITournamentCreation;
 import business.controller.tournament.Create.TournamentCreation;
 import business.controller.tournament.ITournamentController;
@@ -52,17 +56,17 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     public ITournamentCreation loadTournamentCreateController() throws RemoteException {
         return new TournamentCreation();
     }
-    
+
     @Override
     public ITournamentEdit loadTournamentEditController() throws RemoteException {
         return new TournamentEdit();
     }
-    
+
     @Override
     public ITournamentController loadTournamentController() throws RemoteException {
         return TournamentController.getInstance();
     }
-    
+
     @Override
     public IDepartmentController loadDepartmentController() throws RemoteException {
         return DepartmentController.getInstance();
@@ -71,5 +75,15 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     @Override
     public IPersonDelete loadPersonDeleteController() throws RemoteException {
         return new PersonDelete();
+    }
+
+    @Override
+    public ITeamController loadTeamController() throws RemoteException {
+        return TeamController.getInstance();
+    }
+
+    @Override
+    public IPlayerToTeam loadPlayerToTeamController() throws RemoteException {
+        return new PlayerToTeam();
     }
 }
