@@ -11,6 +11,7 @@ import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.models.ISportsman;
 import data.interfaces.models.ITrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class PlayerToTeamTeamLoadState implements IPlayerToTeamState {
 
     @Override
     public LinkedList<ITrainingTeamDTO> loadTeams(String sportname) throws RemoteException {
-        _context.setState(new PlayerToTeamLoadSportmanState(_context));
+        _context.setState(new PlayerToTeamLoadPlayersOfTeam(_context));
         return TeamController.getInstance().loadTrainingTeams(sportname);
     }
 
@@ -46,6 +47,11 @@ public class PlayerToTeamTeamLoadState implements IPlayerToTeamState {
 
     @Override
     public LinkedList<ISportsmanDTO> loadSportsman(String sportname) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

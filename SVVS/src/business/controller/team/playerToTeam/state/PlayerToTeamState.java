@@ -67,4 +67,9 @@ class PlayerToTeamState implements IPlayerToTeamState {
         
     }
 
+    @Override
+    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

@@ -13,10 +13,13 @@ import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISport;
+import data.interfaces.models.ISportsman;
+import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITournamentTeam;
 import data.interfaces.models.ITrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -65,6 +68,16 @@ public class TeamController implements ITeamController{
             }
         }
         return teams;
+    }
+    
+    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException{
+    ITrainingTeam iteam = TrainingTeamDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), TeamName);
+    List<ISportsmanTrainingTeam> stt = iteam.getSportsmen();    
+    LinkedList<ISportsman> sportsman = new LinkedList<ISportsman>();
+        for (ISportsmanTrainingTeam iSpTT : stt) {
+            sportsman.add(iSpTT.getSportsman());
+        }
+    return sportsman;
     }
     
 }

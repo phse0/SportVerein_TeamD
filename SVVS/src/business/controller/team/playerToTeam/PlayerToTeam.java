@@ -9,6 +9,7 @@ import business.controller.team.playerToTeam.state.PlayerToTeamTeamLoadState;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.models.ISportsman;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
@@ -47,6 +48,11 @@ public class PlayerToTeam implements IPlayerToTeam{
     @Override
     public void AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException {
         _state.AddPlayerToTeam(TrainingTeamID, SportsmanID, position);
+    }
+
+    @Override
+    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException {
+        return _state.loadPlayersOfTeam(TeamName);
     }
     
 }

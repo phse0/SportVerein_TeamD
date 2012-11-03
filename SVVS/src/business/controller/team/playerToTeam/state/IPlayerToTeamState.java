@@ -8,6 +8,7 @@ import business.controller.RMI.IController;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.models.ISportsman;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
@@ -18,6 +19,7 @@ import java.util.LinkedList;
 public interface IPlayerToTeamState  extends IController {
   public LinkedList<ITrainingTeamDTO> loadTeam()  throws RemoteException;
   public LinkedList<ITrainingTeamDTO> loadTeams(String sportname) throws RemoteException;
+  public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException;
   public LinkedList<ISportsmanDTO> loadSportsman(String sportname)throws RemoteException;
   public void AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException ;
 }
