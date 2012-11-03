@@ -4,6 +4,7 @@
  */
 package business.controller.team.playerToTeam.state;
 
+import business.controller.team.TeamController;
 import business.controller.team.playerToTeam.PlayerToTeam;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.TrainingTeamDTO;
@@ -29,19 +30,13 @@ public class PlayerToTeamTeamLoadState implements IPlayerToTeamState {
     @Override
     public LinkedList<ITrainingTeamDTO> loadTeam() throws RemoteException {
         _context.setState(new PlayerToTeamLoadSportmanState(_context));
-        return new LinkedList<ITrainingTeamDTO>(TrainingTeamDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
+        return TeamController.getInstance().loadTrainingTeams();
     }
 
     @Override
     public LinkedList<ITrainingTeamDTO> loadTeams(String sportname) throws RemoteException {
-        LinkedList<ITrainingTeamDTO> teams = new LinkedList<ITrainingTeamDTO>();
-        for (ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            if (iT.getName().equals(sportname)) {
-                teams.add(new TrainingTeamDTO(iT));
-            }
-        }
         _context.setState(new PlayerToTeamLoadSportmanState(_context));
-        return teams;
+        return TeamController.getInstance().loadTrainingTeams(sportname);
     }
 
     @Override
