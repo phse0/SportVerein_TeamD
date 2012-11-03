@@ -55,7 +55,7 @@ public class TournamentEditLoadState implements ITournamentEditState {
     }
 
     @Override
-    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) {
+    public void EditTournament(int ID, String name, String location, BigDecimal fee, List<String> TeamNames) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

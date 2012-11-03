@@ -36,18 +36,17 @@ public class TournamentEditState implements ITournamentEditState  {
     }
 
     @Override
-    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException {
+    public void EditTournament(int ID, String name, String location, BigDecimal fee, List<String> TeamNames) throws RemoteException {
  
         ITournament tournament = TournamentController.getInstance().loadTournament(ID);
         tournament.setName(name);
         tournament.setLocation(location);
         tournament.setFee(fee);
-        ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
 
         List<ITeam> teams = tournament.getTeams();
         //für jedes  team in der stringliste werden alle teams durchgegangen ob der name darin vorhanden ist
         for (String team : TeamNames) {
-            for (ITeam it : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
+            for (ITeam it : TeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
                 if (it.getName().equals(team)) {
                     teams.add(it);
                 }

@@ -17,6 +17,6 @@ import java.util.List;
  */
 public interface ITournamentEditState extends IController{
     public ITournamentDTO loadTournament(int ID) throws RemoteException;
-    public void EditTournament(int ID, String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException;
+    public void EditTournament(int ID, String name, String location, BigDecimal fee, List<String> TeamNames) throws RemoteException;
     public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2) throws RemoteException;
 }
