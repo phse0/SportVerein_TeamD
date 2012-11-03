@@ -7,10 +7,12 @@ package presentation.forms;
 import business.controller.RMI.IControllerFactory;
 import business.controller.departments.DepartmentController;
 import business.controller.person.PersonController;
+import business.controller.team.TeamController;
 import business.controller.tournament.TournamentController;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ITournamentDTO;
+import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -24,6 +26,7 @@ import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
 import presentation.tableModels.PersonTableModel;
 import presentation.tableModels.TournamentTableModel;
+import presentation.tableModels.TournamentTeamTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
 
@@ -38,6 +41,7 @@ public class MainForm extends javax.swing.JFrame {
     PersonController personController;
     DepartmentController departmentController;
     TournamentController tournamentController;
+    TeamController teamController;
 
     /**
      * Creates new form MainForm
@@ -45,7 +49,7 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         try {
-        
+
             initControls();
         } catch (RemoteException | NotBoundException | MalformedURLException ex) {
             System.out.println(ex.getMessage());
@@ -83,6 +87,10 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTable = new javax.swing.JTable();
         btnCreateTournament = new javax.swing.JButton();
         btnEditTournament = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tournamentTeamTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
@@ -234,6 +242,47 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Wettkämpfe", jPanel2);
 
+        tournamentTeamTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tournamentTeamTable.setRowHeight(26);
+        jScrollPane2.setViewportView(tournamentTeamTable);
+
+        jButton1.setText("Team bearbeiten");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Teams", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,30 +314,36 @@ public class MainForm extends javax.swing.JFrame {
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
-                String contStatus = entry.getValue(8).toString().toLowerCase();
-                
-                String abteilungenTxt = "";
-                if(cobDepartment.getSelectedItem() instanceof IDepartmentDTO) {
-                    abteilungenTxt = ((IDepartmentDTO)cobDepartment.getSelectedItem()).getName().toLowerCase();
+                String contStatus;
+
+                if (entry.getValue(8) != null) {
+                    contStatus = entry.getValue(8).toString().toLowerCase();
+                } else {
+                    contStatus = "";
                 }
-                
+
+                String abteilungenTxt = "";
+                if (cobDepartment.getSelectedItem() instanceof IDepartmentDTO) {
+                    abteilungenTxt = ((IDepartmentDTO) cobDepartment.getSelectedItem()).getName().toLowerCase();
+                }
+
                 if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0 && cobContribution.getSelectedIndex() == 0) {
                     return true;
                 }
 
                 if ((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
-                    
-                    if(cobContribution.getSelectedIndex() == 0) {
+
+                    if (cobContribution.getSelectedIndex() == 0) {
                         return true;
                     }
-                    
-                    if(("1".equals(contStatus) && cobContribution.getSelectedIndex() == 1) || 
-                            ("0".equals(contStatus) && cobContribution.getSelectedIndex() == 2)) {
+
+                    if (("1".equals(contStatus) && cobContribution.getSelectedIndex() == 1)
+                            || ("0".equals(contStatus) && cobContribution.getSelectedIndex() == 2)) {
                         return true;
                     } else {
                         return false;
                     }
-                  
+
                 }
 
                 return false;
@@ -308,7 +363,7 @@ public class MainForm extends javax.swing.JFrame {
         personController = (PersonController) controllerFactory.loadPersonController();
         departmentController = (DepartmentController) controllerFactory.loadDepartmentController();
         tournamentController = (TournamentController) controllerFactory.loadTournamentController();
-
+        teamController = (TeamController) controllerFactory.loadTeamController();
 
         // ############## INITIATE PERSONS ################
 
@@ -324,7 +379,7 @@ public class MainForm extends javax.swing.JFrame {
         cobContribution.addItem("Ja");
         cobContribution.addItem("Nein");
 
-        this.personTable.setModel(new PersonTableModel(personsDTO, personController));
+        this.personTable.setModel(new PersonTableModel(personsDTO));
         personSorter = new TableRowSorter<PersonTableModel>();
         personTable.setAutoCreateRowSorter(true);
 
@@ -340,9 +395,14 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
 
-        btnCreateTournament.addActionListener(new CreateNewTournamentListener());
-        btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable));
+        btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory));
+        btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
 
+        // ################### INITIATE TOURNAMENTTEAMS ############################
+
+        List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTeams();
+        tournamentTeamTable.setModel(new TournamentTeamTableModel(tournamentTeamsDTO));
+        tournamentTeamTable.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -384,17 +444,21 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cobContribution;
     private javax.swing.JComboBox cobDepartment;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable personTable;
     private javax.swing.JTable tournamentTable;
+    private javax.swing.JTable tournamentTeamTable;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

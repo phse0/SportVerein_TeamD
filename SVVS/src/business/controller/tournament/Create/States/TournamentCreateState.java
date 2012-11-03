@@ -17,6 +17,8 @@ import data.models.Tournament;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -43,11 +45,15 @@ class TournamentCreateState implements ITournamentCreateState {
     @Override
     public void CreateTournament(String name, String location, BigDecimal fee,
             String sportname, List<String> TeamNames) {
+        
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+        
         Tournament tournament = new Tournament();
         tournament.setName(name);
         tournament.setLocation(location);
         tournament.setFee(fee);
-        ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
+        ISport sport = SportDAO.getInstance().getByName(s, sportname);
 
         LinkedList<ITeam> teams = new LinkedList<ITeam>();
         //für jedes  team in der stringliste werden alle teams durchgegangen ob der name darin vorhanden ist
@@ -61,7 +67,9 @@ class TournamentCreateState implements ITournamentCreateState {
 
         tournament.setTeams(teams);
 
-        TournamentDAO.getInstance().add(HibernateUtil.getCurrentSession(), tournament);
-
+        TournamentDAO.getInstance().add(s, tournament);
+        
+        tx.commit();
+        
     }
 }

@@ -4,12 +4,16 @@
  */
 package presentation.forms;
 
+import business.controller.tournament.edit.ITournamentEdit;
 import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import presentation.matchListeners.CreateNewMatchListener;
+import presentation.matchListeners.EditMatchListener;
 import presentation.tableModels.MatchTableModel;
+import presentation.tournamentListeners.EditTournamentDialogListener;
 
 /**
  *
@@ -18,16 +22,18 @@ import presentation.tableModels.MatchTableModel;
 public class EditTournamentDialog extends javax.swing.JDialog {
 
     ITournamentDTO tournament;
+    ITournamentEdit editController;
 
     /**
      * Creates new form CreateTournamentDialog
      */
-    public EditTournamentDialog(java.awt.Frame parent, boolean modal, ITournamentDTO tournament) {
+    public EditTournamentDialog(java.awt.Frame parent, boolean modal, ITournamentDTO tournament, ITournamentEdit edit) {
         super(parent, modal);
         initComponents();
 
         this.tournament = tournament;
-
+        this.editController = edit;
+        
         setLocationRelativeTo(null);
         initiateControls();
     }
@@ -60,8 +66,8 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         matchTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAddMatch = new javax.swing.JButton();
+        btnEditMatch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Wettkampf bearbeiten");
@@ -195,9 +201,9 @@ public class EditTournamentDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton1.setText("Begegnung hinzufügen");
+        btnAddMatch.setText("Begegnung hinzufügen");
 
-        jButton2.setText("Begegnung bearbeiten");
+        btnEditMatch.setText("Begegnung bearbeiten");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,9 +218,9 @@ public class EditTournamentDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnAddMatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnEditMatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -234,8 +240,8 @@ public class EditTournamentDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnSave)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnAddMatch)
+                    .addComponent(btnEditMatch))
                 .addContainerGap())
         );
 
@@ -250,10 +256,10 @@ public class EditTournamentDialog extends javax.swing.JDialog {
             tbxDate.setText(tournament.getDate());
             tbxLocation.setText(tournament.getLocation());
             tbxFee.setText(Double.toString(tournament.getFee()));
-            
-            DefaultListModel<String> listModel = new DefaultListModel<>();
+             
+            DefaultListModel<ITeamDTO> listModel = new DefaultListModel<>();
             for(ITeamDTO team : tournament.getTeams()) {
-                listModel.addElement(team.getName());
+                listModel.addElement(team);
             }
             lbxTeams.setModel(listModel);
             lbxTeams.setEnabled(false);
@@ -261,6 +267,10 @@ public class EditTournamentDialog extends javax.swing.JDialog {
             List<IMatchDTO> matches = tournament.getMatches();
             MatchTableModel matchModel = new MatchTableModel(matches);
             matchTable.setModel(matchModel);
+            
+            btnSave.addActionListener(new EditTournamentDialogListener(this, editController, tournament));
+            btnAddMatch.addActionListener(new CreateNewMatchListener(matchTable, editController, tournament));
+            btnEditMatch.addActionListener(new EditMatchListener(matchTable, editController, tournament));
             
         }
         
@@ -270,11 +280,11 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddMatch;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnEditMatch;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cobSport;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -292,4 +302,31 @@ public class EditTournamentDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tbxLocation;
     private javax.swing.JTextField tbxName;
     // End of variables declaration//GEN-END:variables
+
+    public String getDate() {
+        return tbxDate.getText();
+    }
+
+    public String getFee() {
+        return tbxFee.getText();
+    }
+
+    public String getPlace() {
+        return tbxLocation.getText();
+    }
+
+    public String getTournamentName() {
+        return tbxName.getText();
+    }
+    
+    public ITournamentDTO getTournament() {
+        return tournament;
+    }
+    
+    public void setTournament(ITournamentDTO tournament) {
+        this.tournament = tournament;
+    }
+
+    
+
 }

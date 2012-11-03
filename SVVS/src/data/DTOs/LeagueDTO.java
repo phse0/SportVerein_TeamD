@@ -27,9 +27,9 @@ public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
     public void extract(ILeague model) {
         this.id = model.getLeagueID();
         
-        for(ITournamentTeam tt: model.getTournamentTeams()){
-            this.tournamentTeams.add(new TournamentTeamDTO(tt));
-        }
+        //for(ITournamentTeam tt: model.getTournamentTeams()){
+           // this.tournamentTeams.add(new TournamentTeamDTO(tt));
+        //}
     }
 
     @Override

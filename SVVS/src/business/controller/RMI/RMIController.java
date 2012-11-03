@@ -16,7 +16,8 @@ public class RMIController {
 
     public static void main(String[] args) {
         try {
-            
+
+            java.rmi.registry.LocateRegistry.createRegistry(1099);
             IControllerFactory obj = new ControllerFactory();
 
             System.out.println("starting server...");
@@ -24,8 +25,8 @@ public class RMIController {
             Naming.rebind("rmi://localhost/SVVS", obj);
 
             System.out.println("Factory bound in the registry");
-            
-            
+
+
         } catch (RemoteException e) {
             System.out.println("error on remote communication");
             e.printStackTrace();

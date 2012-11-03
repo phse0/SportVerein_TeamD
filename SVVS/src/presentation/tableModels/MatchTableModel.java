@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class MatchTableModel extends DefaultTableModel {
 
     private List<IMatchDTO> matches;
-    private String[] colNames = {"Team 1", "Team 2", "Datum", "Ort", "Result"};
+    private String[] colNames = {"Team 1", "Team 2", "Datum", "Ort", "Ergebnis"};
 
     public MatchTableModel(List<IMatchDTO> matches) {
         this.matches = matches;
@@ -45,7 +45,11 @@ public class MatchTableModel extends DefaultTableModel {
             case 3:
                 return match.getLocation();
             case 4:
-                return match.getGoalsTeam1() + " : " + match.getGoalsTeam2();
+                if(match.getGoalsTeam1() == null && match.getGoalsTeam2() == null) {
+                    return " - ";
+                } else {
+                    return match.getGoalsTeam1() + " : " + match.getGoalsTeam2();
+                }
             default:
                 return null;
         }
@@ -57,6 +61,14 @@ public class MatchTableModel extends DefaultTableModel {
 
     public void setMatches(List<IMatchDTO> matches) {
         this.matches = matches;
+    }
+    
+    public void addMatch(IMatchDTO match) {
+        this.matches.add(match);
+    }
+    
+    public void updateMatchDTO(int index, IMatchDTO match) {
+        this.matches.set(index, match);
     }
 
     @Override
@@ -71,5 +83,10 @@ public class MatchTableModel extends DefaultTableModel {
 
     public IMatchDTO getMatchDTO(int index) {
         return matches.get(index);
+    }
+
+    @Override
+    public void fireTableDataChanged() {
+        super.fireTableDataChanged();
     }
 }

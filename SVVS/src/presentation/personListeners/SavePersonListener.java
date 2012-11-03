@@ -6,6 +6,7 @@ package presentation.personListeners;
 
 import business.controller.person.create.IPersonCreation;
 import data.interfaces.DTOs.IPersonDTO;
+import java.awt.Dialog;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,6 +60,7 @@ public class SavePersonListener implements ActionListener {
                 person.setSports(_dialog.getSports());
                 
                 creation.SaveDTO(person);
+                _dialog.setPerson(person);
                 
                 //IPersonDTO createdPerson = creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthdate, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution());
                 //creation.AssignToSport(_dialog.getSports(), createdPerson.getId());

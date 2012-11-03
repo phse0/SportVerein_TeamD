@@ -42,7 +42,6 @@ public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements I
     @Override
     public List<V> getAll(Session s) {
         Query query = s.createQuery("FROM " + getTable() + "");
-        query.setCacheMode(CacheMode.IGNORE);
         return query.list();
     }
 

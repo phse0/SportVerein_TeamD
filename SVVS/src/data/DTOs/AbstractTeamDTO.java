@@ -4,6 +4,7 @@
  */
 package data.DTOs;
 
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ITeam;
 
 /**
@@ -13,13 +14,13 @@ import data.interfaces.models.ITeam;
 public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
    
     protected String name;
-   // protected ISportDTO sport;
+    protected ISportDTO sport;
    // protected List<ITournamentDTO> tournaments;
    
     public void extractTeam(V model) {
         this.id = model.getTeamID();
         this.name = model.getName();
-        //this.sport = new SportDTO(model.getSport());
+        this.sport = new SportDTO(model.getSport());
         
 //        for(ITournament tournament : model.getTournaments()){
 //            tournaments.add(new TournamentDTO(tournament));

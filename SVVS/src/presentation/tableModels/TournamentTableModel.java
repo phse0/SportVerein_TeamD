@@ -34,8 +34,8 @@ public class TournamentTableModel extends DefaultTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         ITournamentDTO tournament = tournaments.get(row);
-        
-        switch(column) {
+
+        switch (column) {
             case 0:
                 return tournament.getName();
             case 1:
@@ -56,6 +56,14 @@ public class TournamentTableModel extends DefaultTableModel {
     public void setTournaments(List<ITournamentDTO> tournaments) {
         this.tournaments = tournaments;
     }
+    
+    public void addTournament(ITournamentDTO tournament) {
+        this.tournaments.add(tournament);
+    }
+    
+    public void updateTournamentDTO(int index, ITournamentDTO tournament) {
+        this.tournaments.set(index, tournament);
+    }
 
     @Override
     public String getColumnName(int column) {
@@ -66,9 +74,8 @@ public class TournamentTableModel extends DefaultTableModel {
     public boolean isCellEditable(int row, int column) {
         return false;
     }
-    
+
     public ITournamentDTO getTournamentDTO(int index) {
         return tournaments.get(index);
     }
-    
 }

@@ -32,12 +32,17 @@ public class CreateNewPersonListener implements ActionListener {
         try {
             IPersonCreation createController;
             createController = controllerfactory.loadPersonCreateController();
-            new CreatePersonDialog(null, true, createController).setVisible(true);
+            CreatePersonDialog dialog = new CreatePersonDialog(null, true, createController);
+            dialog.setVisible(true);
+            
+            if(dialog.getPerson() != null) {
+                PersonTableModel personModel = (PersonTableModel) table.getModel();
+                personModel.addPerson(dialog.getPerson());
+                personModel.fireTableDataChanged();
+            }
         } catch (RemoteException ex) {
             System.out.println("Coud not load controller");
         }
-        
-        ((PersonTableModel) table.getModel()).fireTableDataChanged();
 
     }
 }

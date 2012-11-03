@@ -41,12 +41,14 @@ public class EditPersonListener implements ActionListener {
 
             try {
                 IPersonCreation personEdit = factory.loadPersonCreateController();
-                new CreatePersonDialog(null, true, personEdit, personModel.getPersonDTO(index)).setVisible(true);
-                
-                IPersonController controller = factory.loadPersonController();
-                PersonTableModel personModelNew = new PersonTableModel(controller.loadPersons(), controller);
-                _table.setModel(personModelNew);
-                
+                CreatePersonDialog dialog = new CreatePersonDialog(null, true, personEdit, personModel.getPersonDTO(index));
+                dialog.setVisible(true);
+
+                if (dialog.getPerson() != null) {
+                    personModel.updatePersonDTO(index, dialog.getPerson());
+                    personModel.fireTableDataChanged();
+                }
+
             } catch (RemoteException ex) {
                 Logger.getLogger(EditPersonListener.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -6,7 +6,6 @@ package business.controller.team.playerToTeam;
 
 import business.controller.RMI.IController;
 import data.interfaces.DTOs.ISportsmanDTO;
-import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

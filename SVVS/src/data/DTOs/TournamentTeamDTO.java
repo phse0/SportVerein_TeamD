@@ -6,6 +6,7 @@ package data.DTOs;
 
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ILeagueDTO;
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.models.ISportsmanTrainingTeam;
@@ -40,7 +41,7 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
     @Override
     public void extract(ITournamentTeam model) {
         extractTeam(model);
-        this.league = new LeagueDTO(model.getLeague());
+        this.league = (model.getLeague() != null) ? new LeagueDTO(model.getLeague()) : null;
         this.department = new DepartmentDTO(model.getDepartment());
         
         for(ISportsmanTrainingTeam stt: model.getSportsmen()){
@@ -81,6 +82,26 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
 //    public void setCoaches(List<ICoachDTO> coaches) {
 //        this.coaches = coaches;
 //    }
+
+    @Override
+    public String getTeamName() {
+        return name;
+    }
+
+    @Override
+    public void setTeamName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public ISportDTO getSport() {
+        return sport;
+    }
+
+    @Override
+    public void setSport(ISportDTO sport) {
+        this.sport = sport;
+    }
 
    
     

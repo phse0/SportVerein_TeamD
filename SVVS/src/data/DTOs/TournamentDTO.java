@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public class TournamentDTO extends AbstractDTO<ITournament> implements ITournamentDTO{
+public class TournamentDTO extends AbstractDTO<ITournament> implements ITournamentDTO {
 
     private String name;
     private String location;
@@ -28,14 +28,14 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     private List<ITeamDTO> teams;
     private List<IMatchDTO> matches;
     private List<ITournamentInviteDTO> invites;
-    
-    public TournamentDTO(ITournament model){
+
+    public TournamentDTO(ITournament model) {
         teams = new LinkedList<>();
         matches = new LinkedList<>();
         invites = new LinkedList<>();
         extract(model);
     }
-    
+
     @Override
     public void extract(ITournament model) {
         this.id = model.getTournamentID();
@@ -43,18 +43,26 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
         this.date = model.getDate().toString();
         this.fee = model.getFee().doubleValue();
         this.location = model.getLocation();
-        
-        for(ITeam team:model.getTeams()){
-            teams.add(new TeamDTO(team));
+
+        if (model.getTeams() != null) {
+            for (ITeam team : model.getTeams()) {
+                teams.add(new TeamDTO(team));
+            }
         }
-        
-        for(IMatch match:model.getMatches()){
-            matches.add(new MatchDTO(match));
+
+        if (model.getMatches() != null) {
+            for (IMatch match : model.getMatches()) {
+                matches.add(new MatchDTO(match));
+            }
         }
-        
-        for(ITournamentInvite ti: model.getInvites()){
-            invites.add(new TournamentInviteDTO(ti));
+
+
+        if (model.getInvites() != null) {
+            for (ITournamentInvite ti : model.getInvites()) {
+                invites.add(new TournamentInviteDTO(ti));
+            }
         }
+
     }
 
     @Override
@@ -126,5 +134,4 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     public void setInvites(List<ITournamentInviteDTO> invites) {
         this.invites = invites;
     }
-   
 }

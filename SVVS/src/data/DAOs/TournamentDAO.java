@@ -14,21 +14,21 @@ import data.models.Tournament;
  *
  * @author uubu
  */
-public class TournamentDAO extends AbstractDAO<ITournament, ITournamentDTO> implements ITournamentDAO{
+public class TournamentDAO extends AbstractDAO<ITournament, ITournamentDTO> implements ITournamentDAO {
 
     private static ITournamentDAO instance;
-    
-    private TournamentDAO(){
+
+    private TournamentDAO() {
         super("data.models.Tournament");
     }
-    
-    public static ITournamentDAO getInstance(){
-        if(instance == null){
+
+    public static ITournamentDAO getInstance() {
+        if (instance == null) {
             instance = new TournamentDAO();
         }
         return instance;
     }
-    
+
     @Override
     public ITournament create() {
         return new Tournament();
@@ -38,5 +38,4 @@ public class TournamentDAO extends AbstractDAO<ITournament, ITournamentDTO> impl
     public ITournamentDTO extractDTO(ITournament model) {
         return new TournamentDTO(model);
     }
-    
 }

@@ -7,6 +7,7 @@ package business.controller.tournament.Create;
 import business.controller.RMI.IController;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.DTOs.ITournamentDTO;
 import java.math.BigDecimal;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -26,6 +27,6 @@ import java.util.List;
 public interface ITournamentCreation extends Remote, IController  {
     public LinkedList<ISportDTO> loadSport() throws RemoteException;
     public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException;
-    public void CreateTournament(String name, String location, BigDecimal fee,
+    public ITournamentDTO CreateTournament(String name, String location, String date, BigDecimal fee,
     String sportname, List<String> TeamNames) throws RemoteException;
 }

@@ -4,21 +4,19 @@
  */
 package presentation.forms;
 
-import data.DAOs.SportDAO;
-import data.DAOs.TeamDAO;
-import data.hibernate.HibernateUtil;
-import data.interfaces.DAOs.ISportDAO;
-import data.interfaces.DAOs.ITeamDAO;
+import business.controller.tournament.Create.ITournamentCreation;
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.models.ISport;
-import data.interfaces.models.ITeam;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import presentation.tournamentListeners.CreateTournamentDialogListener;
 
 /**
  *
@@ -27,14 +25,17 @@ import org.hibernate.Transaction;
 public class CreateTournamentDialog extends javax.swing.JDialog {
 
     Session s;
+    ITournamentCreation creation;
+    ITournamentDTO savedTournament;
 
     /**
      * Creates new form CreateTournamentDialog
      */
-    public CreateTournamentDialog(java.awt.Frame parent, boolean modal) {
+    public CreateTournamentDialog(java.awt.Frame parent, boolean modal, ITournamentCreation creation) {
         super(parent, modal);
         initComponents();
 
+        this.creation = creation;
         setLocationRelativeTo(null);
 
         initiateControls();
@@ -212,7 +213,7 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-         if (JOptionPane.showConfirmDialog(null,
+        if (JOptionPane.showConfirmDialog(null,
                 "Wollen sie wirklich abbrechen? \nAlle eingegebenen Daten gehen für immer verloren", "",
                 JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION) {
@@ -222,74 +223,32 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
 
     private void cobSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobSportActionPerformed
 
-        ITeamDAO teamDAO = TeamDAO.getInstance();
-        ISportDAO sportDAO = SportDAO.getInstance();
-        ISport sport = (ISport) sportDAO.getByName(s, cobSport.getSelectedItem().toString());
-        List<ITeam> teams = teamDAO.getBySport(s, sport);
+        try {
+            ISportDTO selectedSport = (ISportDTO) cobSport.getSelectedItem();
+            List<ITeamDTO> teams = creation.loadTeams(selectedSport.getName());
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (ITeam team : teams) {
-            listModel.addElement(team.getName());
+            DefaultListModel<ITeamDTO> listModel = new DefaultListModel<>();
+            for (ITeamDTO team : teams) {
+                listModel.addElement(team);
+            }
+            lbxTeams.setModel(listModel);
+        } catch (RemoteException ex) {
+            Logger.getLogger(CreateTournamentDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lbxTeams.setModel(listModel);
-
 
     }//GEN-LAST:event_cobSportActionPerformed
 
     private void initiateControls() {
 
-        s = HibernateUtil.getCurrentSession();
-        Transaction tx = s.beginTransaction();
-
-        ISportDAO sportDAO = SportDAO.getInstance();
-        List<ISport> sports = sportDAO.getAll(s);
-
-        for (ISport sp : sports) {
-            cobSport.addItem(sp.getName());
-        }
-
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            for (ISportDTO s : creation.loadSport()) {
+                cobSport.addItem(s);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateTournamentDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
+            Logger.getLogger(CreateTournamentDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CreateTournamentDialog dialog = new CreateTournamentDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+        
+        btnSave.addActionListener(new CreateTournamentDialogListener(creation, this));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -310,8 +269,9 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tbxName;
     // End of variables declaration//GEN-END:variables
 
+    @Override
     public String getName() {
-        return tbxName.getName();
+        return tbxName.getText();
     }
 
     public String getDate() {
@@ -325,18 +285,26 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     public String getFee() {
         return tbxFee.getText();
     }
-    public String getSports()
-    {
-       return ((ITournamentDTO) cobSport.getSelectedItem()).getName();
+
+    public String getSports() {
+        return ((ISportDTO) cobSport.getSelectedItem()).getName();
     }
-    public LinkedList<String> getTeams()
-    {
+
+    public LinkedList<String> getTeams() {
         List<ITeamDTO> teams = lbxTeams.getSelectedValuesList();
         LinkedList<String> teamNames = new LinkedList<>();
-        for(ITeamDTO t : teams) {
+        for (ITeamDTO t : teams) {
             teamNames.add(t.getName());
         }
-        
+
         return teamNames;
+    }
+    
+    public ITournamentDTO getSavedTournament() {
+        return savedTournament;
+    }
+    
+    public void setSavedTournament(ITournamentDTO tournament) {
+        this.savedTournament = tournament;
     }
 }

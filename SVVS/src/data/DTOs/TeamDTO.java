@@ -4,6 +4,7 @@
  */
 package data.DTOs;
 
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ITeam;
 
@@ -12,7 +13,7 @@ import data.interfaces.models.ITeam;
  * @author uubu
  */
 public class TeamDTO extends AbstractTeamDTO<ITeam> implements ITeamDTO{
-
+    
     public TeamDTO(ITeam model){
         extract(model);
     }
@@ -21,5 +22,11 @@ public class TeamDTO extends AbstractTeamDTO<ITeam> implements ITeamDTO{
     public void extract(ITeam model) {
         extractTeam(model);
     }
+    
+    @Override
+    public String toString() {
+        return getName();
+    }
+
  
 }

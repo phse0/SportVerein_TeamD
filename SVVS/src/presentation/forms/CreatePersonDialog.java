@@ -542,4 +542,12 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     public IContributionDTO getContribution() {
         return (IContributionDTO) cobContribution.getSelectedItem();
     }
+    
+    public IPersonDTO getPerson() {
+        return person;
+    }
+    
+    public void setPerson(IPersonDTO person) {
+        this.person = person;
+    }
 }

@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentation.personListeners;
+package presentation.tournamentListeners;
 
 import business.controller.tournament.Create.ITournamentCreation;
-import data.interfaces.models.ITournament;
+import data.interfaces.DTOs.ITournamentDTO;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import javax.swing.JDialog;
+import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
 import presentation.forms.CreateTournamentDialog;
 
@@ -32,9 +33,15 @@ public class CreateTournamentDialogListener implements ActionListener {
         String error = isValide();
         if (error.equals("")) {
             try {
-                tournament.CreateTournament(dialog.getName(), dialog.getPlace(), new BigDecimal(dialog.getFee()), dialog.getSports(), dialog.getTeams());
+                ITournamentDTO tournamentDTO = tournament.CreateTournament(dialog.getName(), dialog.getPlace(), dialog.getDate(), 
+                        new BigDecimal(dialog.getFee()), dialog.getSports(), dialog.getTeams());
+                
+                
                 JOptionPane.showMessageDialog(null, "Tournament wurde erfolgreich erstellt.");
-            } catch (Exception ex) {
+                
+                dialog.setSavedTournament(tournamentDTO);
+                dialog.dispose();
+            } catch (RemoteException | HeadlessException ex) {
                 JOptionPane.showMessageDialog(null, "Fehler ohne Sinn ist aufgetreten.");
                 dialog.dispose();
             }

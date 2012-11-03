@@ -4,13 +4,9 @@
  */
 package presentation.tableModels;
 
-import business.controller.person.IPersonController;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
-import java.rmi.RemoteException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,12 +16,10 @@ import javax.swing.table.DefaultTableModel;
 public class PersonTableModel extends DefaultTableModel {
 
     private List<IPersonDTO> persons;
-    private IPersonController controller;
     private String[] colNames = {"Nachname", "Vorname", "Geburtstag", "Telefon", "Mail", "Abteilung", "Hauptadresse"};
 
-    public PersonTableModel(List<IPersonDTO> persons, IPersonController controller) {
+    public PersonTableModel(List<IPersonDTO> persons) {
         this.persons = persons;
-        this.controller = controller;
     }
 
     @Override
@@ -84,6 +78,10 @@ public class PersonTableModel extends DefaultTableModel {
     public void setPersons(List<IPersonDTO> persons) {
         this.persons = persons;
     }
+    
+    public void addPerson(IPersonDTO person) {
+        this.persons.add(person);
+    }
 
     @Override
     public String getColumnName(int column) {
@@ -98,13 +96,14 @@ public class PersonTableModel extends DefaultTableModel {
     public IPersonDTO getPersonDTO(int index) {
         return persons.get(index);
     }
+    
+    public void updatePersonDTO(int index, IPersonDTO person) {
+        persons.set(index, person);
+    }
 
     @Override
     public void fireTableDataChanged() {
-        try {
-            this.persons = controller.loadPersons();
-        } catch (RemoteException ex) {
-            Logger.getLogger(PersonTableModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super.fireTableDataChanged();
     }
+    
 }
