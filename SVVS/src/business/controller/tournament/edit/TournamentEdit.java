@@ -4,6 +4,7 @@
  */
 package business.controller.tournament.edit;
 
+import business.controller.RMI.AController;
 import business.controller.tournament.TournamentController;
 import business.controller.tournament.edit.States.ITournamentEditState;
 import business.controller.tournament.edit.States.TournamentEditLoadState;
@@ -34,7 +35,7 @@ import org.hibernate.Transaction;
  *
  * @author phil
  */
-public class TournamentEdit extends UnicastRemoteObject implements ITournamentEdit {
+public class TournamentEdit extends AController implements ITournamentEdit {
 
     ITournamentEditState _curState;
 

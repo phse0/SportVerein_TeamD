@@ -4,6 +4,7 @@
  */
 package business.controller.tournament.Create.States;
 
+import business.controller.RMI.AController;
 import business.controller.tournament.Create.TournamentCreation;
 import business.controller.tournament.TournamentController;
 import data.interfaces.DTOs.ISportDTO;
@@ -17,16 +18,17 @@ import java.util.List;
  *
  * @author phil
  */
-public class TournamentCreateLoadTeamsState implements ITournamentCreateState {
+public class TournamentCreateLoadTeamsState extends AController implements ITournamentCreateState {
 
     TournamentCreation _creator;
 
-    public TournamentCreateLoadTeamsState(TournamentCreation creator){
+    public TournamentCreateLoadTeamsState(TournamentCreation creator)throws RemoteException{
+        super();
         _creator = creator;
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport() {
+    public LinkedList<ISportDTO> loadSport() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -43,7 +45,7 @@ public class TournamentCreateLoadTeamsState implements ITournamentCreateState {
     }
 
     @Override
-    public void CreateTournament(String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) {
+    public void CreateTournament(String name, String location, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

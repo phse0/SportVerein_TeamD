@@ -4,12 +4,10 @@
  */
 package business.controller.RMI;
 
-import java.io.Serializable;
-
 /**
  *
  * @author phil
  */
-public interface IController extends Serializable {
+public interface IController{
     
 }

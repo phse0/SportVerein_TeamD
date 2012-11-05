@@ -4,6 +4,7 @@
  */
 package business.controller.person.edit.States;
 
+import business.controller.RMI.AController;
 import business.controller.person.PersonController;
 import business.controller.person.edit.PersonEdit;
 import data.DAOs.AddressDAO;
@@ -32,11 +33,12 @@ import org.joda.time.DateTime;
  *
  * @author phil
  */
-public class PersonEditState implements IPersonEditState {
+public class PersonEditState extends AController implements IPersonEditState {
 
     PersonEdit _editor; 
     
-    public PersonEditState(PersonEdit editor) {
+    public PersonEditState(PersonEdit editor)throws RemoteException {
+        super();
         _editor = editor;
     }
 

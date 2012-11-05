@@ -4,6 +4,7 @@
  */
 package business.controller.person.edit.States;
 
+import business.controller.RMI.AController;
 import business.controller.person.PersonController;
 import business.controller.person.edit.PersonEdit;
 import data.interfaces.DTOs.IContributionDTO;
@@ -18,11 +19,12 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public class PersonEditLoadSportState implements IPersonEditState{
+public class PersonEditLoadSportState extends AController implements IPersonEditState{
 
     PersonEdit _editor;
 
-    public PersonEditLoadSportState(PersonEdit editor) {
+    public PersonEditLoadSportState(PersonEdit editor)throws RemoteException {
+        super();
         _editor = editor;
     }
 

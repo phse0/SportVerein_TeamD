@@ -4,6 +4,7 @@
  */
 package business.controller.person.delete;
 
+import business.controller.RMI.AController;
 import data.DAOs.PersonDAO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IPersonDTO;
@@ -15,15 +16,18 @@ import org.hibernate.Transaction;
  *
  * @author Michael
  */
-public class PersonDelete implements IPersonDelete {
+public class PersonDelete extends AController implements IPersonDelete {
+
+    public PersonDelete() throws RemoteException {
+        super();
+    }
 
     @Override
     public void removePerson(IPersonDTO person) throws RemoteException {
-        
+
         Session s = HibernateUtil.getCurrentSession();
         Transaction tx = s.beginTransaction();
         PersonDAO.getInstance().removeDTO(s, person);
         tx.commit();
     }
-    
 }

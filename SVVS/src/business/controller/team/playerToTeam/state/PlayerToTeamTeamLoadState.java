@@ -4,12 +4,14 @@
  */
 package business.controller.team.playerToTeam.state;
 
+import business.controller.RMI.AController;
 import business.controller.team.TeamController;
 import business.controller.team.playerToTeam.PlayerToTeam;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ITrainingTeam;
@@ -20,11 +22,12 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public class PlayerToTeamTeamLoadState implements IPlayerToTeamState {
+public class PlayerToTeamTeamLoadState extends AController implements IPlayerToTeamState {
 
     PlayerToTeam _context;
 
-    public PlayerToTeamTeamLoadState(PlayerToTeam context) {
+    public PlayerToTeamTeamLoadState(PlayerToTeam context) throws RemoteException{
+        super();
         this._context = context;
     }
 
@@ -51,7 +54,7 @@ public class PlayerToTeamTeamLoadState implements IPlayerToTeamState {
     }
 
     @Override
-    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException {
+    public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

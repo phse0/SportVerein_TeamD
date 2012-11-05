@@ -4,9 +4,11 @@
  */
 package business.controller.team.playerToTeam.state;
 
+import business.controller.RMI.AController;
 import business.controller.team.TeamController;
 import business.controller.team.playerToTeam.PlayerToTeam;
 import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISportsman;
 import java.rmi.RemoteException;
@@ -16,10 +18,11 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public class PlayerToTeamLoadPlayersOfTeam implements IPlayerToTeamState {
+public class PlayerToTeamLoadPlayersOfTeam extends AController implements IPlayerToTeamState {
 
     PlayerToTeam _context;
-    public PlayerToTeamLoadPlayersOfTeam(PlayerToTeam context) {
+    public PlayerToTeamLoadPlayersOfTeam(PlayerToTeam context) throws RemoteException {
+    super();
         _context = context;
     }
     
@@ -34,7 +37,7 @@ public class PlayerToTeamLoadPlayersOfTeam implements IPlayerToTeamState {
     }
 
     @Override
-    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException {
+    public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException {
         _context.setState(new PlayerToTeamLoadSportmanState(_context));
         return TeamController.getInstance().loadPlayersOfTeam(TeamName);
     }

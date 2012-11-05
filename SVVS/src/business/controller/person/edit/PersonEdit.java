@@ -4,6 +4,7 @@
  */
 package business.controller.person.edit;
 
+import business.controller.RMI.AController;
 import business.controller.person.edit.States.IPersonEditState;
 import business.controller.person.edit.States.PersonEditLoadCountryState;
 import business.controller.person.edit.States.PersonEditLoadSportState;
@@ -22,7 +23,7 @@ import java.util.LinkedList;
  * Third AssignToSport
  * @author phil
  */
-public class PersonEdit  extends UnicastRemoteObject  implements IPersonEdit {
+public class PersonEdit  extends AController  implements IPersonEdit {
     IPersonEditState _state;
 
     public IPersonEditState getState() {

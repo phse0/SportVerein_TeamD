@@ -17,9 +17,13 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public interface ITournamentController extends Remote, IController  {
-    public LinkedList<ISportDTO >loadSport() throws RemoteException;
-    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException;
-    public ITournament loadTournament(int ID) throws RemoteException;
+public interface ITournamentController extends Remote, IController {
+
     public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException;
+
+    public LinkedList<ISportDTO> loadSport() throws RemoteException;
+
+    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException;
+
+    public ITournament loadTournament(int ID) throws RemoteException;
 }

@@ -4,9 +4,11 @@
  */
 package business.controller.team.playerToTeam;
 
+import business.controller.RMI.AController;
 import business.controller.team.playerToTeam.state.IPlayerToTeamState;
 import business.controller.team.playerToTeam.state.PlayerToTeamTeamLoadState;
 import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISportsman;
@@ -19,10 +21,11 @@ import java.util.LinkedList;
  * Third AddPlayerToTeam
  * @author phil
  */
-public class PlayerToTeam implements IPlayerToTeam{
+public class PlayerToTeam extends AController implements IPlayerToTeam{
     IPlayerToTeamState _state;
 
-    public PlayerToTeam() {
+    public PlayerToTeam() throws RemoteException {
+        super();
         setState(new PlayerToTeamTeamLoadState(this));
     }
     
@@ -51,7 +54,7 @@ public class PlayerToTeam implements IPlayerToTeam{
     }
 
     @Override
-    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException {
+    public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException {
         return _state.loadPlayersOfTeam(TeamName);
     }
     

@@ -4,6 +4,7 @@
  */
 package business.controller.person;
 
+import business.controller.RMI.AController;
 import data.DAOs.CountryDAO;
 import data.DAOs.PersonDAO;
 import data.DAOs.RoleDAO;
@@ -25,14 +26,15 @@ import java.util.List;
  *
  * @author phil
  */
-public class PersonController implements IPersonController {
+public class PersonController extends AController implements IPersonController {
 
     private static PersonController instance;
 
-    private PersonController() {
+    private PersonController() throws RemoteException {
+        super();
     }
 
-    public static PersonController getInstance() {
+    public static PersonController getInstance() throws RemoteException {
         if (instance == null) {
             return (instance = new PersonController());
         }

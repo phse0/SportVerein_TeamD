@@ -4,6 +4,7 @@
  */
 package business.controller.tournament.edit.States;
 
+import business.controller.RMI.AController;
 import business.controller.tournament.TournamentController;
 import business.controller.tournament.edit.TournamentEdit;
 import data.DAOs.MatchDAO;
@@ -22,16 +23,17 @@ import java.util.List;
  *
  * @author phil
  */
-class TournamentEditAddMatchState implements ITournamentEditState {
+class TournamentEditAddMatchState extends AController implements ITournamentEditState {
 
     TournamentEdit _editor;
 
-    public TournamentEditAddMatchState(TournamentEdit editor) {
+    public TournamentEditAddMatchState(TournamentEdit editor)throws RemoteException {
+        super();
         _editor = editor;
     }
 
     @Override
-    public ITournamentDTO loadTournament(int ID) {
+    public ITournamentDTO loadTournament(int ID)throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

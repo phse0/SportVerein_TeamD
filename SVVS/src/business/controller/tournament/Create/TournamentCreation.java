@@ -4,6 +4,7 @@
  */
 package business.controller.tournament.Create;
 
+import business.controller.RMI.AController;
 import business.controller.tournament.Create.States.ITournamentCreateState;
 import business.controller.tournament.Create.States.TournamentCreateLoadSportState;
 import business.controller.tournament.TournamentController;
@@ -36,7 +37,7 @@ import org.joda.time.DateTime;
  *
  * @author phil
  */
-public class TournamentCreation extends UnicastRemoteObject implements ITournamentCreation {
+public class TournamentCreation extends AController implements ITournamentCreation {
 
     ITournamentCreateState _curState;
 

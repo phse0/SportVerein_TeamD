@@ -4,6 +4,7 @@
  */
 package business.controller.person.create.States;
 
+import business.controller.RMI.AController;
 import business.controller.person.create.PersonCreation;
 import data.DAOs.AddressDAO;
 import data.DAOs.ContributionDAO;
@@ -22,6 +23,7 @@ import data.interfaces.models.IPerson;
 import data.models.Address;
 import data.models.ContributionHistory;
 import data.models.Person;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,27 +35,28 @@ import org.joda.time.DateTime;
  *
  * @author phil
  */
-public class PersonCreateState implements IPersonCreateState {
+public class PersonCreateState extends AController implements IPersonCreateState {
 
     PersonCreation _creator;
 
-    public PersonCreateState(PersonCreation creator) {
+    public PersonCreateState(PersonCreation creator) throws RemoteException{
+        super();
         _creator = creator;
     }
 
     @Override
-    public LinkedList<ICountryDTO> loadCountries() {
+    public LinkedList<ICountryDTO> loadCountries() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
-    public IPersonDTO CreatePersonDTO(){
+    public IPersonDTO CreatePersonDTO()throws RemoteException{
         
         return PersonDAO.getInstance().createPersonDTO();
     }
     
     @Override
-    public IPersonDTO SaveDTO(IPersonDTO dto){
+    public IPersonDTO SaveDTO(IPersonDTO dto)throws RemoteException{
         
         Session s = HibernateUtil.getCurrentSession();
         Transaction tx = s.beginTransaction();
@@ -66,7 +69,7 @@ public class PersonCreateState implements IPersonCreateState {
     public PersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
-            String street, String postcode, String city, String country, int contributionID) {
+            String street, String postcode, String city, String country, int contributionID) throws RemoteException {
         Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
         
         Address address = new Address();
@@ -122,7 +125,7 @@ public class PersonCreateState implements IPersonCreateState {
      * @param contributionID
      * @return
      */
-    private IContribution getContributionByID(int contributionID) {
+    private IContribution getContributionByID(int contributionID) throws RemoteException{
         for (IContribution ic : ContributionDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             if (ic.getContributionID() == contributionID) {
                 return ic;
@@ -132,17 +135,17 @@ public class PersonCreateState implements IPersonCreateState {
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public LinkedList<IContributionDTO> loadContributions() {
+    public LinkedList<IContributionDTO> loadContributions()throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

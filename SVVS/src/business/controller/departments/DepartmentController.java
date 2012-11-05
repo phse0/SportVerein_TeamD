@@ -4,6 +4,7 @@
  */
 package business.controller.departments;
 
+import business.controller.RMI.AController;
 import business.controller.RMI.IController;
 import data.DAOs.DepartmentDAO;
 import data.DTOs.DepartmentDTO;
@@ -19,13 +20,14 @@ import java.util.List;
  *
  * @author phil
  */
-public class DepartmentController implements IDepartmentController{
+public class DepartmentController extends AController implements IDepartmentController{
     private static DepartmentController instance;
 
-    private DepartmentController() {
+    private DepartmentController() throws RemoteException {
+        super();
     }
 
-    public static DepartmentController getInstance() {
+    public static DepartmentController getInstance() throws RemoteException {
         if (instance == null) {
             return (instance = new DepartmentController());
         }

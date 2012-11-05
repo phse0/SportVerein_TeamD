@@ -4,6 +4,7 @@
  */
 package business.controller.person.create.States;
 
+import business.controller.RMI.AController;
 import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
 import data.DAOs.PersonDAO;
@@ -19,11 +20,12 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public class PersonCreateLoadCountryState implements IPersonCreateState {
+public class PersonCreateLoadCountryState extends AController implements IPersonCreateState {
 
     PersonCreation _creator;
 
-    public PersonCreateLoadCountryState(PersonCreation creator) {
+    public PersonCreateLoadCountryState(PersonCreation creator)throws RemoteException {
+        super();
         _creator = creator;
     }
 
@@ -43,34 +45,34 @@ public class PersonCreateLoadCountryState implements IPersonCreateState {
 
 
     @Override
-    public LinkedList<ISportDTO> loadSports() {
+    public LinkedList<ISportDTO> loadSports() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
 
     @Override
-    public LinkedList<IContributionDTO> loadContributions() {
+    public LinkedList<IContributionDTO> loadContributions() throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public IPersonDTO CreatePerson(String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country, int contributionID) {
+    public IPersonDTO CreatePerson(String firstname, String lastname, String sex, String phone, String mail, String username, String password, Date birthday, int right, String street, String postcode, String city, String country, int contributionID) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AssignToSport(LinkedList<String> sport, int personID) {
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public IPersonDTO CreatePersonDTO() {
+    public IPersonDTO CreatePersonDTO() throws RemoteException{
          return PersonDAO.getInstance().createPersonDTO();
     }
 
     @Override
-    public IPersonDTO SaveDTO(IPersonDTO dto) {
+    public IPersonDTO SaveDTO(IPersonDTO dto) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

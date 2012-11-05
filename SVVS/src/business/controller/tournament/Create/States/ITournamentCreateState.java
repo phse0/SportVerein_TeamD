@@ -20,5 +20,5 @@ public interface ITournamentCreateState extends IController{
     public LinkedList<ISportDTO> loadSport() throws RemoteException;
     public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException;
     public void CreateTournament(String name, String location, BigDecimal fee,
-    String sportname, List<String> TeamNames);
+    String sportname, List<String> TeamNames)throws RemoteException;
 }

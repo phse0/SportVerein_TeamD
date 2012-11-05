@@ -20,13 +20,21 @@ import java.util.LinkedList;
  */
 public interface ITeamController extends Remote, IController {
 
-    public LinkedList<ITournamentTeamDTO> loadTeams() throws RemoteException;
+    public LinkedList<ITeamDTO> loadTeams() throws RemoteException;
 
-    public LinkedList<ITournamentTeamDTO> loadTeams(String sportname) throws RemoteException;
+    public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException;
+
+    public LinkedList<ITeamDTO> loadTeamsWithLeague(String leaguename) throws RemoteException;
+
+    public LinkedList<ITeamDTO> loadTeams(String sportname, String leaguename) throws RemoteException;
+
+    public LinkedList<ITournamentTeamDTO> loadTounamentTeams() throws RemoteException;
+
+    public LinkedList<ITournamentTeamDTO> loadTounamentTeams(String sportname) throws RemoteException;
 
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams() throws RemoteException;
 
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException;
-    
+
     public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException;
 }

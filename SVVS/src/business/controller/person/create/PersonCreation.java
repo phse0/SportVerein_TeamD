@@ -4,6 +4,7 @@
  */
 package business.controller.person.create;
 
+import business.controller.RMI.AController;
 import business.controller.person.create.States.IPersonCreateState;
 import business.controller.person.create.States.PersonCreateLoadCountryState;
 import data.interfaces.DTOs.IContributionDTO;
@@ -21,7 +22,7 @@ import java.util.LinkedList;
  *
  * @author phil
  */
-public class PersonCreation extends UnicastRemoteObject implements IPersonCreation {
+public class PersonCreation extends AController implements IPersonCreation {
 
     IPersonCreateState _state;
 

@@ -20,17 +20,17 @@ import java.util.LinkedList;
 public interface IPersonCreateState extends IController {
     public LinkedList<ICountryDTO> loadCountries() throws RemoteException;
     public LinkedList<ISportDTO> loadSports() throws RemoteException;
-    public LinkedList<IContributionDTO> loadContributions();
+    public LinkedList<IContributionDTO> loadContributions() throws RemoteException;
     
     public IPersonDTO CreatePerson(String firstname, String lastname,
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
-            String street, String postcode, String city, String country, int contributionID);
+            String street, String postcode, String city, String country, int contributionID) throws RemoteException;
     
     
-    public void AssignToSport(LinkedList<String> sport, int personID);
+    public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException;
 
-    IPersonDTO CreatePersonDTO();
+    IPersonDTO CreatePersonDTO() throws  RemoteException;
 
-    IPersonDTO SaveDTO(IPersonDTO dto);
+    IPersonDTO SaveDTO(IPersonDTO dto) throws  RemoteException;
 }

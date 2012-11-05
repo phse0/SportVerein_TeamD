@@ -4,6 +4,7 @@
  */
 package business.controller.tournament.edit.States;
 
+import business.controller.RMI.AController;
 import business.controller.tournament.TournamentController;
 import business.controller.tournament.edit.TournamentEdit;
 import data.DAOs.SportDAO;
@@ -23,15 +24,16 @@ import java.util.List;
  *
  * @author phil
  */
-public class TournamentEditState implements ITournamentEditState  {
+public class TournamentEditState extends AController implements ITournamentEditState  {
      TournamentEdit _editor;
 
-    public TournamentEditState(TournamentEdit editor) {
+    public TournamentEditState(TournamentEdit editor)throws RemoteException {
+        super();
         _editor = editor;
     }
 
     @Override
-    public ITournamentDTO loadTournament(int ID) {
+    public ITournamentDTO loadTournament(int ID)throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -60,7 +62,7 @@ public class TournamentEditState implements ITournamentEditState  {
     }
 
     @Override
-    public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2) {
+    public void AddMatch(int TournamentID, String location, Date date, String Team1Name, String Team2Name, Integer goalsTeam1, Integer goalsTeam2) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
