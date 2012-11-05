@@ -21,24 +21,31 @@ public class SportsmanDTO extends AbstractRoleDTO<ISportsman> implements ISports
 
     private List<ISportsmanTrainingTeamDTO> teams;
     private List<ITournamentInviteDTO> invites;
-    
-    public SportsmanDTO(ISportsman model){
+
+    public SportsmanDTO(ISportsman model) {
         teams = new LinkedList<>();
         invites = new LinkedList<>();
         extract(model);
     }
-    
+
     @Override
     public void extract(ISportsman model) {
         extractRole(model);
-        
-        for(ISportsmanTrainingTeam stt: model.getTeams()){
+
+        for (ISportsmanTrainingTeam stt : model.getTeams()) {
             teams.add(new SportsmanTrainingTeamDTO(stt));
         }
-        
-        for(ITournamentInvite ti: model.getInvites()){
+
+        for (ITournamentInvite ti : model.getInvites()) {
             invites.add(new TournamentInviteDTO(ti));
         }
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (((ISportsmanDTO) obj).getId() == this.id) {
+            return true;
+        }
+        return false;
+    }
 }
