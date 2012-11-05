@@ -8,14 +8,17 @@ import business.controller.RMI.AController;
 import business.controller.tournament.Create.States.ITournamentCreateState;
 import business.controller.tournament.Create.States.TournamentCreateLoadSportState;
 import business.controller.tournament.TournamentController;
+import data.DAOs.LeagueDAO;
 import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
+import data.DTOs.TeamDTO;
 import data.DTOs.TournamentDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
+import data.interfaces.models.ILeague;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.models.Tournament;
@@ -67,6 +70,36 @@ public class TournamentCreation extends AController implements ITournamentCreati
     }
 
     @Override
+    public LinkedList<ITeamDTO> loadTeamsWithLeague(String leaguename) throws RemoteException {
+        LinkedList<ITeamDTO> teams = new LinkedList<>();
+        for (ITeam it : TeamDAO.getInstance().getByLeague(HibernateUtil.getCurrentSession(), getLeagueWithName(leaguename))) {
+            teams.add(new TeamDTO(it));
+        }
+        return teams;
+    }
+
+    @Override
+    public LinkedList<ITeamDTO> loadTeamsBySportAndLeague(String sportname, String leaguename) throws RemoteException {
+        ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
+        LinkedList<ITeamDTO> teams = new LinkedList<>();
+        for (ITeam it : TeamDAO.getInstance().getBySportAndLeague(HibernateUtil.getCurrentSession(), sport, getLeagueWithName(leaguename))) {
+            teams.add(new TeamDTO(it));
+        }
+        return teams;
+    }
+
+    @Override
+    public ILeague getLeagueWithName(String leaguename) throws RemoteException {
+        List<ILeague> league = LeagueDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
+        for (ILeague iL : league) {
+            if (iL.getName().equals(leaguename)) {
+                return iL;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public ITournamentDTO CreateTournament(String name, String location, String date, BigDecimal fee, String sportname, List<String> TeamNames) throws RemoteException {
         //_curState.CreateTournament(name, location, fee, sportname, TeamNames);
 
@@ -91,12 +124,12 @@ public class TournamentCreation extends AController implements ITournamentCreati
         }
 
         tournament.setTeams(teams);
-        
+
         ITournamentDTO tournamentDTO = new TournamentDTO(tournament);
         TournamentDAO.getInstance().add(s, tournament);
-        
+
         tx.commit();
-        
+
         return tournamentDTO;
     }
 }

@@ -17,12 +17,12 @@ public interface ISportDTO extends IDTO<ISport> {
 
     String getName();
 
-    List<ITeamDTO> getTeams();
+//    List<ITeamDTO> getTeams();
 
     void setMaxPlayers(int maxPlayers);
 
     void setName(String name);
-
-    void setTeams(List<ITeamDTO> teams);
+//
+//    void setTeams(List<ITeamDTO> teams);
     
 }

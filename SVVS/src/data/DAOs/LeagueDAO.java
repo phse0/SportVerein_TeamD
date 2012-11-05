@@ -9,6 +9,8 @@ import data.interfaces.DAOs.ILeagueDAO;
 import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.models.ILeague;
 import data.models.League;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,6 +39,14 @@ public class LeagueDAO extends AbstractDAO<ILeague, ILeagueDTO> implements ILeag
     @Override
     public ILeagueDTO extractDTO(ILeague model) {
         return new LeagueDTO(model);
+    }
+    
+     @Override
+    public ILeague getByName(Session s, String name) {
+
+        Query query = s.createQuery("FROM " + getTable() + " WHERE name = :name");
+        query.setString("name", name);
+        return (ILeague) query.uniqueResult();
     }
     
 }

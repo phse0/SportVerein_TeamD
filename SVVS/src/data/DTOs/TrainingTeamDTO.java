@@ -4,11 +4,10 @@
  */
 package data.DTOs;
 
-import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
-import data.interfaces.models.ICoach;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITrainingTeam;
 import java.util.LinkedList;
@@ -74,4 +73,13 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
 //        this.coaches = coaches;
 //    }
 
+        @Override
+    public ISportDTO getSport() {
+        return sport;
+    }
+
+    @Override
+    public void setSport(ISportDTO sport) {
+        this.sport = sport;
+    }
 }

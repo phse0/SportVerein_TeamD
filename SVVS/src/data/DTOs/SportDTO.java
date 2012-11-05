@@ -18,7 +18,7 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO {
 
     private String name;
     private int maxPlayers;
-    private List<ITeamDTO> teams;
+   // private List<ITeamDTO> teams;
 
     public SportDTO(ISport model) {
         extract(model);
@@ -29,9 +29,9 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO {
         this.id = model.getSportID();
         this.name = model.getName();
 
-        for (ITeam team : model.getTeams()) {
-            //teams.add(new TeamDTO(team));
-        }
+//        for (ITeam team : model.getTeams()) {
+//            //teams.add(new TeamDTO(team));
+//        }
     }
 
     @Override
@@ -54,15 +54,15 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO {
         this.maxPlayers = maxPlayers;
     }
 
-    @Override
-    public List<ITeamDTO> getTeams() {
-        return teams;
-    }
-
-    @Override
-    public void setTeams(List<ITeamDTO> teams) {
-        this.teams = teams;
-    }
+//    @Override
+//    public List<ITeamDTO> getTeams() {
+//        return teams;
+//    }
+//
+//    @Override
+//    public void setTeams(List<ITeamDTO> teams) {
+//        this.teams = teams;
+//    }
 
     @Override
     public String toString() {

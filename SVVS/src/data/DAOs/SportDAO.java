@@ -50,6 +50,7 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
         return (ISport) query.uniqueResult();
     }
 
+    @Override
     public ISport getById(Session s, int id) {
 
         Query query = s.createQuery("FROM " + getTable() + " Where sportID =:id");
@@ -57,6 +58,7 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
         return (ISport) query.uniqueResult();
     }
 
+    @Override
     public ISport saveDTOgetModel(Session s, ISportDTO dto) {
 
         if (dto == null) {
@@ -76,6 +78,7 @@ public class SportDAO extends AbstractDAO<ISport, ISportDTO> implements ISportDA
         return sport;
     }
 
+    @Override
     public ISportDTO saveDTO(Session s, ISportDTO dto) {
 
         return new SportDTO(saveDTOgetModel(s, dto));

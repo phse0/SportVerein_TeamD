@@ -15,13 +15,13 @@ import data.interfaces.models.ITeam;
 public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
 
     protected String name;
-    //protected ISportDTO sport;
+    protected ISportDTO sport;
     protected ILeagueDTO league;
 
     public void extractTeam(V model) {
         this.id = model.getTeamID();
         this.name = model.getName();
-       // this.sport = (model.getSport() != null) ? new SportDTO(model.getSport()) : null;
+        this.sport = (model.getSport() != null) ? new SportDTO(model.getSport()) : null;
         this.league = (model.getLeague() != null) ? new LeagueDTO(model.getLeague()) : null;
 
     }
@@ -41,13 +41,14 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
     public void setLeague(ILeagueDTO league) {
         this.league = league;
     }
-//    public ISportDTO getSport() {
-//        return sport;
-//    }
-//
-//    public void setSport(ISportDTO sport) {
-//        this.sport = sport;
-//    }
+    
+    public ISportDTO getSport() {
+        return sport;
+    }
+
+    public void setSport(ISportDTO sport) {
+        this.sport = sport;
+    }
 //    public List<ITournamentDTO> getTournaments() {
 //        return tournaments;
 //    }

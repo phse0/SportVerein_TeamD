@@ -84,15 +84,15 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         this.name = name;
     }
 
-//    @Override
-//    public ISportDTO getSport() {
-//        return sport;
-//    }
-//
-//    @Override
-//    public void setSport(ISportDTO sport) {
-//        this.sport = sport;
-//    }
+    @Override
+    public ISportDTO getSport() {
+        return sport;
+    }
+
+    @Override
+    public void setSport(ISportDTO sport) {
+        this.sport = sport;
+    }
 
 
    

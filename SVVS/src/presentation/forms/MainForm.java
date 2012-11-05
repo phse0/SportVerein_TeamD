@@ -6,11 +6,16 @@ package presentation.forms;
 
 import business.controller.RMI.IControllerFactory;
 import business.controller.departments.DepartmentController;
+import business.controller.departments.IDepartmentController;
+import business.controller.person.IPersonController;
 import business.controller.person.PersonController;
+import business.controller.team.ITeamController;
 import business.controller.team.TeamController;
+import business.controller.tournament.ITournamentController;
 import business.controller.tournament.TournamentController;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.net.MalformedURLException;
@@ -38,10 +43,10 @@ public class MainForm extends javax.swing.JFrame {
 
     TableRowSorter<PersonTableModel> personSorter;
     IControllerFactory controllerFactory;
-    PersonController personController;
-    DepartmentController departmentController;
-    TournamentController tournamentController;
-    TeamController teamController;
+    IPersonController personController;
+    IDepartmentController departmentController;
+    ITournamentController tournamentController;
+    ITeamController teamController;
 
     /**
      * Creates new form MainForm
@@ -360,10 +365,11 @@ public class MainForm extends javax.swing.JFrame {
         //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
 
         controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
-        personController = (PersonController) controllerFactory.loadPersonController();
-        departmentController = (DepartmentController) controllerFactory.loadDepartmentController();
-        tournamentController = (TournamentController) controllerFactory.loadTournamentController();
-        teamController = (TeamController) controllerFactory.loadTeamController();
+        teamController = (ITeamController) controllerFactory.loadTeamController();
+        personController = (IPersonController) controllerFactory.loadPersonController();
+        departmentController = (IDepartmentController) controllerFactory.loadDepartmentController();
+        tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
+        
 
         // ############## INITIATE PERSONS ################
 
@@ -400,7 +406,7 @@ public class MainForm extends javax.swing.JFrame {
 
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
-        List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTeams();
+        List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTounamentTeams();
         tournamentTeamTable.setModel(new TournamentTeamTableModel(tournamentTeamsDTO));
         tournamentTeamTable.setAutoCreateRowSorter(true);
     }

@@ -24,5 +24,18 @@ public interface ITrainingTeamDTO extends IDTO<ITrainingTeam>{
     void setDepartment(IDepartmentDTO department);
 
     void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
+
+    //    @Override
+    //    public List<ICoachDTO> getCoaches() {
+    //        return coaches;
+    //    }
+    //
+    //    @Override
+    //    public void setCoaches(List<ICoachDTO> coaches) {
+    //        this.coaches = coaches;
+    //    }
+    ISportDTO getSport();
+
+    void setSport(ISportDTO sport);
     
 }

@@ -4,7 +4,6 @@
  */
 package data.DTOs;
 
-import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ITeam;
 
