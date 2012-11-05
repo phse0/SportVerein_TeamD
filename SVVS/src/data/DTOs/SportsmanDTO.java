@@ -19,11 +19,11 @@ import java.util.List;
  */
 public class SportsmanDTO extends AbstractRoleDTO<ISportsman> implements ISportsmanDTO {
 
-    private List<ISportsmanTrainingTeamDTO> teams;
+    //private List<ISportsmanTrainingTeamDTO> teams;
     private List<ITournamentInviteDTO> invites;
 
     public SportsmanDTO(ISportsman model) {
-        teams = new LinkedList<>();
+        //teams = new LinkedList<>();
         invites = new LinkedList<>();
         extract(model);
     }
@@ -32,9 +32,9 @@ public class SportsmanDTO extends AbstractRoleDTO<ISportsman> implements ISports
     public void extract(ISportsman model) {
         extractRole(model);
 
-        for (ISportsmanTrainingTeam stt : model.getTeams()) {
-            teams.add(new SportsmanTrainingTeamDTO(stt));
-        }
+//        for (ISportsmanTrainingTeam stt : model.getTeams()) {
+//            teams.add(new SportsmanTrainingTeamDTO(stt));
+//        }
 
         for (ITournamentInvite ti : model.getInvites()) {
             invites.add(new TournamentInviteDTO(ti));

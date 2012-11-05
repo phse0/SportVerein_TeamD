@@ -12,11 +12,13 @@ import data.DAOs.SportsmanDAO;
 import data.DAOs.SportsmanTrainingTeamDAO;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.SportsmanDTO;
+import data.DTOs.SportsmanTrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISportsman;
+import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITrainingTeam;
 import data.models.SportsmanTrainingTeam;
 import java.rmi.RemoteException;
@@ -74,7 +76,7 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
     }
 
     @Override
-    public void AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException {
+    public ISportsmanTrainingTeamDTO AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException {
          ISportsman sm = null;
         ITrainingTeam t = null;
         for (ISportsman iS : SportsmanDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -91,7 +93,11 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
             }
         }
 
-        SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(), new SportsmanTrainingTeam(sm,t,position));
+        ISportsmanTrainingTeam sttModel = new SportsmanTrainingTeam(sm,t,position);
+    
+        SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(),sttModel );
+        
+        return new SportsmanTrainingTeamDTO(sttModel);
         
     }
 
