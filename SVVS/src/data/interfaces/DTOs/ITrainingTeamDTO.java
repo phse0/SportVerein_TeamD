@@ -17,13 +17,13 @@ public interface ITrainingTeamDTO extends IDTO<ITrainingTeam>{
 
     IDepartmentDTO getDepartment();
 
-    List<ISportsmanTrainingTeamDTO> getSportsmen();
+//    List<ISportsmanTrainingTeamDTO> getSportsmen();
 
 //    void setCoaches(List<ICoachDTO> coaches);
 
     void setDepartment(IDepartmentDTO department);
 
-    void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
+//    void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
 
     //    @Override
     //    public List<ICoachDTO> getCoaches() {

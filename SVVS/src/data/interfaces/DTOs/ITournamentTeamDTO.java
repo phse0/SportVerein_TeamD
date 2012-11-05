@@ -25,7 +25,7 @@ public interface ITournamentTeamDTO extends IDTO<ITournamentTeam>{
 
     ILeagueDTO getLeague();
 
-    List<ISportsmanTrainingTeamDTO> getSportsmen();
+//    List<ISportsmanTrainingTeamDTO> getSportsmen();
 
 //    void setCoaches(List<ICoachDTO> coaches);
     
@@ -37,7 +37,7 @@ public interface ITournamentTeamDTO extends IDTO<ITournamentTeam>{
 
     void setLeague(ILeagueDTO league);
 
-    void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
+//    void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
 
     ISportDTO getSport();
 

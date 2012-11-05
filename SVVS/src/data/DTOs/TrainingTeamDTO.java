@@ -21,7 +21,7 @@ import java.util.List;
 public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements ITrainingTeamDTO {
 
     protected IDepartmentDTO department;
-    protected List<ISportsmanTrainingTeamDTO> sportsmen;
+    //protected List<ISportsmanTrainingTeamDTO> sportsmen;
 //    protected List<ICoachDTO> coaches;
 
     @Override
@@ -29,9 +29,9 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
         extractTeam(model);
         this.department = new DepartmentDTO(model.getDepartment());
         
-        for(ISportsmanTrainingTeam stt: model.getSportsmen()){
-            sportsmen.add(new SportsmanTrainingTeamDTO(stt));
-        }
+//        for(ISportsmanTrainingTeam stt: model.getSportsmen()){
+//            sportsmen.add(new SportsmanTrainingTeamDTO(stt));
+//        }
 //        
 //        for(ICoach coach: model.getCoaches()){
 //            coaches.add(new CoachDTO(coach));
@@ -39,7 +39,7 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
     }
     
     public TrainingTeamDTO(ITrainingTeam model){
-        sportsmen = new LinkedList<>();
+//        sportsmen = new LinkedList<>();
 //        coaches = new LinkedList<>();
         extract(model);
     }
@@ -54,15 +54,15 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
         this.department = department;
     }
 
-    @Override
-    public List<ISportsmanTrainingTeamDTO> getSportsmen() {
-        return sportsmen;
-    }
-
-    @Override
-    public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
-        this.sportsmen = sportsmen;
-    }
+//    @Override
+//    public List<ISportsmanTrainingTeamDTO> getSportsmen() {
+//        return sportsmen;
+//    }
+//
+//    @Override
+//    public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
+//        this.sportsmen = sportsmen;
+//    }
 
 //    @Override
 //    public List<ICoachDTO> getCoaches() {
