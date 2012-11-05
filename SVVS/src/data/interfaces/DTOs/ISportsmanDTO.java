@@ -11,5 +11,21 @@ import data.interfaces.models.ISportsman;
  * @author uubu
  */
 public interface ISportsmanDTO extends IDTO<ISportsman>{
+
+    IDepartmentDTO getDepartment();
+
+    IPersonDTO getPerson();
+
+    IRoleRightsDTO getRoleRight();
+
+    ISportDTO getSport();
+
+    void setDepartment(IDepartmentDTO department);
+
+    void setPerson(IPersonDTO person);
+
+    void setRoleRight(IRoleRightsDTO roleRight);
+
+    void setSport(ISportDTO sport);
     
 }

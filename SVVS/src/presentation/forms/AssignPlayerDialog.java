@@ -4,18 +4,32 @@
  */
 package presentation.forms;
 
+import business.controller.team.playerToTeam.IPlayerToTeam;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
+import data.interfaces.DTOs.ITournamentTeamDTO;
+import java.rmi.RemoteException;
+import java.util.List;
+import presentation.tableModels.SportsManTableModel;
+
 /**
  *
  * @author Michael
  */
 public class AssignPlayerDialog extends javax.swing.JDialog {
+    
+    ITournamentTeamDTO tournamentTeam;
+    IPlayerToTeam assignController;
 
     /**
      * Creates new form AssignPlayerDialog
      */
-    public AssignPlayerDialog(java.awt.Frame parent, boolean modal) {
+    public AssignPlayerDialog(java.awt.Frame parent, boolean modal, IPlayerToTeam assignController, ITournamentTeamDTO tournamentTeam) throws RemoteException {
         super(parent, modal);
         initComponents();
+        this.tournamentTeam = tournamentTeam;
+        this.assignController = assignController;
+        
+        initControls();
     }
 
     /**
@@ -29,7 +43,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        sportsmanTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cobSportsman = new javax.swing.JComboBox();
@@ -42,7 +56,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        sportsmanTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +67,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(sportsmanTable);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spieler hinzufügen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -132,46 +146,12 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AssignPlayerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AssignPlayerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AssignPlayerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AssignPlayerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AssignPlayerDialog dialog = new AssignPlayerDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void initControls() throws RemoteException {
+        
+        List<ISportsmanTrainingTeamDTO> sportsman = assignController.loadPlayersOfTeam(tournamentTeam.getTeamName());
+        SportsManTableModel tableModel = new SportsManTableModel(sportsman);
+        sportsmanTable.setModel(tableModel);
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
@@ -182,7 +162,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable sportsmanTable;
     private javax.swing.JTextField tbxPosition;
     // End of variables declaration//GEN-END:variables
 }

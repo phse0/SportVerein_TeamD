@@ -29,5 +29,30 @@ public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam
         this.sportsman = new SportsmanDTO(model.getSportsman());
         this.team = new TrainingTeamDTO(model.getTeam());
     }
+
+    public ISportsmanDTO getSportsman() {
+        return sportsman;
+    }
+
+    public void setSportsman(ISportsmanDTO sportsman) {
+        this.sportsman = sportsman;
+    }
+
+    public ITrainingTeamDTO getTeam() {
+        return team;
+    }
+
+    public void setTeam(ITrainingTeamDTO team) {
+        this.team = team;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+    
     
 }

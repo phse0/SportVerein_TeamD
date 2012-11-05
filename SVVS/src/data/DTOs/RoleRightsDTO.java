@@ -23,7 +23,7 @@ public class RoleRightsDTO extends AbstractDTO<IRoleRights> implements IRoleRigh
     @Override
     public void extract(IRoleRights model) {
         
-        this.id = model.getRoleRightsID();
+        //this.id = model.getRoleRightsID();
         this.name = model.getName();
         this.right = model.getRight();
     }

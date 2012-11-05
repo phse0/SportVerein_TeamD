@@ -5,6 +5,7 @@
 package presentation.tableModels;
 
 import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,10 +15,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SportsManTableModel extends DefaultTableModel {
 
-    private List<ISportsmanDTO> sportsmen;
+    private List<ISportsmanTrainingTeamDTO> sportsmen;
     private String[] colNames = {"Nachname", "Vorname", "Position"};
 
-    public SportsManTableModel(List<ISportsmanDTO> sportsmen) {
+    public SportsManTableModel(List<ISportsmanTrainingTeamDTO> sportsmen) {
         this.sportsmen = sportsmen;
     }
 
@@ -33,20 +34,29 @@ public class SportsManTableModel extends DefaultTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ISportsmanDTO sportsman = sportsmen.get(rowIndex);
+        ISportsmanTrainingTeamDTO sportsman = sportsmen.get(rowIndex);
 
-            return null;
+        switch(columnIndex) {
+            case 0:
+                return sportsman.getSportsman().getPerson().getLastname();
+            case 1:
+                return sportsman.getSportsman().getPerson().getFirstname();
+            case 2:
+                return sportsman.getPosition();
+            default:
+                return null;
+        }
     }
 
-    public List<ISportsmanDTO> getSportsmen() {
+    public List<ISportsmanTrainingTeamDTO> getSportsmen() {
         return sportsmen;
     }
 
-    public void setSportsmen(List<ISportsmanDTO> sportsmen) {
+    public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
         this.sportsmen = sportsmen;
     }
 
-    public void addSportsman(ISportsmanDTO sportsman) {
+    public void addSportsman(ISportsmanTrainingTeamDTO sportsman) {
         this.sportsmen.add(sportsman);
     }
 
@@ -60,11 +70,11 @@ public class SportsManTableModel extends DefaultTableModel {
         return false;
     }
 
-    public ISportsmanDTO getSportsmanDTO(int index) {
+    public ISportsmanTrainingTeamDTO getSportsmanDTO(int index) {
         return sportsmen.get(index);
     }
 
-    public void updateSportsmanDTO(int index, ISportsmanDTO sportsman) {
+    public void updateSportsmanDTO(int index, ISportsmanTrainingTeamDTO sportsman) {
         sportsmen.set(index, sportsman);
     }
 
