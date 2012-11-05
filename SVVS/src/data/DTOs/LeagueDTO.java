@@ -36,5 +36,12 @@ public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+    
+    
    
 }
