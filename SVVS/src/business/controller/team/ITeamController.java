@@ -5,6 +5,7 @@
 package business.controller.team;
 
 import business.controller.RMI.IController;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
@@ -27,5 +28,5 @@ public interface ITeamController extends Remote, IController {
 
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException;
     
-    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException;
+    public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException;
 }

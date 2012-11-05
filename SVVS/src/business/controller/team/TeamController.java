@@ -7,9 +7,11 @@ package business.controller.team;
 import data.DAOs.SportDAO;
 import data.DAOs.TournamentTeamDAO;
 import data.DAOs.TrainingTeamDAO;
+import data.DTOs.SportsmanTrainingTeamDTO;
 import data.DTOs.TournamentTeamDTO;
 import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISport;
@@ -70,12 +72,13 @@ public class TeamController implements ITeamController{
         return teams;
     }
     
-    public LinkedList<ISportsman> loadPlayersOfTeam(String TeamName) throws RemoteException{
+    @Override
+    public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException{
     ITrainingTeam iteam = TrainingTeamDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), TeamName);
     List<ISportsmanTrainingTeam> stt = iteam.getSportsmen();    
-    LinkedList<ISportsman> sportsman = new LinkedList<ISportsman>();
+    LinkedList<ISportsmanTrainingTeamDTO> sportsman = new LinkedList<ISportsmanTrainingTeamDTO>();
         for (ISportsmanTrainingTeam iSpTT : stt) {
-            sportsman.add(iSpTT.getSportsman());
+            sportsman.add(new SportsmanTrainingTeamDTO(iSpTT));
         }
     return sportsman;
     }
