@@ -23,7 +23,6 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
         this.name = model.getName();
         this.sport = (model.getSport() != null) ? new SportDTO(model.getSport()) : null;
         this.league = (model.getLeague() != null) ? new LeagueDTO(model.getLeague()) : null;
-
     }
 
     public String getName() {

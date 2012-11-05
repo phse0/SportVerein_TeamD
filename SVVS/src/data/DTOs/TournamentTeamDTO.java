@@ -5,6 +5,7 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.IDepartmentDTO;
+import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
@@ -93,8 +94,5 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
     public void setSport(ISportDTO sport) {
         this.sport = sport;
     }
-
-
-   
-    
+  
 }

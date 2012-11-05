@@ -4,6 +4,7 @@
  */
 package data.DTOs;
 
+import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ITeam;
 
@@ -25,6 +26,16 @@ public class TeamDTO extends AbstractTeamDTO<ITeam> implements ITeamDTO{
     @Override
     public String toString() {
         return getName();
+    }
+    
+    @Override
+        public ILeagueDTO getLeague() {
+        return league;
+    }
+
+    @Override
+    public void setLeague(ILeagueDTO league) {
+        this.league = league;
     }
 
  

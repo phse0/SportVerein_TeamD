@@ -5,6 +5,7 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.IDepartmentDTO;
+import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
@@ -81,5 +82,15 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
     @Override
     public void setSport(ISportDTO sport) {
         this.sport = sport;
+    }
+    
+    @Override
+        public ILeagueDTO getLeague() {
+        return league;
+    }
+
+    @Override
+    public void setLeague(ILeagueDTO league) {
+        this.league = league;
     }
 }

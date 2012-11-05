@@ -25,5 +25,9 @@ public interface ITeamDTO extends IDTO<ITeam> {
     //void setSport(ISportDTO sport);
 
 //    void setTournaments(List<ITournamentDTO> tournaments);
+
+    ILeagueDTO getLeague();
+
+    void setLeague(ILeagueDTO league);
     
 }
