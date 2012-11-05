@@ -5,11 +5,14 @@
 package presentation.forms;
 
 import business.controller.team.playerToTeam.IPlayerToTeam;
+import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 import presentation.tableModels.SportsManTableModel;
+import presentation.tournamentTeamListener.AssignPlayerListener;
 
 /**
  *
@@ -50,7 +53,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         tbxPosition = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnOK = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -114,7 +117,12 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
                 .addComponent(btnSave))
         );
 
-        jButton2.setText("OK");
+        btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +136,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnOK)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -139,25 +147,44 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnOK)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnOKActionPerformed
+
     private void initControls() throws RemoteException {
         
         List<ISportsmanTrainingTeamDTO> sportsman = assignController.loadPlayersOfTeam(tournamentTeam.getTeamName());
+        List<ISportsmanDTO> ignoreList = new LinkedList<>();
+        
+        for(ISportsmanTrainingTeamDTO stt : sportsman) {
+            ignoreList.add(stt.getSportsman());
+        }
+        
         SportsManTableModel tableModel = new SportsManTableModel(sportsman);
         sportsmanTable.setModel(tableModel);
         
+        List<ISportsmanDTO> remainingSportsman = assignController.loadSportsman(
+                tournamentTeam.getSport().getName(), ignoreList);
+        
+        for(ISportsmanDTO s : remainingSportsman) {
+            cobSportsman.addItem(s);
+        }
+        
+        btnSave.addActionListener(new AssignPlayerListener(this, sportsmanTable, assignController));
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOK;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cobSportsman;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -165,4 +192,20 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
     private javax.swing.JTable sportsmanTable;
     private javax.swing.JTextField tbxPosition;
     // End of variables declaration//GEN-END:variables
+
+    public ISportsmanDTO getSportsman() {
+        return (ISportsmanDTO) cobSportsman.getSelectedItem();
+    }
+
+    public String getPosition() {
+        return tbxPosition.getText();
+    }
+
+    public ITournamentTeamDTO getTournamentTeam() {
+        return tournamentTeam;
+    }
+   
+    public void removeSportsmanFromComboBox(ISportsmanDTO sportsman) {
+        this.cobSportsman.removeItem(sportsman);
+    }
 }

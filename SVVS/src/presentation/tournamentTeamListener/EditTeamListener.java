@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import presentation.forms.AssignPlayerDialog;
-import presentation.personListeners.EditPersonListener;
 import presentation.tableModels.TournamentTeamTableModel;
 
 /**
@@ -45,10 +44,10 @@ public class EditTeamListener implements ActionListener {
                 AssignPlayerDialog dialog = new AssignPlayerDialog(null, true, playerAssignController, ttModel.getTournamentTeamDTO(index));
                 dialog.setVisible(true);
 
-                /*if (dialog.getPerson() != null) {
-                    personModel.updatePersonDTO(index, dialog.getPerson());
-                    personModel.fireTableDataChanged();
-                } */
+                if (dialog.getTournamentTeam() != null) {
+                    ttModel.updateTournamentTeamDTO(index, dialog.getTournamentTeam());
+                    ttModel.fireTableDataChanged();
+                }
 
             } catch (RemoteException ex) {
                 Logger.getLogger(EditTeamListener.class.getName()).log(Level.SEVERE, null, ex);
