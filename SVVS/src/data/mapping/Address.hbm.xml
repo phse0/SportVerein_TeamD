@@ -9,7 +9,7 @@
         <property name="street" column="street" type="string" not-null="true" />
         <property name="postcode" column="postcode" type="string" not-null="true" />
         <property name="city" column="city" type="string" not-null="true" />
-        <many-to-one class="data.models.Country" name="country" column="countryID" not-null="true"/>
+        <many-to-one cascade="none" class="data.models.Country" name="country" column="countryID" not-null="true"/>
   
     </class>
 </hibernate-mapping>

@@ -184,7 +184,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         
         for(IRole role : RoleDAO.getInstance().getByPerson(s, person) ){
             role.setPerson(null);
-            RoleDAO.getInstance().remove(s, role);
+            //RoleDAO.getInstance().remove(s, role);
         }
         
         remove(s, person);

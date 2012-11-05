@@ -5,10 +5,7 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.ILeagueDTO;
-import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.models.ILeague;
-import data.interfaces.models.ITournamentTeam;
-import java.util.List;
 
 /**
  *
@@ -17,7 +14,7 @@ import java.util.List;
 public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
 
     private String name;
-    private List<ITournamentTeamDTO> tournamentTeams;
+  //  private List<ITeamDTO> teams;
     
     public LeagueDTO(ILeague model){
         extract(model);
@@ -26,10 +23,8 @@ public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
     @Override
     public void extract(ILeague model) {
         this.id = model.getLeagueID();
+        this.name = model.getName();
         
-        //for(ITournamentTeam tt: model.getTournamentTeams()){
-           // this.tournamentTeams.add(new TournamentTeamDTO(tt));
-        //}
     }
 
     @Override
@@ -41,16 +36,5 @@ public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
     public void setName(String name) {
         this.name = name;
     }
-
-    @Override
-    public List<ITournamentTeamDTO> getTournamentTeams() {
-        return tournamentTeams;
-    }
-
-    @Override
-    public void setTournamentTeams(List<ITournamentTeamDTO> tournamentTeams) {
-        this.tournamentTeams = tournamentTeams;
-    }
-    
-    
+   
 }

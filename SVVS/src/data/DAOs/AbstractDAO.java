@@ -6,10 +6,12 @@ package data.DAOs;
 
 import data.interfaces.DAOs.IDAOs;
 import data.interfaces.DTOs.IDTO;
+import data.interfaces.models.ILeague;
 import data.interfaces.models.IModel;
+import data.interfaces.models.ISport;
+import data.interfaces.models.ITeam;
 import java.util.LinkedList;
 import java.util.List;
-import org.hibernate.CacheMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -64,4 +66,6 @@ public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements I
     public abstract V create();
     
     //public abstract X createDTO(); 
+
+    
 }

@@ -19,7 +19,7 @@ public interface ITournamentTeamDTO extends IDTO<ITournamentTeam>{
     
     String getTeamName();
 
-    ISportDTO getSport();
+//    ISportDTO getSport();
     
     IDepartmentDTO getDepartment();
 
@@ -31,7 +31,7 @@ public interface ITournamentTeamDTO extends IDTO<ITournamentTeam>{
     
     void setTeamName(String name);
     
-    void setSport(ISportDTO sport);
+//    void setSport(ISportDTO sport);
 
     void setDepartment(IDepartmentDTO department);
 

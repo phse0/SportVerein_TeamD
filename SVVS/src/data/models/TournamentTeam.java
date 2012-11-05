@@ -15,7 +15,7 @@ import data.interfaces.models.ITournamentTeam;
  */
 public class TournamentTeam extends TrainingTeam implements ITournamentTeam {
     
-    protected ILeague league;
+   
 
     public TournamentTeam() {
         super();
@@ -30,15 +30,7 @@ public class TournamentTeam extends TrainingTeam implements ITournamentTeam {
         this.league = league;
     }
 
-    @Override
-    public ILeague getLeague() {
-        return league;
-    }
-
-    @Override
-    public void setLeague(ILeague league) {
-        this.league = league;
-    }
+    
     
     
     

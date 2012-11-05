@@ -20,12 +20,12 @@ public interface ILeague extends IModel {
 
     void setName(String name);
 
-    void addTournamentTeam(ITournamentTeam team);
+    void addTeam(ITeam team);
 
-    List<ITournamentTeam> getTournamentTeams();
+    List<ITeam> getTeams();
 
-    void removeTournamentTeam(ITournamentTeam team);
+    void removeTeam(ITeam team);
 
-    void setTournamentTeams(List<ITournamentTeam> tournamentTeams);
+    void setTeams(List<ITeam> teams);
     
 }

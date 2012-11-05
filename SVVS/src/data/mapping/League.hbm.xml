@@ -12,9 +12,10 @@
         </id>
         
         <property column="name" name="name" type="string" not-null="true"/>
-        <bag name="tournamentTeams" table="tournamentTeam" cascade="all" lazy="true">
+       
+        <bag name="teams" table="team" cascade="all" lazy="true">
             <key column="leagueID" />
-            <one-to-many class="data.models.TournamentTeam" />
+            <one-to-many class="data.models.Team" />
         </bag>
         
     </class>

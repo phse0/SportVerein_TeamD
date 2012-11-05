@@ -29,6 +29,9 @@ public class AddressDTO extends AbstractDTO<IAddress> implements IAddressDTO{
     
     @Override
     public void extract(IAddress model) {
+        if (model == null){
+            return;
+        }
         this.id = model.getAddressID();
         this.street = model.getStreet();
         this.postcode = model.getPostcode();

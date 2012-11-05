@@ -10,8 +10,5 @@ package data.interfaces.models;
  */
 public interface ITournamentTeam extends ITrainingTeam {
 
-    ILeague getLeague();
-
-    void setLeague(ILeague league);
     
 }

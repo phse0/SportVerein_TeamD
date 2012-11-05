@@ -4,6 +4,7 @@
  */
 package data.models;
 
+import data.interfaces.models.ILeague;
 import data.interfaces.models.IMatch;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
@@ -20,6 +21,7 @@ public class Team implements ITeam {
     protected String name;
     protected ISport sport;
     protected List<ITournament> tournaments;
+     protected ILeague league;
 
 
     public Team() {
@@ -70,4 +72,13 @@ public class Team implements ITeam {
         this.tournaments = tournaments;
     }
     
+    @Override
+    public ILeague getLeague() {
+        return league;
+    }
+
+    @Override
+    public void setLeague(ILeague league) {
+        this.league = league;
+    }
 }

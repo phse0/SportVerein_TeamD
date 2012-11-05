@@ -15,10 +15,14 @@ public interface ILeagueDTO extends IDTO<ILeague>{
 
     String getName();
 
-    List<ITournamentTeamDTO> getTournamentTeams();
+//    List<ITournamentTeamDTO> getTournamentTeams();
 
     void setName(String name);
 
-    void setTournamentTeams(List<ITournamentTeamDTO> tournamentTeams);
+//    void setTournamentTeams(List<ITournamentTeamDTO> tournamentTeams);
+//
+//    List<ITeamDTO> getTeams();
+//
+//    void setTeams(List<ITeamDTO> teams);
     
 }

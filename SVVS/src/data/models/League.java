@@ -5,7 +5,7 @@
 package data.models;
 
 import data.interfaces.models.ILeague;
-import data.interfaces.models.ITournamentTeam;
+import data.interfaces.models.ITeam;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ public class League implements ILeague {
     
     private int leagueID;
     private String name;
-    private List<ITournamentTeam> tournamentTeams;
+    private List<ITeam> teams;
 
     public League() {
     }
@@ -45,24 +45,28 @@ public class League implements ILeague {
         this.name = name;
     }
 
-    @Override
-    public List<ITournamentTeam> getTournamentTeams() {
-        return tournamentTeams;
-    }
 
     @Override
-    public void setTournamentTeams(List<ITournamentTeam> tournamentTeams) {
-        this.tournamentTeams = tournamentTeams;
+    public List<ITeam> getTeams() {
+        return teams;
+    }
+
+
+    @Override
+    public void setTeams(List<ITeam> teams) {
+        this.teams = teams;
     }
     
+
     @Override
-    public void addTournamentTeam(ITournamentTeam team) {
-        this.tournamentTeams.add(team);
+    public void addTeam(ITeam team) {
+        this.teams.add(team);
     }
     
+
     @Override
-    public void removeTournamentTeam(ITournamentTeam team) {
-        this.tournamentTeams.remove(team);
+    public void removeTeam(ITeam team) {
+        this.teams.remove(team);
     }
     
 }

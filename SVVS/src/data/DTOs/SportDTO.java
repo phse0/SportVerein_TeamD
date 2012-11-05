@@ -76,7 +76,6 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO {
 
             return true;
         }
-
         return false;
     }
 }

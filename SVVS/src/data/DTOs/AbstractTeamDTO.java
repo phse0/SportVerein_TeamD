@@ -4,6 +4,7 @@
  */
 package data.DTOs;
 
+import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.ITeam;
 
@@ -12,23 +13,18 @@ import data.interfaces.models.ITeam;
  * @author uubu
  */
 public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
-   
+
     protected String name;
-    protected ISportDTO sport;
-   // protected List<ITournamentDTO> tournaments;
-   
+    //protected ISportDTO sport;
+    protected ILeagueDTO league;
+
     public void extractTeam(V model) {
         this.id = model.getTeamID();
         this.name = model.getName();
-        this.sport = new SportDTO(model.getSport());
-        
-//        for(ITournament tournament : model.getTournaments()){
-//            tournaments.add(new TournamentDTO(tournament));
-//        }
-        
+       // this.sport = (model.getSport() != null) ? new SportDTO(model.getSport()) : null;
+        this.league = (model.getLeague() != null) ? new LeagueDTO(model.getLeague()) : null;
+
     }
-    
-    
 
     public String getName() {
         return name;
@@ -38,6 +34,13 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
         this.name = name;
     }
 
+    public ILeagueDTO getLeague() {
+        return league;
+    }
+
+    public void setLeague(ILeagueDTO league) {
+        this.league = league;
+    }
 //    public ISportDTO getSport() {
 //        return sport;
 //    }
@@ -45,7 +48,6 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
 //    public void setSport(ISportDTO sport) {
 //        this.sport = sport;
 //    }
-
 //    public List<ITournamentDTO> getTournaments() {
 //        return tournaments;
 //    }

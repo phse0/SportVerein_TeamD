@@ -22,7 +22,7 @@
         
         <bag cascade="all" name="contributionHistory" table="contributionHistory" lazy="true">
             <key column="personID" />
-            <one-to-many class="data.models.ContributionHistory" />
+            <one-to-many class="data.models.ContributionHistory"  />
         </bag>
         
         <bag cascade="all" name="roles" table="role" lazy="true">
@@ -30,12 +30,12 @@
             <one-to-many class="data.models.Role" />
         </bag>
         
-        <bag cascade="all" name="departments" table="role" lazy="true">
+        <bag cascade="none" name="departments" table="role" lazy="true">
             <key column="personID" />
             <many-to-many class="data.models.Department" column="departmentID" />
         </bag>
         
-        <bag cascade="all" name="addresses" table="personAddress" lazy="true">
+        <bag cascade="none" name="addresses" table="personAddress" lazy="true">
             <key column="personID" />
             <many-to-many class="data.models.Address" column="addressID" />
         </bag>

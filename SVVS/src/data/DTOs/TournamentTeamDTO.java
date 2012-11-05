@@ -5,7 +5,6 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.IDepartmentDTO;
-import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implements ITournamentTeamDTO {
 
-    protected ILeagueDTO league;
+   
     protected IDepartmentDTO department;
     protected List<ISportsmanTrainingTeamDTO> sportsmen;
     //protected List<ICoachDTO> coaches;
@@ -28,20 +27,12 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         extract(model);
     }
 
-    @Override
-    public ILeagueDTO getLeague() {
-        return league;
-    }
 
-    @Override
-    public void setLeague(ILeagueDTO league) {
-        this.league = league;
-    }
 
     @Override
     public void extract(ITournamentTeam model) {
         extractTeam(model);
-        this.league = (model.getLeague() != null) ? new LeagueDTO(model.getLeague()) : null;
+       
         this.department = new DepartmentDTO(model.getDepartment());
         
         for(ISportsmanTrainingTeam stt: model.getSportsmen()){
@@ -93,15 +84,16 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         this.name = name;
     }
 
-    @Override
-    public ISportDTO getSport() {
-        return sport;
-    }
+//    @Override
+//    public ISportDTO getSport() {
+//        return sport;
+//    }
+//
+//    @Override
+//    public void setSport(ISportDTO sport) {
+//        this.sport = sport;
+//    }
 
-    @Override
-    public void setSport(ISportDTO sport) {
-        this.sport = sport;
-    }
 
    
     

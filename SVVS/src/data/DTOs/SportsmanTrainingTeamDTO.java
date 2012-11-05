@@ -20,14 +20,14 @@ public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam
     protected String position;
     
     public SportsmanTrainingTeamDTO(ISportsmanTrainingTeam model){
-        this.id = model.getSportsmanTrainingTeamID();
-        this.sportsman = new SportsmanDTO(model.getSportsman());
-        this.team = new TrainingTeamDTO(model.getTeam());
+        extract(model);
     }
     
     @Override
     public void extract(ISportsmanTrainingTeam model) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.id = model.getSportsmanTrainingTeamID();
+        this.sportsman = new SportsmanDTO(model.getSportsman());
+        this.team = new TrainingTeamDTO(model.getTeam());
     }
     
 }

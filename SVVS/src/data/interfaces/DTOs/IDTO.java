@@ -16,4 +16,5 @@ public interface IDTO<V extends IModel> extends Serializable{
    int getId();
    
    void extract(V model);
+
 }

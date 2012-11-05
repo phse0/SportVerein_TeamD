@@ -27,5 +27,9 @@ public interface ITeam extends IModel {
     List<ITournament> getTournaments();
 
     void setTournaments(List<ITournament> tournaments);
+
+    ILeague getLeague();
+
+    void setLeague(ILeague league);
     
 }
