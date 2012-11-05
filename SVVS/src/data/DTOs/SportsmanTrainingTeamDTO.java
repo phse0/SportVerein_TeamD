@@ -27,6 +27,7 @@ public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam
     public void extract(ISportsmanTrainingTeam model) {
         this.id = model.getSportsmanTrainingTeamID();
         this.sportsman = new SportsmanDTO(model.getSportsman());
+        this.position = model.getPosition();
         this.team = new TrainingTeamDTO(model.getTeam());
     }
 

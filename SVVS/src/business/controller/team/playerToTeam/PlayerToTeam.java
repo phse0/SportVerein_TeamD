@@ -62,6 +62,7 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
     public LinkedList<ISportsmanDTO> loadSportsman(String sportname, List<ISportsmanDTO> ignoreList) throws RemoteException {
          
         LinkedList<ISportsmanDTO> sportsmen = new LinkedList<ISportsmanDTO>();
+        
         for (ISportsman iS : SportsmanDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             if (iS.getSport().getName().equals(sportname)) {
                 sportsmen.add(new SportsmanDTO(iS));
