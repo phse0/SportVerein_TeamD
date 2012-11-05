@@ -6,8 +6,12 @@ package data.DTOs;
 
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
+import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITournamentTeam;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -17,10 +21,11 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
 
    
     protected IDepartmentDTO department;
-    //protected List<ISportsmanTrainingTeamDTO> sportsmen;
+    protected List<ISportsmanTrainingTeamDTO> sportsmen;
     //protected List<ICoachDTO> coaches;
     
     public TournamentTeamDTO(ITournamentTeam model){
+        sportsmen = new LinkedList<>();
         extract(model);
     }
 
@@ -30,9 +35,9 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
        
         this.department = new DepartmentDTO(model.getDepartment());
         
-//        for(ISportsmanTrainingTeam stt: model.getSportsmen()){
-//            sportsmen.add(new SportsmanTrainingTeamDTO(stt));
-//        }
+        for(ISportsmanTrainingTeam stt: model.getSportsmen()){
+            sportsmen.add(new SportsmanTrainingTeamDTO(stt));
+        }
         
 //        for(ICoach coach: model.getCoaches()){
 //            coaches.add(new CoachDTO(coach));
@@ -49,15 +54,15 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
         this.department = department;
     }
 
-//    @Override
-//    public List<ISportsmanTrainingTeamDTO> getSportsmen() {
-//        return sportsmen;
-//    }
-//
-//    @Override
-//    public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
-//        this.sportsmen = sportsmen;
-//    }
+    @Override
+    public List<ISportsmanTrainingTeamDTO> getSportsmen() {
+        return sportsmen;
+    }
+
+    @Override
+    public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
+        this.sportsmen = sportsmen;
+    }
 
 //    @Override
 //    public List<ICoachDTO> getCoaches() {

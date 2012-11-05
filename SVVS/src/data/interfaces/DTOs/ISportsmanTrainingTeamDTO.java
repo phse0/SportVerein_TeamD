@@ -16,12 +16,12 @@ public interface ISportsmanTrainingTeamDTO extends IDTO<ISportsmanTrainingTeam>{
 
     ISportsmanDTO getSportsman();
 
-    ITrainingTeamDTO getTeam();
+//    ITrainingTeamDTO getTeam();
 
     void setPosition(String position);
 
     void setSportsman(ISportsmanDTO sportsman);
 
-    void setTeam(ITrainingTeamDTO team);
+//    void setTeam(ITrainingTeamDTO team);
     
 }

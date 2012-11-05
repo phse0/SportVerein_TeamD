@@ -87,7 +87,6 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
         }
         
         
-        
         for(ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())){
             if (iT.getTeamID() == TrainingTeamID) {
                 t = iT;

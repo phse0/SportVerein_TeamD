@@ -16,7 +16,7 @@ import data.interfaces.models.ISportsmanTrainingTeam;
 public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam> implements ISportsmanTrainingTeamDTO{
 
     protected ISportsmanDTO sportsman;
-    protected ITrainingTeamDTO team;
+//    protected ITrainingTeamDTO team;
     protected String position;
     
     public SportsmanTrainingTeamDTO(ISportsmanTrainingTeam model){
@@ -28,7 +28,7 @@ public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam
         this.id = model.getSportsmanTrainingTeamID();
         this.sportsman = new SportsmanDTO(model.getSportsman());
         this.position = model.getPosition();
-        this.team = new TrainingTeamDTO(model.getTeam());
+        //this.team = new TrainingTeamDTO(model.getTeam());
     }
 
     public ISportsmanDTO getSportsman() {
@@ -39,13 +39,13 @@ public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam
         this.sportsman = sportsman;
     }
 
-    public ITrainingTeamDTO getTeam() {
-        return team;
-    }
-
-    public void setTeam(ITrainingTeamDTO team) {
-        this.team = team;
-    }
+//    public ITrainingTeamDTO getTeam() {
+//        return team;
+//    }
+//
+//    public void setTeam(ITrainingTeamDTO team) {
+//        this.team = team;
+//    }
 
     public String getPosition() {
         return position;

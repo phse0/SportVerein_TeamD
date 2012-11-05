@@ -5,10 +5,8 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.ISportsmanDTO;
-import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.models.ISportsman;
-import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITournamentInvite;
 import java.util.LinkedList;
 import java.util.List;
