@@ -4,7 +4,6 @@
  */
 package presentation.tableModels;
 
-import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

@@ -42,6 +42,11 @@ public class SportsmanDTO extends AbstractRoleDTO<ISportsman> implements ISports
     }
 
     @Override
+    public String toString() {
+        return person.getLastname() + " " + person.getFirstname();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (((ISportsmanDTO) obj).getId() == this.id) {
             return true;

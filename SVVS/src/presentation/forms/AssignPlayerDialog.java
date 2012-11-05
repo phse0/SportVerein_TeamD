@@ -70,13 +70,12 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        sportsmanTable.setRowHeight(26);
         jScrollPane1.setViewportView(sportsmanTable);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spieler hinzufügen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         jLabel1.setText("Spieler");
-
-        cobSportsman.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setText("Position");
 
