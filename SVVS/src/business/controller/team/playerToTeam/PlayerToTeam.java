@@ -24,6 +24,8 @@ import data.models.SportsmanTrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * First loadTeam
@@ -95,7 +97,11 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
 
         ISportsmanTrainingTeam sttModel = new SportsmanTrainingTeam(sm,t,position);
     
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.getTransaction();
+        tx.begin();
         SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(),sttModel );
+        tx.commit();
         
         return new SportsmanTrainingTeamDTO(sttModel);
         

@@ -63,6 +63,17 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
     public void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen) {
         this.sportsmen = sportsmen;
     }
+    
+     
+    @Override
+    public void addSportsmen(ISportsmanTrainingTeamDTO sportsmen) {
+        this.sportsmen.add(sportsmen);
+    }
+    
+    @Override
+    public void removeSportsmen(ISportsmanTrainingTeamDTO sportsmen) {
+        this.sportsmen.remove(sportsmen);
+    }
 
 //    @Override
 //    public List<ICoachDTO> getCoaches() {
