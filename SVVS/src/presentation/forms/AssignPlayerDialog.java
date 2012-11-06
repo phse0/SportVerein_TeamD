@@ -11,8 +11,10 @@ import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import presentation.personListeners.DeletePersonListener;
 import presentation.tableModels.SportsManTableModel;
 import presentation.tournamentTeamListener.AssignPlayerListener;
+import presentation.tournamentTeamListener.DeletePlayerListener;
 
 /**
  *
@@ -32,6 +34,8 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         this.tournamentTeam = tournamentTeam;
         this.assignController = assignController;
         
+        this.setTitle("Spieler zuweisen");
+        this.setLocationRelativeTo(null);
         initControls();
     }
 
@@ -54,10 +58,12 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         tbxPosition = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnOK = new javax.swing.JButton();
+        btnDeleteSportsman = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         sportsmanTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,7 +103,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cobSportsman, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 339, Short.MAX_VALUE)
                         .addComponent(btnSave)))
                 .addContainerGap())
         );
@@ -123,30 +129,38 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
             }
         });
 
+        btnDeleteSportsman.setText("Spieler entfernen");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnOK)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDeleteSportsman)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOK))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOK)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOK)
+                    .addComponent(btnDeleteSportsman))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -159,7 +173,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
 
     private void initControls() throws RemoteException {
         
-        List<ISportsmanTrainingTeamDTO> sportsman = assignController.loadPlayersOfTeam(tournamentTeam.getTeamName());
+        List<ISportsmanTrainingTeamDTO> sportsman = tournamentTeam.getSportsmen();
         List<ISportsmanDTO> ignoreList = new LinkedList<>();
         
         for(ISportsmanTrainingTeamDTO stt : sportsman) {
@@ -177,9 +191,11 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         }
         
         btnSave.addActionListener(new AssignPlayerListener(this, sportsmanTable, assignController));
+        btnDeleteSportsman.addActionListener(new DeletePlayerListener(sportsmanTable, assignController, this));
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeleteSportsman;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cobSportsman;
@@ -206,5 +222,9 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
    
     public void removeSportsmanFromComboBox(ISportsmanDTO sportsman) {
         this.cobSportsman.removeItem(sportsman);
+    }
+    
+    public void resetPosition() {
+        tbxPosition.setText("");
     }
 }

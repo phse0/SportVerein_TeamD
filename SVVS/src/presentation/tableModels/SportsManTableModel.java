@@ -58,6 +58,10 @@ public class SportsManTableModel extends DefaultTableModel {
     public void addSportsman(ISportsmanTrainingTeamDTO sportsman) {
         this.sportsmen.add(sportsman);
     }
+    
+    public void removeSportsman(ISportsmanTrainingTeamDTO sportsman) {
+        this.sportsmen.remove(sportsman);
+    }
 
     @Override
     public String getColumnName(int column) {

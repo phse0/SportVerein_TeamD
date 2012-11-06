@@ -24,29 +24,30 @@ public class AssignPlayerListener implements ActionListener {
     JTable table;
     IPlayerToTeam assignController;
     AssignPlayerDialog dialog;
-    
+
     public AssignPlayerListener(AssignPlayerDialog dialog, JTable table, IPlayerToTeam assignController) {
         this.table = table;
         this.assignController = assignController;
         this.dialog = dialog;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            
-            ISportsmanTrainingTeamDTO addedPlayer = assignController.AddPlayerToTeam(dialog.getTournamentTeam().getId(), 
-                                                                dialog.getSportsman().getId(), dialog.getPosition());
-            
+
+            ISportsmanTrainingTeamDTO addedPlayer = assignController.AddPlayerToTeam(dialog.getTournamentTeam().getId(),
+                    dialog.getSportsman().getId(), dialog.getPosition());
+
             SportsManTableModel tableModel = (SportsManTableModel) table.getModel();
+            dialog.removeSportsmanFromComboBox(addedPlayer.getSportsman());
+            dialog.resetPosition();
+            
             tableModel.addSportsman(addedPlayer);
             tableModel.fireTableDataChanged();
-            dialog.removeSportsmanFromComboBox(addedPlayer.getSportsman());
-            
+
         } catch (RemoteException ex) {
             Logger.getLogger(AssignPlayerListener.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
 }
