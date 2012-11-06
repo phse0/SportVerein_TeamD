@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import presentation.forms.EditTournamentDialog;
-import presentation.forms.WettkampfDeatilAnsicht;
+import presentation.forms.WettkampfDetailAnsicht;
 import presentation.tableModels.TournamentTableModel;
 
 /**
@@ -44,7 +44,7 @@ public class ShowTournamentListener implements ActionListener {
 
             try {
                 ITournamentEdit edit = factory.loadTournamentEditController();
-                WettkampfDeatilAnsicht dialog = new WettkampfDeatilAnsicht(tournamentModel.getTournamentDTO(index), teamcontroller);
+                WettkampfDetailAnsicht dialog = new WettkampfDetailAnsicht(tournamentModel.getTournamentDTO(index), teamcontroller);
                 dialog.setVisible(true);
 
             } catch (RemoteException ex) {
