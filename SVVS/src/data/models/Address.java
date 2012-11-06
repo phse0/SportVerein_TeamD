@@ -6,6 +6,8 @@ package data.models;
 
 import data.interfaces.models.IAddress;
 import data.interfaces.models.ICountry;
+import data.interfaces.models.IPerson;
+import java.util.List;
 
 /**
  *
@@ -18,6 +20,7 @@ public class Address implements IAddress{
     protected String postcode;
     protected String city;
     protected ICountry country;
+    protected List<IPerson> persons;
 
     public Address() {
     }
@@ -76,7 +79,24 @@ public class Address implements IAddress{
     public String toString() {
         return street + ", " + postcode + " " + city + ", " + country.getName();
     }
+
+    @Override
+    public List<IPerson> getPersons() {
+        return persons;
+    }
+
+    @Override
+    public void setPersons(List<IPerson> persons) {
+        this.persons = persons;
+    }
     
+    @Override
+    public void addPerson(IPerson persons) {
+        this.persons.add(persons);
+    }
     
-    
+    @Override
+    public void removePerson(IPerson persons) {
+        this.persons.remove(persons);
+    }
 }

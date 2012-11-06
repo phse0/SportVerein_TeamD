@@ -6,7 +6,6 @@ package data.DAOs;
 
 import data.interfaces.DAOs.IDAOs;
 import data.interfaces.DTOs.IDTO;
-import data.interfaces.models.ILeague;
 import data.interfaces.models.IModel;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
@@ -19,7 +18,7 @@ import org.hibernate.Session;
  *
  * @author Michael
  */
-public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements IDAOs<V,X> {
+public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements IDAOs<V, X> {
 
     private String table;
 
@@ -32,15 +31,15 @@ public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements I
     }
 
     @Override
-    public List<X> getAllDTO(Session s){
+    public List<X> getAllDTO(Session s) {
         List<X> dto = new LinkedList<>();
-        
-        for(V model :getAll(s)){
+
+        for (V model : getAll(s)) {
             dto.add(extractDTO(model));
         }
         return dto;
     }
-            
+
     @Override
     public List<V> getAll(Session s) {
         Query query = s.createQuery("FROM " + getTable() + "");
@@ -48,24 +47,28 @@ public abstract class AbstractDAO<V extends IModel, X extends IDTO> implements I
     }
 
     @Override
-    public void add(Session s,V model) {
+    public void add(Session s, V model) {
         s.saveOrUpdate(model);
     }
 
     @Override
-    public void remove(Session s,V model) {
+    public void remove(Session s, V model) {
         s.delete(model);
     }
 
     @Override
-    public void update(Session s,V model) {
+    public void remove(Session s, List<V> models) {
+        for (V model : models) {
+            s.delete(model);
+        }
+    }
+
+    @Override
+    public void update(Session s, V model) {
         s.update(model);
     }
-    
+
     @Override
     public abstract V create();
-    
     //public abstract X createDTO(); 
-
-    
 }

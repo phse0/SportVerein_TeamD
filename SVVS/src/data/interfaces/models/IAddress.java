@@ -4,6 +4,8 @@
  */
 package data.interfaces.models;
 
+import java.util.List;
+
 /**
  *
  * @author uubu
@@ -29,5 +31,13 @@ public interface IAddress extends IModel {
     void setPostcode(String postcode);
 
     void setStreet(String street);
+
+    void addPerson(IPerson persons);
+
+    List<IPerson> getPersons();
+
+    void removePerson(IPerson persons);
+
+    void setPersons(List<IPerson> persons);
     
 }

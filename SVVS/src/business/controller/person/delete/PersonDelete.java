@@ -26,8 +26,8 @@ public class PersonDelete extends AController implements IPersonDelete {
     public void removePerson(IPersonDTO person) throws RemoteException {
 
         Session s = HibernateUtil.getCurrentSession();
-        Transaction tx = s.beginTransaction();
+//        Transaction tx = s.beginTransaction();
         PersonDAO.getInstance().removeDTO(s, person);
-        tx.commit();
+//        tx.commit();
     }
 }

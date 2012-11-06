@@ -8,8 +8,10 @@ import data.DTOs.SportsmanTrainingTeamDTO;
 import data.interfaces.DAOs.ISportsmanTrainingTeamDAO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.models.IPerson;
+import data.interfaces.models.ISportsman;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.models.SportsmanTrainingTeam;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -50,4 +52,11 @@ public class SportsmanTrainingTeamDAO extends AbstractDAO<ISportsmanTrainingTeam
         return (ISportsmanTrainingTeam)query.uniqueResult();
     }
     
+    @Override
+    public List<ISportsmanTrainingTeam> getBySportsman(Session s, ISportsman sportsman){
+        
+        Query query = s.createQuery("FROM " + getTable() + " where sportsman = :sportsman");
+        query.setParameter("sportsman", sportsman);
+        return query.list();
+    }
 }

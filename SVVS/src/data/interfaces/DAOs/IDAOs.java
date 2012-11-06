@@ -27,6 +27,8 @@ public interface IDAOs<V extends IModel, X extends IDTO> extends Serializable {
     
     public void remove(Session s, V model);
     
+     public void remove(Session s, List<V> models);
+    
     public void update(Session s, V model);
     
     public V create();

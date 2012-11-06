@@ -11,6 +11,10 @@
         <property name="city" column="city" type="string" not-null="true" />
         <many-to-one cascade="none" class="data.models.Country" name="country" column="countryID" not-null="true"/>
   
+         <bag inverse="false" cascade="all" name="persons" table="personAddress" lazy="true">
+            <key column="addressID" />
+            <many-to-many class="data.models.Person" column="personID" />
+        </bag>
     </class>
 </hibernate-mapping>
 
