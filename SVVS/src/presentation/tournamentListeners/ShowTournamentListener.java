@@ -5,6 +5,7 @@
 package presentation.tournamentListeners;
 
 import business.controller.RMI.IControllerFactory;
+import business.controller.team.ITeamController;
 import business.controller.tournament.edit.ITournamentEdit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +26,12 @@ public class ShowTournamentListener implements ActionListener {
 
     JTable _table;
     IControllerFactory factory;
-
-    public ShowTournamentListener(JTable table, IControllerFactory factory) {
+    ITeamController teamcontroller;
+    
+    public ShowTournamentListener(JTable table, IControllerFactory factory, ITeamController teamcontroller) {
         _table = table;
         this.factory = factory;
+        this.teamcontroller = teamcontroller;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class ShowTournamentListener implements ActionListener {
 
             try {
                 ITournamentEdit edit = factory.loadTournamentEditController();
-                WettkampfDeatilAnsicht dialog = new WettkampfDeatilAnsicht(tournamentModel.getTournamentDTO(index));
+                WettkampfDeatilAnsicht dialog = new WettkampfDeatilAnsicht(tournamentModel.getTournamentDTO(index), teamcontroller);
                 dialog.setVisible(true);
 
             } catch (RemoteException ex) {

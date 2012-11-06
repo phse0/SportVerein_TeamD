@@ -406,7 +406,7 @@ public class MainForm extends javax.swing.JFrame {
 
         btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory));
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
-        jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory));
+        jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory, teamController));
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
         List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTounamentTeams();

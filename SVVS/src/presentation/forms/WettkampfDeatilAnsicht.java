@@ -4,12 +4,18 @@
  */
 package presentation.forms;
 
+import business.controller.team.ITeamController;
+import data.DTOs.TeamDTO;
 import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
+import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.AbstractTableModel;
 import presentation.tableModels.MatchTableModel;
@@ -25,12 +31,14 @@ import presentation.tableModels.TournamentTeamTableModel;
 public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
 
     ITournamentDTO tournament;
+    ITeamController teamcontroller;
 
     /**
      * Creates new form WettkampfDeatilAnsicht
      */
-    public WettkampfDeatilAnsicht(ITournamentDTO tournament) {
+    public WettkampfDeatilAnsicht(ITournamentDTO tournament, ITeamController teamcontroller) {
         this.tournament = tournament;
+        this.teamcontroller = teamcontroller;
         initComponents();
         initFields();
     }
@@ -41,6 +49,7 @@ public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
             listModel.addElement(team);
         }
         matchTable.setModel(new MatchTableModel(tournament.getMatches()));
+        matchTable.setEnabled(false);
         lbxTeams.setModel(listModel);
     }
 
@@ -64,7 +73,12 @@ public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
         sportsmanTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manschaften", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -208,11 +222,21 @@ public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void lbxTeamsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbxTeamsMouseClicked
-       // X = lbxTeams.AUSGEWÄLTESTEAM.ALLESPIELER;
-        TournamentTeamTableModel X = (TournamentTeamTableModel)lbxTeams.getModel();
-        X.getTournamentTeamDTO(evt.getID());
-        sportsmanTable.setModel(X);
+        // X = lbxTeams.AUSGEWÄLTESTEAM.ALLESPIELER;
+        ITeamDTO d = tournament.getTeams().get(lbxTeams.getSelectedIndex());
+        try {
+            LinkedList<ISportsmanTrainingTeamDTO> trainingteam = teamcontroller.loadPlayersOfTeam(d.getName());
+            SportsManTableModel model = new SportsManTableModel(trainingteam);
+            sportsmanTable.setModel(model);
+            sportsmanTable.setEnabled(false);
+        } catch (RemoteException ex) {
+         //falls team keine verbindung hat...
+        }
     }//GEN-LAST:event_lbxTeamsMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
     /**
      * @param args the command line arguments
      */
