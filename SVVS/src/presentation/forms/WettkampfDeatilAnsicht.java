@@ -208,7 +208,9 @@ public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void lbxTeamsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbxTeamsMouseClicked
-        X = lbxTeams.AUSGEWÄLTESTEAM.ALLESPIELER;
+       // X = lbxTeams.AUSGEWÄLTESTEAM.ALLESPIELER;
+        TournamentTeamTableModel X = (TournamentTeamTableModel)lbxTeams.getModel();
+        X.getTournamentTeamDTO(evt.getID());
         sportsmanTable.setModel(X);
     }//GEN-LAST:event_lbxTeamsMouseClicked
     /**
