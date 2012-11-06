@@ -126,6 +126,11 @@ public class TeamController extends AController implements ITeamController {
     @Override
     public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException {
         ITrainingTeam iteam = TrainingTeamDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), TeamName);
+        
+        if(iteam == null) {
+            return null;
+        }
+        
         List<ISportsmanTrainingTeam> stt = iteam.getSportsmen();
         LinkedList<ISportsmanTrainingTeamDTO> sportsman = new LinkedList<ISportsmanTrainingTeamDTO>();
         for (ISportsmanTrainingTeam iSpTT : stt) {
