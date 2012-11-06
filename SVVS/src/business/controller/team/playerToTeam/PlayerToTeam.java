@@ -80,15 +80,15 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
 
     @Override
     public ISportsmanTrainingTeamDTO AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException {
-         ISportsman sm = null;
+        
+        ISportsman sm = null;
         ITrainingTeam t = null;
         for (ISportsman iS : SportsmanDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             if (iS.getRoleID() == SportsmanID) {
                 sm = iS;
             }
         }
-        
-        
+
         for(ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())){
             if (iT.getTeamID() == TrainingTeamID) {
                 t = iT;
@@ -105,6 +105,19 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
         
         return new SportsmanTrainingTeamDTO(sttModel);
         
+    }
+    
+   
+    @Override
+    public void RemovePlayerFromTeam(ISportsmanTrainingTeamDTO dto) throws RemoteException {
+        
+        Session s = HibernateUtil.getCurrentSession();
+        ISportsmanTrainingTeam sttModel = SportsmanTrainingTeamDAO.getInstance().getById(s, dto.getId());
+        Transaction tx = s.getTransaction();
+        
+        tx.begin();
+        SportsmanTrainingTeamDAO.getInstance().remove(HibernateUtil.getCurrentSession(),sttModel );
+        tx.commit();  
     }
 
     @Override

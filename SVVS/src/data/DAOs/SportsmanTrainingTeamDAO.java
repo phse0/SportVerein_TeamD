@@ -7,8 +7,11 @@ package data.DAOs;
 import data.DTOs.SportsmanTrainingTeamDTO;
 import data.interfaces.DAOs.ISportsmanTrainingTeamDAO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
+import data.interfaces.models.IPerson;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.models.SportsmanTrainingTeam;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,6 +40,14 @@ public class SportsmanTrainingTeamDAO extends AbstractDAO<ISportsmanTrainingTeam
     @Override
     public ISportsmanTrainingTeamDTO extractDTO(ISportsmanTrainingTeam model) {
         return new SportsmanTrainingTeamDTO(model);
+    }
+    
+    @Override
+    public ISportsmanTrainingTeam getById(Session s, int id){
+        
+        Query query = s.createQuery("FROM " + getTable() + " where sportsmanTrainingTeamID =:id");
+        query.setInteger("id", id);
+        return (ISportsmanTrainingTeam)query.uniqueResult();
     }
     
 }

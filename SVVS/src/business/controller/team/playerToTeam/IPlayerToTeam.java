@@ -28,4 +28,6 @@ public interface IPlayerToTeam extends Remote, IController  {
   public LinkedList<ISportsmanDTO> loadSportsman(String sportname, List<ISportsmanDTO> ignoreList)throws RemoteException;
   
   public ISportsmanTrainingTeamDTO AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException ;
+
+    void RemovePlayerFromTeam(ISportsmanTrainingTeamDTO dto) throws RemoteException;
 }
