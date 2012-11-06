@@ -29,6 +29,7 @@ import presentation.tableModels.TournamentTableModel;
 import presentation.tableModels.TournamentTeamTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
+import presentation.tournamentListeners.ShowTournamentListener;
 import presentation.tournamentTeamListener.EditTeamListener;
 
 /**
@@ -88,6 +89,7 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTable = new javax.swing.JTable();
         btnCreateTournament = new javax.swing.JButton();
         btnEditTournament = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tournamentTeamTable = new javax.swing.JTable();
@@ -214,6 +216,8 @@ public class MainForm extends javax.swing.JFrame {
 
         btnEditTournament.setText("Wettkampf bearbeiten");
 
+        jButton1.setText("Wettkampf anzeigen");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -226,6 +230,8 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(btnCreateTournament)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditTournament)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -237,7 +243,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreateTournament)
-                    .addComponent(btnEditTournament))
+                    .addComponent(btnEditTournament)
+                    .addComponent(jButton1))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -365,7 +372,7 @@ public class MainForm extends javax.swing.JFrame {
         personController = (IPersonController) controllerFactory.loadPersonController();
         departmentController = (IDepartmentController) controllerFactory.loadDepartmentController();
         tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
-        
+
 
         // ############## INITIATE PERSONS ################
 
@@ -399,13 +406,13 @@ public class MainForm extends javax.swing.JFrame {
 
         btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory));
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
-
+        jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory));
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
         List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTounamentTeams();
         tournamentTeamTable.setModel(new TournamentTeamTableModel(tournamentTeamsDTO));
         tournamentTeamTable.setAutoCreateRowSorter(true);
-        
+
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
     }
 
@@ -449,6 +456,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cobContribution;
     private javax.swing.JComboBox cobDepartment;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
