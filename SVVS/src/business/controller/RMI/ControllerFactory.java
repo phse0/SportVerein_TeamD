@@ -14,6 +14,10 @@ import business.controller.person.delete.IPersonDelete;
 import business.controller.person.delete.PersonDelete;
 import business.controller.person.edit.IPersonEdit;
 import business.controller.person.edit.PersonEdit;
+import business.controller.role.EditPersonRole.EditPersonRole;
+import business.controller.role.EditPersonRole.IEditPersonRole;
+import business.controller.role.IRoleController;
+import business.controller.role.RoleController;
 import business.controller.team.ITeamController;
 import business.controller.team.TeamController;
 import business.controller.team.playerToTeam.IPlayerToTeam;
@@ -85,5 +89,15 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     @Override
     public IPlayerToTeam loadPlayerToTeamController() throws RemoteException {
         return new PlayerToTeam();
+    }
+
+    @Override
+    public IRoleController loadRoleController() throws RemoteException {
+        return RoleController.getInstance();
+    }
+
+    @Override
+    public IEditPersonRole loadEditPersonRole() throws RemoteException {
+        return new EditPersonRole();
     }
 }
