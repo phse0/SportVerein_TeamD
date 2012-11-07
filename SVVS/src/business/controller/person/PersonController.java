@@ -54,6 +54,16 @@ public class PersonController extends AController implements IPersonController {
     public LinkedList<ISportDTO> loadSports() throws RemoteException{
         return new LinkedList<>(SportDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
     }
+    
+    public IPersonDTO loadPersonWithUsername(String username) throws RemoteException{
+     List<IPersonDTO> persons = PersonDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
+        for (IPersonDTO ip : persons) {
+            if (ip.getUsername().equals(username)) {
+                return ip;
+            }
+        }
+        return null;
+    }
 
     public IPersonDTO loadPersonWithID(int personID) {
         List<IPerson> persons = PersonDAO.getInstance().getAll(HibernateUtil.getCurrentSession());

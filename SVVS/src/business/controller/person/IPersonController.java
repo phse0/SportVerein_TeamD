@@ -21,4 +21,5 @@ public interface IPersonController extends Remote, IController {
     public LinkedList<ICountryDTO> loadCountries() throws RemoteException;
     public LinkedList<ISportDTO> loadSports() throws RemoteException;
     public List<IPersonDTO> loadPersons() throws RemoteException;
+    public IPersonDTO loadPersonWithUsername(String username) throws RemoteException;
 }

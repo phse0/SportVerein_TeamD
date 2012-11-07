@@ -15,7 +15,11 @@ import java.sql.Date;
 import java.util.LinkedList;
 
 /**
- *
+ * *First loadCountry
+ * Second loadCOntribution
+ * Third loadSport
+ * Fourth editPerson
+ * Fifth AssignToSport
  * @author phil
  */
 public interface IPersonEdit extends Remote, IController {
