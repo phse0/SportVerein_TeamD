@@ -83,7 +83,6 @@ public class MainForm extends javax.swing.JFrame {
         btnFilter = new javax.swing.JButton();
         btnCreatePerson = new javax.swing.JButton();
         btnEditPerson = new javax.swing.JButton();
-        btnDeletePerson = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tournamentTable = new javax.swing.JTable();
@@ -134,9 +133,6 @@ public class MainForm extends javax.swing.JFrame {
         btnEditPerson.setText("Mitglied bearbeiten");
         btnEditPerson.setActionCommand("");
 
-        btnDeletePerson.setText("Mitglied löschen");
-        btnDeletePerson.setActionCommand("");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,8 +161,6 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(btnCreatePerson)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditPerson)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDeletePerson)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -188,8 +182,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreatePerson)
-                    .addComponent(btnEditPerson)
-                    .addComponent(btnDeletePerson))
+                    .addComponent(btnEditPerson))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -394,7 +387,7 @@ public class MainForm extends javax.swing.JFrame {
 
         btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
-        btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));
+        //btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));
 
 
         // ################### INITIATE TOURNAMENTS ############################
@@ -448,7 +441,6 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreatePerson;
     private javax.swing.JButton btnCreateTournament;
-    private javax.swing.JButton btnDeletePerson;
     private javax.swing.JButton btnEditPerson;
     private javax.swing.JButton btnEditTeam;
     private javax.swing.JButton btnEditTournament;

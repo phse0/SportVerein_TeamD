@@ -87,8 +87,6 @@
                               <Component id="btnCreatePerson" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnEditPerson" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnDeletePerson" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -116,7 +114,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnCreatePerson" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnEditPerson" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDeletePerson" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
@@ -232,12 +229,6 @@
             <Component class="javax.swing.JButton" name="btnEditPerson">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mitglied bearbeiten"/>
-                <Property name="actionCommand" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnDeletePerson">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Mitglied l&#xf6;schen"/>
                 <Property name="actionCommand" type="java.lang.String" value=""/>
               </Properties>
             </Component>

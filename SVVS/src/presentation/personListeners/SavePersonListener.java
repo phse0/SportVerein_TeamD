@@ -89,7 +89,7 @@ public class SavePersonListener implements ActionListener {
 
         if (!_dialog.getBirthdate().equals("")) {
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
                 sdf.parse(_dialog.getBirthdate());
             } catch (Exception e) {
                 errormessage += "Geburtsdatum \n";

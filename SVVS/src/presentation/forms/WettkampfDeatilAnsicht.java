@@ -5,24 +5,14 @@
 package presentation.forms;
 
 import business.controller.team.ITeamController;
-import data.DTOs.TeamDTO;
-import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.table.AbstractTableModel;
 import presentation.tableModels.MatchTableModel;
-import presentation.tableModels.PersonTableModel;
 import presentation.tableModels.SportsManTableModel;
-import presentation.tableModels.TournamentTableModel;
-import presentation.tableModels.TournamentTeamTableModel;
 
 /**
  *
@@ -209,7 +199,7 @@ public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -230,7 +220,7 @@ public class WettkampfDeatilAnsicht extends javax.swing.JFrame {
             sportsmanTable.setModel(model);
             sportsmanTable.setEnabled(false);
         } catch (RemoteException ex) {
-         //falls team keine verbindung hat...
+            //falls team keine verbindung hat...
         }
     }//GEN-LAST:event_lbxTeamsMouseClicked
 
