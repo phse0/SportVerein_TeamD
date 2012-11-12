@@ -51,7 +51,16 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
     public IPerson create() {
         return new Person();
     }
-
+    public IPerson getUserByUserName(String Username, Session s){
+            Query query = s.createQuery("FROM Person WHERE username = :username");
+        query.setString("username", Username);
+        List<IPerson> persons= query.list();
+        if (persons.size()>=1) {
+        return persons.get(0);
+        } 
+        else return null;
+   
+    }
     @Override
     public List<IRole> getAllRoles(Session s, IPerson model) {
 

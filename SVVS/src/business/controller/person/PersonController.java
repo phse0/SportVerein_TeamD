@@ -33,7 +33,8 @@ public class PersonController extends AController implements IPersonController {
     private PersonController() throws RemoteException {
         super();
     }
-
+ 
+    
     public static PersonController getInstance() throws RemoteException {
         if (instance == null) {
             return (instance = new PersonController());

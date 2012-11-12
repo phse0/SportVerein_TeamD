@@ -31,6 +31,9 @@ public interface IPersonDAO extends IDAOs<IPerson, IPersonDTO> {
     IPerson saveDTOgetModel(Session s, IPersonDTO personDTO);
 
     IPersonDTO createPersonDTO();
+    IPerson getUserByUserName(String Username, Session s);
+    
+
 
     void removeDTO(Session s, IPersonDTO dto);
     

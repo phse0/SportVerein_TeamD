@@ -4,13 +4,14 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://mysql.fhv.at:3306/ffi0875?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://mysql.fhv.at:3306/ffi0875?zeroDateTimeBehavior=convertToNull&autoReconnect=true</property>
     <property name="hibernate.connection.username">ffi0875</property>
     <property name="hibernate.connection.password">singpeco</property>
     <property name="hibernate.show_sql">false</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.transaction.auto_close_session">false</property>
+    <property name="hibernate.transaction.auto_close_session">true</property>
+    <property name="hibernate.c3p0.timeout">1800</property>   
     <mapping resource="data/mapping/Address.hbm.xml"/>
     <mapping resource="data/mapping/Contribution.hbm.xml"/>
     <mapping resource="data/mapping/Country.hbm.xml"/>
