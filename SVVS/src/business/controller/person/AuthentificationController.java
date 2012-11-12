@@ -4,6 +4,7 @@
  */
 package business.controller.person;
 
+import business.controller.RMI.AController;
 import data.DTOs.PersonDTO;
 import data.DataFacade;
 import data.hibernate.HibernateUtil;
@@ -12,6 +13,7 @@ import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.IRoleRights;
+import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,8 +34,13 @@ import javax.naming.directory.SearchResult;
  *
  * @author Media Markt
  */
-public class AuthentificationController implements IAuthentificationController {
+public class AuthentificationController extends AController implements IAuthentificationController {
 
+    public AuthentificationController() throws RemoteException {
+        super();
+    }
+
+    
     @Override
     public Long Authenticate(String username, String password) {
         IPersonDAO personDao = DataFacade.getPersonDAO();
