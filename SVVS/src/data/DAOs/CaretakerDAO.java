@@ -27,7 +27,7 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
     private static ICaretakerDAO instance;
     
     private CaretakerDAO() {
-        super("data.models.Address");
+        super("data.models.Caretaker");
     }
     
     public static ICaretakerDAO getInstance(){
