@@ -46,6 +46,23 @@ public class RightDTO extends AbstractDTO<IRight> implements IRightDTO{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if(obj instanceof Long){
+            
+            Long check = ((Long)obj) & this.value;
+            if(check > 0){
+                return true;
+            }
+            return false;
+            
+        }else{
+            return false;
+        }
+        
+    }
     
     
 }

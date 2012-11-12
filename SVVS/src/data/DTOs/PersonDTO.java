@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author uubu
  */
-public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
+public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
 
     protected String firstname;
     protected String lastname;
@@ -29,25 +29,24 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     protected String username;
     protected String password;
     protected IAddressDTO mainAddress;
-    protected int right;
+    protected Long right;
     protected String birthdate;
-    
     protected IContributionDTO contribution;
     protected List<ISportDTO> sports;
     protected List<IDepartmentDTO> departments;
     protected String contributionStatus;
-    
-    public PersonDTO(){
+
+    public PersonDTO() {
         sports = new LinkedList<>();
         departments = new LinkedList<>();
     }
-    
+
     public PersonDTO(IPerson person) {
         sports = new LinkedList<>();
         departments = new LinkedList<>();
         extract(person);
     }
-    
+
     @Override
     public void extract(IPerson model) {
         this.id = model.getPersonID();
@@ -55,26 +54,27 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
         this.lastname = model.getLastname();
         this.sex = model.getSex();
         this.phone = model.getPhone();
-        this.mail=model.getMail();
+        this.mail = model.getMail();
         this.username = model.getUsername();
         this.password = model.getPassword();
         this.mainAddress = new AddressDTO(model.getMainAddress());
-        this.right = model.getRight();
+//        this.right = model.getRight();
         this.birthdate = (model.getBirthdate() == null) ? "" : model.getBirthdate().toString();
-        
+
         this.contribution = (model.getLastContribution() == null) ? null : new ContributionDTO(model.getLastContribution());
-        
-        for(IRole role:model.getRoles()){
+
+        for (IRole role : model.getRoles()) {
             sports.add(new SportDTO(role.getSport()));
+            this.right = this.right | role.getRoleRight().getRight();
         }
-        
-        for(IDepartment dept: model.getDepartments()){
+
+        for (IDepartment dept : model.getDepartments()) {
             departments.add(new DepartmentDTO(dept));
         }
-        
+
         this.contributionStatus = model.getLastContributionStatus();
     }
-    
+
     @Override
     public String getFirstname() {
         return firstname;
@@ -156,12 +156,12 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
     }
 
     @Override
-    public int getRight() {
+    public Long getRight() {
         return right;
     }
 
     @Override
-    public void setRight(int right) {
+    public void setRight(Long right) {
         this.right = right;
     }
 
@@ -215,5 +215,7 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO{
         this.contributionStatus = contributionStatus;
     }
     
-    
+    public boolean hasRight(long right){
+        return ((this.right & right) > 0)? true: false;
+    }
 }

@@ -27,7 +27,7 @@ public interface IPersonDTO extends IDTO<IPerson>{
 
     String getPhone();
 
-    int getRight();
+    Long getRight();
 
     String getSex();
 
@@ -47,7 +47,7 @@ public interface IPersonDTO extends IDTO<IPerson>{
 
     void setPhone(String phone);
 
-    void setRight(int right);
+    void setRight(Long right);
 
     void setSex(String sex);
 

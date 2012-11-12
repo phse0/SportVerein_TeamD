@@ -92,6 +92,14 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         query.setString("fname", name);
         return query.list();
     }
+    
+    @Override
+    public IPerson getByUsername(Session s, String name) {
+
+        Query query = s.createQuery("FROM " + getTable() + " WHERE username = :fname");
+        query.setString("fname", name);
+        return (IPerson)query.uniqueResult();
+    }
 
     @Override
     public IPersonDTO extractDTO(IPerson model) {
@@ -133,7 +141,7 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
         person.setUsername(personDTO.getUsername());
         person.setPassword(personDTO.getPassword());
         person.setPhone(personDTO.getPhone());
-        person.setRight(personDTO.getRight());
+        //person.setRight(personDTO.getRight());
         person.setMail(personDTO.getMail());
         person.setSex(personDTO.getSex());
 

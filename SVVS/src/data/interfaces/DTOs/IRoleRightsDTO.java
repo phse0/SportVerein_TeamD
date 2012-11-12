@@ -14,10 +14,10 @@ public interface IRoleRightsDTO extends IDTO<IRoleRights> {
 
     String getName();
 
-    int getRight();
+    Long getRight();
 
     void setName(String name);
 
-    void setRight(int right);
+    void setRight(Long right);
     
 }

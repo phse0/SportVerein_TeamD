@@ -12,13 +12,13 @@ public interface IRoleRights extends IModel {
 
     String getName();
 
-    int getRight();
+    Long getRight();
 
     int getRoleRightsID();
 
     void setName(String name);
 
-    void setRight(int right);
+    void setRight(Long right);
 
     void setRoleRightsID(int roleRightsID);
     
