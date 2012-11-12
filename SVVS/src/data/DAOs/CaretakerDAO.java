@@ -68,7 +68,13 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
         
         Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
         query.setParameter("person", person);
-        return (ICaretaker) query.uniqueResult();
+        List<ICaretaker> results = query.list();
+        
+        if(results == null || results.size()<1){
+            return null;
+        }
+        
+        return results.get(0);
                 
     }
 }
