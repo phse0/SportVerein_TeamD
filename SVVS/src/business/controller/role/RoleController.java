@@ -110,6 +110,7 @@ public class RoleController extends AController implements IRoleController {
                         IManager manager = ManagerDAO.getInstance().create();
                         manager.setPerson(p);
                         manager.setDepartment(d);
+                        manager.setRoleRight(manager.getRoleRight());
                         ManagerDAO.getInstance().add(HibernateUtil.getCurrentSession(), manager);
                     }
                     break;
@@ -120,6 +121,7 @@ public class RoleController extends AController implements IRoleController {
                             sportsman.setPerson(p);
                             sportsman.setDepartment(d);
                             sportsman.setSport(s);
+                            sportsman.setRoleRight(sportsman.getRoleRight());
                             SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
                         }
                     break;
@@ -130,6 +132,7 @@ public class RoleController extends AController implements IRoleController {
                         coach.setPerson(p);
                         coach.setDepartment(d);
                         coach.setSport(s);
+                        coach.setRoleRight(coach.getRoleRight());
                         CoachDAO.getInstance().add(HibernateUtil.getCurrentSession(), coach);
                     }
                     break;
@@ -138,6 +141,7 @@ public class RoleController extends AController implements IRoleController {
                     if (temp == null) {
                         IAdministrator administrator = AdministratorDAO.getInstance().create();
                         administrator.setPerson(p);
+                        administrator.setRoleRight(administrator.getRoleRight());
                         AdministratorDAO.getInstance().add(HibernateUtil.getCurrentSession(), administrator);
                     }
                     break;
@@ -146,6 +150,7 @@ public class RoleController extends AController implements IRoleController {
                     if (temp == null) {
                         ICaretaker caretaker = CaretakerDAO.getInstance().create();
                         caretaker.setPerson(p);
+                        caretaker.setRoleRight(caretaker.getRoleRight());
                         CaretakerDAO.getInstance().add(HibernateUtil.getCurrentSession(), caretaker);
                     }
                     break;
