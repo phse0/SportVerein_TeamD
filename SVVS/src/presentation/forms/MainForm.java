@@ -11,14 +11,18 @@ import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.tournament.ITournamentController;
+import data.DAOs.RightDAO;
+import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.IRightDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
@@ -67,6 +71,7 @@ public class MainForm extends javax.swing.JFrame {
         try {
             initControls();
             loggedUser = personController.loadPersonWithUsername(user);
+            checkRights();
         } catch (RemoteException | NotBoundException | MalformedURLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -82,7 +87,7 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tpMain = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         personTable = new javax.swing.JTable();
@@ -217,7 +222,7 @@ public class MainForm extends javax.swing.JFrame {
 
         cobContribution.getAccessibleContext().setAccessibleName("");
 
-        jTabbedPane1.addTab("Mitglieder", jPanel1);
+        tpMain.addTab("Mitglieder", jPanel1);
 
         tournamentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -270,7 +275,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Wettkämpfe", jPanel2);
+        tpMain.addTab("Wettkämpfe", jPanel2);
 
         tournamentTeamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -311,7 +316,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Teams", jPanel3);
+        tpMain.addTab("Teams", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -319,14 +324,14 @@ public class MainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(tpMain)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(tpMain)
                 .addContainerGap())
         );
 
@@ -450,6 +455,59 @@ public class MainForm extends javax.swing.JFrame {
 
     }
     
+    private void checkRights() {
+        
+        List<IRightDTO> rights = RightDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
+        List<IRightDTO> missingRights = new LinkedList<>();
+        
+        for(IRightDTO r : rights) {
+            if(!loggedUser.hasRight(r.getValue())) {
+                missingRights.add(r);
+            }
+        }
+        
+        for(IRightDTO r : missingRights) {
+            
+            if(r.getName().equals("Rechte verwalten")) {
+                btRechte.setEnabled(false);
+            }
+            
+            if(r.getName().equals("Teams anzeigen")) {
+                tpMain.setEnabledAt(2, false);
+            }
+            
+            if(r.getName().equals("Teams verwalten")) {
+                btnEditTeam.setEnabled(false);
+            }
+            
+            if(r.getName().equals("Wettkampf anzeigen")) {
+                tpMain.setEnabledAt(1, false);
+            }
+            
+            if(r.getName().equals("Wettkampf verwalten")) {
+                btnCreateTournament.setEnabled(false);
+                btnEditTournament.setEnabled(false);
+            }
+            
+            if(r.getName().equals("Mitglied anzeigen")) {
+                tpMain.setEnabledAt(0, false);
+            }
+            
+            if(r.getName().equals("Mitglied verwalten")) {
+                btnCreatePerson.setEnabled(false);
+                btnEditPerson.setEnabled(false);
+            }
+        }
+        
+        for(int i = 0; i < tpMain.getTabCount(); i++) {
+            if(tpMain.isEnabledAt(i)) {
+                tpMain.setSelectedIndex(i);
+                break;
+            }
+        }
+        
+    }
+    
 
     /**
      * @param args the command line arguments
@@ -502,10 +560,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable personTable;
     private javax.swing.JTable tournamentTable;
     private javax.swing.JTable tournamentTeamTable;
+    private javax.swing.JTabbedPane tpMain;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

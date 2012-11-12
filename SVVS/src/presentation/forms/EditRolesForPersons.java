@@ -39,12 +39,14 @@ public class EditRolesForPersons extends javax.swing.JFrame {
      */
     public EditRolesForPersons(IPersonDTO person, IRoleController roles, IEditPersonRole personrole) {
         initComponents();
+        this.setTitle("Rolleneditor");
         this.person = person;
         this.personrole = personrole;
         lbPersonName.setText(person.getFirstname() + " " + person.getLastname());
         lbSportart.setEnabled(false);
         lbAbteilung.setEnabled(false);
         this.roles = roles;
+
         try {
             for (IDepartmentDTO dept : personrole.loadDepartments()) {
                 lbAbteilung.addItem(dept);
@@ -53,6 +55,10 @@ public class EditRolesForPersons extends javax.swing.JFrame {
                 lbRolle.addItem(role);
             }
             List<IRoleDTO> a = roles.loadRolesOfPerson(person);
+            for (IRoleDTO b : a) {
+            }
+            lbRolle.removeItemAt(0);
+            lbAbteilung.removeItemAt(0);
             model = new RoleTableModel(a);
             table.setModel(model);
         } catch (Exception e) {
@@ -81,7 +87,7 @@ public class EditRolesForPersons extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -89,6 +95,11 @@ public class EditRolesForPersons extends javax.swing.JFrame {
         });
 
         jButton1.setText("Ok");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,21 +122,21 @@ public class EditRolesForPersons extends javax.swing.JFrame {
             }
         });
 
-        lbSportart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AL" }));
+        lbSportart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pony hunter" }));
         lbSportart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbSportartActionPerformed(evt);
             }
         });
 
-        lbRolle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AAA" }));
+        lbRolle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "we are" }));
         lbRolle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbRolleActionPerformed(evt);
             }
         });
 
-        lbAbteilung.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abt" }));
+        lbAbteilung.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "the golden" }));
         lbAbteilung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbAbteilungActionPerformed(evt);
@@ -171,8 +182,8 @@ public class EditRolesForPersons extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(lbPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbRolle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -217,17 +228,17 @@ public class EditRolesForPersons extends javax.swing.JFrame {
 
             if (!lbAbteilung.isEnabled()) //nur rolle gewählt
             {
-                System.out.println(lbRolle.getSelectedItem().toString());
                 roles.EditPersonRole(person, list, null, null);
             } else if (!lbSportart.isEnabled()) //rolle + abteilung
             {
-                System.out.println(lbRolle.getSelectedItem().toString() + "___" + lbAbteilung.getSelectedItem().toString());
                 roles.EditPersonRole(person, list, (IDepartmentDTO) lbAbteilung.getSelectedItem(), null);
             } else //alles
             {
-                System.out.println(lbRolle.getSelectedItem().toString() + "___" + lbAbteilung.getSelectedItem().toString() + "_____" + lbSportart.getSelectedItem().toString());
                 roles.EditPersonRole(person, list, (IDepartmentDTO) lbAbteilung.getSelectedItem(), (ISportDTO) lbSportart.getSelectedItem());
             }
+            List<IRoleDTO> a = roles.loadRolesOfPerson(person);
+            model = new RoleTableModel(a);
+            table.setModel(model);
         } catch (RemoteException ex) {
             Logger.getLogger(EditRolesForPersons.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -253,6 +264,10 @@ public class EditRolesForPersons extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
     /**
      * @param args the command line arguments
      */
