@@ -137,7 +137,7 @@ public class RoleController extends AController implements IRoleController {
                     }
                     break;
                 case "Verwalter":
-                    temp = CaretakerDAO.getInstance().getByAll(HibernateUtil.getCurrentSession(), p, d);
+                    temp = CaretakerDAO.getInstance().getByAll(HibernateUtil.getCurrentSession(), p);
                     if (temp == null) {
                         ICaretaker caretaker = CaretakerDAO.getInstance().create();
                         caretaker.setPerson(p);
