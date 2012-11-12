@@ -136,6 +136,8 @@ public class RoleController extends AController implements IRoleController {
                         CaretakerDAO.getInstance().add(HibernateUtil.getCurrentSession(), caretaker);
                     }
                     break;
+                default:
+                    break;
             }
         }
         tx.commit();
