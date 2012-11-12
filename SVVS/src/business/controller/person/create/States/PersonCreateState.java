@@ -95,8 +95,7 @@ public class PersonCreateState extends AController implements IPersonCreateState
         person.setPassword(password);
         person.setMainAddress(address);
         person.setBirthdate(birthday);
-        person.setRight(right);
-
+     
         ContributionHistory ch = new ContributionHistory(person, getContributionByID(contributionID),
                 DateTime.now().getYear(), DateTime.now().getMonthOfYear(), "0");
         

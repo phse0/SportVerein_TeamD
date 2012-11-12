@@ -176,7 +176,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
         // TODO add your handling code here:
         System.out.print("Login ");
-        int userright;
+        Long userright;
         IAuthentificationController ac = new AuthentificationController();
         String userid=jUsernameTextField.getText();
             userright = ac.Authenticate(userid,jPasswordField.getText());

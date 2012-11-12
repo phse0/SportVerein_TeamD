@@ -4,9 +4,11 @@
  */
 package business.controller.person;
 
+import data.DTOs.PersonDTO;
 import data.DataFacade;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.IPersonDAO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.IRoleRights;
@@ -33,11 +35,13 @@ import javax.naming.directory.SearchResult;
 public class AuthentificationController implements IAuthentificationController {
 
     @Override
-    public int Authenticate(String username, String password) {
+    public Long Authenticate(String username, String password) {
         IPersonDAO personDao = DataFacade.getPersonDAO();
-        int right;
         boolean ldapLoginSuccess = false;
-        IPerson person = personDao.getUserByUserName(username, HibernateUtil.getCurrentSession());
+        
+        IPersonDTO person = new PersonDTO(personDao.getUserByUserName(username, HibernateUtil.getCurrentSession()));
+        
+        Long right = person.getRight();
         //if person is null then there is no user with this username and we cannot authenticate 
         if (person != null) {
 
@@ -50,8 +54,6 @@ public class AuthentificationController implements IAuthentificationController {
             }
         }
         if (ldapLoginSuccess == true) {
-            right = person.getRight();
-
             HibernateUtil.getCurrentSession().close();
             System.out.println("Authentification succsess! Right = " + right);
 
@@ -60,7 +62,7 @@ public class AuthentificationController implements IAuthentificationController {
         } else {
             System.out.println("Authentification failed");
             HibernateUtil.getCurrentSession().close();
-            return 0;
+            return new Long(0);
         }
 
     }
