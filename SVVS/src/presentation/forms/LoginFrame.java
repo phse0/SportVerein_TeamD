@@ -6,9 +6,6 @@ package presentation.forms;
 
 import business.controller.person.AuthentificationController;
 import business.controller.person.IAuthentificationController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.NamingException;
 
 /**
  *
@@ -202,7 +199,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void openMainForm(String userid){
         System.out.println("OpenMainForm, userid="+userid);
-                    MainForm1 mainForm = new MainForm1(userid);
+                    MainForm mainForm = new MainForm(userid);
             mainForm.setVisible(true);
 
     };

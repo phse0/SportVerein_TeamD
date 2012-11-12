@@ -16,16 +16,14 @@ import javax.naming.NamingException;
  */
 public class TestLDAP {
 
-  
-     public static void main(String args[]) throws NamingException
-    {
+    public static void main(String args[]) throws NamingException {
         AuthentificationController ac = new AuthentificationController();
-  //boolean b = ac.Authenticate("haaa","haaa");
- //boolean bb = ac.AuthenticateLDAPPassword("haaa","haaa");
- boolean bb = ac.AuthenticateLDAPPassword("Evgeniya Spiegel","123456");
+        //boolean b = ac.Authenticate("haaa","haaa");
+        //boolean bb = ac.AuthenticateLDAPPassword("haaa","haaa");
+        boolean bb = ac.AuthenticateLDAPPassword("Evgeniya Spiegel", "123456");
 //boolean bb = ac.Authenticate("ArmandSpiegel","");
- System.out.println(bb);
+        System.out.println(bb);
 
-     
+
     }
 }

@@ -18,16 +18,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.table.TableRowSorter;
 import presentation.personListeners.CreateNewPersonListener;
-import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
 import presentation.personListeners.EditRolesListener;
 import presentation.tableModels.PersonTableModel;
@@ -51,6 +46,7 @@ public class MainForm extends javax.swing.JFrame {
     ITournamentController tournamentController;
     ITeamController teamController;
     IRoleController roleController;
+    IPersonDTO loggedUser;
 
     /**
      * Creates new form MainForm
@@ -58,12 +54,20 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         try {
-
             initControls();
         } catch (RemoteException | NotBoundException | MalformedURLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
 
+    public MainForm(String user) {
+        initComponents();
+        try {
+            initControls();
+            loggedUser = personController.loadPersonWithUsername(user);
+        } catch (RemoteException | NotBoundException | MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -383,7 +387,6 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditPersonActionPerformed
 
     private void btRechteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRechteActionPerformed
- 
     }//GEN-LAST:event_btRechteActionPerformed
 
     private void initControls() throws RemoteException, NotBoundException, MalformedURLException {
@@ -419,8 +422,8 @@ public class MainForm extends javax.swing.JFrame {
         btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
         btRechte.addActionListener(new EditRolesListener(personTable, controllerFactory, roleController));
-        
-        
+
+
         //btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));
 
 
@@ -443,6 +446,7 @@ public class MainForm extends javax.swing.JFrame {
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
 
     }
+    
 
     /**
      * @param args the command line arguments
