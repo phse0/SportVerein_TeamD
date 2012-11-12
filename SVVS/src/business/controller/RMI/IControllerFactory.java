@@ -9,6 +9,8 @@ import business.controller.person.IPersonController;
 import business.controller.person.create.IPersonCreation;
 import business.controller.person.delete.IPersonDelete;
 import business.controller.person.edit.IPersonEdit;
+import business.controller.role.EditPersonRole.IEditPersonRole;
+import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.team.playerToTeam.IPlayerToTeam;
 import business.controller.tournament.Create.ITournamentCreation;
@@ -43,4 +45,7 @@ public interface IControllerFactory extends Remote  {
     
     IPlayerToTeam loadPlayerToTeamController() throws RemoteException;
     
+    IRoleController loadRoleController() throws  RemoteException;
+    
+    IEditPersonRole loadEditPersonRole() throws  RemoteException;
 }
