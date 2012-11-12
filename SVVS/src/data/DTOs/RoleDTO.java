@@ -4,7 +4,9 @@
  */
 package data.DTOs;
 
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.DTOs.IRoleRightsDTO;
 import data.interfaces.models.IRole;
 
 /**
@@ -20,5 +22,5 @@ public class RoleDTO extends AbstractRoleDTO<IRole> implements IRoleDTO{
     @Override
     public void extract(IRole model) {
         extractRole(model);
-    }
+    }    
 }
