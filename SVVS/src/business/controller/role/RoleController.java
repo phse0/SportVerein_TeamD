@@ -88,7 +88,7 @@ public class RoleController extends AController implements IRoleController {
      PersonDAO.getInstance().update(HibernateUtil.getCurrentSession(), person);
      }*/
     @Override
-    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport) {
+    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport) throws  RemoteException {
         Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
         IPerson p = PersonDAO.getInstance().getById(HibernateUtil.getCurrentSession(), person.getId());
         IDepartment d = DepartmentDAO.getInstance().getById(HibernateUtil.getCurrentSession(), department.getId());

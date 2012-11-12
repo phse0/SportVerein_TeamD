@@ -26,5 +26,5 @@ public interface IRoleController extends Remote, IController  {
     public List<IRoleRightsDTO> loadRoleRights() throws RemoteException;
     public List<IRoleRightsDTO> loadRoleRightsOfPerson(IPersonDTO person)throws RemoteException;
     //public void EditPersonRole(IPerson person, List<IRole> roles) throws  RemoteException;
-     public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport) ;
+     public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport)throws  RemoteException ;
 }
