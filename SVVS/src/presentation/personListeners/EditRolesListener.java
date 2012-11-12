@@ -6,6 +6,7 @@ package presentation.personListeners;
 
 import business.controller.RMI.IControllerFactory;
 import business.controller.person.create.IPersonCreation;
+import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
 import data.interfaces.DTOs.IPersonDTO;
 import java.awt.event.ActionEvent;
@@ -28,9 +29,11 @@ public class EditRolesListener implements ActionListener{
     JTable table;
     IControllerFactory factory;
     IRoleController roles;
+    IEditPersonRole roleeditor;
     
-public EditRolesListener(JTable table, IControllerFactory factory, IRoleController roles)
+public EditRolesListener(JTable table, IControllerFactory factory, IRoleController roles, IEditPersonRole roleeditor)
 {
+    this.roleeditor = roleeditor;
     this.table = table;
     this.factory = factory;
     this.roles = roles;
@@ -45,7 +48,7 @@ public EditRolesListener(JTable table, IControllerFactory factory, IRoleControll
             int index = table.convertRowIndexToModel(table.getSelectedRow());
             PersonTableModel personModel = (PersonTableModel) table.getModel();
             
-            EditRolesForPersons editroles = new EditRolesForPersons(personModel.getPersonDTO(index), roles);
+            EditRolesForPersons editroles = new EditRolesForPersons(personModel.getPersonDTO(index), roles, roleeditor);
             editroles.setVisible(true);
         }
     

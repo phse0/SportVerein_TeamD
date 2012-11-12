@@ -7,6 +7,7 @@ package presentation.forms;
 import business.controller.RMI.IControllerFactory;
 import business.controller.departments.IDepartmentController;
 import business.controller.person.IPersonController;
+import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.tournament.ITournamentController;
@@ -47,6 +48,7 @@ public class MainForm extends javax.swing.JFrame {
     ITeamController teamController;
     IRoleController roleController;
     IPersonDTO loggedUser;
+    IEditPersonRole editPersonRoleController;
 
     /**
      * Creates new form MainForm
@@ -400,6 +402,7 @@ public class MainForm extends javax.swing.JFrame {
         departmentController = (IDepartmentController) controllerFactory.loadDepartmentController();
         tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
         roleController = (IRoleController) controllerFactory.loadRoleController();
+        editPersonRoleController = (IEditPersonRole) controllerFactory.loadEditPersonRole();
 
         // ############## INITIATE PERSONS ################
 
@@ -421,7 +424,7 @@ public class MainForm extends javax.swing.JFrame {
 
         btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
-        btRechte.addActionListener(new EditRolesListener(personTable, controllerFactory, roleController));
+        btRechte.addActionListener(new EditRolesListener(personTable, controllerFactory, roleController, editPersonRoleController));
 
 
         //btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));

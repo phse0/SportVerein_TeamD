@@ -4,8 +4,22 @@
  */
 package presentation.forms;
 
+import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
+import data.DTOs.RoleDTO;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.DTOs.IRoleRightsDTO;
+import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.models.IRoleRights;
+import java.rmi.RemoteException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import presentation.tableModels.RoleTableModel;
 
@@ -17,19 +31,33 @@ public class EditRolesForPersons extends javax.swing.JFrame {
 
     IPersonDTO person;
     IRoleController roles;
+    RoleTableModel model;
+    IEditPersonRole personrole;
 
     /**
      * Creates new form EditRolesForPersons
      */
-    public EditRolesForPersons(IPersonDTO person, IRoleController roles) {
+    public EditRolesForPersons(IPersonDTO person, IRoleController roles, IEditPersonRole personrole) {
         initComponents();
         this.person = person;
+        this.personrole = personrole;
         lbPersonName.setText(person.getFirstname() + " " + person.getLastname());
         lbSportart.setEnabled(false);
         lbAbteilung.setEnabled(false);
         this.roles = roles;
-        
-        //table.setModel(new RoleTableModel(kommt glei));
+        try {
+            for (IDepartmentDTO dept : personrole.loadDepartments()) {
+                lbAbteilung.addItem(dept);
+            }
+            for (IRoleRightsDTO role : roles.loadRoleRights()) {
+                lbRolle.addItem(role);
+            }
+            List<IRoleDTO> a = roles.loadRolesOfPerson(person);
+            model = new RoleTableModel(a);
+            table.setModel(model);
+        } catch (Exception e) {
+        }
+
     }
 
     /**
@@ -44,13 +72,21 @@ public class EditRolesForPersons extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        hinzufuegen = new javax.swing.JButton();
         lbSportart = new javax.swing.JComboBox();
         lbRolle = new javax.swing.JComboBox();
         lbPersonName = new javax.swing.JLabel();
         lbAbteilung = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jButton1.setText("Ok");
 
@@ -68,18 +104,39 @@ public class EditRolesForPersons extends javax.swing.JFrame {
         table.setRowHeight(26);
         jScrollPane2.setViewportView(table);
 
-        jButton2.setText("Hinzufügen");
+        hinzufuegen.setText("Hinzufügen");
+        hinzufuegen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hinzufuegenActionPerformed(evt);
+            }
+        });
 
-        lbSportart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sportart" }));
+        lbSportart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AL" }));
+        lbSportart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lbSportartActionPerformed(evt);
+            }
+        });
 
-        lbRolle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rolle" }));
+        lbRolle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AAA" }));
         lbRolle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbRolleActionPerformed(evt);
             }
         });
 
-        lbAbteilung.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abteilung" }));
+        lbAbteilung.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abt" }));
+        lbAbteilung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lbAbteilungActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Rolle");
+
+        jLabel2.setText("Abteilung");
+
+        jLabel3.setText("Sportart");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,35 +146,46 @@ public class EditRolesForPersons extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(lbPersonName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbSportart, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addComponent(lbRolle, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbPersonName)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addGap(0, 146, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(hinzufuegen, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel2))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbSportart, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lbAbteilung, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbRolle, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(lbPersonName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(lbPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbSportart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbRolle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbRolle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(lbAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbSportart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addComponent(hinzufuegen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -129,28 +197,71 @@ public class EditRolesForPersons extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbRolleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbRolleActionPerformed
-     if(lbRolle.getSelectedItem().equals("Manager"))
-     {
-          lbSportart.setEnabled(false);
-         lbAbteilung.setEnabled(true);
-     }
-     else if(lbRolle.getSelectedItem().equals("Coach") || lbRolle.getSelectedItem().equals("Sportsman"))
-     {
-          lbSportart.setEnabled(true);
-         lbAbteilung.setEnabled(true);
-     }
-     else
-     {
-         lbSportart.setEnabled(false);
-         lbAbteilung.setEnabled(false);
-     }
+        String currentRolename = lbRolle.getSelectedItem().toString();
+        IRoleRightsDTO dto = (IRoleRightsDTO) lbRolle.getSelectedItem();
+        if (currentRolename.equals("Trainer") || currentRolename.equals("Sportler") || currentRolename.equals("Manager")) {
+            lbAbteilung.setEnabled(true);
+            lbSportart.setEnabled(false);
+        } else {
+            lbSportart.setEnabled(false);
+            lbAbteilung.setEnabled(false);
+        }
     }//GEN-LAST:event_lbRolleActionPerformed
+
+    private void hinzufuegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hinzufuegenActionPerformed
+        try {
+            LinkedList<IRoleRightsDTO> list = new LinkedList<IRoleRightsDTO>();
+
+            list.add((IRoleRightsDTO) lbRolle.getSelectedItem());
+
+
+            if (!lbAbteilung.isEnabled()) //nur rolle gewählt
+            {
+                System.out.println(lbRolle.getSelectedItem().toString());
+                roles.EditPersonRole(person, list, null, null);
+            } else if (!lbSportart.isEnabled()) //rolle + abteilung
+            {
+                System.out.println(lbRolle.getSelectedItem().toString() + "___" + lbAbteilung.getSelectedItem().toString());
+                roles.EditPersonRole(person, list, (IDepartmentDTO) lbAbteilung.getSelectedItem(), null);
+            } else //alles
+            {
+                System.out.println(lbRolle.getSelectedItem().toString() + "___" + lbAbteilung.getSelectedItem().toString() + "_____" + lbSportart.getSelectedItem().toString());
+                roles.EditPersonRole(person, list, (IDepartmentDTO) lbAbteilung.getSelectedItem(), (ISportDTO) lbSportart.getSelectedItem());
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(EditRolesForPersons.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_hinzufuegenActionPerformed
+
+    private void lbSportartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbSportartActionPerformed
+        //TODO
+    }//GEN-LAST:event_lbSportartActionPerformed
+
+    private void lbAbteilungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbAbteilungActionPerformed
+        String currentRolename = lbRolle.getSelectedItem().toString();
+        IDepartmentDTO dept = (IDepartmentDTO) lbAbteilung.getSelectedItem();
+        lbSportart.setEnabled(true);
+        lbSportart.setModel(new javax.swing.DefaultComboBoxModel());
+        for (ISportDTO sport : dept.getSports()) {
+            lbSportart.addItem(sport);
+        }
+        if (currentRolename.equals("Manager")) {
+            lbSportart.setEnabled(false);
+        }
+    }//GEN-LAST:event_lbAbteilungActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton hinzufuegen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox lbAbteilung;
     private javax.swing.JLabel lbPersonName;
