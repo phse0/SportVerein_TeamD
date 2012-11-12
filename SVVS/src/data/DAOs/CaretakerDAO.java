@@ -8,8 +8,10 @@ import data.DTOs.CaretakerDTO;
 import data.interfaces.DAOs.ICaretakerDAO;
 import data.interfaces.DTOs.ICaretakerDTO;
 import data.interfaces.models.ICaretaker;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Caretaker;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +60,18 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
         }
         
         return roles;
+                
+    }
+     
+      @Override
+    public ICaretaker getByAll(Session s,IPerson person, IDepartment department){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person AND department = :department");
+        query.setParameter("person", person);
+        query.setParameter("department", department);
+
+        
+        return (ICaretaker) query.uniqueResult();
                 
     }
 }

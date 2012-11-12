@@ -6,6 +6,7 @@ package data.interfaces.DAOs;
 
 import data.interfaces.DTOs.IAdministratorDTO;
 import data.interfaces.models.IAdministrator;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import java.util.List;
 import org.hibernate.Session;
@@ -17,5 +18,7 @@ import org.hibernate.Session;
 public interface IAdministratorDAO extends IDAOs<IAdministrator, IAdministratorDTO>{
 
     List<IAdministrator> getByPerson(Session s, IPerson person);
+
+    IAdministrator getByAll(Session s, IPerson person);
     
 }

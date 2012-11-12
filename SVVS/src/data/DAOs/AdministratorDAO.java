@@ -8,8 +8,10 @@ import data.DTOs.AdministratorDTO;
 import data.interfaces.DAOs.IAdministratorDAO;
 import data.interfaces.DTOs.IAdministratorDTO;
 import data.interfaces.models.IAdministrator;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Administrator;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,4 +62,14 @@ public class AdministratorDAO extends AbstractDAO<IAdministrator, IAdministrator
         return roles;
                 
     }
+ @Override
+    public IAdministrator getByAll(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        
+        return (IAdministrator) query.uniqueResult();
+                
+    }
+
 }

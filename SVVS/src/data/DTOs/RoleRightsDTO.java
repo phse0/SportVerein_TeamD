@@ -47,5 +47,10 @@ public class RoleRightsDTO extends AbstractDTO<IRoleRights> implements IRoleRigh
     public void setRight(Long right) {
         this.right = right;
     }
-    
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+ 
 }

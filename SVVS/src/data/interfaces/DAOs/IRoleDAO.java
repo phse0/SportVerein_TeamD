@@ -5,6 +5,7 @@
 package data.interfaces.DAOs;
 
 import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import data.interfaces.models.ISport;
@@ -22,5 +23,7 @@ public interface IRoleDAO extends IDAOs<IRole, IRoleDTO> {
     List<IRole> getByPerson(Session s, IPerson person);
 
     List<IRole> getBySport(Session s, ISport sport);
+
+    IRole getByAll(Session s, IPerson person, IDepartment department, ISport sport);
     
 }
