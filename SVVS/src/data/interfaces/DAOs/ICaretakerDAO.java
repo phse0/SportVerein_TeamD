@@ -19,6 +19,6 @@ public interface ICaretakerDAO extends IDAOs<ICaretaker, ICaretakerDTO> {
 
     List<ICaretaker> getByPerson(Session s, IPerson person);
 
-    ICaretaker getByAll(Session s, IPerson person, IDepartment department);
+    ICaretaker getByAll(Session s, IPerson person);
     
 }

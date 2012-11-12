@@ -64,13 +64,10 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
     }
      
       @Override
-    public ICaretaker getByAll(Session s,IPerson person, IDepartment department){
+    public ICaretaker getByAll(Session s,IPerson person){
         
-        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person AND department = :department");
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
         query.setParameter("person", person);
-        query.setParameter("department", department);
-
-        
         return (ICaretaker) query.uniqueResult();
                 
     }
