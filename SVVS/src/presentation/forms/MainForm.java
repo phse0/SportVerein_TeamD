@@ -7,6 +7,7 @@ package presentation.forms;
 import business.controller.RMI.IControllerFactory;
 import business.controller.departments.IDepartmentController;
 import business.controller.person.IPersonController;
+import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.tournament.ITournamentController;
 import data.interfaces.DTOs.IDepartmentDTO;
@@ -28,6 +29,7 @@ import javax.swing.table.TableRowSorter;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.DeletePersonListener;
 import presentation.personListeners.EditPersonListener;
+import presentation.personListeners.EditRolesListener;
 import presentation.tableModels.PersonTableModel;
 import presentation.tableModels.TournamentTableModel;
 import presentation.tableModels.TournamentTeamTableModel;
@@ -48,6 +50,7 @@ public class MainForm extends javax.swing.JFrame {
     IDepartmentController departmentController;
     ITournamentController tournamentController;
     ITeamController teamController;
+    IRoleController roleController;
 
     /**
      * Creates new form MainForm
@@ -87,6 +90,7 @@ public class MainForm extends javax.swing.JFrame {
         btnFilter = new javax.swing.JButton();
         btnCreatePerson = new javax.swing.JButton();
         btnEditPerson = new javax.swing.JButton();
+        btRechte = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tournamentTable = new javax.swing.JTable();
@@ -97,13 +101,6 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tournamentTeamTable = new javax.swing.JTable();
         btnEditTeam = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        lbxUser = new javax.swing.JList();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        lbxRechte = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
@@ -143,6 +140,18 @@ public class MainForm extends javax.swing.JFrame {
 
         btnEditPerson.setText("Mitglied bearbeiten");
         btnEditPerson.setActionCommand("");
+        btnEditPerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPersonActionPerformed(evt);
+            }
+        });
+
+        btRechte.setText("Rechteverwaltung");
+        btRechte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRechteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,6 +181,8 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(btnCreatePerson)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditPerson)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btRechte)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -193,7 +204,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreatePerson)
-                    .addComponent(btnEditPerson))
+                    .addComponent(btnEditPerson)
+                    .addComponent(btRechte))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -295,81 +307,6 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Teams", jPanel3);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Benutzer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
-
-        lbxUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbxUserMouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(lbxUser);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rechte", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
-
-        lbxRechte.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbxRechteMouseClicked(evt);
-            }
-        });
-        jScrollPane5.setViewportView(lbxRechte);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(561, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(292, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Benutzer", jPanel4);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -441,20 +378,13 @@ public class MainForm extends javax.swing.JFrame {
         personTable.setRowSorter(personSorter);
     }//GEN-LAST:event_btnFilterActionPerformed
 
-    private void lbxUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbxUserMouseClicked
-        try {
-            IPersonDTO currentPerson = personController.loadPersonWithUsername(((String) lbxUser.getSelectedValue()));
-           // currentPerson.
-        } catch (RemoteException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }//GEN-LAST:event_lbxUserMouseClicked
-
-    private void lbxRechteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbxRechteMouseClicked
+    private void btnEditPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPersonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lbxRechteMouseClicked
+    }//GEN-LAST:event_btnEditPersonActionPerformed
+
+    private void btRechteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRechteActionPerformed
+ 
+    }//GEN-LAST:event_btRechteActionPerformed
 
     private void initControls() throws RemoteException, NotBoundException, MalformedURLException {
 
@@ -466,7 +396,7 @@ public class MainForm extends javax.swing.JFrame {
         personController = (IPersonController) controllerFactory.loadPersonController();
         departmentController = (IDepartmentController) controllerFactory.loadDepartmentController();
         tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
-
+        roleController = (IRoleController) controllerFactory.loadRoleController();
 
         // ############## INITIATE PERSONS ################
 
@@ -488,6 +418,9 @@ public class MainForm extends javax.swing.JFrame {
 
         btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
+        btRechte.addActionListener(new EditRolesListener(personTable, controllerFactory, roleController));
+        
+        
         //btnDeletePerson.addActionListener(new DeletePersonListener(personTable, controllerFactory));
 
 
@@ -509,19 +442,6 @@ public class MainForm extends javax.swing.JFrame {
 
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
 
-        //################### INITIATE RIGHTS ############################
-
-        try {
-            LinkedList<IPersonDTO> persons = (LinkedList<IPersonDTO>) personController.loadPersons();
-            DefaultListModel<String> listModel = new DefaultListModel<>();
-            for (IPersonDTO person : persons) {
-                listModel.addElement(person.getUsername());
-            }
-            lbxUser.setModel(listModel);
-
-        } catch (RemoteException ex) {
-            //Kein DB zugriff
-        }
     }
 
     /**
@@ -554,6 +474,7 @@ public class MainForm extends javax.swing.JFrame {
         new MainForm().setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btRechte;
     private javax.swing.JButton btnCreatePerson;
     private javax.swing.JButton btnCreateTournament;
     private javax.swing.JButton btnEditPerson;
@@ -571,17 +492,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JList lbxRechte;
-    private javax.swing.JList lbxUser;
     private javax.swing.JTable personTable;
     private javax.swing.JTable tournamentTable;
     private javax.swing.JTable tournamentTeamTable;
