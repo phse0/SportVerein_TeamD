@@ -18,6 +18,9 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+        this.setTitle("Login");
+        this.setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -65,12 +68,14 @@ public class LoginFrame extends javax.swing.JFrame {
         jPasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordLabel.setText("Passwort");
 
+        jUsernameTextField.setText("ffi0875");
         jUsernameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jUsernameTextFieldActionPerformed(evt);
             }
         });
 
+        jPasswordField.setText("athodess");
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldActionPerformed(evt);
@@ -175,34 +180,34 @@ public class LoginFrame extends javax.swing.JFrame {
         System.out.print("Login ");
         Long userright;
         IAuthentificationController ac = new AuthentificationController();
-        String userid=jUsernameTextField.getText();
-            userright = ac.Authenticate(userid,jPasswordField.getText());
-            if (userright>0) {
-               
-           //   jLoginResultLabel.setText("Login success, userright = " + userright);
+        String userid = jUsernameTextField.getText();
+        userright = ac.Authenticate(userid, jPasswordField.getText());
+        if (userright > 0) {
+
+            //   jLoginResultLabel.setText("Login success, userright = " + userright);
             openMainForm(userid);
             this.dispose();
-            }
-            else
-            {      
-                jLoginResultLabel.setText("Login failed");
-     
-             } 
-        
+        } else {
+            jLoginResultLabel.setText("Login failed");
+
+        }
+
     }//GEN-LAST:event_jLoginButtonActionPerformed
 
     private void jLookMatchResultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLookMatchResultsButtonActionPerformed
         // TODO add your handling code here:
-            openMainForm("");
-       
+        openMainForm("");
+
     }//GEN-LAST:event_jLookMatchResultsButtonActionPerformed
 
-    private void openMainForm(String userid){
-        System.out.println("OpenMainForm, userid="+userid);
-                    MainForm mainForm = new MainForm(userid);
-            mainForm.setVisible(true);
+    private void openMainForm(String userid) {
+        System.out.println("OpenMainForm, userid=" + userid);
+        MainForm mainForm = new MainForm(userid);
+        mainForm.setVisible(true);
 
-    };
+    }
+
+    ;
     /**
      * @param args the command line arguments
      */
