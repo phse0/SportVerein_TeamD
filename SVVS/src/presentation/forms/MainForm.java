@@ -12,6 +12,7 @@ import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.tournament.ITournamentController;
 import data.DAOs.RightDAO;
+import data.DTOs.PersonDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
@@ -463,6 +464,10 @@ public class MainForm extends javax.swing.JFrame {
             rights = controllerFactory.loadAuthentificationController().getAllRights();
         } catch (RemoteException e) {
             System.out.println("Couldnt connect to Authentifaction Controller");
+        }
+        
+        if(loggedUser.getRight() < 1L){
+            loggedUser.setRight(1L);
         }
         
         List<IRightDTO> missingRights = new LinkedList<>();
