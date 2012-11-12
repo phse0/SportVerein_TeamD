@@ -16,5 +16,7 @@ import org.hibernate.Session;
 public interface IDepartmentDAO extends IDAOs<IDepartment, IDepartmentDTO>{
 
     IDepartment getBySport(Session s, ISport model);
+
+    IDepartment getById(Session s, int id);
     
 }

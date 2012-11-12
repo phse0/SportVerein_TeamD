@@ -49,4 +49,12 @@ public class DepartmentDAO extends AbstractDAO<IDepartment, IDepartmentDTO> impl
         return (IDepartment) query.uniqueResult();
 
     }
+    
+     @Override
+    public IDepartment getById(Session s, int id) {
+
+        Query query = s.createQuery("FROM " + getTable() + " where departmentID =:id");
+        query.setInteger("id", id);
+        return (IDepartment) query.uniqueResult();
+    }
 }
