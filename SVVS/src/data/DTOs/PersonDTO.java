@@ -29,7 +29,7 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
     protected String username;
     protected String password;
     protected IAddressDTO mainAddress;
-    protected Long right;
+    protected Long right = new Long(0);
     protected String birthdate;
     protected IContributionDTO contribution;
     protected List<ISportDTO> sports;
@@ -65,7 +65,9 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
 
         for (IRole role : model.getRoles()) {
             sports.add(new SportDTO(role.getSport()));
-            this.right = this.right | role.getRoleRight().getRight();
+            if (role.getRoleRight() != null) {
+                this.right = this.right.longValue() | new Long(role.getRoleRight().getRight()).longValue();
+            }
         }
 
         for (IDepartment dept : model.getDepartments()) {
@@ -214,8 +216,8 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
     public void setContributionStatus(String contributionStatus) {
         this.contributionStatus = contributionStatus;
     }
-    
-    public boolean hasRight(long right){
-        return ((this.right & right) > 0)? true: false;
+
+    public boolean hasRight(long right) {
+        return ((this.right & right) > 0) ? true : false;
     }
 }
