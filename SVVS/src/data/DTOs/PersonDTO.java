@@ -64,7 +64,9 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
         this.contribution = (model.getLastContribution() == null) ? null : new ContributionDTO(model.getLastContribution());
 
         for (IRole role : model.getRoles()) {
-            sports.add(new SportDTO(role.getSport()));
+            if (role.getSport() != null) {
+                sports.add(new SportDTO(role.getSport()));
+            }
             if (role.getRoleRight() != null) {
                 this.right = this.right.longValue() | new Long(role.getRoleRight().getRight()).longValue();
             }
