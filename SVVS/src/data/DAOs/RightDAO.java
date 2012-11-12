@@ -18,21 +18,21 @@ import org.hibernate.Session;
  *
  * @author uubu
  */
-public class RightDAO extends AbstractDAO<IRight, IRightDTO> implements IRightDAO{
+public class RightDAO extends AbstractDAO<IRight, IRightDTO> implements IRightDAO {
 
     private static IRightDAO instance;
-    
-    private RightDAO(){
+
+    private RightDAO() {
         super("data.models.Right");
     }
-    
-    public static IRightDAO getInstance(){
-        if ( instance == null){
+
+    public static IRightDAO getInstance() {
+        if (instance == null) {
             instance = new RightDAO();
         }
         return instance;
     }
-    
+
     @Override
     public IRight create() {
         return new Right();
@@ -42,5 +42,16 @@ public class RightDAO extends AbstractDAO<IRight, IRightDTO> implements IRightDA
     public IRightDTO extractDTO(IRight model) {
         return new RightDTO(model);
     }
-    
+
+    @Override
+    public Long getRightbyName(Session s, String name) {
+
+        Query query = s.createQuery("FROM " + getTable() + " where name =:name");
+        query.setString("name", name);
+        IRight right = (IRight)query.uniqueResult();
+        
+        return right.getValue();
+
+
+    }
 }

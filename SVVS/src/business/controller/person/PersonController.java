@@ -57,13 +57,14 @@ public class PersonController extends AController implements IPersonController {
     }
     
     public IPersonDTO loadPersonWithUsername(String username) throws RemoteException{
-     List<IPersonDTO> persons = PersonDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
-        for (IPersonDTO ip : persons) {
-            if (ip.getUsername().equals(username)) {
-                return ip;
-            }
-        }
-        return null;
+        return new PersonDTO(PersonDAO.getInstance().getByUsername(HibernateUtil.getCurrentSession(), username));
+//     List<IPersonDTO> persons = PersonDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
+//        for (IPersonDTO ip : persons) {
+//            if (ip.getUsername().equals(username)) {
+//                return ip;
+//            }
+//        }
+//        return null;
     }
 
     public IPersonDTO loadPersonWithID(int personID) {

@@ -51,7 +51,6 @@ public class SavePersonListener implements ActionListener {
                 person.setUsername(_dialog.getUserName());
                 person.setPassword(_dialog.getPassword());
                 person.setBirthdate(_dialog.getBirthdate());
-                person.setRight(0);
                 person.getMainAddress().setStreet(_dialog.getStreet());
                 person.getMainAddress().setPostcode(_dialog.getPostCode());
                 person.getMainAddress().setCity(_dialog.getCity());

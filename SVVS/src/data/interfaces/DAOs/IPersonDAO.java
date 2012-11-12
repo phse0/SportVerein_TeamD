@@ -36,5 +36,7 @@ public interface IPersonDAO extends IDAOs<IPerson, IPersonDTO> {
 
 
     void removeDTO(Session s, IPersonDTO dto);
+
+    IPerson getByUsername(Session s, String name);
     
 }

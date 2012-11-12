@@ -14,7 +14,7 @@ import data.interfaces.models.IRoleRights;
 public class RoleRightsDTO extends AbstractDTO<IRoleRights> implements IRoleRightsDTO {
 
     protected String name;
-    protected int right;
+    protected Long right;
     
     public RoleRightsDTO(IRoleRights model){
         extract(model);
@@ -39,12 +39,12 @@ public class RoleRightsDTO extends AbstractDTO<IRoleRights> implements IRoleRigh
     }
 
     @Override
-    public int getRight() {
+    public Long getRight() {
         return right;
     }
 
     @Override
-    public void setRight(int right) {
+    public void setRight(Long right) {
         this.right = right;
     }
     

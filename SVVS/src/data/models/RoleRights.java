@@ -14,7 +14,7 @@ public class RoleRights implements IRoleRights{
     
     protected int roleRightsID;
     protected String name;
-    protected int right;
+    protected Long right;
 
     public RoleRights() {
     }
@@ -35,13 +35,15 @@ public class RoleRights implements IRoleRights{
         this.name = name;
     }
 
-    public int getRight() {
+    public Long getRight() {
         return right;
     }
 
-    public void setRight(int right) {
+    public void setRight(Long right) {
         this.right = right;
     }
+
+
     
     
 }
