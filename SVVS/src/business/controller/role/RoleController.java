@@ -109,6 +109,7 @@ public class RoleController extends AController implements IRoleController {
                     if (temp == null) {
                         IManager manager = ManagerDAO.getInstance().create();
                         manager.setPerson(p);
+                        manager.setDepartment(d);
                         ManagerDAO.getInstance().add(HibernateUtil.getCurrentSession(), manager);
                     }
                     break;
@@ -117,6 +118,8 @@ public class RoleController extends AController implements IRoleController {
                         if (temp == null) {
                             ISportsman sportsman = SportsmanDAO.getInstance().create();
                             sportsman.setPerson(p);
+                            sportsman.setDepartment(d);
+                            sportsman.setSport(s);
                             SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
                         }
                     break;
@@ -125,6 +128,8 @@ public class RoleController extends AController implements IRoleController {
                     if (temp == null) {
                         ICoach coach = CoachDAO.getInstance().create();
                         coach.setPerson(p);
+                        coach.setDepartment(d);
+                        coach.setSport(s);
                         CoachDAO.getInstance().add(HibernateUtil.getCurrentSession(), coach);
                     }
                     break;
