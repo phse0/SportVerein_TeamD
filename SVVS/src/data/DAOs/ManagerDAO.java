@@ -7,8 +7,11 @@ package data.DAOs;
 import data.DTOs.ManagerDTO;
 import data.interfaces.DAOs.IManagerDAO;
 import data.interfaces.DTOs.IManagerDTO;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IManager;
 import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Manager;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,4 +62,14 @@ public class ManagerDAO extends AbstractDAO<IManager, IManagerDTO> implements IM
         return roles;        
     }
      
+      @Override
+    public IManager getByAll(Session s,IPerson person, IDepartment department){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person AND department = :department");
+        query.setParameter("person", person);
+        query.setParameter("department", department);
+        
+        return (IManager) query.uniqueResult();
+                
+    }
 }

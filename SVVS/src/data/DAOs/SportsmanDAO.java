@@ -7,8 +7,10 @@ package data.DAOs;
 import data.DTOs.SportsmanDTO;
 import data.interfaces.DAOs.ISportsmanDAO;
 import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.interfaces.models.ISportsman;
 import data.models.Sportsman;
 import java.util.LinkedList;
@@ -58,6 +60,18 @@ public class SportsmanDAO extends AbstractDAO<ISportsman, ISportsmanDTO> impleme
         }
         
         return roles;
+                
+    }
+     
+      @Override
+    public ISportsman getByAll(Session s,IPerson person, IDepartment department, ISport sport){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person AND department = :department AND sport = :sport");
+        query.setParameter("person", person);
+        query.setParameter("department", department);
+        query.setParameter("sport", sport);
+        
+        return (ISportsman) query.uniqueResult();
                 
     }
 }

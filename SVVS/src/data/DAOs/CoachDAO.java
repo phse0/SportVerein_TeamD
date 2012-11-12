@@ -8,8 +8,10 @@ import data.DTOs.CoachDTO;
 import data.interfaces.DAOs.ICoachDAO;
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.models.ICoach;
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Coach;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,6 +61,18 @@ public class CoachDAO extends AbstractDAO<ICoach, ICoachDTO> implements ICoachDA
         }
         
         return roles;
+                
+    }
+     
+      @Override
+    public ICoach getByAll(Session s,IPerson person, IDepartment department, ISport sport){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person AND department = :department AND sport = :sport");
+        query.setParameter("person", person);
+        query.setParameter("department", department);
+        query.setParameter("sport", sport);
+        
+        return (ICoach) query.uniqueResult();
                 
     }
 }
