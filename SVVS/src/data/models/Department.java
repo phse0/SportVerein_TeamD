@@ -7,6 +7,7 @@ package data.models;
 import data.interfaces.models.IDepartment;
 import data.interfaces.models.IManager;
 import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class Department implements IDepartment{
     protected String name;
     protected List<IRole> roles;
     protected IManager manager;
+    protected List<ISport> sports;
 
     public Department() {
     }
@@ -54,6 +56,20 @@ public class Department implements IDepartment{
     public void setManager(IManager manager) {
         this.manager = manager;
     }
+
+    public List<ISport> getSports() {
+        return sports;
+    }
+
+    public void setSports(List<ISport> sports) {
+        this.sports = sports;
+    }
     
+    public void addSports(ISport sport) {
+        this.sports.add(sport);
+    }
+    public void removeSports(ISport sport) {
+        this.sports.remove(sport);
+    }
     
 }

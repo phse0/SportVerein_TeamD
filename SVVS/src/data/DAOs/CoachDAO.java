@@ -8,7 +8,13 @@ import data.DTOs.CoachDTO;
 import data.interfaces.DAOs.ICoachDAO;
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.models.ICoach;
+import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
 import data.models.Coach;
+import java.util.LinkedList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -39,4 +45,20 @@ public class CoachDAO extends AbstractDAO<ICoach, ICoachDTO> implements ICoachDA
         return new CoachDTO(model);
     }
     
+    
+     @Override
+    public List<ICoach> getByPerson(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        List<ICoach> roles = new LinkedList<>();
+        roles = query.list();
+        
+        if (roles.isEmpty()){
+            return null;
+        }
+        
+        return roles;
+                
+    }
 }

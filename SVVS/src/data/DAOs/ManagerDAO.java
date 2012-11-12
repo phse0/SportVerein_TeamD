@@ -8,7 +8,12 @@ import data.DTOs.ManagerDTO;
 import data.interfaces.DAOs.IManagerDAO;
 import data.interfaces.DTOs.IManagerDTO;
 import data.interfaces.models.IManager;
+import data.interfaces.models.IPerson;
 import data.models.Manager;
+import java.util.LinkedList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -39,4 +44,19 @@ public class ManagerDAO extends AbstractDAO<IManager, IManagerDTO> implements IM
         return new ManagerDTO(model);
     }
     
+     @Override
+    public List<IManager> getByPerson(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        List<IManager> roles = new LinkedList<>();
+        roles = query.list();
+        
+        if (roles.isEmpty()){
+            return null;
+        }
+        
+        return roles;        
+    }
+     
 }

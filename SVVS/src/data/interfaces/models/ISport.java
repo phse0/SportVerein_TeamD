@@ -31,5 +31,9 @@ public interface ISport extends IModel {
     void setSportID(int sportID);
 
     void setTeams(List<ITeam> teams);
+
+    IDepartment getDepartment();
+
+    void setDepartment(IDepartment department);
     
 }

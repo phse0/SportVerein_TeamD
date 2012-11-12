@@ -5,7 +5,9 @@
 package data.interfaces.DAOs;
 
 import data.interfaces.DTOs.IDTO;
+import data.interfaces.models.IManager;
 import data.interfaces.models.IModel;
+import data.interfaces.models.IPerson;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
@@ -32,4 +34,5 @@ public interface IDAOs<V extends IModel, X extends IDTO> extends Serializable {
     public void update(Session s, V model);
     
     public V create();
+
 }
