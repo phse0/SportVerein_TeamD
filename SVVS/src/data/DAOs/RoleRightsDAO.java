@@ -12,6 +12,7 @@ import data.interfaces.models.IModel;
 import data.interfaces.models.IRoleRights;
 import data.models.RoleRights;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -41,6 +42,15 @@ public class RoleRightsDAO extends AbstractDAO<IRoleRights, IRoleRightsDTO> impl
     @Override
     public IRoleRightsDTO extractDTO(IRoleRights model) {
         return new RoleRightsDTO(model);
+    }
+    
+
+    @Override
+    public IRoleRights getById(Session s, int id) {
+
+        Query query = s.createQuery("FROM " + getTable() + " where roleRightsID =:id");
+        query.setInteger("id", id);
+        return (IRoleRights) query.uniqueResult();
     }
     
 }

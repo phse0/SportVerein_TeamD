@@ -25,7 +25,7 @@
             <one-to-many class="data.models.ContributionHistory"  />
         </bag>
         
-        <bag inverse="true" cascade="all-delete-orphan" name="roles" table="role" lazy="true">
+        <bag cascade="all" name="roles" table="role" lazy="true">
             <key column="personID" />
             <one-to-many class="data.models.Role" />
         </bag>
