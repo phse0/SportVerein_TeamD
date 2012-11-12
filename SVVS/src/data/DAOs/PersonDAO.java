@@ -96,6 +96,8 @@ public class PersonDAO extends AbstractDAO<IPerson, IPersonDTO> implements IPers
     @Override
     public IPerson getByUsername(Session s, String name) {
 
+        if(name != null || !name.equals("")) return null;
+        
         Query query = s.createQuery("FROM " + getTable() + " WHERE username = :fname");
         query.setString("fname", name);
         return (IPerson)query.uniqueResult();

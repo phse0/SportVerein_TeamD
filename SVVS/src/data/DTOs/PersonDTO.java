@@ -42,6 +42,7 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
     }
 
     public PersonDTO(IPerson person) {
+        if(person == null) return;
         sports = new LinkedList<>();
         departments = new LinkedList<>();
         extract(person);
