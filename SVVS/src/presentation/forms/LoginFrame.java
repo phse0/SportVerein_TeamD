@@ -92,6 +92,8 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        jLoginResultLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLoginResultLabel.setForeground(new java.awt.Color(204, 0, 0));
         jLoginResultLabel.setText(" ");
 
         jLookMatchResultsButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -149,13 +151,13 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordLabel)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLoginButton)
-                .addGap(52, 52, 52)
+                .addGap(28, 28, 28)
                 .addComponent(jLookMatchResultsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLoginResultLabel)
                 .addGap(22, 22, 22))
         );
@@ -178,7 +180,7 @@ public class LoginFrame extends javax.swing.JFrame {
         IAuthentificationController ac = new AuthentificationController();
         String userid=jUsernameTextField.getText();
             userright = ac.Authenticate(userid,jPasswordField.getText());
-            if (userright>=0) {
+            if (userright>0) {
                
            //   jLoginResultLabel.setText("Login success, userright = " + userright);
             openMainForm(userid);
