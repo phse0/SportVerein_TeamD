@@ -5,7 +5,9 @@
 package business.controller.role.EditPersonRole;
 
 import business.controller.RMI.IController;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.DTOs.IRoleRightsDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import java.rmi.Remote;
@@ -18,7 +20,7 @@ import java.util.List;
  */
 public interface IEditPersonRole extends Remote, IController {
 
-    public List<IRoleDTO> loadRolesOfPerson(IPerson person) throws RemoteException;
+    public List<IRoleRightsDTO> loadRolesOfPerson(IPersonDTO person) throws RemoteException;
 
-    public void EditPersonRole(IPerson person, List<IRole> roles) throws RemoteException;
+    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles) throws RemoteException;
 }

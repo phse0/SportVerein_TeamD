@@ -69,5 +69,7 @@ public interface IPersonDTO extends IDTO<IPerson>{
 
     void setSports(List<ISportDTO> sports);
 
+    boolean hasRight(long right);
+
     
 }

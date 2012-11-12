@@ -7,11 +7,15 @@ package business.controller.role;
 import business.controller.RMI.AController;
 import data.DAOs.PersonDAO;
 import data.DAOs.RoleDAO;
+import data.DAOs.RoleRightsDAO;
 import data.DTOs.RoleDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.DTOs.IRoleRightsDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
+import data.interfaces.models.IRoleRights;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,14 +41,20 @@ public class RoleController  extends AController implements IRoleController {
     }
     
     @Override
-    public List<IRoleDTO> loadRoles() throws RemoteException {
-        return RoleDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
+    public List<IRoleRightsDTO> loadRoles() throws RemoteException {
+        return RoleRightsDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
     }
     
-    public List<IRoleDTO> loadRolesOfPerson(IPerson person)throws RemoteException {
-        List<IRoleDTO> personroles = new LinkedList<>();
-        for (IRole role : RoleDAO.getInstance().getByPerson(HibernateUtil.getCurrentSession(), person)) {
-            personroles.add(new RoleDTO(role));
+    @Override
+    public List<IRoleRightsDTO> loadRolesOfPerson(IPersonDTO person)throws RemoteException {
+        
+        List<IRoleRightsDTO> personroles = new LinkedList<>();
+       
+        for (IRoleRightsDTO roleright : loadRoles()) {
+            
+            if(person.hasRight(roleright.getRight())){
+                personroles.add(roleright);
+            } 
         }
         return personroles;
     }
@@ -58,6 +68,10 @@ public class RoleController  extends AController implements IRoleController {
         
         person.setRoles(roles);
         PersonDAO.getInstance().update(HibernateUtil.getCurrentSession(), person);
+    }
+
+    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }

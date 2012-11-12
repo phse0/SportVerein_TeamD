@@ -9,7 +9,9 @@ import business.controller.person.edit.States.IPersonEditState;
 import business.controller.person.edit.States.PersonEditLoadCountryState;
 import business.controller.role.EditPersonRole.state.EditPersonRoleLoadState;
 import business.controller.role.EditPersonRole.state.IEditPersonRoleState;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.DTOs.IRoleRightsDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import java.rmi.RemoteException;
@@ -38,12 +40,12 @@ public class EditPersonRole extends AController  implements IEditPersonRole{
     }
     
     @Override
-    public List<IRoleDTO> loadRolesOfPerson(IPerson person) throws RemoteException {
+    public List<IRoleRightsDTO> loadRolesOfPerson(IPersonDTO person) throws RemoteException {
         return _state.loadRolesOfPerson(person);
     }
 
     @Override
-    public void EditPersonRole(IPerson person, List<IRole> roles) throws RemoteException {
+    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles) throws RemoteException {
         _state.EditPersonRole(person, roles);
     }
     
