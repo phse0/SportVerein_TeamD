@@ -49,6 +49,16 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
     public String toString() {
         return this.getName();
     }
+
+    @Override
+    public List<ISportDTO> getSports() {
+        return sports;
+    }
+
+    @Override
+    public void setSports(List<ISportDTO> sports) {
+        this.sports = sports;
+    }
     
     
     
