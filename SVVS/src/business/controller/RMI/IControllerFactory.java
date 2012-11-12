@@ -5,6 +5,7 @@
 package business.controller.RMI;
 
 import business.controller.departments.IDepartmentController;
+import business.controller.person.IAuthentificationController;
 import business.controller.person.IPersonController;
 import business.controller.person.create.IPersonCreation;
 import business.controller.person.delete.IPersonDelete;
@@ -48,4 +49,6 @@ public interface IControllerFactory extends Remote  {
     IRoleController loadRoleController() throws  RemoteException;
     
     IEditPersonRole loadEditPersonRole() throws  RemoteException;
+    
+    IAuthentificationController loadAuthentificationController() throws RemoteException;
 }

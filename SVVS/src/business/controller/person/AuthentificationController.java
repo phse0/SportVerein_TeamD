@@ -5,14 +5,13 @@
 package business.controller.person;
 
 import business.controller.RMI.AController;
+import data.DAOs.RightDAO;
 import data.DTOs.PersonDTO;
 import data.DataFacade;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.IPersonDAO;
 import data.interfaces.DTOs.IPersonDTO;
-import data.interfaces.models.IPerson;
-import data.interfaces.models.IRole;
-import data.interfaces.models.IRoleRights;
+import data.interfaces.DTOs.IRightDTO;
 import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.List;
@@ -20,15 +19,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.AuthenticationException;
 import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
-import javax.naming.directory.SearchResult;
 
 /**
  *
@@ -42,7 +37,7 @@ public class AuthentificationController extends AController implements IAuthenti
 
     
     @Override
-    public Long Authenticate(String username, String password) {
+    public Long Authenticate(String username, String password) throws RemoteException {
         IPersonDAO personDao = DataFacade.getPersonDAO();
         boolean ldapLoginSuccess = false;
         
@@ -88,7 +83,7 @@ public class AuthentificationController extends AController implements IAuthenti
 //    }
 
     @SuppressWarnings("empty-statement")
-    public boolean AuthenticateLDAPPassword(String username, String password) throws NamingException {
+    private boolean AuthenticateLDAPPassword(String username, String password) throws NamingException {
         Hashtable<String, String> env = new Hashtable<String, String>();
         String base = "ou=fhv,ou=People,dc=uclv,dc=net";
         String dn = "uid=" + username + "," + base;
@@ -133,5 +128,10 @@ public class AuthentificationController extends AController implements IAuthenti
         // call Search procedure
 
 
+    }
+
+    @Override
+    public List<IRightDTO> getAllRights() throws RemoteException {
+        return RightDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
     }
 }

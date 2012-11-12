@@ -454,60 +454,66 @@ public class MainForm extends javax.swing.JFrame {
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
 
     }
-    
+
     private void checkRights() {
+
+        List<IRightDTO> rights = null;
         
-        List<IRightDTO> rights = RightDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
+        try {
+            rights = controllerFactory.loadAuthentificationController().getAllRights();
+        } catch (RemoteException e) {
+            System.out.println("Couldnt connect to Authentifaction Controller");
+        }
+        
         List<IRightDTO> missingRights = new LinkedList<>();
-        
-        for(IRightDTO r : rights) {
-            if(!loggedUser.hasRight(r.getValue())) {
+
+        for (IRightDTO r : rights) {
+            if (!loggedUser.hasRight(r.getValue())) {
                 missingRights.add(r);
             }
         }
-        
-        for(IRightDTO r : missingRights) {
-            
-            if(r.getName().equals("Rechte verwalten")) {
+
+        for (IRightDTO r : missingRights) {
+
+            if (r.getName().equals("Rechte verwalten")) {
                 btRechte.setEnabled(false);
             }
-            
-            if(r.getName().equals("Teams anzeigen")) {
+
+            if (r.getName().equals("Teams anzeigen")) {
                 tpMain.setEnabledAt(2, false);
             }
-            
-            if(r.getName().equals("Teams verwalten")) {
+
+            if (r.getName().equals("Teams verwalten")) {
                 btnEditTeam.setEnabled(false);
             }
-            
-            if(r.getName().equals("Wettkampf anzeigen")) {
+
+            if (r.getName().equals("Wettkampf anzeigen")) {
                 tpMain.setEnabledAt(1, false);
             }
-            
-            if(r.getName().equals("Wettkampf verwalten")) {
+
+            if (r.getName().equals("Wettkampf verwalten")) {
                 btnCreateTournament.setEnabled(false);
                 btnEditTournament.setEnabled(false);
             }
-            
-            if(r.getName().equals("Mitglied anzeigen")) {
+
+            if (r.getName().equals("Mitglied anzeigen")) {
                 tpMain.setEnabledAt(0, false);
             }
-            
-            if(r.getName().equals("Mitglied verwalten")) {
+
+            if (r.getName().equals("Mitglied verwalten")) {
                 btnCreatePerson.setEnabled(false);
                 btnEditPerson.setEnabled(false);
             }
         }
-        
-        for(int i = 0; i < tpMain.getTabCount(); i++) {
-            if(tpMain.isEnabledAt(i)) {
+
+        for (int i = 0; i < tpMain.getTabCount(); i++) {
+            if (tpMain.isEnabledAt(i)) {
                 tpMain.setSelectedIndex(i);
                 break;
             }
         }
-        
+
     }
-    
 
     /**
      * @param args the command line arguments

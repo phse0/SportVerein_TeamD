@@ -4,8 +4,13 @@
  */
 package presentation.forms;
 
+import business.controller.RMI.IControllerFactory;
 import business.controller.person.AuthentificationController;
 import business.controller.person.IAuthentificationController;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -20,7 +25,7 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Login");
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -179,17 +184,21 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.print("Login ");
         Long userright;
-        IAuthentificationController ac = new AuthentificationController();
-        String userid = jUsernameTextField.getText();
-        userright = ac.Authenticate(userid, jPasswordField.getText());
-        if (userright > 0) {
 
-            //   jLoginResultLabel.setText("Login success, userright = " + userright);
-            openMainForm(userid);
-            this.dispose();
-        } else {
-            jLoginResultLabel.setText("Login failed");
-
+        try {
+            IControllerFactory controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
+            IAuthentificationController ac = controllerFactory.loadAuthentificationController();
+            String userid = jUsernameTextField.getText();
+            userright = ac.Authenticate(userid, jPasswordField.getText());
+            if (userright > 0) {
+                //   jLoginResultLabel.setText("Login success, userright = " + userright);
+                openMainForm(userid);
+                this.dispose();
+            } else {
+                jLoginResultLabel.setText("Login failed");
+            }
+        } catch (RemoteException | NotBoundException | MalformedURLException e) {
+            System.out.println("Couldnt get AuthentificationController");
         }
 
     }//GEN-LAST:event_jLoginButtonActionPerformed

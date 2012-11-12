@@ -6,6 +6,8 @@ package business.controller.RMI;
 
 import business.controller.departments.DepartmentController;
 import business.controller.departments.IDepartmentController;
+import business.controller.person.AuthentificationController;
+import business.controller.person.IAuthentificationController;
 import business.controller.person.IPersonController;
 import business.controller.person.PersonController;
 import business.controller.person.create.IPersonCreation;
@@ -99,5 +101,10 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     @Override
     public IEditPersonRole loadEditPersonRole() throws RemoteException {
         return new EditPersonRole();
+    }
+    
+    @Override
+    public IAuthentificationController loadAuthentificationController() throws RemoteException {
+        return new AuthentificationController();
     }
 }
