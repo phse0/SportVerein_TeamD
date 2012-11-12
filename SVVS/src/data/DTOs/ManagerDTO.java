@@ -14,6 +14,7 @@ import data.interfaces.models.IManager;
 public class ManagerDTO extends AbstractRoleDTO<IManager> implements IManagerDTO{
 
     public ManagerDTO(IManager model){
+        if(model == null) return;
         extract(model);
     }
     

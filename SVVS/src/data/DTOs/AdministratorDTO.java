@@ -14,6 +14,7 @@ import data.interfaces.models.IAdministrator;
 public class AdministratorDTO extends AbstractRoleDTO<IAdministrator> implements IAdministratorDTO {
 
     public AdministratorDTO(IAdministrator model) {
+        if(model == null) return;
         extract(model);
     }
 

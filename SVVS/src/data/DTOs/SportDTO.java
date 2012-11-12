@@ -21,6 +21,7 @@ public class SportDTO extends AbstractDTO<ISport> implements ISportDTO {
    // private List<ITeamDTO> teams;
 
     public SportDTO(ISport model) {
+        if(model == null) return;
         extract(model);
     }
 

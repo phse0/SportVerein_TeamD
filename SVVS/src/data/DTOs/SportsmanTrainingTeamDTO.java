@@ -20,6 +20,7 @@ public class SportsmanTrainingTeamDTO extends AbstractDTO<ISportsmanTrainingTeam
     protected String position;
     
     public SportsmanTrainingTeamDTO(ISportsmanTrainingTeam model){
+        if(model == null) return;
         extract(model);
     }
     

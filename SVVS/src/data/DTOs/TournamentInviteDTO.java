@@ -20,6 +20,7 @@ public class TournamentInviteDTO extends AbstractDTO<ITournamentInvite> implemen
     private boolean accepted;
     
     public TournamentInviteDTO(ITournamentInvite model){
+        if(model == null) return;
         extract(model);
     }
     

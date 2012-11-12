@@ -21,6 +21,7 @@ public class SportsmanDTO extends AbstractRoleDTO<ISportsman> implements ISports
     private List<ITournamentInviteDTO> invites;
 
     public SportsmanDTO(ISportsman model) {
+        if(model == null) return;
         //teams = new LinkedList<>();
         invites = new LinkedList<>();
         extract(model);

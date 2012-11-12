@@ -19,6 +19,9 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
     protected ILeagueDTO league;
 
     public void extractTeam(V model) {
+        
+        if (model == null) return;
+        
         this.id = model.getTeamID();
         this.name = model.getName();
         this.sport = (model.getSport() != null) ? new SportDTO(model.getSport()) : null;

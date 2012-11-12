@@ -17,6 +17,7 @@ public class RightDTO extends AbstractDTO<IRight> implements IRightDTO{
     protected String name;
     
     public RightDTO(IRight model){
+        if(model == null) return;
         extract(model);
     }
     

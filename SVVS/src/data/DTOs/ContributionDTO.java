@@ -17,7 +17,7 @@ public class ContributionDTO extends AbstractDTO<IContribution> implements ICont
     private double value;
 
     public ContributionDTO(IContribution model) {
-        
+        if(model == null) return;
         extract(model);
     }
  

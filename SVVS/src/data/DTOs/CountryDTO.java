@@ -22,6 +22,7 @@ public class CountryDTO extends AbstractDTO<ICountry> implements ICountryDTO{
     }
     
     public CountryDTO(ICountry model){
+        if(model == null) return;
         extract(model);
     }
     

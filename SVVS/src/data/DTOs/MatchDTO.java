@@ -24,6 +24,7 @@ public class MatchDTO extends AbstractDTO<IMatch> implements IMatchDTO{
     private Integer goalsTeam2;
     
     public MatchDTO(IMatch model){
+        if(model == null) return;
         extract(model);
     }
     

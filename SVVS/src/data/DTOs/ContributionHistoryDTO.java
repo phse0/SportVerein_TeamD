@@ -20,7 +20,7 @@ public class ContributionHistoryDTO  extends AbstractDTO<IContributionHistory> i
     private String status;
     
      public ContributionHistoryDTO(IContributionHistory model) {
-        
+        if (model == null) return;
         extract(model);
     }
     

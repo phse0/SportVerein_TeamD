@@ -15,6 +15,7 @@ import data.interfaces.models.ITeam;
 public class TeamDTO extends AbstractTeamDTO<ITeam> implements ITeamDTO{
     
     public TeamDTO(ITeam model){
+        if(model == null) return;
         extract(model);
     }
     

@@ -21,6 +21,7 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
     protected List<ISportDTO> sports;          
     
     public DepartmentDTO(IDepartment model){
+        if(model == null) return;
         sports = new LinkedList<>();
         extract(model);
     }

@@ -21,6 +21,7 @@ public class CoachDTO extends AbstractRoleDTO<ICoach> implements ICoachDTO {
     private List<ITrainingTeamDTO> teams;
     
     public CoachDTO(ICoach model){
+        if(model == null) return;
         teams = new LinkedList<>();
         extract(model);
     }

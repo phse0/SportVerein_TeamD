@@ -16,6 +16,7 @@ import data.interfaces.models.IRole;
 public class RoleDTO extends AbstractRoleDTO<IRole> implements IRoleDTO{
 
     public RoleDTO(IRole model){
+        if(model == null) return;
         extract(model);
     }
     
