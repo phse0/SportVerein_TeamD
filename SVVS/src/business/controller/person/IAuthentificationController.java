@@ -6,7 +6,7 @@ package business.controller.person;
 
 /**
  *
- * @author Media Markt
+ * @author Evgeniya Spiegel
  */
 public interface IAuthentificationController {
   int Authenticate(String Username, String password);
