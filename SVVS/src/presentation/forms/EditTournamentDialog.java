@@ -259,6 +259,7 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         
         if(tournament != null) {
             tbxName.setText(tournament.getName());
+            cobSport.addItem(tournament.getSport());
             cobSport.setEnabled(false);
             tbxDate.setText(tournament.getDate());
             tbxLocation.setText(tournament.getLocation());

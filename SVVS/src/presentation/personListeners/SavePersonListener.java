@@ -6,12 +6,14 @@ package presentation.personListeners;
 
 import business.controller.person.create.IPersonCreation;
 import data.interfaces.DTOs.IPersonDTO;
-import java.awt.Dialog;
+import data.interfaces.DTOs.ISportDTO;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import presentation.forms.CreatePersonDialog;
 
@@ -24,6 +26,7 @@ public class SavePersonListener implements ActionListener {
     IPersonCreation creation;
     CreatePersonDialog _dialog;
     IPersonDTO person;
+    Date birthday;
 
     public SavePersonListener(IPersonCreation creation, CreatePersonDialog dialog, IPersonDTO person) {
         this.creation = creation;
@@ -40,30 +43,34 @@ public class SavePersonListener implements ActionListener {
                     + "Bitte korrigieren sie folgende Punkte: \n \n" + error);
         } else {
             try {
-                //SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
-                //Date birthdate = new Date(sdf.parse(_dialog.getBirthdate()).getTime());
+                /*person.setFirstname(_dialog.getFirstName());
+                 person.setLastname(_dialog.getLastName());
+                 person.setSex(_dialog.getGender());
+                 person.setPhone(_dialog.getPhone());
+                 person.setMail(_dialog.getMail());
+                 person.setUsername(_dialog.getUserName());
+                 person.setPassword(_dialog.getPassword());
+                 person.setBirthdate(_dialog.getBirthdate());
+                 person.getMainAddress().setStreet(_dialog.getStreet());
+                 person.getMainAddress().setPostcode(_dialog.getPostCode());
+                 person.getMainAddress().setCity(_dialog.getCity());
+                 person.getMainAddress().setCountry(_dialog.getCountry());
+                 person.setContribution(_dialog.getContribution());
+                 person.setSports(_dialog.getSports());
                 
-                person.setFirstname(_dialog.getFirstName());
-                person.setLastname(_dialog.getLastName());
-                person.setSex(_dialog.getGender());
-                person.setPhone(_dialog.getPhone());
-                person.setMail(_dialog.getMail());
-                person.setUsername(_dialog.getUserName());
-                person.setPassword(_dialog.getPassword());
-                person.setBirthdate(_dialog.getBirthdate());
-                person.getMainAddress().setStreet(_dialog.getStreet());
-                person.getMainAddress().setPostcode(_dialog.getPostCode());
-                person.getMainAddress().setCity(_dialog.getCity());
-                person.getMainAddress().setCountry(_dialog.getCountry());
-                person.setContribution(_dialog.getContribution());
-                person.setSports(_dialog.getSports());
+                 creation.SaveDTO(person);
+                 _dialog.setPerson(person);
                 
-                creation.SaveDTO(person);
-                _dialog.setPerson(person);
-                
-                //IPersonDTO createdPerson = creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthdate, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution());
-                //creation.AssignToSport(_dialog.getSports(), createdPerson.getId());
-                
+                 */
+                IPersonDTO createdPerson = creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthday, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution().getId());
+
+                LinkedList<String> sports = new LinkedList<>();
+                for (ISportDTO s : _dialog.getSports()) {
+                    sports.add(s.getName());
+                }
+
+                creation.AssignToSport(sports, createdPerson.getId());
+
                 JOptionPane.showMessageDialog(null, "Person wurde gespeichert. \n");
                 _dialog.dispose();
             } catch (RemoteException | HeadlessException ex) {
@@ -89,7 +96,7 @@ public class SavePersonListener implements ActionListener {
         if (!_dialog.getBirthdate().equals("")) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                sdf.parse(_dialog.getBirthdate());
+                birthday = new Date(sdf.parse(_dialog.getBirthdate()).getTime());
             } catch (Exception e) {
                 errormessage += "Geburtsdatum \n";
             }

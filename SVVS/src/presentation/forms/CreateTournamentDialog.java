@@ -5,7 +5,9 @@
 package presentation.forms;
 
 import business.controller.tournament.Create.ITournamentCreation;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ILeagueDTO;
+import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
@@ -28,14 +30,16 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     Session s;
     ITournamentCreation creation;
     ITournamentDTO savedTournament;
+    List<IRoleDTO> managerRols;
 
     /**
      * Creates new form CreateTournamentDialog
      */
-    public CreateTournamentDialog(java.awt.Frame parent, boolean modal, ITournamentCreation creation) {
+    public CreateTournamentDialog(java.awt.Frame parent, boolean modal, ITournamentCreation creation, List<IRoleDTO> managerRols) {
         super(parent, modal);
         initComponents();
-
+        
+        this.managerRols = managerRols;
         this.creation = creation;
         setLocationRelativeTo(null);
 
@@ -271,7 +275,19 @@ public class CreateTournamentDialog extends javax.swing.JDialog {
     private void initiateControls() {
 
         try {
-            for (ISportDTO s : creation.loadSport()) {
+            
+            List<ISportDTO> sports;
+            if(managerRols == null) {
+                sports = creation.loadSport(null);
+            } else {
+                List<IDepartmentDTO> departments = new LinkedList<>();
+                for(IRoleDTO r : managerRols) {
+                    departments.add(r.getDepartment());
+                }
+                sports = creation.loadSport(departments);
+            }
+            
+            for (ISportDTO s : sports) {
                 cobSport.addItem(s);
             }
 

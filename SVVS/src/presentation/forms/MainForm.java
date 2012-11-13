@@ -11,12 +11,10 @@ import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.tournament.ITournamentController;
-import data.DAOs.RightDAO;
-import data.DTOs.PersonDTO;
-import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRightDTO;
+import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentTeamDTO;
 import java.net.MalformedURLException;
@@ -54,6 +52,7 @@ public class MainForm extends javax.swing.JFrame {
     IRoleController roleController;
     IPersonDTO loggedUser;
     IEditPersonRole editPersonRoleController;
+    List<IRoleDTO> managerRols;
 
     /**
      * Creates new form MainForm
@@ -443,7 +442,7 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
 
-        btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory));
+        btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory, managerRols));
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
         jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory, teamController));
         // ################### INITIATE TOURNAMENTTEAMS ############################
@@ -456,7 +455,7 @@ public class MainForm extends javax.swing.JFrame {
 
     }
 
-    private void checkRights() {
+    private void checkRights() throws RemoteException {
 
         List<IRightDTO> rights = null;
         
@@ -475,6 +474,11 @@ public class MainForm extends javax.swing.JFrame {
         for (IRightDTO r : rights) {
             if (!loggedUser.hasRight(r.getValue())) {
                 missingRights.add(r);
+            } else {
+                if(r.getName().equals("Wettkampf verwalten") && roleController.hasRole(loggedUser, "Manager") 
+                        && roleController.hasRole(loggedUser, "Admin")) {
+                    managerRols = roleController.getRole(loggedUser, "Manager");
+                }
             }
         }
 

@@ -6,9 +6,11 @@ package presentation.tournamentListeners;
 
 import business.controller.RMI.IControllerFactory;
 import business.controller.tournament.Create.ITournamentCreation;
+import data.interfaces.DTOs.IRoleDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -23,10 +25,13 @@ public class CreateNewTournamentListener implements ActionListener {
 
     JTable table;
     IControllerFactory controllerfactory;
+    List<IRoleDTO> managerRols;
     
-    public CreateNewTournamentListener(JTable table, IControllerFactory controller) {
+    public CreateNewTournamentListener(JTable table, IControllerFactory controller, List<IRoleDTO> managerRols) {
         this.table = table;
         this.controllerfactory = controller;
+        this.managerRols = managerRols;
+        
     }
 
     @Override
@@ -35,7 +40,7 @@ public class CreateNewTournamentListener implements ActionListener {
         ITournamentCreation create = null;
         try {
             create = controllerfactory.loadTournamentCreateController();
-            CreateTournamentDialog dialog = new CreateTournamentDialog(null, true, create);
+            CreateTournamentDialog dialog = new CreateTournamentDialog(null, true, create, managerRols);
             dialog.setVisible(true);
             
             if(dialog.getSavedTournament() != null) {
