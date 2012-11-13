@@ -88,20 +88,20 @@ public class RoleController extends AController implements IRoleController {
      PersonDAO.getInstance().update(HibernateUtil.getCurrentSession(), person);
      }*/
     @Override
-    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport) throws  RemoteException {
+    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport) throws RemoteException {
         Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
         IPerson p = PersonDAO.getInstance().getById(HibernateUtil.getCurrentSession(), person.getId());
         IRoleRights r = RoleRightsDAO.getInstance().getById(HibernateUtil.getCurrentSession(), roles.get(0).getId());
         IDepartment d = null;
         if (department != null) {
-         d = DepartmentDAO.getInstance().getById(HibernateUtil.getCurrentSession(), department.getId());   
+            d = DepartmentDAO.getInstance().getById(HibernateUtil.getCurrentSession(), department.getId());
         }
-         
+
         ISport s = null;
         if (sport != null) {
-             s = SportDAO.getInstance().getById(HibernateUtil.getCurrentSession(), sport.getId());
+            s = SportDAO.getInstance().getById(HibernateUtil.getCurrentSession(), sport.getId());
         }
-        
+
         for (IRoleRightsDTO iRRD : roles) {
             IRole temp = null;
             switch (iRRD.getName()) {
@@ -117,14 +117,14 @@ public class RoleController extends AController implements IRoleController {
                     break;
                 case "Sportler":
                     temp = SportsmanDAO.getInstance().getByAll(HibernateUtil.getCurrentSession(), p, d, s);
-                        if (temp == null) {
-                            ISportsman sportsman = SportsmanDAO.getInstance().create();
-                            sportsman.setPerson(p);
-                            sportsman.setDepartment(d);
-                            sportsman.setSport(s);
-                            sportsman.setRoleRight(r);
-                            SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
-                        }
+                    if (temp == null) {
+                        ISportsman sportsman = SportsmanDAO.getInstance().create();
+                        sportsman.setPerson(p);
+                        sportsman.setDepartment(d);
+                        sportsman.setSport(s);
+                        sportsman.setRoleRight(r);
+                        SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
+                    }
                     break;
                 case "Trainer":
                     temp = CoachDAO.getInstance().getByAll(HibernateUtil.getCurrentSession(), p, d, s);
@@ -167,6 +167,25 @@ public class RoleController extends AController implements IRoleController {
         LinkedList<IRoleDTO> roles = new LinkedList<>();
         for (IRole ir : RoleDAO.getInstance().getByPerson(HibernateUtil.getCurrentSession(), PersonDAO.getInstance().getById(HibernateUtil.getCurrentSession(), person.getId()))) {
             roles.add(new RoleDTO(ir));
+        }
+        return roles;
+    }
+
+    public boolean hasRole(IPersonDTO person, String Rolename) throws RemoteException {
+        for (IRoleDTO role : loadRolesOfPerson(person)) {
+            if (role.getRoleRight().getName().equals("Manager")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<IRoleDTO> getRole(IPersonDTO person, String Rolename) throws RemoteException {
+        List<IRoleDTO> roles = new LinkedList<>();
+           for (IRoleDTO role : loadRolesOfPerson(person)) {
+            if (role.getRoleRight().getName().equals("Manager")) {
+                roles.add(role);
+            } 
         }
         return roles;
     }
