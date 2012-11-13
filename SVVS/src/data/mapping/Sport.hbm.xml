@@ -11,7 +11,7 @@
         
          <many-to-one column="departmentID" name="department" class="data.models.Department" />
         
-        <bag name="teams" cascade="all" table="team" lazy="true">
+        <bag name="teams" cascade="all" table="team">
             <key column="sportID" />
             <one-to-many class="data.models.Team" />
         </bag>

@@ -5,6 +5,7 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.IMatchDTO;
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
@@ -28,6 +29,7 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     private List<ITeamDTO> teams;
     private List<IMatchDTO> matches;
     private List<ITournamentInviteDTO> invites;
+    private ISportDTO sport;
 
     public TournamentDTO(ITournament model) {
         if(model == null) return;
@@ -42,8 +44,9 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
         this.id = model.getTournamentID();
         this.name = model.getName();
         this.date = model.getDate().toString();
-        this.fee = model.getFee().doubleValue();
+        this.fee = (model.getFee() != null) ? model.getFee().doubleValue() : 0;
         this.location = model.getLocation();
+        this.sport = new SportDTO(model.getSport());
 
         if (model.getTeams() != null) {
             for (ITeam team : model.getTeams()) {
@@ -135,4 +138,15 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     public void setInvites(List<ITournamentInviteDTO> invites) {
         this.invites = invites;
     }
+
+    @Override
+    public ISportDTO getSport() {
+        return sport;
+    }
+
+    @Override
+    public void setSport(ISportDTO sport) {
+        this.sport = sport;
+    }
+    
 }

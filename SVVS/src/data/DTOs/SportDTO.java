@@ -5,10 +5,7 @@
 package data.DTOs;
 
 import data.interfaces.DTOs.ISportDTO;
-import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ISport;
-import data.interfaces.models.ITeam;
-import java.util.List;
 
 /**
  *

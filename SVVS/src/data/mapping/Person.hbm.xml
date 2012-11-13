@@ -20,22 +20,22 @@
         <property name="username" column="username" type="string" />
         <property name="password" column="password" type="string" />
         
-        <bag cascade="all" name="contributionHistory" table="contributionHistory" lazy="true">
+        <bag cascade="all" name="contributionHistory" table="contributionHistory">
             <key column="personID" />
             <one-to-many class="data.models.ContributionHistory"  />
         </bag>
         
-        <bag inverse="true" cascade="all" name="roles" table="role" lazy="true">
+        <bag inverse="true" cascade="all" name="roles" table="role">
             <key column="personID" />
             <one-to-many class="data.models.Role" />
         </bag>
         
-        <bag cascade="none" name="departments" table="role" lazy="true">
+        <bag cascade="none" name="departments" table="role">
             <key column="personID" />
             <many-to-many class="data.models.Department" column="departmentID" />
         </bag>
 
-        <bag cascade="all" name="addresses" table="personAddress" lazy="true" inverse="true">
+        <bag cascade="all" name="addresses" table="personAddress" inverse="true">
             <key column="personID" />
             <many-to-many class="data.models.Address" column="addressID"  />
         </bag>

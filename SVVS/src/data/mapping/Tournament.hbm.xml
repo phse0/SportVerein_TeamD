@@ -16,17 +16,19 @@
             <column name="fee" sql-type="decimal(10,2)" />
         </property>
         
-        <bag cascade="all" name="teams" table="tournamentHasTeam" lazy="true">
+        <many-to-one name="sport" column="sportID" not-null="true" class="data.models.Sport" />
+        
+        <bag cascade="all" name="teams" table="tournamentHasTeam">
             <key column="tournamentID" />
             <many-to-many class="data.models.Team" column="teamID"/>
         </bag>
         
-        <bag cascade="all" name="matches" table="match" lazy="true">
+        <bag cascade="all" name="matches" table="match">
             <key column="tournamentID" />
             <one-to-many class="data.models.Match" />
         </bag>
         
-        <bag cascade="all" name="invites" table="tournamentInvites" lazy="true">
+        <bag cascade="all" name="invites" table="tournamentInvites">
             <key column="tournamentID" />
             <one-to-many class="data.models.TournamentInvite" />
         </bag>

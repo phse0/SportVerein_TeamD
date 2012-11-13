@@ -4,6 +4,7 @@
  */
 package data.interfaces.models;
 
+import data.models.Sport;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
@@ -57,5 +58,9 @@ public interface ITournament extends IModel {
     void addInvite(ITournamentInvite invite);
 
     void removeInvite(ITournamentInvite invite);
+
+    Sport getSport();
+
+    void setSport(Sport sport);
     
 }

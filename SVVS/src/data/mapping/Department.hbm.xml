@@ -8,12 +8,12 @@
         
         <property name="name" column="name" not-null="true" type="string" />
         
-        <bag name="roles" table="role" cascade="all" lazy="true">
+        <bag name="roles" table="role" cascade="all">
             <key column="departmentID"></key>
             <one-to-many class="data.models.Role"/>
         </bag>
         
-        <bag name="sports" table="sports" cascade="all" lazy="true">
+        <bag name="sports" table="sports" cascade="all">
             <key column="departmentID"></key>
             <one-to-many class="data.models.Sport"/>
         </bag>

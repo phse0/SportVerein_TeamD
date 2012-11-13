@@ -86,6 +86,11 @@ public class AuthentificationController extends AController implements IAuthenti
     private boolean AuthenticateLDAPPassword(String username, String password) throws NamingException {
         Hashtable<String, String> env = new Hashtable<String, String>();
         String base = "ou=fhv,ou=People,dc=uclv,dc=net";
+        
+        if(username.equals("tf-test")) {
+            base = "ou=apps,dc=uclv,dc=net";
+        }
+        
         String dn = "uid=" + username + "," + base;
 
         //String ldapURL = "ldap://ldap.fhv.at:389";

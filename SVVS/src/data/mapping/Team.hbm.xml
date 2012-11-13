@@ -10,7 +10,7 @@
 
         <many-to-one name="sport" column="sportID" not-null="true" class="data.models.Sport"/>
             
-        <bag cascade="all" name="tournaments" table="tournamentHasTeam" lazy="true">
+        <bag cascade="all" name="tournaments" table="tournamentHasTeam">
             <key column="teamID" />
             <many-to-many class="data.models.Tournament" column="tournamentID" />
         </bag>
@@ -21,12 +21,12 @@
             <key column="teamID"/>
             <many-to-one name="department" column="departmentID" not-null="true" class="data.models.Department"/>
             
-            <bag cascade="none" name="sportsmen" table="sportsmanHasTrainingTeam" lazy="true">
+            <bag cascade="none" name="sportsmen" table="sportsmanHasTrainingTeam">
                 <key column="teamID" />
                 <one-to-many class="data.models.SportsmanTrainingTeam" />
             </bag>
             
-            <bag cascade="all" name="coaches" table="coachHasTrainingTeam" lazy="true">
+            <bag cascade="all" name="coaches" table="coachHasTrainingTeam">
                 <key column="teamID" />
                 <many-to-many class="data.models.Coach" column="roleID" />
             </bag>

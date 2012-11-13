@@ -26,6 +26,7 @@ public class Tournament implements ITournament {
     private List<ITeam> teams;
     private List<IMatch> matches;
     private List<ITournamentInvite> invites;
+    private Sport sport;
 
     public Tournament() {
     }
@@ -143,5 +144,16 @@ public class Tournament implements ITournament {
     public void removeInvite(ITournamentInvite invite) {
         this.invites.remove(invite);
     }
+
+    @Override
+    public Sport getSport() {
+        return sport;
+    }
+
+    @Override
+    public void setSport(Sport sport) {
+        this.sport = sport;
+    }
+   
         
 }
