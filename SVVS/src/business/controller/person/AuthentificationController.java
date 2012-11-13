@@ -4,40 +4,46 @@
  */
 package business.controller.person;
 
+import business.controller.RMI.AController;
+import data.DAOs.RightDAO;
+import data.DTOs.PersonDTO;
 import data.DataFacade;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DAOs.IPersonDAO;
-import data.interfaces.models.IPerson;
-import data.interfaces.models.IRole;
-import data.interfaces.models.IRoleRights;
+import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.DTOs.IRightDTO;
+import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.AuthenticationException;
 import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
-import javax.naming.directory.SearchResult;
 
 /**
  *
  * @author Evgeniya Spiegel
  */
-public class AuthentificationController implements IAuthentificationController {
+public class AuthentificationController extends AController implements IAuthentificationController {
 
+    public AuthentificationController() throws RemoteException {
+        super();
+    }
+
+    
     @Override
-    public int Authenticate(String username, String password) {
+    public Long Authenticate(String username, String password) throws RemoteException {
         IPersonDAO personDao = DataFacade.getPersonDAO();
-        int right;
         boolean ldapLoginSuccess = false;
-        IPerson person = personDao.getUserByUserName(username, HibernateUtil.getCurrentSession());
+        
+        IPersonDTO person = new PersonDTO(personDao.getUserByUserName(username, HibernateUtil.getCurrentSession()));
+        
+        Long right = person.getRight();
         //if person is null then there is no user with this username and we cannot authenticate 
         if (person != null) {
 
@@ -50,8 +56,6 @@ public class AuthentificationController implements IAuthentificationController {
             }
         }
         if (ldapLoginSuccess == true) {
-            right = person.getRight();
-
             HibernateUtil.getCurrentSession().close();
             System.out.println("Authentification succsess! Right = " + right);
 
@@ -60,7 +64,7 @@ public class AuthentificationController implements IAuthentificationController {
         } else {
             System.out.println("Authentification failed");
             HibernateUtil.getCurrentSession().close();
-            return 0;
+            return new Long(0);
         }
 
     }
@@ -79,7 +83,7 @@ public class AuthentificationController implements IAuthentificationController {
 //    }
 
     @SuppressWarnings("empty-statement")
-    public boolean AuthenticateLDAPPassword(String username, String password) throws NamingException {
+    private boolean AuthenticateLDAPPassword(String username, String password) throws NamingException {
         Hashtable<String, String> env = new Hashtable<String, String>();
         String base = "ou=fhv,ou=People,dc=uclv,dc=net";
         String dn = "uid=" + username + "," + base;
@@ -124,5 +128,10 @@ public class AuthentificationController implements IAuthentificationController {
         // call Search procedure
 
 
+    }
+
+    @Override
+    public List<IRightDTO> getAllRights() throws RemoteException {
+        return RightDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession());
     }
 }

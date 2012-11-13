@@ -26,6 +26,7 @@ public class TrainingTeamDTO extends AbstractTeamDTO<ITrainingTeam> implements I
 
     @Override
     public void extract(ITrainingTeam model) {
+        if(model == null) return;
         extractTeam(model);
         this.department = new DepartmentDTO(model.getDepartment());
         

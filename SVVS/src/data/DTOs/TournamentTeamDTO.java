@@ -25,6 +25,7 @@ public class TournamentTeamDTO extends AbstractTeamDTO<ITournamentTeam> implemen
     //protected List<ICoachDTO> coaches;
     
     public TournamentTeamDTO(ITournamentTeam model){
+        if(model == null) return;
         sportsmen = new LinkedList<>();
         extract(model);
     }

@@ -14,6 +14,7 @@ import data.interfaces.models.ICaretaker;
 public class CaretakerDTO extends AbstractRoleDTO<ICaretaker> implements ICaretakerDTO{
 
     public CaretakerDTO(ICaretaker model){
+        if(model == null) return;
         extract(model);
     }
 

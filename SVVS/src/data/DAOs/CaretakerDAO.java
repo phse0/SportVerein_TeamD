@@ -8,7 +8,15 @@ import data.DTOs.CaretakerDTO;
 import data.interfaces.DAOs.ICaretakerDAO;
 import data.interfaces.DTOs.ICaretakerDTO;
 import data.interfaces.models.ICaretaker;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Caretaker;
+import java.util.LinkedList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,7 +27,7 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
     private static ICaretakerDAO instance;
     
     private CaretakerDAO() {
-        super("data.models.Address");
+        super("data.models.Caretaker");
     }
     
     public static ICaretakerDAO getInstance(){
@@ -39,4 +47,34 @@ public class CaretakerDAO extends AbstractDAO<ICaretaker, ICaretakerDTO> impleme
         return new CaretakerDTO(model);
     }
     
+     @Override
+    public List<ICaretaker> getByPerson(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        List<ICaretaker> roles = new LinkedList<>();
+        roles = query.list();
+        
+        if (roles.isEmpty()){
+            return null;
+        }
+        
+        return roles;
+                
+    }
+     
+      @Override
+    public ICaretaker getByAll(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        List<ICaretaker> results = query.list();
+        
+        if(results == null || results.size()<1){
+            return null;
+        }
+        
+        return results.get(0);
+                
+    }
 }

@@ -33,7 +33,6 @@ public class Person implements IPerson {
     protected List<IRole> roles;
     protected List<IDepartment> departments;
     protected IAddress mainAddress;
-    protected int right;
     protected Date birthdate;
 
     public Person() {
@@ -183,15 +182,6 @@ public class Person implements IPerson {
         
     }
 
-    @Override
-    public int getRight() {
-        return right;
-    }
-
-    @Override
-    public void setRight(int right) {
-        this.right = right;
-    }
 
     @Override
     public Date getBirthdate() {

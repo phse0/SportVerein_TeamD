@@ -31,8 +31,6 @@ public interface IPerson extends IModel {
 
     String getPhone();
 
-    int getRight();
-
     String getSex();
 
     String getUsername();
@@ -52,8 +50,6 @@ public interface IPerson extends IModel {
     void setPersonID(int personID);
 
     void setPhone(String phone);
-
-    void setRight(int right);
 
     void setSex(String sex);
 

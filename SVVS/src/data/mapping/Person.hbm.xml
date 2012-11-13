@@ -25,7 +25,7 @@
             <one-to-many class="data.models.ContributionHistory"  />
         </bag>
         
-        <bag inverse="true" cascade="all-delete-orphan" name="roles" table="role" lazy="true">
+        <bag inverse="true" cascade="all" name="roles" table="role" lazy="true">
             <key column="personID" />
             <one-to-many class="data.models.Role" />
         </bag>
@@ -41,8 +41,6 @@
         </bag>
         
         <many-to-one class="data.models.Address" name="mainAddress" column="mainAddressID" />
-        
-        <property name="right" column="rights" not-null="true" type="integer" />
         
     </class>
   

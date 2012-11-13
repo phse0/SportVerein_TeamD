@@ -5,6 +5,7 @@
 package data.interfaces.DTOs;
 
 import data.interfaces.models.IDepartment;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,8 @@ public interface IDepartmentDTO extends IDTO<IDepartment> {
     String getName();
     
     void setName(String name);
+
+    List<ISportDTO> getSports();
+
+    void setSports(List<ISportDTO> sports);
 }

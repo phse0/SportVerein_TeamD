@@ -4,6 +4,7 @@
  */
 package data.models;
 
+import data.interfaces.models.IDepartment;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Sport implements ISport {
     private String name;
     private int maxPlayers;
     private List<ITeam> teams;
+    private IDepartment department;
 
     public Sport() {
     }
@@ -79,6 +81,16 @@ public class Sport implements ISport {
     @Override
     public void removeTeam(ITeam team) {
         this.teams.remove(team);
+    }
+
+    @Override
+    public IDepartment getDepartment() {
+        return department;
+    }
+
+    @Override
+    public void setDepartment(IDepartment department) {
+        this.department = department;
     }
     
     

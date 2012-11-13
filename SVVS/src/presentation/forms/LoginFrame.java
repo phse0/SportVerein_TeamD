@@ -4,11 +4,13 @@
  */
 package presentation.forms;
 
+import business.controller.RMI.IControllerFactory;
 import business.controller.person.AuthentificationController;
 import business.controller.person.IAuthentificationController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.NamingException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -21,6 +23,9 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+        this.setTitle("Login");
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -71,12 +76,14 @@ public class LoginFrame extends javax.swing.JFrame {
         jPasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordLabel.setText("Passwort");
 
+        jUsernameTextField.setText("ffi0875");
         jUsernameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jUsernameTextFieldActionPerformed(evt);
             }
         });
 
+        jPasswordField.setText("athodess");
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldActionPerformed(evt);
@@ -179,36 +186,40 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
         // TODO add your handling code here:
         System.out.print("Login ");
-        int userright;
-        IAuthentificationController ac = new AuthentificationController();
-        String userid=jUsernameTextField.getText();
-            userright = ac.Authenticate(userid,jPasswordField.getText());
-            if (userright>0) {
-               
-           //   jLoginResultLabel.setText("Login success, userright = " + userright);
-            openMainForm(userid);
-            this.dispose();
-            }
-            else
-            {      
+        Long userright;
+
+        try {
+            IControllerFactory controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
+            IAuthentificationController ac = controllerFactory.loadAuthentificationController();
+            String userid = jUsernameTextField.getText();
+            userright = ac.Authenticate(userid, jPasswordField.getText());
+            if (userright > 0) {
+                //   jLoginResultLabel.setText("Login success, userright = " + userright);
+                openMainForm(userid);
+                this.dispose();
+            } else {
                 jLoginResultLabel.setText("Login failed");
-     
-             } 
-        
+            }
+        } catch (RemoteException | NotBoundException | MalformedURLException e) {
+            System.out.println("Couldnt get AuthentificationController");
+        }
+
     }//GEN-LAST:event_jLoginButtonActionPerformed
 
     private void jLookMatchResultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLookMatchResultsButtonActionPerformed
         // TODO add your handling code here:
-            openMainForm("");
-       
+        openMainForm("");
+
     }//GEN-LAST:event_jLookMatchResultsButtonActionPerformed
 
-    private void openMainForm(String userid){
-        System.out.println("OpenMainForm, userid="+userid);
-                    MainForm1 mainForm = new MainForm1(userid);
-            mainForm.setVisible(true);
+    private void openMainForm(String userid) {
+        System.out.println("OpenMainForm, userid=" + userid);
+        MainForm mainForm = new MainForm(userid);
+        mainForm.setVisible(true);
 
-    };
+    }
+
+    ;
     /**
      * @param args the command line arguments
      */

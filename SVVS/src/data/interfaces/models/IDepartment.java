@@ -27,5 +27,13 @@ public interface IDepartment extends IModel {
     void setName(String name);
 
     void setRoles(List<IRole> roles);
+
+    void addSports(ISport sport);
+
+    List<ISport> getSports();
+
+    void removeSports(ISport sport);
+
+    void setSports(List<ISport> sports);
     
 }

@@ -30,6 +30,7 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     private List<ITournamentInviteDTO> invites;
 
     public TournamentDTO(ITournament model) {
+        if(model == null) return;
         teams = new LinkedList<>();
         matches = new LinkedList<>();
         invites = new LinkedList<>();

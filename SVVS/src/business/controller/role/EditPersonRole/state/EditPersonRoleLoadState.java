@@ -8,7 +8,11 @@ import business.controller.RMI.AController;
 import business.controller.role.EditPersonRole.EditPersonRole;
 import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.RoleController;
+import data.interfaces.DTOs.IDepartmentDTO;
+import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRoleDTO;
+import data.interfaces.DTOs.IRoleRightsDTO;
+import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRole;
 import java.rmi.RemoteException;
@@ -28,14 +32,21 @@ public class EditPersonRoleLoadState  extends AController implements IEditPerson
 
     
     @Override
-    public List<IRoleDTO> loadRolesOfPerson(IPerson person) throws RemoteException {
+    public List<IRoleRightsDTO> loadRoleRightsOfPerson(IPersonDTO person) throws RemoteException {
         _editor.setState(new EditPersonRoleState(_editor));
-        return RoleController.getInstance().loadRolesOfPerson(person);
+        return RoleController.getInstance().loadRoleRightsOfPerson(person);
     }
 
     @Override
-    public void EditPersonRole(IPerson person, List<IRole> roles) throws RemoteException {
+    public void EditPersonRole(IPersonDTO person, List<IRoleRightsDTO> roles, IDepartmentDTO department, ISportDTO sport) throws  RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<IRoleRightsDTO> loadRoleRights() throws RemoteException {
+        _editor.setState(new EditPersonRoleState(_editor));
+        return RoleController.getInstance().loadRoleRights();
+    }
+
     
 }

@@ -8,7 +8,15 @@ import data.DTOs.AdministratorDTO;
 import data.interfaces.DAOs.IAdministratorDAO;
 import data.interfaces.DTOs.IAdministratorDTO;
 import data.interfaces.models.IAdministrator;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.IPerson;
+import data.interfaces.models.IRole;
+import data.interfaces.models.ISport;
 import data.models.Administrator;
+import java.util.LinkedList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -39,4 +47,29 @@ public class AdministratorDAO extends AbstractDAO<IAdministrator, IAdministrator
         return new AdministratorDTO(model);
     }
     
+     @Override
+    public List<IAdministrator> getByPerson(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        List<IAdministrator> roles = new LinkedList<>();
+        roles = query.list();
+        
+        if (roles.isEmpty()){
+            return null;
+        }
+        
+        return roles;
+                
+    }
+ @Override
+    public IAdministrator getByAll(Session s,IPerson person){
+        
+        Query query = s.createQuery("FROM "+getTable()+" WHERE person = :person");
+        query.setParameter("person", person);
+        
+        return (IAdministrator) query.uniqueResult();
+                
+    }
+
 }

@@ -17,6 +17,7 @@ public class LeagueDTO extends AbstractDTO<ILeague> implements ILeagueDTO{
   //  private List<ITeamDTO> teams;
     
     public LeagueDTO(ILeague model){
+        if(model == null) return;
         extract(model);
     }
    

@@ -27,7 +27,7 @@ public abstract class AbstractRoleDTO<V extends IRole> extends AbstractDTO<V> {
         }
         this.id = model.getRoleID();
         this.person = new PersonDTO(model.getPerson());
-        //this.roleRight = new RoleRightsDTO(model.getRoleRight());
+        this.roleRight = new RoleRightsDTO(model.getRoleRight());
         this.department = new DepartmentDTO(model.getDepartment());
         this.sport = new SportDTO(model.getSport());
         
