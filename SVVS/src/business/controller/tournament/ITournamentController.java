@@ -13,6 +13,7 @@ import data.interfaces.models.ITournament;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -22,7 +23,7 @@ public interface ITournamentController extends Remote, IController {
 
     public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException;
 
-    public LinkedList<ISportDTO> loadSport(IDepartmentDTO dept) throws RemoteException;
+    public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException;
 
     public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException;
 

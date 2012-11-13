@@ -42,15 +42,19 @@ public class TournamentController extends AController implements ITournamentCont
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport(IDepartmentDTO department) throws RemoteException {
+    public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException {
         LinkedList<ISportDTO> sports = new LinkedList<>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             if (department == null) {
                 sports.add(new SportDTO(iS));
             } else {
-                if (iS.getDepartment() == department) {
-                    sports.add(new SportDTO(iS));
+                boolean set = false;
+                for (IDepartmentDTO dept : department) {
+                    if (!set && iS.getDepartment() == dept) {
+                        sports.add(new SportDTO(iS));
+                        set = true;
+                    }
                 }
             }
         }

@@ -29,7 +29,7 @@ public class TournamentCreateLoadSportState extends AController implements ITour
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport(IDepartmentDTO dept) throws RemoteException {
+    public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException {
         /* LinkedList<ISport> sports = new LinkedList<ISport>();
 
          for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -38,7 +38,7 @@ public class TournamentCreateLoadSportState extends AController implements ITour
          _creator.setCurState(new TournamentCreateLoadTeamsState(_creator));
          return sports;*/
         _creator.setCurState(new TournamentCreateLoadTeamsState(_creator));
-        return TournamentController.getInstance().loadSport(dept);
+        return TournamentController.getInstance().loadSport(department);
     }
 
     @Override

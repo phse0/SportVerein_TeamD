@@ -18,7 +18,7 @@ import java.util.List;
  * @author phil
  */
 public interface ITournamentCreateState extends IController{
-    public LinkedList<ISportDTO> loadSport(IDepartmentDTO dept) throws RemoteException;
+    public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException;
     public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException;
     public void CreateTournament(String name, String location, BigDecimal fee,
     String sportname, List<String> TeamNames)throws RemoteException;

@@ -29,7 +29,7 @@ public class TournamentCreateLoadTeamsState extends AController implements ITour
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport(IDepartmentDTO dept) throws RemoteException{
+    public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -60,7 +60,7 @@ public class TournamentCreation extends AController implements ITournamentCreati
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport(IDepartmentDTO department) throws RemoteException {
+    public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException {
         //return _curState.loadSport();
         return TournamentController.getInstance().loadSport(department);
     }
