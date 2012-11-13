@@ -15,6 +15,7 @@ import data.DAOs.TournamentDAO;
 import data.DTOs.TeamDTO;
 import data.DTOs.TournamentDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
@@ -59,9 +60,9 @@ public class TournamentCreation extends AController implements ITournamentCreati
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport() throws RemoteException {
+    public LinkedList<ISportDTO> loadSport(IDepartmentDTO department) throws RemoteException {
         //return _curState.loadSport();
-        return TournamentController.getInstance().loadSport();
+        return TournamentController.getInstance().loadSport(department);
     }
 
     @Override

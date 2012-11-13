@@ -7,6 +7,7 @@ package business.controller.tournament.Create.States;
 import business.controller.RMI.AController;
 import business.controller.tournament.Create.TournamentCreation;
 import business.controller.tournament.TournamentController;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class TournamentCreateLoadSportState extends AController implements ITour
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport() throws RemoteException {
+    public LinkedList<ISportDTO> loadSport(IDepartmentDTO dept) throws RemoteException {
         /* LinkedList<ISport> sports = new LinkedList<ISport>();
 
          for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -37,7 +38,7 @@ public class TournamentCreateLoadSportState extends AController implements ITour
          _creator.setCurState(new TournamentCreateLoadTeamsState(_creator));
          return sports;*/
         _creator.setCurState(new TournamentCreateLoadTeamsState(_creator));
-        return TournamentController.getInstance().loadSport();
+        return TournamentController.getInstance().loadSport(dept);
     }
 
     @Override

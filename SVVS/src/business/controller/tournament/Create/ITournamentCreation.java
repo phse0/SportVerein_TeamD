@@ -5,6 +5,7 @@
 package business.controller.tournament.Create;
 
 import business.controller.RMI.IController;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ILeagueDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
@@ -27,7 +28,7 @@ import java.util.List;
  * @author phil
  */
 public interface ITournamentCreation extends Remote, IController  {
-    public LinkedList<ISportDTO> loadSport() throws RemoteException;
+    public LinkedList<ISportDTO> loadSport(IDepartmentDTO department) throws RemoteException;
     public LinkedList<ITeamDTO> loadTeams(String sport) throws RemoteException;
     public ITournamentDTO CreateTournament(String name, String location, String date, BigDecimal fee,
     String sportname, List<String> TeamNames) throws RemoteException;

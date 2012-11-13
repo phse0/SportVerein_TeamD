@@ -11,6 +11,7 @@ import data.DAOs.TournamentDAO;
 import data.DTOs.SportDTO;
 import data.DTOs.TeamDTO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
@@ -25,7 +26,7 @@ import java.util.List;
  *
  * @author phil
  */
-public class TournamentController extends AController implements ITournamentController{
+public class TournamentController extends AController implements ITournamentController {
 
     private static TournamentController instance;
 
@@ -41,18 +42,20 @@ public class TournamentController extends AController implements ITournamentCont
     }
 
     @Override
-    public LinkedList<ISportDTO >loadSport() throws RemoteException{
+    public LinkedList<ISportDTO> loadSport(IDepartmentDTO department) throws RemoteException {
         LinkedList<ISportDTO> sports = new LinkedList<>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            sports.add(new SportDTO(iS));
+            if (iS.getDepartment() == department) {
+                sports.add(new SportDTO(iS));
+            }
         }
 
         return sports;
     }
 
     @Override
-    public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException{
+    public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException {
         ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
         LinkedList<ITeamDTO> teams = new LinkedList<>();
         for (ITeam iTeam : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
@@ -62,12 +65,12 @@ public class TournamentController extends AController implements ITournamentCont
     }
 
     @Override
-    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException{
+    public LinkedList<ITournamentDTO> loadTournaments() throws RemoteException {
         return new LinkedList<ITournamentDTO>(TournamentDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
     }
-    
+
     @Override
-     public ITournament loadTournament(int ID) throws RemoteException{
+    public ITournament loadTournament(int ID) throws RemoteException {
         List<ITournament> tournaments = TournamentDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
         for (ITournament iT : tournaments) {
             if (iT.getTournamentID() == ID) {

@@ -10,6 +10,7 @@ import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
 import data.hibernate.HibernateUtil;
+import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ISport;
@@ -37,7 +38,7 @@ class TournamentCreateState extends AController implements ITournamentCreateStat
     }
 
     @Override
-    public LinkedList<ISportDTO> loadSport() throws RemoteException{
+    public LinkedList<ISportDTO> loadSport(IDepartmentDTO dept) throws RemoteException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
