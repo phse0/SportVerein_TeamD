@@ -28,7 +28,7 @@ import javax.naming.directory.SearchResult;
 
 /**
  *
- * @author Media Markt
+ * @author Evgeniya Spiegel
  */
 public class AuthentificationController implements IAuthentificationController {
 
