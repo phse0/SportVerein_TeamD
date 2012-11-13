@@ -14,6 +14,7 @@ import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
+import data.models.Sport;
 import data.models.Tournament;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
@@ -56,7 +57,8 @@ class TournamentCreateState extends AController implements ITournamentCreateStat
         tournament.setName(name);
         tournament.setLocation(location);
         tournament.setFee(fee);
-        ISport sport = SportDAO.getInstance().getByName(s, sportname);
+        Sport sport = (Sport) SportDAO.getInstance().getByName(s, sportname);
+        tournament.setSport(sport);
 
         LinkedList<ITeam> teams = new LinkedList<ITeam>();
         //für jedes  team in der stringliste werden alle teams durchgegangen ob der name darin vorhanden ist
@@ -71,7 +73,6 @@ class TournamentCreateState extends AController implements ITournamentCreateStat
         tournament.setTeams(teams);
 
         TournamentDAO.getInstance().add(s, tournament);
-        
         tx.commit();
         
     }
