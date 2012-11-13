@@ -46,8 +46,12 @@ public class TournamentController extends AController implements ITournamentCont
         LinkedList<ISportDTO> sports = new LinkedList<>();
 
         for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            if (iS.getDepartment() == department) {
+            if (department == null) {
                 sports.add(new SportDTO(iS));
+            } else {
+                if (iS.getDepartment() == department) {
+                    sports.add(new SportDTO(iS));
+                }
             }
         }
 
