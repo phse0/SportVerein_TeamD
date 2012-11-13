@@ -23,8 +23,12 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.EditPersonListener;
@@ -69,9 +73,10 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm(String user) {
         initComponents();
         try {
-            initControls();
+            loadControllers();
             loggedUser = personController.loadPersonWithUsername(user);
             checkRights();
+            initControls();
         } catch (RemoteException | NotBoundException | MalformedURLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -399,15 +404,7 @@ public class MainForm extends javax.swing.JFrame {
     private void initControls() throws RemoteException, NotBoundException, MalformedURLException {
 
         this.setLocationRelativeTo(null);
-        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
-
-        controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
-        teamController = (ITeamController) controllerFactory.loadTeamController();
-        personController = (IPersonController) controllerFactory.loadPersonController();
-        departmentController = (IDepartmentController) controllerFactory.loadDepartmentController();
-        tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
-        roleController = (IRoleController) controllerFactory.loadRoleController();
-        editPersonRoleController = (IEditPersonRole) controllerFactory.loadEditPersonRole();
+        //setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH)
 
         // ############## INITIATE PERSONS ################
 
@@ -445,6 +442,32 @@ public class MainForm extends javax.swing.JFrame {
         btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory, managerRols));
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
         jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory, teamController));
+
+        tournamentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (managerRols != null) {
+                    TournamentTableModel model = (TournamentTableModel) tournamentTable.getModel();
+                    ITournamentDTO tournament = model.getTournamentDTO(tournamentTable.getSelectedRow());
+                    
+                    for(IRoleDTO r : managerRols) {
+                        try {
+                            if(departmentController.isSportInDepartment(r.getDepartment(), tournament.getSport())) {
+                                btnEditTournament.setEnabled(true);
+                                break;
+                            } else {
+                                btnEditTournament.setEnabled(false);
+                            }
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        });
+
+
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
         List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTounamentTeams();
@@ -455,28 +478,38 @@ public class MainForm extends javax.swing.JFrame {
 
     }
 
+    private void loadControllers() throws RemoteException, NotBoundException, MalformedURLException {
+        controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
+        teamController = (ITeamController) controllerFactory.loadTeamController();
+        personController = (IPersonController) controllerFactory.loadPersonController();
+        departmentController = (IDepartmentController) controllerFactory.loadDepartmentController();
+        tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
+        roleController = (IRoleController) controllerFactory.loadRoleController();
+        editPersonRoleController = (IEditPersonRole) controllerFactory.loadEditPersonRole();
+    }
+
     private void checkRights() throws RemoteException {
 
         List<IRightDTO> rights = null;
-        
+
         try {
             rights = controllerFactory.loadAuthentificationController().getAllRights();
         } catch (RemoteException e) {
             System.out.println("Couldnt connect to Authentifaction Controller");
         }
-        
-        if(loggedUser.getRight() < 1L){
+
+        if (loggedUser.getRight() < 1L) {
             loggedUser.setRight(1L);
         }
-        
+
         List<IRightDTO> missingRights = new LinkedList<>();
 
         for (IRightDTO r : rights) {
             if (!loggedUser.hasRight(r.getValue())) {
                 missingRights.add(r);
             } else {
-                if(r.getName().equals("Wettkampf verwalten") && roleController.hasRole(loggedUser, "Manager") 
-                        && roleController.hasRole(loggedUser, "Admin")) {
+                if (r.getName().equals("Wettkampf verwalten") && roleController.hasRole(loggedUser, "Manager")
+                        && !roleController.hasRole(loggedUser, "Admin")) {
                     managerRols = roleController.getRole(loggedUser, "Manager");
                 }
             }

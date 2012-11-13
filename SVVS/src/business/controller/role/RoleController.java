@@ -171,19 +171,19 @@ public class RoleController extends AController implements IRoleController {
         return roles;
     }
 
-    public boolean hasRole(IPersonDTO person, String Rolename) throws RemoteException {
+    public boolean hasRole(IPersonDTO person, String rolename) throws RemoteException {
         for (IRoleDTO role : loadRolesOfPerson(person)) {
-            if (role.getRoleRight().getName().equals("Manager")) {
+            if (role.getRoleRight().getName().equals(rolename)) {
                 return true;
             }
         }
         return false;
     }
 
-    public List<IRoleDTO> getRole(IPersonDTO person, String Rolename) throws RemoteException {
+    public List<IRoleDTO> getRole(IPersonDTO person, String rolename) throws RemoteException {
         List<IRoleDTO> roles = new LinkedList<>();
            for (IRoleDTO role : loadRolesOfPerson(person)) {
-            if (role.getRoleRight().getName().equals("Manager")) {
+            if (role.getRoleRight().getName().equals(rolename)) {
                 roles.add(role);
             } 
         }

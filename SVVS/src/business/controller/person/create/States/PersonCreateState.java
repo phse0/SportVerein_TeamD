@@ -107,15 +107,8 @@ public class PersonCreateState extends AController implements IPersonCreateState
 
         _creator.setState(new PersonCreateAssignSportState(_creator));
         tx.commit();
-        List<IPerson> lp = PersonDAO.getInstance().getByFirstName(HibernateUtil.getCurrentSession(), lastname);
-        for (IPerson ip : lp) {
-            if (ip.getLastname().equals(lastname)) {
-                return new PersonDTO(ip);
-            }
-        }
         
-        
-        return null;
+        return new PersonDTO(person);
     }
 
     /**

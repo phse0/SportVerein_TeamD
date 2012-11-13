@@ -4,6 +4,10 @@
  */
 package business.controller.RMI;
 
+import data.interfaces.DTOs.IDepartmentDTO;
+import data.interfaces.DTOs.ISportDTO;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author phil

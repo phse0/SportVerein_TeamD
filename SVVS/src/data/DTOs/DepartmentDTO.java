@@ -10,6 +10,7 @@ import data.interfaces.models.IDepartment;
 import data.interfaces.models.ISport;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -58,6 +59,28 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
     @Override
     public void setSports(List<ISportDTO> sports) {
         this.sports = sports;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DepartmentDTO other = (DepartmentDTO) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
     
     
