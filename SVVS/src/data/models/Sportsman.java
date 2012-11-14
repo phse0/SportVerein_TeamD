@@ -5,6 +5,7 @@
 package data.models;
 
 import data.interfaces.models.ISportsman;
+import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITournamentInvite;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class Sportsman extends Role implements ISportsman{
 
-    private List<SportsmanTrainingTeam> teams;
+    private List<ISportsmanTrainingTeam> teams;
     private List<ITournamentInvite> invites;
     
     public Sportsman() {
@@ -22,12 +23,12 @@ public class Sportsman extends Role implements ISportsman{
     }
 
     @Override
-    public List<SportsmanTrainingTeam> getTeams() {
+    public List<ISportsmanTrainingTeam> getTeams() {
         return teams;
     }
 
     @Override
-    public void setTeams(List<SportsmanTrainingTeam> teams) {
+    public void setTeams(List<ISportsmanTrainingTeam> teams) {
         this.teams = teams;
     }
 
@@ -47,7 +48,7 @@ public class Sportsman extends Role implements ISportsman{
     }
     
     @Override
-    public void removeInvite(TournamentInvite invite) {
+    public void removeInvite(ITournamentInvite invite) {
         this.invites.remove(invite);
     }
     

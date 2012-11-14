@@ -84,7 +84,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jUsernameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jUsernameLabel.setText("Benutzerername");
 
-        jUsernameTextField.setText("ffi0875");
         jUsernameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jUsernameTextFieldActionPerformed(evt);
@@ -94,7 +93,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPasswordLabel.setText("Passwort");
 
-        jPasswordField.setText("athodess");
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldActionPerformed(evt);

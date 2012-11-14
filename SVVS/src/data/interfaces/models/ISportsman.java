@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface ISportsman extends IRole{
 
-    List<SportsmanTrainingTeam> getTeams();
+    List<ISportsmanTrainingTeam> getTeams();
 
-    void setTeams(List<SportsmanTrainingTeam> teams);
+    void setTeams(List<ISportsmanTrainingTeam> teams);
 
     List<ITournamentInvite> getInvites();
 
@@ -24,6 +24,6 @@ public interface ISportsman extends IRole{
 
     void addInvite(ITournamentInvite invite);
 
-    void removeInvite(TournamentInvite invite);
+    void removeInvite(ITournamentInvite invite);
     
 }
