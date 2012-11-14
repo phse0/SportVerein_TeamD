@@ -59,8 +59,8 @@ public interface ITournament extends IModel {
 
     void removeInvite(ITournamentInvite invite);
 
-    Sport getSport();
+    ISport getSport();
 
-    void setSport(Sport sport);
+    void setSport(ISport sport);
     
 }

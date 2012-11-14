@@ -101,9 +101,10 @@ public class TournamentEdit extends AController implements ITournamentEdit {
 
         TournamentDAO.getInstance().update(HibernateUtil.getCurrentSession(), itour);
         
+        IMatchDTO createdMatch = new MatchDTO(match);
         tx.commit();
         
-        return new MatchDTO(match);
+        return createdMatch;
 
         //_curState.AddMatch(TournamentID, location, date, Team1Name, Team2Name, goalsTeam1, goalsTeam2);
     }
@@ -135,9 +136,10 @@ public class TournamentEdit extends AController implements ITournamentEdit {
 
         TournamentDAO.getInstance().update(HibernateUtil.getCurrentSession(), tournament);
 
+        TournamentDTO editedTournament = new TournamentDTO(tournament);
         tx.commit();
-        
-        return new TournamentDTO(tournament);
+       
+        return editedTournament;
 
         //_editor.setCurState(new TournamentEditAddMatchState(_editor));
     }
@@ -178,8 +180,9 @@ public class TournamentEdit extends AController implements ITournamentEdit {
 
         MatchDAO.getInstance().update(s, match);
         
+        MatchDTO editedMatch = new MatchDTO(match);
         tx.commit();
         
-        return new MatchDTO(match); 
+        return editedMatch;
     }
 }

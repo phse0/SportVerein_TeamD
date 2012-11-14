@@ -5,6 +5,7 @@
 package data.models;
 
 import data.interfaces.models.IMatch;
+import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
 import data.interfaces.models.ITournamentInvite;
@@ -26,7 +27,7 @@ public class Tournament implements ITournament {
     private List<ITeam> teams;
     private List<IMatch> matches;
     private List<ITournamentInvite> invites;
-    private Sport sport;
+    private ISport sport;
 
     public Tournament() {
     }
@@ -146,12 +147,12 @@ public class Tournament implements ITournament {
     }
 
     @Override
-    public Sport getSport() {
+    public ISport getSport() {
         return sport;
     }
 
     @Override
-    public void setSport(Sport sport) {
+    public void setSport(ISport sport) {
         this.sport = sport;
     }
    

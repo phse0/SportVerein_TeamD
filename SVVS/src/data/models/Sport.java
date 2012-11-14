@@ -7,6 +7,7 @@ package data.models;
 import data.interfaces.models.IDepartment;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
+import data.interfaces.models.ITournament;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class Sport implements ISport {
     private int maxPlayers;
     private List<ITeam> teams;
     private IDepartment department;
+    private List<ITournament> tournaments;
 
     public Sport() {
     }
@@ -92,6 +94,12 @@ public class Sport implements ISport {
     public void setDepartment(IDepartment department) {
         this.department = department;
     }
-    
-    
+
+    public List<ITournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(List<ITournament> tournaments) {
+        this.tournaments = tournaments;
+    }
 }

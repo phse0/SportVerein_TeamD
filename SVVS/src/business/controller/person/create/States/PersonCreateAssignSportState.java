@@ -67,17 +67,13 @@ public class PersonCreateAssignSportState extends AController implements IPerson
 
     @Override
     public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
+
+        Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
         for (String sportname : sport) {
             //assigning values
-            Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
             IPerson p = PersonController.getInstance().loadPersonWithIDNonDTO(personID);
             ISport s = PersonController.getInstance().loadSport(sportname);
             IRoleRights r = RoleRightsDAO.getInstance().getById(HibernateUtil.getCurrentSession(), 2);
-            Role role = new Role();
-            role.setPerson(p);
-            role.setSport(s);
-
-            RoleDAO.getInstance().add(HibernateUtil.getCurrentSession(), role);
 
             ISportsman sportsman = SportsmanDAO.getInstance().create();
             sportsman.setPerson(p);
@@ -85,9 +81,9 @@ public class PersonCreateAssignSportState extends AController implements IPerson
             sportsman.setSport(s);
             sportsman.setRoleRight(r);
             SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
-
-            tx.commit();
         }
+
+        tx.commit();
     }
 
     @Override

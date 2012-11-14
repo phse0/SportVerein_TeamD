@@ -16,5 +16,10 @@
             <one-to-many class="data.models.Team" />
         </bag>
         
+        <bag name="tournaments" cascade="all" table="tournament">
+            <key column="sportID" />
+            <one-to-many class="data.models.Tournament" />
+        </bag>
+        
     </class>
 </hibernate-mapping>

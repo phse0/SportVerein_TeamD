@@ -27,6 +27,7 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Transaction;
 import org.joda.time.DateTime;
 
 /**
@@ -51,6 +52,9 @@ public class PersonEditState extends AController implements IPersonEditState {
     public IPersonDTO editPerson(int PersonID, String firstname, String lastname,
     String sex, String phone, String mail, String username, String password,
     Date birthday, int right, String street, String postcode, String city, String country, int contributionID) throws RemoteException{
+        
+        Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
+        
         IPerson person = PersonController.getInstance().loadPersonWithIDNonDTO(PersonID);
 
         IAddress address = person.getMainAddress();
@@ -85,7 +89,10 @@ public class PersonEditState extends AController implements IPersonEditState {
         PersonDAO.getInstance().update(HibernateUtil.getCurrentSession(), person);
 
         _editor.setState(new PersonEditAssignSportState(_editor));
-        return new PersonDTO(person);
+        PersonDTO editedPerson = new PersonDTO(person);
+        
+        tx.commit();
+        return editedPerson;
     }
 
     /**

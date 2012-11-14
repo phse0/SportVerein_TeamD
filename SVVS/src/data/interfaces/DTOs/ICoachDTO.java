@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface ICoachDTO extends IDTO<ICoach>{
 
-    List<ITrainingTeamDTO> getTeams();
+//    List<ITrainingTeamDTO> getTeams();
 
-    void setTeams(List<ITrainingTeamDTO> teams);
+//    void setTeams(List<ITrainingTeamDTO> teams);
     
 }

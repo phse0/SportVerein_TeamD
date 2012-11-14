@@ -35,5 +35,9 @@ public interface ISport extends IModel {
     IDepartment getDepartment();
 
     void setDepartment(IDepartment department);
+
+    List<ITournament> getTournaments();
+
+    void setTournaments(List<ITournament> tournaments);
     
 }

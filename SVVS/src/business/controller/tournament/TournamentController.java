@@ -5,6 +5,7 @@
 package business.controller.tournament;
 
 import business.controller.RMI.AController;
+import business.controller.departments.DepartmentController;
 import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
@@ -43,15 +44,16 @@ public class TournamentController extends AController implements ITournamentCont
 
     @Override
     public LinkedList<ISportDTO> loadSport(List<IDepartmentDTO> department) throws RemoteException {
+        DepartmentController deptCon = DepartmentController.getInstance();
         LinkedList<ISportDTO> sports = new LinkedList<>();
         
-        for (ISport iS : SportDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            if (department == null) {
-                sports.add(new SportDTO(iS));
+        for(ISportDTO iS : SportDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession())) {
+            if(department == null) {
+                sports.add(iS);
             } else {
-                for (IDepartmentDTO dept : department) {
-                    if (iS.getDepartment().equals(dept)) {
-                        sports.add(new SportDTO(iS));
+                for(IDepartmentDTO dept : department) {
+                    if(deptCon.isSportInDepartment(dept, iS)) {
+                        sports.add(iS);
                     }
                 }
             }

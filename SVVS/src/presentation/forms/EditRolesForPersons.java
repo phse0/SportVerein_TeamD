@@ -6,21 +6,16 @@ package presentation.forms;
 
 import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
-import data.DTOs.RoleDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.IRoleRightsDTO;
 import data.interfaces.DTOs.ISportDTO;
-import data.interfaces.models.IRoleRights;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import presentation.tableModels.RoleTableModel;
 
 /**
@@ -39,6 +34,8 @@ public class EditRolesForPersons extends javax.swing.JFrame {
      */
     public EditRolesForPersons(IPersonDTO person, IRoleController roles, IEditPersonRole personrole) {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
         this.setTitle("Rolleneditor");
         this.person = person;
         this.personrole = personrole;
@@ -88,6 +85,7 @@ public class EditRolesForPersons extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

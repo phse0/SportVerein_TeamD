@@ -11,6 +11,7 @@ import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.tournament.ITournamentController;
+import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRightDTO;
@@ -56,7 +57,8 @@ public class MainForm extends javax.swing.JFrame {
     IRoleController roleController;
     IPersonDTO loggedUser;
     IEditPersonRole editPersonRoleController;
-    List<IRoleDTO> managerRols;
+    List<IRoleDTO> managerRoles;
+    List<IRoleDTO> coachRoles;
 
     /**
      * Creates new form MainForm
@@ -352,7 +354,7 @@ public class MainForm extends javax.swing.JFrame {
 
                 String lastname = entry.getValue(0).toString().toLowerCase();
                 String firstname = entry.getValue(1).toString().toLowerCase();
-                String nameTxt = txtName.getText();
+                String nameTxt = txtName.getText().toLowerCase();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
                 String contStatus;
 
@@ -439,7 +441,7 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
 
-        btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory, managerRols));
+        btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory, managerRoles));
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
         jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory, teamController));
 
@@ -447,13 +449,13 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                if (managerRols != null) {
+                if (managerRoles != null) {
                     TournamentTableModel model = (TournamentTableModel) tournamentTable.getModel();
                     ITournamentDTO tournament = model.getTournamentDTO(tournamentTable.getSelectedRow());
-                    
-                    for(IRoleDTO r : managerRols) {
+
+                    for (IRoleDTO r : managerRoles) {
                         try {
-                            if(departmentController.isSportInDepartment(r.getDepartment(), tournament.getSport())) {
+                            if (departmentController.isSportInDepartment(r.getDepartment(), tournament.getSport())) {
                                 btnEditTournament.setEnabled(true);
                                 break;
                             } else {
@@ -467,7 +469,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
         List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTounamentTeams();
@@ -475,6 +476,28 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTeamTable.setAutoCreateRowSorter(true);
 
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
+
+        tournamentTeamTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (coachRoles != null) {
+                    TournamentTeamTableModel model = (TournamentTeamTableModel) tournamentTeamTable.getModel();
+                    ITournamentTeamDTO team = model.getTournamentTeamDTO(tournamentTeamTable.getSelectedRow());
+
+                    for (ICoachDTO coach : team.getCoaches()) {
+                        for (IRoleDTO r : coachRoles) {
+                            if (coach.getId() == r.getId()) {
+                                btnEditTeam.setEnabled(true);
+                                return;
+                            }
+                        }
+                    }
+
+                    btnEditTeam.setEnabled(false);
+
+                }
+            }
+        });
 
     }
 
@@ -510,7 +533,12 @@ public class MainForm extends javax.swing.JFrame {
             } else {
                 if (r.getName().equals("Wettkampf verwalten") && roleController.hasRole(loggedUser, "Manager")
                         && !roleController.hasRole(loggedUser, "Admin")) {
-                    managerRols = roleController.getRole(loggedUser, "Manager");
+                    managerRoles = roleController.getRole(loggedUser, "Manager");
+                }
+
+                if (r.getName().equals("Teams verwalten") && roleController.hasRole(loggedUser, "Trainer")
+                        && !roleController.hasRole(loggedUser, "Admin")) {
+                    coachRoles = roleController.getRole(loggedUser, "Trainer");
                 }
             }
         }

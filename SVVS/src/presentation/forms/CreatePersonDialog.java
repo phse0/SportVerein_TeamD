@@ -5,6 +5,7 @@
 package presentation.forms;
 
 import business.controller.person.create.IPersonCreation;
+import business.controller.person.edit.IPersonEdit;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
@@ -13,6 +14,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import presentation.personListeners.SaveEditPersonListener;
 import presentation.personListeners.SavePersonListener;
 
 /**
@@ -23,7 +25,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
 
     IPersonDTO person;
     IPersonCreation personCreation;
-    boolean create;
+    IPersonEdit personEdit;
 
     /**
      * Creates new form CreatePersonDialog
@@ -35,19 +37,17 @@ public class CreatePersonDialog extends javax.swing.JDialog {
         this.personCreation = controller;
         this.person = controller.CreatePersonDTO();
         this.setTitle("Mitglied anlegen");
-        create = true;
 
         initiateFields();
         setLocationRelativeTo(null);
     }
 
-    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonCreation controller, IPersonDTO person) throws RemoteException {
+    public CreatePersonDialog(java.awt.Frame parent, boolean modal, IPersonEdit controller, IPersonDTO person) throws RemoteException {
         super(parent, modal);
         initComponents();
-        this.personCreation = controller;
+        this.personEdit = controller;
         this.person = person;
         this.setTitle("Mitglied bearbeiten");
-        create = false;
 
         initiateFields();
         setLocationRelativeTo(null);
@@ -368,7 +368,7 @@ public class CreatePersonDialog extends javax.swing.JDialog {
 
     private void initiateFields() throws RemoteException {
 
-        if (create) {
+        if (personCreation != null) {
             List<ICountryDTO> countries = personCreation.loadCountries();
             for (ICountryDTO c : countries) {
                 cobCountry.addItem(c);
@@ -386,7 +386,11 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 cobContribution.addItem(cont);
             }
 
-        } else {
+            btnSave.addActionListener(new SavePersonListener(personCreation, this, person));
+
+        }
+
+        if (personEdit != null) {
             tbxFirstname.setText(person.getFirstname());
             tbxLastname.setText(person.getLastname());
             tbxBirthdate.setText(person.getBirthdate());
@@ -405,14 +409,19 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             tbxPhone.setText(person.getPhone());
             tbxMail.setText(person.getMail());
 
-            List<ICountryDTO> countries = personCreation.loadCountries();
+            List<ICountryDTO> countries = personEdit.loadCountries();
             for (ICountryDTO c : countries) {
                 cobCountry.addItem(c);
             }
 
-            List<ISportDTO> sports = personCreation.loadSports();
+            List<IContributionDTO> contributions = personEdit.loadContributions();
+            for (IContributionDTO c : contributions) {
+                cobContribution.addItem(c);
+            }
+
+            List<ISportDTO> sports = personEdit.loadSports();
             DefaultListModel<ISportDTO> sportsList = new DefaultListModel<>();
-            for(ISportDTO s : sports) {
+            for (ISportDTO s : sports) {
                 sportsList.addElement(s);
             }
             lbxSports.setModel(sportsList);
@@ -424,11 +433,8 @@ public class CreatePersonDialog extends javax.swing.JDialog {
                 }
             }
 
+            lbxSports.setEnabled(false);
 
-            List<IContributionDTO> contributions = personCreation.loadContributions();
-            for (IContributionDTO c : contributions) {
-                cobContribution.addItem(c);
-            }
 
             cobCountry.setEditable(true);
             cobCountry.setSelectedItem(person.getMainAddress().getCountry());
@@ -437,9 +443,10 @@ public class CreatePersonDialog extends javax.swing.JDialog {
             cobContribution.setEditable(true);
             cobContribution.setSelectedItem(person.getContribution());
             cobContribution.setEditable(false);
+
+            btnSave.addActionListener(new SaveEditPersonListener(personEdit, this, person));
         }
 
-        btnSave.addActionListener(new SavePersonListener(personCreation, this, person));
 
     }
     /**
@@ -550,11 +557,11 @@ public class CreatePersonDialog extends javax.swing.JDialog {
     public IContributionDTO getContribution() {
         return (IContributionDTO) cobContribution.getSelectedItem();
     }
-    
+
     public IPersonDTO getPerson() {
         return person;
     }
-    
+
     public void setPerson(IPersonDTO person) {
         this.person = person;
     }

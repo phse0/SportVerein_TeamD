@@ -23,6 +23,7 @@ import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ILeague;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
+import data.models.Sport;
 import data.models.Tournament;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
@@ -118,7 +119,8 @@ public class TournamentCreation extends AController implements ITournamentCreati
         tournament.setLocation(location);
         tournament.setFee(fee);
         ISport sport = SportDAO.getInstance().getByName(s, sportname);
-
+        tournament.setSport(sport);
+        
         LinkedList<ITeam> teams = new LinkedList<ITeam>();
         //für jedes  team in der stringliste werden alle teams durchgegangen ob der name darin vorhanden ist
         for (String team : TeamNames) {

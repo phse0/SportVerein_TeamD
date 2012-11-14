@@ -4,16 +4,14 @@
  */
 package presentation.personListeners;
 
-import business.controller.person.create.IPersonCreation;
+import business.controller.person.edit.IPersonEdit;
 import data.interfaces.DTOs.IPersonDTO;
-import data.interfaces.DTOs.ISportDTO;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import presentation.forms.CreatePersonDialog;
 
@@ -21,15 +19,15 @@ import presentation.forms.CreatePersonDialog;
  *
  * @author Michael
  */
-public class SavePersonListener implements ActionListener {
+public class SaveEditPersonListener implements ActionListener {
 
-    IPersonCreation creation;
+    IPersonEdit edit;
     CreatePersonDialog _dialog;
     IPersonDTO person;
     Date birthday;
 
-    public SavePersonListener(IPersonCreation creation, CreatePersonDialog dialog, IPersonDTO person) {
-        this.creation = creation;
+    public SaveEditPersonListener(IPersonEdit edit, CreatePersonDialog dialog, IPersonDTO person) {
+        this.edit = edit;
         _dialog = dialog;
         this.person = person;
     }
@@ -62,15 +60,15 @@ public class SavePersonListener implements ActionListener {
                  _dialog.setPerson(person);
                 
                  */
-                IPersonDTO createdPerson = creation.CreatePerson(_dialog.getFirstName(), _dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthday, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution().getId());
-
-                LinkedList<String> sports = new LinkedList<>();
+                IPersonDTO editedPerson = edit.editPerson(person.getId(), _dialog.getFirstName(),_dialog.getLastName(), _dialog.getGender(), _dialog.getPhone(), _dialog.getMail(), _dialog.getUserName(), _dialog.getPassword(), birthday, 0, _dialog.getStreet(), _dialog.getPostCode(), _dialog.getCity(), _dialog.getLand(), _dialog.getContribution().getId());
+                
+                /*LinkedList<String> sports = new LinkedList<>();
                 for (ISportDTO s : _dialog.getSports()) {
                     sports.add(s.getName());
-                }
+                } */
 
-                creation.AssignToSport(sports, createdPerson.getId());
-                _dialog.setPerson(createdPerson);
+                //creation.AssignToSport(sports, createdPerson.getId());
+                _dialog.setPerson(editedPerson);
                 
                 JOptionPane.showMessageDialog(null, "Person wurde gespeichert. \n");
                 _dialog.dispose();

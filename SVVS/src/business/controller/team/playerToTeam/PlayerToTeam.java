@@ -101,9 +101,11 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
         Transaction tx = s.getTransaction();
         tx.begin();
         SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(),sttModel );
+        
+        SportsmanTrainingTeamDTO addedPlayer = new SportsmanTrainingTeamDTO(sttModel);
         tx.commit();
         
-        return new SportsmanTrainingTeamDTO(sttModel);
+        return addedPlayer;
         
     }
     

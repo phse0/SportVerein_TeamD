@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class CoachDTO extends AbstractRoleDTO<ICoach> implements ICoachDTO {
 
-    private List<ITrainingTeamDTO> teams;
+    //private List<ITrainingTeamDTO> teams;
     
     public CoachDTO(ICoach model){
         if(model == null) return;
-        teams = new LinkedList<>();
+        //teams = new LinkedList<>();
         extract(model);
     }
     
@@ -30,20 +30,20 @@ public class CoachDTO extends AbstractRoleDTO<ICoach> implements ICoachDTO {
     public void extract(ICoach model) {
         extractRole(model);
         
-        for(ITeam team : model.getTeams()){
-            teams.add(new TrainingTeamDTO((ITrainingTeam)team));
-        }
+        //for(ITeam team : model.getTeams()){
+          //  teams.add(new TrainingTeamDTO((ITrainingTeam)team));
+        //}
     }
 
-    @Override
-    public List<ITrainingTeamDTO> getTeams() {
-        return teams;
-    }
-
-    @Override
-    public void setTeams(List<ITrainingTeamDTO> teams) {
-        this.teams = teams;
-    }
+//    @Override
+//    public List<ITrainingTeamDTO> getTeams() {
+//        return teams;
+//    }
+//
+//    @Override
+//    public void setTeams(List<ITrainingTeamDTO> teams) {
+//        this.teams = teams;
+//    }
     
     
     
