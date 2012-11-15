@@ -66,6 +66,7 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         try {
+            loadControllers();
             initControls();
         } catch (RemoteException | NotBoundException | MalformedURLException ex) {
             System.out.println(ex.getMessage());
