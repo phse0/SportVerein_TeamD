@@ -124,12 +124,16 @@ public class TeamController extends AController implements ITeamController {
     }
     
     @Override
-    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITrainingTeamDTO team){
+    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITeamDTO team){
         
         Session s = HibernateUtil.getCurrentSession();
         ITournament t = TournamentDAO.getInstance().getById(s, tournament.getId());
         ITrainingTeam tt = TrainingTeamDAO.getInstance().getById(s, team.getId());
         List<ISportsmanTrainingTeamDTO> stt = new LinkedList<>();
+        
+        if(tt == null) {
+            return null;
+        }
         
         for(ITournamentInvite ti: TournamentInviteDAO.getInstance().getByTournamentAndTeam(s, t, tt)){
             stt.add(new SportsmanTrainingTeamDTO(SportsmanTrainingTeamDAO.getInstance().getBySportsmanAndTeam(s, ti.getSportsman(), tt)));
