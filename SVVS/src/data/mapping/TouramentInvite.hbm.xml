@@ -17,7 +17,7 @@
         
         <property name="accepted" type="boolean">
             <column name = "accepted" sql-type="bit"></column>
-        </property>/>
+        </property>
         
     </class>
 </hibernate-mapping>

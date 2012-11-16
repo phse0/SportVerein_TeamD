@@ -10,6 +10,7 @@ import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import presentation.tableModels.MatchTableModel;
 import presentation.tableModels.SportsManTrainingTeamTableModel;
@@ -224,7 +225,7 @@ public class WettkampfDetailAnsicht extends javax.swing.JFrame {
         // X = lbxTeams.AUSGEWÄLTESTEAM.ALLESPIELER;
         ITeamDTO d = tournament.getTeams().get(lbxTeams.getSelectedIndex());
         try {
-            LinkedList<ISportsmanTrainingTeamDTO> trainingteam = teamcontroller.loadPlayersOfTeam(d.getName());
+            List<ISportsmanTrainingTeamDTO> trainingteam = teamcontroller.loadAssignedPlayersOfTeam(tournament, d);
             SportsManTrainingTeamTableModel model = new SportsManTrainingTeamTableModel(trainingteam);
             sportsmanTable.setModel(model);
             sportsmanTable.setEnabled(false);

@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import presentation.tableModels.SportsManTableModel;
 import presentation.tournamentTeamListener.AssignTournamentTeamPlayerListener;
+import presentation.tournamentTeamListener.DeleteTournamentTeamPlayerListener;
 
 /**
  *
@@ -169,6 +170,7 @@ public class AssignPlayerTournamentTeamDialog extends javax.swing.JDialog {
         }
         
         btnSave.addActionListener(new AssignTournamentTeamPlayerListener(this, sportsmanTable, assignController));
+        btnDeleteSportsman.addActionListener(new DeleteTournamentTeamPlayerListener(sportsmanTable, assignController, this));
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -189,6 +191,10 @@ public class AssignPlayerTournamentTeamDialog extends javax.swing.JDialog {
 
     public void removeSportsmanFromComboBox(ISportsmanDTO sportsman) {
         this.cobSportsman.removeItem(sportsman);
+    }
+    
+    public void addSportsmanToComboBox(ISportsmanDTO sportsman) {
+        this.cobSportsman.addItem(sportsman);
     }
     
     public ITournamentInviteDTO getTournamentTeam() {

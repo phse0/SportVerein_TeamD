@@ -37,7 +37,7 @@ public class ShowTournamentListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (_table.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Bitte wählen Sie erst einen Wettbewerb aus, die sie bearbeiten möchten.");
+            JOptionPane.showMessageDialog(null, "Bitte wählen Sie erst einen Wettbewerb aus, den Sie betrachten möchten.");
         } else {
             int index = _table.convertRowIndexToModel(_table.getSelectedRow());
             TournamentTableModel tournamentModel = (TournamentTableModel) _table.getModel();
