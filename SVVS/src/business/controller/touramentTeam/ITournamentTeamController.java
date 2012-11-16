@@ -9,7 +9,6 @@ import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
-import data.interfaces.models.ITrainingTeam;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
