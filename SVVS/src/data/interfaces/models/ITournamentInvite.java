@@ -25,5 +25,9 @@ public interface ITournamentInvite extends IModel {
     void setTournament(ITournament tournament);
 
     void setTournamentInviteID(int tournamentInviteID);
+
+    ITrainingTeam getTeam();
+
+    void setTeam(ITrainingTeam team);
     
 }

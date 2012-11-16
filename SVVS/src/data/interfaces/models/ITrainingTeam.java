@@ -31,5 +31,7 @@ public interface ITrainingTeam extends ITeam {
     void setDepartment(IDepartment department);
 
     void setSportsmen(List<ISportsmanTrainingTeam> sportsmen);
+
+    String getName();
     
 }

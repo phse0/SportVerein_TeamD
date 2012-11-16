@@ -79,5 +79,6 @@ public class TrainingTeam extends Team implements ITrainingTeam {
     public void removeCoach(ICoach coach) {
         this.coaches.remove(coach);
     }
+   
     
 }

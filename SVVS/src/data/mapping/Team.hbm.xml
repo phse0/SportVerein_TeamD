@@ -31,10 +31,6 @@
                 <many-to-many class="data.models.Coach" column="roleID" />
             </bag>
             
-            <joined-subclass name="data.models.TournamentTeam" table="tournamentTeam">
-                <key column="teamID"/>
-                
-            </joined-subclass> 
         </joined-subclass> 
   
     </class>

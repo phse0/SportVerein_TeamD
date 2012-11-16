@@ -25,5 +25,9 @@ public interface ITournamentInviteDTO extends IDTO<ITournamentInvite>{
     void setSportsman(ISportsmanDTO sportsman);
 
     void setTournament(ITournamentDTO tournament);
+
+    ITrainingTeamDTO getTeam();
+
+    void setTeam(ITrainingTeamDTO team);
     
 }

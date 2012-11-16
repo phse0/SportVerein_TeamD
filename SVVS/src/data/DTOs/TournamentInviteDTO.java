@@ -7,6 +7,7 @@ package data.DTOs;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ITournamentInvite;
 
 /**
@@ -17,6 +18,7 @@ public class TournamentInviteDTO extends AbstractDTO<ITournamentInvite> implemen
 
     private ITournamentDTO tournament;
     private ISportsmanDTO sportsman;
+    private ITrainingTeamDTO team;
     private boolean accepted;
     
     public TournamentInviteDTO(ITournamentInvite model){
@@ -29,6 +31,7 @@ public class TournamentInviteDTO extends AbstractDTO<ITournamentInvite> implemen
         this.id = model.getTournamentInviteID();
         this.tournament = new TournamentDTO(model.getTournament());
         this.sportsman = new SportsmanDTO(model.getSportsman());
+        this.team = new TrainingTeamDTO(model.getTeam());
         this.accepted = model.isAccepted();
         
     }
@@ -62,5 +65,16 @@ public class TournamentInviteDTO extends AbstractDTO<ITournamentInvite> implemen
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }   
+
+    @Override
+    public ITrainingTeamDTO getTeam() {
+        return team;
+    }
+
+    @Override
+    public void setTeam(ITrainingTeamDTO team) {
+        this.team = team;
+    }
+    
     
 }

@@ -22,7 +22,6 @@ import data.DAOs.SportDAO;
 import data.DAOs.SportsmanDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
-import data.DAOs.TournamentTeamDAO;
 import data.DAOs.TrainingTeamDAO;
 import data.interfaces.DAOs.IAddressDAO;
 import data.interfaces.DAOs.IAdministratorDAO;
@@ -42,7 +41,6 @@ import data.interfaces.DAOs.ISportDAO;
 import data.interfaces.DAOs.ISportsmanDAO;
 import data.interfaces.DAOs.ITeamDAO;
 import data.interfaces.DAOs.ITournamentDAO;
-import data.interfaces.DAOs.ITournamentTeamDAO;
 import data.interfaces.DAOs.ITrainingTeamDAO;
 
 /**
@@ -121,10 +119,6 @@ public class DataFacade {
 
     public static ITournamentDAO getTournamentDAO() {
         return TournamentDAO.getInstance();
-    }
-
-    public static ITournamentTeamDAO getTournamentTeamDAO() {
-        return TournamentTeamDAO.getInstance();
     }
 
     public static ITrainingTeamDAO getTrainingTeamDAO() {

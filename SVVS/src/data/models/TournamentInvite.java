@@ -7,6 +7,7 @@ package data.models;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ITournament;
 import data.interfaces.models.ITournamentInvite;
+import data.interfaces.models.ITrainingTeam;
 
 /**
  *
@@ -17,6 +18,7 @@ public class TournamentInvite implements ITournamentInvite {
     private int tournamentInviteID;
     private ITournament tournament;
     private ISportsman sportsman;
+    private ITrainingTeam team;
     private boolean accepted;
     
     public TournamentInvite() {
@@ -61,5 +63,15 @@ public class TournamentInvite implements ITournamentInvite {
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
-   
+
+    @Override
+    public ITrainingTeam getTeam() {
+        return team;
+    }
+
+    @Override
+    public void setTeam(ITrainingTeam team) {
+        this.team = team;
+    }
+    
 }
