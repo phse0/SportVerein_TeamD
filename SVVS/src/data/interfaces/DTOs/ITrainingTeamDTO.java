@@ -11,29 +11,20 @@ import java.util.List;
  *
  * @author uubu
  */
-public interface ITrainingTeamDTO extends IDTO<ITrainingTeam>{
+public interface ITrainingTeamDTO extends IDTO<ITrainingTeam> {
 
-//    List<ICoachDTO> getCoaches();
+    List<ICoachDTO> getCoaches();
 
     IDepartmentDTO getDepartment();
 
-//    List<ISportsmanTrainingTeamDTO> getSportsmen();
+    List<ISportsmanTrainingTeamDTO> getSportsmen();
 
-//    void setCoaches(List<ICoachDTO> coaches);
+    void setCoaches(List<ICoachDTO> coaches);
 
     void setDepartment(IDepartmentDTO department);
 
-//    void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
+    void setSportsmen(List<ISportsmanTrainingTeamDTO> sportsmen);
 
-    //    @Override
-    //    public List<ICoachDTO> getCoaches() {
-    //        return coaches;
-    //    }
-    //
-    //    @Override
-    //    public void setCoaches(List<ICoachDTO> coaches) {
-    //        this.coaches = coaches;
-    //    }
     ISportDTO getSport();
 
     void setSport(ISportDTO sport);
@@ -41,5 +32,6 @@ public interface ITrainingTeamDTO extends IDTO<ITrainingTeam>{
     ILeagueDTO getLeague();
 
     void setLeague(ILeagueDTO league);
-    
+
+    String getName();
 }

@@ -17,7 +17,7 @@ import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRightDTO;
 import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.DTOs.ITournamentTeamDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -36,7 +36,7 @@ import presentation.personListeners.EditPersonListener;
 import presentation.personListeners.EditRolesListener;
 import presentation.tableModels.PersonTableModel;
 import presentation.tableModels.TournamentTableModel;
-import presentation.tableModels.TournamentTeamTableModel;
+import presentation.tableModels.TrainingTeamTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
 import presentation.tournamentListeners.ShowTournamentListener;
@@ -472,8 +472,8 @@ public class MainForm extends javax.swing.JFrame {
 
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
-        List<ITournamentTeamDTO> tournamentTeamsDTO = teamController.loadTounamentTeams();
-        tournamentTeamTable.setModel(new TournamentTeamTableModel(tournamentTeamsDTO));
+        List<ITrainingTeamDTO> tournamentTeamsDTO = teamController.loadTrainingTeams();
+        tournamentTeamTable.setModel(new TrainingTeamTableModel(tournamentTeamsDTO));
         tournamentTeamTable.setAutoCreateRowSorter(true);
 
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
@@ -482,8 +482,8 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (coachRoles != null) {
-                    TournamentTeamTableModel model = (TournamentTeamTableModel) tournamentTeamTable.getModel();
-                    ITournamentTeamDTO team = model.getTournamentTeamDTO(tournamentTeamTable.getSelectedRow());
+                    TrainingTeamTableModel model = (TrainingTeamTableModel) tournamentTeamTable.getModel();
+                    ITrainingTeamDTO team = model.getTrainingTeamDTO(tournamentTeamTable.getSelectedRow());
 
                     for (ICoachDTO coach : team.getCoaches()) {
                         for (IRoleDTO r : coachRoles) {

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import presentation.forms.AssignPlayerDialog;
-import presentation.tableModels.TournamentTeamTableModel;
+import presentation.tableModels.TrainingTeamTableModel;
 
 /**
  *
@@ -37,15 +37,15 @@ public class EditTeamListener implements ActionListener {
             JOptionPane.showMessageDialog(null, "Bitte wählen Sie erst ein Team aus, dass sie bearbeiten möchten.");
         } else {
             int index = table.convertRowIndexToModel(table.getSelectedRow());
-            TournamentTeamTableModel ttModel = (TournamentTeamTableModel) table.getModel();
+            TrainingTeamTableModel ttModel = (TrainingTeamTableModel) table.getModel();
 
             try {
                 IPlayerToTeam playerAssignController = factory.loadPlayerToTeamController();
-                AssignPlayerDialog dialog = new AssignPlayerDialog(null, true, playerAssignController, ttModel.getTournamentTeamDTO(index));
+                AssignPlayerDialog dialog = new AssignPlayerDialog(null, true, playerAssignController, ttModel.getTrainingTeamDTO(index));
                 dialog.setVisible(true);
 
-                if (dialog.getTournamentTeam() != null) {
-                    ttModel.updateTournamentTeamDTO(index, dialog.getTournamentTeam());
+                if (dialog.getTrainingTeam() != null) {
+                    ttModel.updateTrainingTeamDTO(index, dialog.getTrainingTeam());
                     ttModel.fireTableDataChanged();
                 }
 

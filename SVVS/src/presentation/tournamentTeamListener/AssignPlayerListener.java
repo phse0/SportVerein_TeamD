@@ -35,7 +35,7 @@ public class AssignPlayerListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
 
-            ISportsmanTrainingTeamDTO addedPlayer = assignController.AddPlayerToTeam(dialog.getTournamentTeam().getId(),
+            ISportsmanTrainingTeamDTO addedPlayer = assignController.AddPlayerToTeam(dialog.getTrainingTeam().getId(),
                     dialog.getSportsman().getId(), dialog.getPosition());
 
             SportsManTableModel tableModel = (SportsManTableModel) table.getModel();

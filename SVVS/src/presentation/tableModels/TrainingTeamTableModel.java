@@ -4,7 +4,8 @@
  */
 package presentation.tableModels;
 
-import data.interfaces.DTOs.ITournamentTeamDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,18 +13,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Michael
  */
-public class TournamentTeamTableModel extends DefaultTableModel {
+public class TrainingTeamTableModel extends DefaultTableModel {
 
-    private List<ITournamentTeamDTO> tournamentTeams;
+    private List<ITrainingTeamDTO> trainingTeams;
     private String[] colNames = {"Name", "Sport", "Abteilung", "Liga"};
 
-    public TournamentTeamTableModel(List<ITournamentTeamDTO> tournamentTeams) {
-        this.tournamentTeams = tournamentTeams;
+    public TrainingTeamTableModel(List<ITrainingTeamDTO> tournamentTeams) {
+        this.trainingTeams = tournamentTeams;
     }
 
     @Override
     public int getRowCount() {
-        return (tournamentTeams == null) ? 0 : tournamentTeams.size();
+        return (trainingTeams == null) ? 0 : trainingTeams.size();
     }
 
     @Override
@@ -33,11 +34,11 @@ public class TournamentTeamTableModel extends DefaultTableModel {
 
     @Override
     public Object getValueAt(int row, int column) {
-        ITournamentTeamDTO tournamentTeam = tournamentTeams.get(row);
+        ITrainingTeamDTO tournamentTeam = trainingTeams.get(row);
 
         switch (column) {
             case 0:
-                return tournamentTeam.getTeamName();
+                return tournamentTeam.getName();
             case 1:
                 return tournamentTeam.getSport().getName();
             case 2:
@@ -53,20 +54,20 @@ public class TournamentTeamTableModel extends DefaultTableModel {
         }
     }
 
-    public List<ITournamentTeamDTO> getTournamentTeams() {
-        return tournamentTeams;
+    public List<ITrainingTeamDTO> getTrainingTeams() {
+        return trainingTeams;
     }
 
-    public void setTournamentTeams(List<ITournamentTeamDTO> tournamentTeams) {
-        this.tournamentTeams = tournamentTeams;
+    public void setTrainingTeams(List<ITrainingTeamDTO> tournamentTeams) {
+        this.trainingTeams = tournamentTeams;
     }
 
-    public void addTournamentTeam(ITournamentTeamDTO tournamentTeam) {
-        this.tournamentTeams.add(tournamentTeam);
+    public void addTrainingTeam(ITrainingTeamDTO tournamentTeam) {
+        this.trainingTeams.add(tournamentTeam);
     }
 
-    public void updateTournamentTeamDTO(int index, ITournamentTeamDTO tournamentTeam) {
-        this.tournamentTeams.set(index, tournamentTeam);
+    public void updateTrainingTeamDTO(int index, ITrainingTeamDTO tournamentTeam) {
+        this.trainingTeams.set(index, tournamentTeam);
     }
 
     @Override
@@ -79,7 +80,7 @@ public class TournamentTeamTableModel extends DefaultTableModel {
         return false;
     }
 
-    public ITournamentTeamDTO getTournamentTeamDTO(int index) {
-        return tournamentTeams.get(index);
+    public ITrainingTeamDTO getTrainingTeamDTO(int index) {
+        return trainingTeams.get(index);
     }
 }

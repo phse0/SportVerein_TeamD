@@ -7,7 +7,7 @@ package presentation.forms;
 import business.controller.team.playerToTeam.IPlayerToTeam;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
-import data.interfaces.DTOs.ITournamentTeamDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,16 +22,16 @@ import presentation.tournamentTeamListener.DeletePlayerListener;
  */
 public class AssignPlayerDialog extends javax.swing.JDialog {
     
-    ITournamentTeamDTO tournamentTeam;
+    ITrainingTeamDTO trainingTeam;
     IPlayerToTeam assignController;
 
     /**
      * Creates new form AssignPlayerDialog
      */
-    public AssignPlayerDialog(java.awt.Frame parent, boolean modal, IPlayerToTeam assignController, ITournamentTeamDTO tournamentTeam) throws RemoteException {
+    public AssignPlayerDialog(java.awt.Frame parent, boolean modal, IPlayerToTeam assignController, ITrainingTeamDTO tournamentTeam) throws RemoteException {
         super(parent, modal);
         initComponents();
-        this.tournamentTeam = tournamentTeam;
+        this.trainingTeam = tournamentTeam;
         this.assignController = assignController;
         
         this.setTitle("Spieler zuweisen");
@@ -173,7 +173,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
 
     private void initControls() throws RemoteException {
         
-        List<ISportsmanTrainingTeamDTO> sportsman = tournamentTeam.getSportsmen();
+        List<ISportsmanTrainingTeamDTO> sportsman = trainingTeam.getSportsmen();
         List<ISportsmanDTO> ignoreList = new LinkedList<>();
         
         for(ISportsmanTrainingTeamDTO stt : sportsman) {
@@ -184,7 +184,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         sportsmanTable.setModel(tableModel);
         
         List<ISportsmanDTO> remainingSportsman = assignController.loadSportsman(
-                tournamentTeam.getSport().getName(), ignoreList);
+                trainingTeam.getSport().getName(), ignoreList);
         
         for(ISportsmanDTO s : remainingSportsman) {
             cobSportsman.addItem(s);
@@ -216,8 +216,8 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
         return tbxPosition.getText();
     }
 
-    public ITournamentTeamDTO getTournamentTeam() {
-        return tournamentTeam;
+    public ITrainingTeamDTO getTrainingTeam() {
+        return trainingTeam;
     }
    
     public void removeSportsmanFromComboBox(ISportsmanDTO sportsman) {

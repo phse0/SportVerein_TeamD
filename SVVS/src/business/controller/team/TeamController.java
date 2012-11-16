@@ -8,30 +8,22 @@ import business.controller.RMI.AController;
 import data.DAOs.LeagueDAO;
 import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
-import data.DAOs.TournamentTeamDAO;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.SportsmanTrainingTeamDTO;
 import data.DTOs.TeamDTO;
-import data.DTOs.TournamentTeamDTO;
 import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
-import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.DTOs.ITournamentTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ILeague;
 import data.interfaces.models.ISport;
-import data.interfaces.models.ISportsman;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITeam;
-import data.interfaces.models.ITournamentTeam;
 import data.interfaces.models.ITrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingDeque;
-import org.hibernate.Hibernate;
 
 /**
  *
@@ -90,21 +82,6 @@ public class TeamController extends AController implements ITeamController {
             }
         }
         return null;
-    }
-
-    @Override
-    public LinkedList<ITournamentTeamDTO> loadTounamentTeams() throws RemoteException {
-        return new LinkedList<ITournamentTeamDTO>(TournamentTeamDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
-    }
-
-    @Override
-    public LinkedList<ITournamentTeamDTO> loadTounamentTeams(String sportname) throws RemoteException {
-        ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
-        LinkedList<ITournamentTeamDTO> teams = new LinkedList<ITournamentTeamDTO>();
-        for (ITournamentTeam it : TournamentTeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
-            teams.add(new TournamentTeamDTO(it));
-        }
-        return teams;
     }
 
     @Override
