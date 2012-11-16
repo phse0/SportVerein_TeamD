@@ -15,7 +15,9 @@
         <many-to-one column="roleID" name="sportsman" class="data.models.Sportsman" />
         <many-to-one name="team" column="trainingTeamID" class="data.models.TrainingTeam"/>
         
-        <property name="accepted" column="accepted" type="boolean" />
+        <property name="accepted" type="boolean">
+            <column name = "accepted" sql-type="bit"></column>
+        </property>/>
         
     </class>
 </hibernate-mapping>

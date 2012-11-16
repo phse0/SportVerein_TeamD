@@ -7,10 +7,12 @@ package business.controller.team;
 import business.controller.RMI.IController;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -31,4 +33,6 @@ public interface ITeamController extends Remote, IController {
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException;
 
     public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException;
+
+    List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITrainingTeamDTO team);
 }

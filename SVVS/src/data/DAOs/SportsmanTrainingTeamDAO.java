@@ -6,10 +6,13 @@ package data.DAOs;
 
 import data.DTOs.SportsmanTrainingTeamDTO;
 import data.interfaces.DAOs.ISportsmanTrainingTeamDAO;
+import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ISportsmanTrainingTeam;
+import data.interfaces.models.ITrainingTeam;
 import data.models.SportsmanTrainingTeam;
 import java.util.List;
 import org.hibernate.Query;
@@ -59,4 +62,22 @@ public class SportsmanTrainingTeamDAO extends AbstractDAO<ISportsmanTrainingTeam
         query.setParameter("sportsman", sportsman);
         return query.list();
     }
+    
+
+    public ISportsmanTrainingTeam getBySportsmanAndTeam(Session s, ISportsman sportsman, ITrainingTeam team){
+        
+        Query query = s.createQuery("FROM " + getTable() + " where sportsman = :sportsman AND team = :team");
+        query.setParameter("sportsman", sportsman);
+        query.setParameter("team", team);
+        return (ISportsmanTrainingTeam)query.uniqueResult();
+    }
+    
+    public ISportsmanTrainingTeam getBySportsmanAndTeamDTO(Session s, ISportsmanDTO sportsman, ITrainingTeamDTO team){
+        
+        ISportsman sm = SportsmanDAO.getInstance().getById(s, sportsman.getId());
+        ITrainingTeam tt = TrainingTeamDAO.getInstance().getById(s, team.getId());
+        
+        return getBySportsmanAndTeam(s, sm, tt);
+    }
+    
 }

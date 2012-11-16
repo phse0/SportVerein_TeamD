@@ -7,7 +7,10 @@ package business.controller.team;
 import business.controller.RMI.AController;
 import data.DAOs.LeagueDAO;
 import data.DAOs.SportDAO;
+import data.DAOs.SportsmanTrainingTeamDAO;
 import data.DAOs.TeamDAO;
+import data.DAOs.TournamentDAO;
+import data.DAOs.TournamentInviteDAO;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.SportsmanTrainingTeamDTO;
 import data.DTOs.TeamDTO;
@@ -15,15 +18,19 @@ import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
+import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ILeague;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITeam;
+import data.interfaces.models.ITournament;
+import data.interfaces.models.ITournamentInvite;
 import data.interfaces.models.ITrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -109,10 +116,26 @@ public class TeamController extends AController implements ITeamController {
         }
         
         List<ISportsmanTrainingTeam> stt = iteam.getSportsmen();
-        LinkedList<ISportsmanTrainingTeamDTO> sportsman = new LinkedList<ISportsmanTrainingTeamDTO>();
+        LinkedList<ISportsmanTrainingTeamDTO> sportsman = new LinkedList<>();
         for (ISportsmanTrainingTeam iSpTT : stt) {
             sportsman.add(new SportsmanTrainingTeamDTO(iSpTT));
         }
         return sportsman;
+    }
+    
+    @Override
+    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITrainingTeamDTO team){
+        
+        Session s = HibernateUtil.getCurrentSession();
+        ITournament t = TournamentDAO.getInstance().getById(s, tournament.getId());
+        ITrainingTeam tt = TrainingTeamDAO.getInstance().getById(s, team.getId());
+        List<ISportsmanTrainingTeamDTO> stt = new LinkedList<>();
+        
+        for(ITournamentInvite ti: TournamentInviteDAO.getInstance().getByTournamentAndTeam(s, t, tt)){
+            stt.add(new SportsmanTrainingTeamDTO(SportsmanTrainingTeamDAO.getInstance().getBySportsmanAndTeam(s, ti.getSportsman(), tt)));
+        }
+        
+        return stt;
+        
     }
 }
