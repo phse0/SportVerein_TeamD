@@ -10,6 +10,7 @@ import data.interfaces.DTOs.ITournamentInviteDTO;
 import java.rmi.RemoteException;
 import java.util.List;
 import presentation.tableModels.SportsManTableModel;
+import presentation.tournamentTeamListener.AssignTournamentTeamPlayerListener;
 
 /**
  *
@@ -97,7 +98,7 @@ public class AssignPlayerTournamentTeamDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cobSportsman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,12 +141,12 @@ public class AssignPlayerTournamentTeamDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnOK)
-                    .addComponent(btnDeleteSportsman))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDeleteSportsman)
+                    .addComponent(btnOK))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,6 +167,8 @@ public class AssignPlayerTournamentTeamDialog extends javax.swing.JDialog {
         for(ISportsmanDTO s : notAssignedSportsman) {
             cobSportsman.addItem(s);
         }
+        
+        btnSave.addActionListener(new AssignTournamentTeamPlayerListener(this, sportsmanTable, assignController));
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
