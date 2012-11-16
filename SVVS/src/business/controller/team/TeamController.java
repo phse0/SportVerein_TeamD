@@ -55,7 +55,7 @@ public class TeamController extends AController implements ITeamController {
         return new LinkedList<ITeamDTO>(TeamDAO.getInstance().getAllDTO(HibernateUtil.getCurrentSession()));
     }
 
-    public LinkedList<ITeamDTO> loadTeams(String sportname)  throws RemoteException{
+    public LinkedList<ITeamDTO> loadTeams(String sportname) throws RemoteException {
         ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
         LinkedList<ITeamDTO> teams = new LinkedList<ITeamDTO>();
         for (ITeam it : TeamDAO.getInstance().getBySport(HibernateUtil.getCurrentSession(), sport)) {
@@ -63,15 +63,15 @@ public class TeamController extends AController implements ITeamController {
         }
         return teams;
     }
-    
-    public  LinkedList<ITeamDTO> loadTeamsWithLeague(String leaguename) throws RemoteException{
-         LinkedList<ITeamDTO> teams = new LinkedList<ITeamDTO>();
+
+    public LinkedList<ITeamDTO> loadTeamsWithLeague(String leaguename) throws RemoteException {
+        LinkedList<ITeamDTO> teams = new LinkedList<ITeamDTO>();
         for (ITeam it : TeamDAO.getInstance().getByLeague(HibernateUtil.getCurrentSession(), getLeagueWithName(leaguename))) {
             teams.add(new TeamDTO(it));
         }
         return teams;
     }
-    
+
     public LinkedList<ITeamDTO> loadTeams(String sportname, String leaguename) throws RemoteException {
         ISport sport = SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname);
         LinkedList<ITeamDTO> teams = new LinkedList<ITeamDTO>();
@@ -80,9 +80,9 @@ public class TeamController extends AController implements ITeamController {
         }
         return teams;
     }
-    
-    private ILeague getLeagueWithName(String leaguename) throws RemoteException{
-    List<ILeague> league = LeagueDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
+
+    private ILeague getLeagueWithName(String leaguename) throws RemoteException {
+        List<ILeague> league = LeagueDAO.getInstance().getAll(HibernateUtil.getCurrentSession());
         for (ILeague iL : league) {
             if (iL.getName().equals(leaguename)) {
                 return iL;
@@ -110,11 +110,11 @@ public class TeamController extends AController implements ITeamController {
     @Override
     public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException {
         ITrainingTeam iteam = TrainingTeamDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), TeamName);
-        
-        if(iteam == null) {
+
+        if (iteam == null) {
             return null;
         }
-        
+
         List<ISportsmanTrainingTeam> stt = iteam.getSportsmen();
         LinkedList<ISportsmanTrainingTeamDTO> sportsman = new LinkedList<>();
         for (ISportsmanTrainingTeam iSpTT : stt) {
@@ -122,24 +122,26 @@ public class TeamController extends AController implements ITeamController {
         }
         return sportsman;
     }
-    
+
     @Override
-    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITeamDTO team) throws RemoteException{
-        
+    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITeamDTO team) throws RemoteException {
+
         Session s = HibernateUtil.getCurrentSession();
         ITournament t = TournamentDAO.getInstance().getById(s, tournament.getId());
         ITrainingTeam tt = TrainingTeamDAO.getInstance().getById(s, team.getId());
         List<ISportsmanTrainingTeamDTO> stt = new LinkedList<>();
-        
-        if(tt == null) {
+
+        if (tt == null) {
             return null;
         }
-        
-        for(ITournamentInvite ti: TournamentInviteDAO.getInstance().getByTournamentAndTeam(s, t, tt)){
-            stt.add(new SportsmanTrainingTeamDTO(SportsmanTrainingTeamDAO.getInstance().getBySportsmanAndTeam(s, ti.getSportsman(), tt)));
+
+        for (ITournamentInvite ti : TournamentInviteDAO.getInstance().getByTournamentAndTeam(s, t, tt)) {
+            if (ti.getSportsman() != null) {
+                stt.add(new SportsmanTrainingTeamDTO(SportsmanTrainingTeamDAO.getInstance().getBySportsmanAndTeam(s, ti.getSportsman(), tt)));
+            }
         }
-        
+
         return stt;
-        
+
     }
 }
