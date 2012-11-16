@@ -75,9 +75,8 @@ public class TournamentInviteDAO extends AbstractDAO<ITournamentInvite, ITournam
     @Override
     public List<ITournamentInvite> getTeamsOfTournament(Session s, ITournament tournament) {
 
-        Query query = s.createQuery("FROM " + getTable() + " where tournament = :tournament AND sportsman = :sportsman");
+        Query query = s.createQuery("FROM " + getTable() + " where tournament = :tournament AND sportsman = null");
         query.setParameter("tournament", tournament);
-        query.setParameter("sportsman", null);
         return query.list();
     }
     
@@ -95,8 +94,7 @@ public class TournamentInviteDAO extends AbstractDAO<ITournamentInvite, ITournam
     @Override
     public List<ITournamentInvite> getAllTeams(Session s) {
 
-        Query query = s.createQuery("FROM " + getTable() + " where sportsman = :sportsman");
-        query.setParameter("sportsman", null);
+        Query query = s.createQuery("FROM " + getTable() + " where sportsman = null");
         return query.list();
     }
     

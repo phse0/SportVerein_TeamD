@@ -43,6 +43,7 @@ import presentation.tableModels.TrainingTeamTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
 import presentation.tournamentListeners.ShowTournamentListener;
+import presentation.tournamentTeamListener.EditTournamentTeamListener;
 import presentation.trainingTeamListener.EditTeamListener;
 
 /**
@@ -122,11 +123,11 @@ public class MainForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tournamentTeamTable = new javax.swing.JTable();
+        trainingTeamTable = new javax.swing.JTable();
         btnEditTeam = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tournamentTeamTable = new javax.swing.JTable();
         btnEditTournamentTeam = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -293,7 +294,7 @@ public class MainForm extends javax.swing.JFrame {
 
         tpMain.addTab("Wettkämpfe", jPanel2);
 
-        tournamentTeamTable.setModel(new javax.swing.table.DefaultTableModel(
+        trainingTeamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -304,8 +305,8 @@ public class MainForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tournamentTeamTable.setRowHeight(26);
-        jScrollPane2.setViewportView(tournamentTeamTable);
+        trainingTeamTable.setRowHeight(26);
+        jScrollPane2.setViewportView(trainingTeamTable);
 
         btnEditTeam.setText("Team bearbeiten");
 
@@ -334,7 +335,7 @@ public class MainForm extends javax.swing.JFrame {
 
         tpMain.addTab("Teams", jPanel3);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tournamentTeamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -345,8 +346,8 @@ public class MainForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setRowHeight(26);
-        jScrollPane4.setViewportView(jTable1);
+        tournamentTeamTable.setRowHeight(26);
+        jScrollPane4.setViewportView(tournamentTeamTable);
 
         btnEditTournamentTeam.setText("Wettkampf Team bearbeiten");
 
@@ -522,17 +523,17 @@ public class MainForm extends javax.swing.JFrame {
         // ################### INITIATE TRAININGTTEAMS ############################
 
         List<ITrainingTeamDTO> trainingTeams = teamController.loadTrainingTeams();
-        tournamentTeamTable.setModel(new TrainingTeamTableModel(trainingTeams));
-        tournamentTeamTable.setAutoCreateRowSorter(true);
+        trainingTeamTable.setModel(new TrainingTeamTableModel(trainingTeams));
+        trainingTeamTable.setAutoCreateRowSorter(true);
 
-        btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
+        btnEditTeam.addActionListener(new EditTeamListener(trainingTeamTable, controllerFactory));
 
-        tournamentTeamTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        trainingTeamTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (coachRoles != null) {
-                    TrainingTeamTableModel model = (TrainingTeamTableModel) tournamentTeamTable.getModel();
-                    ITrainingTeamDTO team = model.getTrainingTeamDTO(tournamentTeamTable.getSelectedRow());
+                    TrainingTeamTableModel model = (TrainingTeamTableModel) trainingTeamTable.getModel();
+                    ITrainingTeamDTO team = model.getTrainingTeamDTO(trainingTeamTable.getSelectedRow());
 
                     for (ICoachDTO coach : team.getCoaches()) {
                         for (IRoleDTO r : coachRoles) {
@@ -555,7 +556,7 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTeamTable.setModel(new TournamentInviteTableModel(tournamentTeams));
         tournamentTeamTable.setAutoCreateRowSorter(true);
 
-        
+        btnEditTournamentTeam.addActionListener(new EditTournamentTeamListener(tournamentTeamTable, controllerFactory));
         
     }
 
@@ -699,11 +700,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable personTable;
     private javax.swing.JTable tournamentTable;
     private javax.swing.JTable tournamentTeamTable;
     private javax.swing.JTabbedPane tpMain;
+    private javax.swing.JTable trainingTeamTable;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

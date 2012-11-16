@@ -36,11 +36,12 @@ public class SportsManTableModel extends DefaultTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         ISportsmanDTO sportsman = sportsmen.get(rowIndex);
 
+        
         switch(columnIndex) {
             case 0:
-                return sportsman.getPerson().getLastname();
+                return (sportsman != null) ? sportsman.getPerson().getLastname() : null;
             case 1:
-                return sportsman.getPerson().getFirstname();
+                return (sportsman != null) ? sportsman.getPerson().getFirstname() : null;
             default:
                 return null;
         }
