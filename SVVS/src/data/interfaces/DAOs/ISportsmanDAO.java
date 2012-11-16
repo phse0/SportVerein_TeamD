@@ -21,5 +21,7 @@ public interface ISportsmanDAO extends IDAOs<ISportsman, ISportsmanDTO>{
     List<ISportsman> getByPerson(Session s, IPerson person);
 
     ISportsman getByAll(Session s, IPerson person, IDepartment department, ISport sport);
+
+    ISportsman getById(Session s, int id);
     
 }

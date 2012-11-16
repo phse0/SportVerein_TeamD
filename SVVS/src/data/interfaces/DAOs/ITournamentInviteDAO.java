@@ -25,5 +25,11 @@ public interface ITournamentInviteDAO extends IDAOs<ITournamentInvite, ITourname
     List<ITournamentInvite> getByTournamentAndTeam(Session s, ITournament tournament, ITrainingTeam team);
 
     List<ITournamentInvite> getTeamsOfTournament(Session s, ITournament tournament);
+
+    List<ITournamentInvite> getAllTeams(Session s);
+
+    List<ITournamentInviteDTO> getAllTeamDTOs(Session s);
+
+    List<ITournamentInviteDTO> getTeamsOfTournamentDTOs(Session s, ITournament tournament);
     
 }

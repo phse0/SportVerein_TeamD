@@ -13,6 +13,7 @@ import data.interfaces.models.ITournament;
 import data.interfaces.models.ITournamentInvite;
 import data.interfaces.models.ITrainingTeam;
 import data.models.TournamentInvite;
+import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -79,4 +80,35 @@ public class TournamentInviteDAO extends AbstractDAO<ITournamentInvite, ITournam
         query.setParameter("sportsman", null);
         return query.list();
     }
+    
+     public List<ITournamentInviteDTO> getTeamsOfTournamentDTOs(Session s,  ITournament tournament){
+        
+        List<ITournamentInviteDTO> tid = new LinkedList<>();
+        for(ITournamentInvite ti: getTeamsOfTournament(s,tournament)){
+            tid.add(new TournamentInviteDTO(ti));            
+        }
+        
+        return tid;
+    }
+    
+    
+    @Override
+    public List<ITournamentInvite> getAllTeams(Session s) {
+
+        Query query = s.createQuery("FROM " + getTable() + " where sportsman = :sportsman");
+        query.setParameter("sportsman", null);
+        return query.list();
+    }
+    
+    public List<ITournamentInviteDTO> getAllTeamDTOs(Session s){
+        
+        List<ITournamentInviteDTO> tid = new LinkedList<>();
+        for(ITournamentInvite ti: getAllTeams(s)){
+            tid.add(new TournamentInviteDTO(ti));            
+        }
+        
+        return tid;
+    }
+    
+
 }

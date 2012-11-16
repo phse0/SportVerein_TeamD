@@ -8,10 +8,11 @@ import business.controller.RMI.IController;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ITrainingTeam;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -19,12 +20,12 @@ import java.util.LinkedList;
  */
 public interface ITournamentTeamController extends Remote, IController{
     
-    public LinkedList<ITournamentInviteDTO> loadTournamentTeams() throws RemoteException;
+    public List<ITournamentInviteDTO> loadTournamentTeams() throws RemoteException;
     
-    public LinkedList<ISportsmanDTO> loadPlayersOfTeam(ITournamentDTO tournament, ITrainingTeam team) throws RemoteException;
+    public List<ISportsmanDTO> loadPlayersOfTeam(ITournamentDTO tournament, ITrainingTeamDTO team) throws RemoteException;
 
-    public LinkedList<ISportsmanDTO> loadNotAssignedPlayersOfTeam(ITournamentDTO tournament, ITrainingTeam team)throws RemoteException;
+    public List<ISportsmanDTO> loadNotAssignedPlayersOfTeam(ITournamentDTO tournament, ITrainingTeamDTO team)throws RemoteException;
     
-    public void assignPlayers(ITournamentDTO tournament, ITrainingTeam team, ISportsmanDTO sportsman) throws RemoteException;
+    public void assignPlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException;
     
 }

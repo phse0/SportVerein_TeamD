@@ -9,6 +9,8 @@ import data.interfaces.DAOs.ITournamentDAO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ITournament;
 import data.models.Tournament;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,5 +39,13 @@ public class TournamentDAO extends AbstractDAO<ITournament, ITournamentDTO> impl
     @Override
     public ITournamentDTO extractDTO(ITournament model) {
         return new TournamentDTO(model);
+    }
+
+    @Override
+    public ITournament getById(Session s, int id) {
+
+        Query query = s.createQuery("FROM " + getTable() + " Where tournamentID =:id");
+        query.setInteger("id", id);
+        return (ITournament) query.uniqueResult();
     }
 }
