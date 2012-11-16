@@ -24,6 +24,8 @@ import business.controller.team.ITeamController;
 import business.controller.team.TeamController;
 import business.controller.team.playerToTeam.IPlayerToTeam;
 import business.controller.team.playerToTeam.PlayerToTeam;
+import business.controller.touramentTeam.ITournamentTeamController;
+import business.controller.touramentTeam.TournamentTeamController;
 import business.controller.tournament.Create.ITournamentCreation;
 import business.controller.tournament.Create.TournamentCreation;
 import business.controller.tournament.ITournamentController;
@@ -106,5 +108,9 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     @Override
     public IAuthentificationController loadAuthentificationController() throws RemoteException {
         return new AuthentificationController();
+    }
+    
+    public ITournamentTeamController loadTournamentTeamController() throws RemoteException {
+        return TournamentTeamController.getInstance();
     }
 }
