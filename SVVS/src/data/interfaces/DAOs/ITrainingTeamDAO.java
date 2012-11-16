@@ -15,5 +15,7 @@ import org.hibernate.Session;
 public interface ITrainingTeamDAO extends IDAOs<ITrainingTeam, ITrainingTeamDTO>{
 
     ITrainingTeam getByName(Session s, String name);
+
+    ITrainingTeam getById(Session s, int id);
     
 }

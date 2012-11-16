@@ -16,30 +16,30 @@ import org.hibernate.Session;
  *
  * @author uubu
  */
-public class TrainingTeamDAO extends AbstractDAO<ITrainingTeam, ITrainingTeamDTO> implements ITrainingTeamDAO{
+public class TrainingTeamDAO extends AbstractDAO<ITrainingTeam, ITrainingTeamDTO> implements ITrainingTeamDAO {
 
     private static ITrainingTeamDAO instance;
-    
-    private TrainingTeamDAO(){
+
+    private TrainingTeamDAO() {
         super("data.models.TrainingTeam");
     }
-    
-    public static ITrainingTeamDAO getInstance(){
-        if(instance == null){
+
+    public static ITrainingTeamDAO getInstance() {
+        if (instance == null) {
             instance = new TrainingTeamDAO();
         }
         return instance;
     }
-    
+
     @Override
     public ITrainingTeam create() {
         return new TrainingTeam();
     }
-    
+
     @Override
     public ITrainingTeam getByName(Session s, String name) {
-        
-        Query query = s.createQuery("FROM " + getTable() + " WHERE name LIKE '%"+name+"%'");
+
+        Query query = s.createQuery("FROM " + getTable() + " WHERE name LIKE '%" + name + "%'");
         return (ITrainingTeam) query.uniqueResult();
     }
 
@@ -47,5 +47,12 @@ public class TrainingTeamDAO extends AbstractDAO<ITrainingTeam, ITrainingTeamDTO
     public ITrainingTeamDTO extractDTO(ITrainingTeam model) {
         return new TrainingTeamDTO(model);
     }
-    
+
+    @Override
+    public ITrainingTeam getById(Session s, int id) {
+
+        Query query = s.createQuery("FROM " + getTable() + " Where teamID =:id");
+        query.setInteger("id", id);
+        return (ITrainingTeam) query.uniqueResult();
+    }
 }

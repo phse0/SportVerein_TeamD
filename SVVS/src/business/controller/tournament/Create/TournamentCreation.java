@@ -12,6 +12,8 @@ import data.DAOs.LeagueDAO;
 import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
+import data.DAOs.TournamentInviteDAO;
+import data.DAOs.TrainingTeamDAO;
 import data.DTOs.TeamDTO;
 import data.DTOs.TournamentDTO;
 import data.hibernate.HibernateUtil;
@@ -23,6 +25,8 @@ import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.models.ILeague;
 import data.interfaces.models.ISport;
 import data.interfaces.models.ITeam;
+import data.interfaces.models.ITournamentInvite;
+import data.interfaces.models.ITrainingTeam;
 import data.models.Sport;
 import data.models.Tournament;
 import java.math.BigDecimal;
@@ -130,12 +134,28 @@ public class TournamentCreation extends AController implements ITournamentCreati
                 }
             }
         }
-
         tournament.setTeams(teams);
 
         ITournamentDTO tournamentDTO = new TournamentDTO(tournament);
         TournamentDAO.getInstance().add(s, tournament);
 
+        for(ITeam team:tournament.getTeams()){
+            ITrainingTeam tteam = null;
+            try{
+                tteam = TrainingTeamDAO.getInstance().getById(s, team.getTeamID());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+            if(tteam != null){
+                ITournamentInvite ti = TournamentInviteDAO.getInstance().create();
+                ti.setTournament(tournament);
+                ti.setTeam(tteam);
+                TournamentInviteDAO.getInstance().add(s, ti);
+            }
+            
+        }
+        
         tx.commit();
 
         return tournamentDTO;
