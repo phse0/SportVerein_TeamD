@@ -11,16 +11,15 @@ import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import presentation.personListeners.DeletePersonListener;
-import presentation.tableModels.SportsManTableModel;
-import presentation.tournamentTeamListener.AssignPlayerListener;
-import presentation.tournamentTeamListener.DeletePlayerListener;
+import presentation.tableModels.SportsManTrainingTeamTableModel;
+import presentation.trainingTeamListener.AssignPlayerListener;
+import presentation.trainingTeamListener.DeletePlayerListener;
 
 /**
  *
  * @author Michael
  */
-public class AssignPlayerDialog extends javax.swing.JDialog {
+public class AssignPlayerTrainingTeamDialog extends javax.swing.JDialog {
     
     ITrainingTeamDTO trainingTeam;
     IPlayerToTeam assignController;
@@ -28,7 +27,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
     /**
      * Creates new form AssignPlayerDialog
      */
-    public AssignPlayerDialog(java.awt.Frame parent, boolean modal, IPlayerToTeam assignController, ITrainingTeamDTO tournamentTeam) throws RemoteException {
+    public AssignPlayerTrainingTeamDialog(java.awt.Frame parent, boolean modal, IPlayerToTeam assignController, ITrainingTeamDTO tournamentTeam) throws RemoteException {
         super(parent, modal);
         initComponents();
         this.trainingTeam = tournamentTeam;
@@ -180,7 +179,7 @@ public class AssignPlayerDialog extends javax.swing.JDialog {
             ignoreList.add(stt.getSportsman());
         }
         
-        SportsManTableModel tableModel = new SportsManTableModel(sportsman);
+        SportsManTrainingTeamTableModel tableModel = new SportsManTrainingTeamTableModel(sportsman);
         sportsmanTable.setModel(tableModel);
         
         List<ISportsmanDTO> remainingSportsman = assignController.loadSportsman(

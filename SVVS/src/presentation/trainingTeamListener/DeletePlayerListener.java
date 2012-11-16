@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentation.tournamentTeamListener;
+package presentation.trainingTeamListener;
 
 import business.controller.team.playerToTeam.IPlayerToTeam;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
@@ -13,8 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import presentation.forms.AssignPlayerDialog;
-import presentation.tableModels.SportsManTableModel;
+import presentation.forms.AssignPlayerTrainingTeamDialog;
+import presentation.tableModels.SportsManTrainingTeamTableModel;
 
 /**
  *
@@ -24,9 +24,9 @@ public class DeletePlayerListener implements ActionListener {
 
     JTable table;
     IPlayerToTeam assignController;
-    AssignPlayerDialog dialog;
+    AssignPlayerTrainingTeamDialog dialog;
 
-    public DeletePlayerListener(JTable table, IPlayerToTeam assignController, AssignPlayerDialog dialog) {
+    public DeletePlayerListener(JTable table, IPlayerToTeam assignController, AssignPlayerTrainingTeamDialog dialog) {
         this.table = table;
         this.assignController = assignController;
         this.dialog = dialog;
@@ -38,7 +38,7 @@ public class DeletePlayerListener implements ActionListener {
             JOptionPane.showMessageDialog(null, "Bitte wählen Sie erst einen Spieler aus, den Sie löschen möchten.");
         } else {
             int index = table.convertRowIndexToModel(table.getSelectedRow());
-            SportsManTableModel sportsmanModel = (SportsManTableModel) table.getModel();
+            SportsManTrainingTeamTableModel sportsmanModel = (SportsManTrainingTeamTableModel) table.getModel();
             ISportsmanTrainingTeamDTO deletingSportsman = sportsmanModel.getSportsmanDTO(index);
 
             try {

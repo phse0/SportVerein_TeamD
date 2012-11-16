@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentation.tournamentTeamListener;
+package presentation.trainingTeamListener;
 
 import business.controller.team.playerToTeam.IPlayerToTeam;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
@@ -12,8 +12,8 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
-import presentation.forms.AssignPlayerDialog;
-import presentation.tableModels.SportsManTableModel;
+import presentation.forms.AssignPlayerTrainingTeamDialog;
+import presentation.tableModels.SportsManTrainingTeamTableModel;
 
 /**
  *
@@ -23,9 +23,9 @@ public class AssignPlayerListener implements ActionListener {
 
     JTable table;
     IPlayerToTeam assignController;
-    AssignPlayerDialog dialog;
+    AssignPlayerTrainingTeamDialog dialog;
 
-    public AssignPlayerListener(AssignPlayerDialog dialog, JTable table, IPlayerToTeam assignController) {
+    public AssignPlayerListener(AssignPlayerTrainingTeamDialog dialog, JTable table, IPlayerToTeam assignController) {
         this.table = table;
         this.assignController = assignController;
         this.dialog = dialog;
@@ -38,7 +38,7 @@ public class AssignPlayerListener implements ActionListener {
             ISportsmanTrainingTeamDTO addedPlayer = assignController.AddPlayerToTeam(dialog.getTrainingTeam().getId(),
                     dialog.getSportsman().getId(), dialog.getPosition());
 
-            SportsManTableModel tableModel = (SportsManTableModel) table.getModel();
+            SportsManTrainingTeamTableModel tableModel = (SportsManTrainingTeamTableModel) table.getModel();
             dialog.removeSportsmanFromComboBox(addedPlayer.getSportsman());
             dialog.resetPosition();
             
