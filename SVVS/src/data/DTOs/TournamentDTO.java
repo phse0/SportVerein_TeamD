@@ -28,14 +28,12 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     private double fee;
     private List<ITeamDTO> teams;
     private List<IMatchDTO> matches;
-    private List<ITournamentInviteDTO> invites;
     private ISportDTO sport;
 
     public TournamentDTO(ITournament model) {
         if(model == null) return;
         teams = new LinkedList<>();
         matches = new LinkedList<>();
-        invites = new LinkedList<>();
         extract(model);
     }
 
@@ -57,13 +55,6 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
         if (model.getMatches() != null) {
             for (IMatch match : model.getMatches()) {
                 matches.add(new MatchDTO(match));
-            }
-        }
-
-
-        if (model.getInvites() != null) {
-            for (ITournamentInvite ti : model.getInvites()) {
-                invites.add(new TournamentInviteDTO(ti));
             }
         }
 
@@ -127,16 +118,6 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     @Override
     public void setMatches(List<IMatchDTO> matches) {
         this.matches = matches;
-    }
-
-    @Override
-    public List<ITournamentInviteDTO> getInvites() {
-        return invites;
-    }
-
-    @Override
-    public void setInvites(List<ITournamentInviteDTO> invites) {
-        this.invites = invites;
     }
 
     @Override

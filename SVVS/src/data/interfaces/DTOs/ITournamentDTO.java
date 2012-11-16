@@ -29,13 +29,9 @@ public interface ITournamentDTO extends IDTO<ITournament> {
 
     void setName(String name);
 
-    List<ITournamentInviteDTO> getInvites();
-
     List<IMatchDTO> getMatches();
 
     List<ITeamDTO> getTeams();
-
-    void setInvites(List<ITournamentInviteDTO> invites);
 
     void setMatches(List<IMatchDTO> matches);
 
