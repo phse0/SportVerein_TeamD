@@ -91,7 +91,7 @@ public class TournamentTeamController extends AController implements ITournament
     public void assignPlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException {
 
         Session s = HibernateUtil.getCurrentSession();
-        Transaction tx = s.getTransaction();
+        Transaction tx = s.beginTransaction();
 
         ITournament tournamentM = TournamentDAO.getInstance().getById(s, tournament.getId());
         ITrainingTeam teamM = TrainingTeamDAO.getInstance().getById(s, team.getId());

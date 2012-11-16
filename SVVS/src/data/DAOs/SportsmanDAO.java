@@ -78,7 +78,7 @@ public class SportsmanDAO extends AbstractDAO<ISportsman, ISportsmanDTO> impleme
     @Override
     public ISportsman getById(Session s, int id) {
 
-        Query query = s.createQuery("FROM " + getTable() + " Where sportsmanID =:id");
+        Query query = s.createQuery("FROM " + getTable() + " where roleID =:id");
         query.setInteger("id", id);
         return (ISportsman) query.uniqueResult();
     }
