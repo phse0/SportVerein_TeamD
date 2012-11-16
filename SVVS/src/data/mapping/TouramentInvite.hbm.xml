@@ -13,9 +13,7 @@
         
         <many-to-one column="tournamentID" name="tournament" class="data.models.Tournament" />
         <many-to-one column="roleID" name="sportsman" class="data.models.Sportsman" />
-        
-        <many-to-one name="team" colum="trainingTeamID" class="data.models.TrainingTeam"/>
-        
+        <many-to-one name="team" column="trainingTeamID" class="data.models.TrainingTeam"/>
         
         <property name="accepted" column="accepted" type="boolean" />
         
