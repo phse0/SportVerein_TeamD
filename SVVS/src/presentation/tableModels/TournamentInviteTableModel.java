@@ -47,19 +47,19 @@ public class TournamentInviteTableModel extends DefaultTableModel {
         }
     }
 
-    public List<ITournamentInviteDTO> getTrainingTeams() {
+    public List<ITournamentInviteDTO> getTournamentTeams() {
         return tournamentTeams;
     }
 
-    public void setTrainingTeams(List<ITournamentInviteDTO> tournamentTeams) {
+    public void setTournamentTeams(List<ITournamentInviteDTO> tournamentTeams) {
         this.tournamentTeams = tournamentTeams;
     }
 
-    public void addTrainingTeam(ITournamentInviteDTO tournamentTeam) {
+    public void addTournamentTeam(ITournamentInviteDTO tournamentTeam) {
         this.tournamentTeams.add(tournamentTeam);
     }
 
-    public void updateTrainingTeamDTO(int index, ITournamentInviteDTO tournamentTeam) {
+    public void updateTournamentTeamDTO(int index, ITournamentInviteDTO tournamentTeam) {
         this.tournamentTeams.set(index, tournamentTeam);
     }
 
@@ -73,7 +73,7 @@ public class TournamentInviteTableModel extends DefaultTableModel {
         return false;
     }
 
-    public ITournamentInviteDTO getTrainingTeamDTO(int index) {
+    public ITournamentInviteDTO getTournamentTeamDTO(int index) {
         return tournamentTeams.get(index);
     }
 }

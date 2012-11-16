@@ -10,6 +10,7 @@ import business.controller.person.IPersonController;
 import business.controller.role.EditPersonRole.IEditPersonRole;
 import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
+import business.controller.touramentTeam.ITournamentTeamController;
 import business.controller.tournament.ITournamentController;
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
@@ -17,6 +18,7 @@ import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.IRightDTO;
 import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.ITournamentDTO;
+import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -35,12 +37,13 @@ import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.EditPersonListener;
 import presentation.personListeners.EditRolesListener;
 import presentation.tableModels.PersonTableModel;
+import presentation.tableModels.TournamentInviteTableModel;
 import presentation.tableModels.TournamentTableModel;
 import presentation.tableModels.TrainingTeamTableModel;
 import presentation.tournamentListeners.CreateNewTournamentListener;
 import presentation.tournamentListeners.EditTournamentListener;
 import presentation.tournamentListeners.ShowTournamentListener;
-import presentation.tournamentTeamListener.EditTeamListener;
+import presentation.trainingTeamListener.EditTeamListener;
 
 /**
  *
@@ -57,6 +60,7 @@ public class MainForm extends javax.swing.JFrame {
     IRoleController roleController;
     IPersonDTO loggedUser;
     IEditPersonRole editPersonRoleController;
+    ITournamentTeamController tournamentTeamController;
     List<IRoleDTO> managerRoles;
     List<IRoleDTO> coachRoles;
 
@@ -515,10 +519,10 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        // ################### INITIATE TOURNAMENTTEAMS ############################
+        // ################### INITIATE TRAININGTTEAMS ############################
 
-        List<ITrainingTeamDTO> tournamentTeamsDTO = teamController.loadTrainingTeams();
-        tournamentTeamTable.setModel(new TrainingTeamTableModel(tournamentTeamsDTO));
+        List<ITrainingTeamDTO> trainingTeams = teamController.loadTrainingTeams();
+        tournamentTeamTable.setModel(new TrainingTeamTableModel(trainingTeams));
         tournamentTeamTable.setAutoCreateRowSorter(true);
 
         btnEditTeam.addActionListener(new EditTeamListener(tournamentTeamTable, controllerFactory));
@@ -544,7 +548,15 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         });
+        
+        // ################### INITIATE TOURNAMENTTEAMS ############################
 
+        List<ITournamentInviteDTO> tournamentTeams = tournamentTeamController.loadTournamentTeams();
+        tournamentTeamTable.setModel(new TournamentInviteTableModel(tournamentTeams));
+        tournamentTeamTable.setAutoCreateRowSorter(true);
+
+        
+        
     }
 
     private void loadControllers() throws RemoteException, NotBoundException, MalformedURLException {
@@ -555,6 +567,8 @@ public class MainForm extends javax.swing.JFrame {
         tournamentController = (ITournamentController) controllerFactory.loadTournamentController();
         roleController = (IRoleController) controllerFactory.loadRoleController();
         editPersonRoleController = (IEditPersonRole) controllerFactory.loadEditPersonRole();
+        tournamentTeamController = (ITournamentTeamController) controllerFactory.loadTournamentTeamController();
+        
     }
 
     private void checkRights() throws RemoteException {

@@ -4,7 +4,8 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://81.89.102.206:3306/c1teamd?zeroDateTimeBehavior=convertToNull</property><!-- &autoReconnect=true-->
+    <property name="hibernate.connection.url">jdbc:mysql://81.89.102.206:3306/c1teamd?zeroDateTimeBehavior=convertToNull</property>
+    <!-- &autoReconnect=true-->
     <property name="hibernate.connection.username">c1teamd</property>
     <property name="hibernate.connection.password">pwdteamd</property>
     <property name="hibernate.show_sql">false</property>

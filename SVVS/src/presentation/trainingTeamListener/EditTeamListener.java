@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentation.tournamentTeamListener;
+package presentation.trainingTeamListener;
 
 import business.controller.RMI.IControllerFactory;
 import business.controller.team.playerToTeam.IPlayerToTeam;
@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import presentation.forms.AssignPlayerDialog;
+import presentation.forms.AssignPlayerTrainingTeamDialog;
 import presentation.tableModels.TrainingTeamTableModel;
 
 /**
@@ -41,7 +41,7 @@ public class EditTeamListener implements ActionListener {
 
             try {
                 IPlayerToTeam playerAssignController = factory.loadPlayerToTeamController();
-                AssignPlayerDialog dialog = new AssignPlayerDialog(null, true, playerAssignController, ttModel.getTrainingTeamDTO(index));
+                AssignPlayerTrainingTeamDialog dialog = new AssignPlayerTrainingTeamDialog(null, true, playerAssignController, ttModel.getTrainingTeamDTO(index));
                 dialog.setVisible(true);
 
                 if (dialog.getTrainingTeam() != null) {

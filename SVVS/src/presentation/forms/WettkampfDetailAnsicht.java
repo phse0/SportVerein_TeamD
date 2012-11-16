@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 import presentation.tableModels.MatchTableModel;
-import presentation.tableModels.SportsManTableModel;
+import presentation.tableModels.SportsManTrainingTeamTableModel;
 
 /**
  *
@@ -44,7 +44,7 @@ public class WettkampfDetailAnsicht extends javax.swing.JFrame {
         matchTable.setEnabled(false);
         lbxTeams.setModel(listModel);
 
-        SportsManTableModel model = new SportsManTableModel(new LinkedList<ISportsmanTrainingTeamDTO>());
+        SportsManTrainingTeamTableModel model = new SportsManTrainingTeamTableModel(new LinkedList<ISportsmanTrainingTeamDTO>());
         sportsmanTable.setModel(model);
         sportsmanTable.setEnabled(false);
     }
@@ -225,7 +225,7 @@ public class WettkampfDetailAnsicht extends javax.swing.JFrame {
         ITeamDTO d = tournament.getTeams().get(lbxTeams.getSelectedIndex());
         try {
             LinkedList<ISportsmanTrainingTeamDTO> trainingteam = teamcontroller.loadPlayersOfTeam(d.getName());
-            SportsManTableModel model = new SportsManTableModel(trainingteam);
+            SportsManTrainingTeamTableModel model = new SportsManTrainingTeamTableModel(trainingteam);
             sportsmanTable.setModel(model);
             sportsmanTable.setEnabled(false);
         } catch (RemoteException ex) {
