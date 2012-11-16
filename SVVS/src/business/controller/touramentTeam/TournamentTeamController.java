@@ -62,7 +62,9 @@ public class TournamentTeamController extends AController implements ITournament
         List<ISportsmanDTO> smdto = new LinkedList<>();
 
         for (ITournamentInvite ti : TournamentInviteDAO.getInstance().getByTournamentAndTeam(s, t, tt)) {
+            if(ti.getSportsman() != null){
             smdto.add(new SportsmanDTO(ti.getSportsman()));
+            }
         }
 
         return smdto;
