@@ -124,7 +124,7 @@ public class TeamController extends AController implements ITeamController {
     }
     
     @Override
-    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITeamDTO team){
+    public List<ISportsmanTrainingTeamDTO> loadAssignedPlayersOfTeam(ITournamentDTO tournament, ITeamDTO team) throws RemoteException{
         
         Session s = HibernateUtil.getCurrentSession();
         ITournament t = TournamentDAO.getInstance().getById(s, tournament.getId());

@@ -108,4 +108,22 @@ public class TournamentTeamController extends AController implements ITournament
         tx.commit();
 
     }
+    
+    @Override
+     public void removePlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException {
+
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+
+        ITournament tournamentM = TournamentDAO.getInstance().getById(s, tournament.getId());
+        ITrainingTeam teamM = TrainingTeamDAO.getInstance().getById(s, team.getId());
+        ISportsman sportsmanM = SportsmanDAO.getInstance().getById(s, sportsman.getId());
+
+
+        ITournamentInvite ti = TournamentInviteDAO.getInstance().getByAll(s, tournamentM, teamM, sportsmanM);
+
+        TournamentInviteDAO.getInstance().remove(s, ti);
+        tx.commit();
+
+    }
 }

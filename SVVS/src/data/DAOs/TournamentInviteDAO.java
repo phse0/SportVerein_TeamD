@@ -80,6 +80,7 @@ public class TournamentInviteDAO extends AbstractDAO<ITournamentInvite, ITournam
         return query.list();
     }
     
+    @Override
      public List<ITournamentInviteDTO> getTeamsOfTournamentDTOs(Session s,  ITournament tournament){
         
         List<ITournamentInviteDTO> tid = new LinkedList<>();
@@ -98,6 +99,7 @@ public class TournamentInviteDAO extends AbstractDAO<ITournamentInvite, ITournam
         return query.list();
     }
     
+    @Override
     public List<ITournamentInviteDTO> getAllTeamDTOs(Session s){
         
         List<ITournamentInviteDTO> tid = new LinkedList<>();
@@ -108,5 +110,14 @@ public class TournamentInviteDAO extends AbstractDAO<ITournamentInvite, ITournam
         return tid;
     }
     
+    @Override
+    public ITournamentInvite getByAll(Session s, ITournament tournament, ITrainingTeam team, ISportsman sportsman) {
+
+        Query query = s.createQuery("FROM " + getTable() + " where tournament = :tournament AND team = :team AND sportsman = :sportsman");
+        query.setParameter("tournament", tournament);
+        query.setParameter("team", team);
+        query.setParameter("sportsman", sportsman);
+        return (ITournamentInvite)query.uniqueResult();
+    }
 
 }
