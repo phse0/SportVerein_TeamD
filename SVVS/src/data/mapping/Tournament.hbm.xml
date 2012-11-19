@@ -12,6 +12,7 @@
         <property name="name" column="name" not-null="true" type="string" />
         <property name="location" column="location" type="string" />
         <property name="date" column="date" type="date" />
+        <property name="finished" column="finished" type="boolean" />
         <property name="fee" not-null="true" type="big_decimal">
             <column name="fee" sql-type="decimal(10,2)" />
         </property>

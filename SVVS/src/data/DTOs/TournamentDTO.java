@@ -29,6 +29,7 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     private List<ITeamDTO> teams;
     private List<IMatchDTO> matches;
     private ISportDTO sport;
+    private boolean finished;
 
     public TournamentDTO(ITournament model) {
         if(model == null) return;
@@ -45,6 +46,7 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
         this.fee = (model.getFee() != null) ? model.getFee().doubleValue() : 0;
         this.location = model.getLocation();
         this.sport = new SportDTO(model.getSport());
+        this.finished = model.isFinished();
 
         if (model.getTeams() != null) {
             for (ITeam team : model.getTeams()) {

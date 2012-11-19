@@ -28,6 +28,7 @@ public class Tournament implements ITournament {
     private List<IMatch> matches;
     private List<ITournamentInvite> invites;
     private ISport sport;
+    private boolean finished;
 
     public Tournament() {
     }
@@ -155,6 +156,22 @@ public class Tournament implements ITournament {
     public void setSport(ISport sport) {
         this.sport = sport;
     }
+
+    @Override
+    public boolean isFinished() {
+        return finished;
+    }
+    
+    @Override
+    public boolean getFinished() {
+        return finished;
+    }
+
+    @Override
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
    
+    
         
 }

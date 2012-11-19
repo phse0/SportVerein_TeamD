@@ -62,5 +62,11 @@ public interface ITournament extends IModel {
     ISport getSport();
 
     void setSport(ISport sport);
+
+    boolean isFinished();
+
+    void setFinished(boolean finished);
+
+    boolean getFinished();
     
 }
