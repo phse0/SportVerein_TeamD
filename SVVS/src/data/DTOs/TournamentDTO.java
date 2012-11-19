@@ -8,11 +8,9 @@ import data.interfaces.DTOs.IMatchDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.models.IMatch;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
-import data.interfaces.models.ITournamentInvite;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -131,5 +129,17 @@ public class TournamentDTO extends AbstractDTO<ITournament> implements ITourname
     public void setSport(ISportDTO sport) {
         this.sport = sport;
     }
+
+    @Override
+    public boolean isFinished() {
+        return finished;
+    }
+
+    @Override
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+    
+    
     
 }

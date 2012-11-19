@@ -41,5 +41,9 @@ public interface ITournamentDTO extends IDTO<ITournament> {
 
     void setSport(ISportDTO sport);
 
+    boolean isFinished();
+
+    void setFinished(boolean finished);
+
     
 }
