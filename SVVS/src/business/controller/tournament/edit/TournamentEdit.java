@@ -121,6 +121,7 @@ public class TournamentEdit extends AController implements ITournamentEdit {
         tournament.setName(name);
         tournament.setLocation(location);
         tournament.setFee(fee);
+        tournament.setFinished(finished);
 
         //List<ITeam> teams = tournament.getTeams();
         //für jedes  team in der stringliste werden alle teams durchgegangen ob der name darin vorhanden ist

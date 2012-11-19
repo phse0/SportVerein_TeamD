@@ -286,6 +286,8 @@ public class EditTournamentDialog extends javax.swing.JDialog {
             btnAddMatch.addActionListener(new CreateNewMatchListener(matchTable, editController, tournament));
             btnEditMatch.addActionListener(new EditMatchListener(matchTable, editController, tournament));
             
+            chbFinished.setSelected(tournament.isFinished());
+            
         }
         
     }

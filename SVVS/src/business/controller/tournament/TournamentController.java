@@ -9,26 +9,18 @@ import business.controller.departments.DepartmentController;
 import data.DAOs.SportDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
-import data.DAOs.TournamentInviteDAO;
-import data.DAOs.TrainingTeamDAO;
-import data.DTOs.SportDTO;
 import data.DTOs.TeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
-import data.interfaces.DTOs.ITrainingTeamDTO;
 import data.interfaces.models.ISport;
-import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITeam;
 import data.interfaces.models.ITournament;
-import data.interfaces.models.ITournamentInvite;
-import data.interfaces.models.ITrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import org.hibernate.Session;
 
 /**
  *
