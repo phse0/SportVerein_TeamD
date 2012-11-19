@@ -39,7 +39,8 @@ public class EditTournamentDialogListener implements ActionListener {
         if(error.equals("")) {
             try {
                 ITournamentDTO tDTO = editController.EditTournament(tournament.getId(), dialog.getTournamentName(), 
-                        dialog.getPlace(), Date.valueOf(dialog.getDate()), new BigDecimal(dialog.getFee()), null);
+                        dialog.getPlace(), Date.valueOf(dialog.getDate()), new BigDecimal(dialog.getFee()), 
+                        dialog.isFinished(), null);
                 
                 JOptionPane.showMessageDialog(null, "Tournament wurde erfolgreich erstellt.");
                 

@@ -59,6 +59,7 @@ public class EditTournamentDialog extends javax.swing.JDialog {
         tbxLocation = new javax.swing.JTextField();
         tbxFee = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        chbFinished = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lbxTeams = new javax.swing.JList();
@@ -88,6 +89,8 @@ public class EditTournamentDialog extends javax.swing.JDialog {
 
         jLabel6.setText("(yyyy-mm-dd)");
 
+        chbFinished.setText("Wettkampf fertig");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,6 +113,7 @@ public class EditTournamentDialog extends javax.swing.JDialog {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chbFinished)
                             .addComponent(tbxLocation)
                             .addComponent(tbxFee)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -142,7 +146,9 @@ public class EditTournamentDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tbxFee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbFinished)
+                .addGap(58, 58, 58))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manschaften", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -292,6 +298,7 @@ public class EditTournamentDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnEditMatch;
     private javax.swing.JButton btnSave;
+    private javax.swing.JCheckBox chbFinished;
     private javax.swing.JComboBox cobSport;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -334,6 +341,10 @@ public class EditTournamentDialog extends javax.swing.JDialog {
     
     public void setTournament(ITournamentDTO tournament) {
         this.tournament = tournament;
+    }
+    
+    public boolean isFinished() {
+        return chbFinished.isSelected();
     }
 
     
