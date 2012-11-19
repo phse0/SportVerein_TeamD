@@ -13,9 +13,9 @@ import org.omg.CosNaming.NamingContextExtHelper;
  * @author Kno
  */
 public class CORBAClient {
-    public static void main(String[] args)
-    {
-          String[] aaa = new String[]{"-ORBInitialHost", "localhost", "-ORBInitialPort", "2050"};
+
+    public static void main(String[] args) {
+        String[] aaa = new String[]{"-ORBInitialHost", "localhost", "-ORBInitialPort", "2050"};
         try {
             ORB orb = ORB.init(aaa, null);
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
@@ -23,8 +23,12 @@ public class CORBAClient {
             _ergebnissbereitstellungStub ergebnissStub = (_ergebnissbereitstellungStub) ergebnissbereitstellungHelper.narrow(ncRef.resolve_str("Ergebnisse"));
 
 
-            System.out.println(ergebnissStub.getErgebnisse("Eislauf", "huhn", "ka"));
-
+            String temp = (ergebnissStub.getErgebnisse("Fußball", "Landesliga", "2012-11-15"));
+            String[] tempp = temp.split("~~~");
+            System.out.println("_____" + tempp[0]);
+            for (int i = 1; i < tempp.length; i++) {
+                System.out.println("_" + tempp[i]);
+            }
 
         } catch (Exception e) {
             System.out.println("EX");
