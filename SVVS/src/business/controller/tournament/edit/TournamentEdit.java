@@ -110,7 +110,7 @@ public class TournamentEdit extends AController implements ITournamentEdit {
     }
 
     @Override
-    public ITournamentDTO EditTournament(int ID, String name, String location, Date date, BigDecimal fee, List<String> TeamNames) throws RemoteException {
+    public ITournamentDTO EditTournament(int ID, String name, String location, Date date, BigDecimal fee, boolean finished, List<String> TeamNames) throws RemoteException {
         //_curState.EditTournament(ID, name, location, fee, TeamNames);
 
         Session s = HibernateUtil.getCurrentSession();
