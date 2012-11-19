@@ -32,6 +32,7 @@ public class SportsmanDTO extends AbstractRoleDTO<ISportsman> implements ISports
 
     @Override
     public boolean equals(Object obj) {
+        if(!(obj instanceof ISportsmanDTO)) return false;
         if (((ISportsmanDTO) obj).getId() == this.id) {
             return true;
         }

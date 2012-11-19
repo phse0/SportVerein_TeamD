@@ -49,7 +49,6 @@ public class TournamentTeamController extends AController implements ITournament
     public List<ITournamentInviteDTO> loadTournamentTeams() throws RemoteException {
 
         return TournamentInviteDAO.getInstance().getAllTeamDTOs(HibernateUtil.getCurrentSession());
-
     }
 
     @Override
@@ -62,8 +61,8 @@ public class TournamentTeamController extends AController implements ITournament
         List<ISportsmanDTO> smdto = new LinkedList<>();
 
         for (ITournamentInvite ti : TournamentInviteDAO.getInstance().getByTournamentAndTeam(s, t, tt)) {
-            if(ti.getSportsman() != null){
-            smdto.add(new SportsmanDTO(ti.getSportsman()));
+            if (ti.getSportsman() != null) {
+                smdto.add(new SportsmanDTO(ti.getSportsman()));
             }
         }
 
@@ -81,7 +80,6 @@ public class TournamentTeamController extends AController implements ITournament
             if (!allAssignedSportsman.contains(smdto)) {
                 returnList.add(smdto);
             }
-
         }
         return returnList;
 
@@ -98,19 +96,26 @@ public class TournamentTeamController extends AController implements ITournament
         ISportsman sportsmanM = SportsmanDAO.getInstance().getById(s, sportsman.getId());
 
 
-        ITournamentInvite ti = TournamentInviteDAO.getInstance().create();
-        ti.setTournament(tournamentM);
-        ti.setTeam(teamM);
-        ti.setSportsman(sportsmanM);
-        ti.setAccepted(false);
-        
-        TournamentInviteDAO.getInstance().add(s, ti);
+        ITournamentInvite ti = TournamentInviteDAO.getInstance().getByAll(s, tournamentM, teamM, sportsmanM);
+
+        if (ti == null) {
+
+            ti = TournamentInviteDAO.getInstance().create();
+
+            ti.setTournament(tournamentM);
+            ti.setTeam(teamM);
+            ti.setSportsman(sportsmanM);
+            ti.setAccepted(false);
+
+            TournamentInviteDAO.getInstance().add(s, ti);
+        }
+
         tx.commit();
 
     }
-    
+
     @Override
-     public void removePlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException {
+    public void removePlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException {
 
         Session s = HibernateUtil.getCurrentSession();
         Transaction tx = s.beginTransaction();
