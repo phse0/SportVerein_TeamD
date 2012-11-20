@@ -1,0 +1,9 @@
+//Tournament.idl
+module CorbaTournament{
+    module Tournament{
+        interface TounamentControll{
+        string loadTournaments();
+        string loadTournament(in long id);
+        };
+    };
+};
