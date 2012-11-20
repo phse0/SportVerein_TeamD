@@ -3,6 +3,7 @@ module CorbaTournament{
     module Tournament{
         interface TounamentControll{
         string loadTournaments();
+        boolean isFinished(in long id);
         string loadTournament(in long id);
         };
     };

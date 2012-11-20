@@ -41,19 +41,27 @@ public class TournamentServant extends TounamentControllPOA {
         String matches = "";
         try {
             ITournamentDTO itdto = new TournamentDTO(TournamentController.getInstance().loadTournament(id));
-            if (itdto.isFinished()) {
-                for (IMatchDTO imdto : itdto.getMatches()) {
-                    matches += imdto.getTeam1().getName() + ";"
-                            + imdto.getTeam2().getName() + ";"
-                            + imdto.getGoalsTeam1() + ";"
-                            + imdto.getGoalsTeam2() + "\n";
-                }
-            } else {
-                matches = "false\n";
+            for (IMatchDTO imdto : itdto.getMatches()) {
+                matches += imdto.getTeam1().getName() + ";"
+                        + imdto.getTeam2().getName() + ";"
+                        + imdto.getGoalsTeam1() + ";"
+                        + imdto.getGoalsTeam2() + "\n";
             }
+
         } catch (RemoteException re) {
             re.printStackTrace();
         }
         return matches;
+    }
+
+    @Override
+    public boolean isFinished(int id) {
+        ITournamentDTO itdto = null;
+        try {
+            itdto = new TournamentDTO(TournamentController.getInstance().loadTournament(id));
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
+        return itdto.isFinished();
     }
 }

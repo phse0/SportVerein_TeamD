@@ -79,20 +79,20 @@ public class TournamentClient extends JFrame {
             if (matches.toCharArray()[i] != '\n') {
                 temp += matches.toCharArray()[i];
             } else {
-                if (!temp.equals("false")) {
-                    String[] data = temp.split(";");
-                    tm.Team1 = data[0];
-                    tm.Team2 = data[1];
-                    tm.Goals1 = Integer.parseInt(data[2]);
-                    tm.Goals2 = Integer.parseInt(data[3]);
+                //if (!temp.equals("false")) {
+                String[] data = temp.split(";");
+                tm.Team1 = data[0];
+                tm.Team2 = data[1];
+                tm.Goals1 = Integer.parseInt(data[2]);
+                tm.Goals2 = Integer.parseInt(data[3]);
 
-                    matchList.add(tm);
-                    tm = new TempMatch();
-                    temp = "";
-                } else {
-                    JOptionPane.showMessageDialog(null, "Not finished!", "Not finished!", JOptionPane.OK_OPTION);
-                    break;
-                }
+                matchList.add(tm);
+                tm = new TempMatch();
+                temp = "";
+                /*} else {
+                 JOptionPane.showMessageDialog(null, "Not finished!", "Not finished!", JOptionPane.OK_OPTION);
+                 break;
+                 }*/
             }
         }
         return matchList;
@@ -211,6 +211,9 @@ public class TournamentClient extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int index = tourTable.convertRowIndexToModel(tourTable.getSelectedRow());
                 TournamentTableM ttm = (TournamentTableM) tourTable.getModel();
+                if (!tournamentstub.isFinished(ttm.getTournament(index).id)) {
+                    JOptionPane.showMessageDialog(null, "Not finished!", "Not finished!", JOptionPane.OK_OPTION);
+                }
                 List<TempMatch> matchList = createMatchs(tournamentstub.loadTournament(ttm.getTournament(index).id));
                 if (matchList.size() > 0) {
                     new TournamentClientMatches(matchList).setVisible(true);
