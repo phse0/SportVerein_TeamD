@@ -60,6 +60,7 @@ public class DepartmentDTO extends AbstractDTO<IDepartment> implements IDepartme
     public void setSports(List<ISportDTO> sports) {
         this.sports = sports;
     }
+   
 
     @Override
     public int hashCode() {

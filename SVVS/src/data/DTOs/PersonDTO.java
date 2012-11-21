@@ -81,6 +81,12 @@ public class PersonDTO extends AbstractDTO<IPerson> implements IPersonDTO {
     }
 
     @Override
+    public String toString() {
+        return getFirstname() + " " + getLastname();
+    }
+
+    
+    @Override
     public String getFirstname() {
         return firstname;
     }

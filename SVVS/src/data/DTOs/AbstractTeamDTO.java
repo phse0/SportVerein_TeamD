@@ -51,6 +51,8 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
     public void setSport(ISportDTO sport) {
         this.sport = sport;
     }
+    
+    
 //    public List<ITournamentDTO> getTournaments() {
 //        return tournaments;
 //    }
@@ -58,4 +60,9 @@ public abstract class AbstractTeamDTO<V extends ITeam> extends AbstractDTO<V> {
 //    public void setTournaments(List<ITournamentDTO> tournaments) {
 //        this.tournaments = tournaments;
 //    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

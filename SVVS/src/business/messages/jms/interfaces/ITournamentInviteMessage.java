@@ -1,0 +1,20 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package business.messages.jms.interfaces;
+
+import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.DTOs.ITournamentDTO;
+import data.interfaces.DTOs.ITrainingTeamDTO;
+
+/**
+ *
+ * @author uubu
+ */
+public interface ITournamentInviteMessage extends IMessage {
+    
+    ISportsmanDTO getSportsman();
+    ITrainingTeamDTO getTeam();
+    ITournamentDTO getTournament();
+}
