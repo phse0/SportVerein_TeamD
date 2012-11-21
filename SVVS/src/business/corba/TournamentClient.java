@@ -22,7 +22,6 @@ import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
-import sun.net.www.content.image.png;
 
 /**
  *
@@ -202,21 +201,25 @@ public class TournamentClient extends JFrame {
         BoxLayout bl = new BoxLayout(panel, BoxLayout.PAGE_AXIS);
         panel.setLayout(bl);
         JButton tourBut = new JButton();
-        tourBut.setText("Zeige Wettkämpfe");
+        tourBut.setText("Zeige Wettkampf");
 
         final JTable tourTable = new JTable();
 
         tourBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = tourTable.convertRowIndexToModel(tourTable.getSelectedRow());
-                TournamentTableM ttm = (TournamentTableM) tourTable.getModel();
-                if (!tournamentstub.isFinished(ttm.getTournament(index).id)) {
-                    JOptionPane.showMessageDialog(null, "Not finished!", "Not finished!", JOptionPane.OK_OPTION);
-                }
-                List<TempMatch> matchList = createMatchs(tournamentstub.loadTournament(ttm.getTournament(index).id));
-                if (matchList.size() > 0) {
-                    new TournamentClientMatches(matchList).setVisible(true);
+                if (tourTable.getSelectedRow() != -1) {
+                    int index = tourTable.convertRowIndexToModel(tourTable.getSelectedRow());
+                    TournamentTableM ttm = (TournamentTableM) tourTable.getModel();
+                    if (!tournamentstub.isFinished(ttm.getTournament(index).id)) {
+                        JOptionPane.showMessageDialog(null, "Dieser Wettkampf ist noch nicht beendet!", "Achtung", JOptionPane.OK_OPTION);
+                    }
+                    List<TempMatch> matchList = createMatchs(tournamentstub.loadTournament(ttm.getTournament(index).id));
+                    if (matchList.size() > 0) {
+                        new TournamentClientMatches(matchList).setVisible(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte erst einen Wettkampf auswählen!", "Meldung", JOptionPane.OK_OPTION);
                 }
 
             }
@@ -226,5 +229,10 @@ public class TournamentClient extends JFrame {
         panel.add(tourBut);
         this.add(panel);
         this.setSize(800, 250);
+        this.setResizable(false);
+        this.setTitle("Wettkampfanzeige");
+        this.setLocationRelativeTo(null);
+        
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 }

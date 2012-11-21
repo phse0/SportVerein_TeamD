@@ -95,5 +95,11 @@ public class TournamentClientMatches extends JFrame {
         matchTable.setModel(new TournamentMatchTableM(matchList));
         this.add(matchTable);
         this.setSize(800, 250);
+        this.setResizable(false);
+        this.setTitle("Matchanzeige");
+        this.setLocationRelativeTo(null);
+        
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+    
 }
