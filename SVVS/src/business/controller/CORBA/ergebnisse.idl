@@ -1,0 +1,8 @@
+module ergebnissdaten {
+module Ergebniss {
+interface ergebnissbereitstellung {
+string getErgebnisse(in string sportart, in string liga, in string datum);
+boolean sindVollstaendig(in string sportart, in string liga, in string datum);
+};
+};
+};
