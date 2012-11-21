@@ -32,15 +32,19 @@ public class ergebnissbereitstellungImplementation extends ergebnissbereitstellu
             IControllerFactory controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
             LinkedList<ITournamentDTO> tournaments = controllerFactory.loadTournamentController().loadTournaments();
             for (ITournamentDTO tournament : tournaments) {
-                System.out.println(tournament.getDate() + "_" + datum + "||" + tournament.getSport().toString() + "_" + sportart + "||" + tournament.isFinished() + "_ true");
-                if (tournament.getDate().equals(datum) && tournament.getSport().getName().equals(sportart) && tournament.isFinished()) {
-                    System.out.println(tournament.getTeams().get(0).getLeague().getName() + "_" + liga);
-                    if (tournament.getTeams().get(0).getLeague().getName().equals(liga)) {
-                        returnstring += tournament.getName() + "***" + tournament.getSport().toString() + "***" + tournament.getDate() + "***" + tournament.getLocation() + "***" + tournament.getFee() + "~~~";
-                        List<IMatchDTO> matches = tournament.getMatches();
-                        for (IMatchDTO match : matches) {
-                            returnstring += match.getDate() + "***" + match.getLocation() + "***" + match.getTeam1().getName() + "***" + match.getTeam2().getName() + "***" + match.getGoalsTeam1() + "***" + match.getGoalsTeam2() + "~~~";
+                System.out.println(tournament.getDate() + "_" + datum + "||" + tournament.getSport().toString() + "_" + sportart);
+                if (tournament.getDate().equals(datum) && tournament.getSport().getName().equals(sportart)) {
+                    try {
+                        System.out.println(tournament.getTeams().get(0).getLeague().getName() + "_" + liga);
+                        if (tournament.getTeams().get(0).getLeague().getName().equals(liga)) {
+                            returnstring += tournament.getName() + "***" + tournament.getSport().toString() + "***" + tournament.getDate() + "***" + tournament.getLocation() + "***" + tournament.getFee() + "~~~";
+                            List<IMatchDTO> matches = tournament.getMatches();
+                            for (IMatchDTO match : matches) {
+                                returnstring += match.getDate() + "***" + match.getLocation() + "***" + match.getTeam1().getName() + "***" + match.getTeam2().getName() + "***" + match.getGoalsTeam1() + "***" + match.getGoalsTeam2() + "~~~";
+                            }
                         }
+                    } catch (Exception e) {
+                        System.out.println("__");
                     }
                 }
             }

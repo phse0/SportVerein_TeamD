@@ -137,6 +137,7 @@ public class CorbaExampleClient extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String[] aaa = new String[]{"-ORBInitialHost", "localhost", "-ORBInitialPort", "2050"};
         try {
+            area.setText("");
             ORB orb = ORB.init(aaa, null);
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
@@ -148,7 +149,7 @@ public class CorbaExampleClient extends javax.swing.JFrame {
                 String[] tempp = temp.split("~~~");
                 area.append(tempp[0]);
                 for (int i = 1; i < tempp.length; i++) {
-                    area.append(tempp[i] + " _\n_");
+                    area.append(tempp[i] + " \n");
                 }
             } else {
                 area.setText("Ergebnisse nicht vorhanden");
