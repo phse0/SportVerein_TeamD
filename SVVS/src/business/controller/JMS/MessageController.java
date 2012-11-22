@@ -51,7 +51,9 @@ public class MessageController {
         return instance;
     }
 
-    public void createQueue(String username) {
+    public void createQueue(String username) throws Exception {
+        Queue queue = session.createQueue("jms/"+username);
+        initialContext.bind("jms/"+username, queue);
     }
     //Consumer is a sportsman with username username, and he(she)should get the loaded messages  
 
