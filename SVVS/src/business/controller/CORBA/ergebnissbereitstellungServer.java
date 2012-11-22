@@ -37,7 +37,7 @@ public class ergebnissbereitstellungServer {
             System.out.println("Corbaereignissserver ready and waiting ...");
             orb.run();
         } catch (Exception e) {
-            System.out.println("Bitte Starten sie den ORB Connector zurerst!");
+            System.out.println("  Starten sie den ORB Connector zurerst!");
         }
     }
 }

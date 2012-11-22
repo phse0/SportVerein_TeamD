@@ -4,11 +4,13 @@
  */
 package business.messages.jms.interfaces;
 
+import java.io.Serializable;
+
 /**
  *
  * @author uubu
  */
-public interface IMessage {
+public interface IMessage extends Serializable{
     
     String getText();
 }
