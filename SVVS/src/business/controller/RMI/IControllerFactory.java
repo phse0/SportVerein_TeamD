@@ -18,6 +18,7 @@ import business.controller.touramentTeam.ITournamentTeamController;
 import business.controller.tournament.Create.ITournamentCreation;
 import business.controller.tournament.ITournamentController;
 import business.controller.tournament.edit.ITournamentEdit;
+import business.controller.team.teamTOplayer.ITeamToPlayer;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -54,4 +55,6 @@ public interface IControllerFactory extends Remote  {
     IAuthentificationController loadAuthentificationController() throws RemoteException;
 
     ITournamentTeamController loadTournamentTeamController() throws RemoteException;
+    
+    ITeamToPlayer loadTeamToPlayer() throws RemoteException;
 }
