@@ -4,18 +4,23 @@
  */
 package business.controller.touramentTeam;
 
+import business.controller.JMS.MessageController;
 import business.controller.RMI.AController;
+import business.controller.person.create.States.PersonCreateAssignSportState;
 import data.DAOs.SportsmanDAO;
 import data.DAOs.TournamentDAO;
 import data.DAOs.TournamentInviteDAO;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.SportsmanDTO;
+import data.DTOs.TournamentInviteDTO;
+import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.models.ICoach;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ITournament;
 import data.interfaces.models.ITournamentInvite;
@@ -23,6 +28,8 @@ import data.interfaces.models.ITrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -112,6 +119,17 @@ public class TournamentTeamController extends AController implements ITournament
 
         tx.commit();
 
+         MessageController mc = null;
+        try {
+            mc = MessageController.getInstance();
+            List<String> names = new LinkedList<>();
+            mc.createInviteMessage(new TournamentInviteDTO(ti));
+        } catch (Exception ex) {
+            Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }
 
     @Override
