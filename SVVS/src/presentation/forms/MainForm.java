@@ -653,14 +653,16 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 MessageTableModel model = (MessageTableModel) messageTable.getModel();
-                IMessage message = model.getMessage(messageTable.getSelectedRow());
-                
-                if(message instanceof ITournamentInviteMessage) {
-                    btnAccept.setEnabled(true);
-                    btnRefuse.setEnabled(true);
-                } else {
-                    btnAccept.setEnabled(false);
-                    btnRefuse.setEnabled(false);
+                if (messageTable.getSelectedRow() != -1) {
+                    IMessage message = model.getMessage(messageTable.getSelectedRow());
+
+                    if (message instanceof ITournamentInviteMessage) {
+                        btnAccept.setEnabled(true);
+                        btnRefuse.setEnabled(true);
+                    } else {
+                        btnAccept.setEnabled(false);
+                        btnRefuse.setEnabled(false);
+                    }
                 }
             }
         });

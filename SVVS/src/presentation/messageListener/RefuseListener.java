@@ -37,7 +37,7 @@ public class RefuseListener implements ActionListener {
             ITournamentInviteMessage message = (ITournamentInviteMessage) model.getMessage(index);
             try {
                 controller.acceptInvite(message, false);
-
+               
                 model.removeMessage(message);
                 model.fireTableDataChanged();
             } catch (RemoteException ex) {

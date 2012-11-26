@@ -129,9 +129,6 @@ public class TournamentTeamController extends AController implements ITournament
         } catch (Exception ex) {
             Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-
     }
 
     @Override

@@ -11,6 +11,7 @@ import business.controller.person.create.PersonCreation;
 import data.DAOs.PersonDAO;
 import data.DAOs.RoleDAO;
 import data.DAOs.RoleRightsDAO;
+import data.DAOs.SportDAO;
 import data.DAOs.SportsmanDAO;
 import data.DTOs.PersonDTO;
 import data.DTOs.SportsmanDTO;
@@ -96,7 +97,9 @@ public class PersonCreateAssignSportState extends AController implements IPerson
             SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
             
             List<String> names = new LinkedList<>();
-            names.add(s.getDepartment().getManager().getPerson().toString());
+            
+            
+            names.add(SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname).getDepartment().getManager().getPerson().getUsername());
             
             mc.createSportsmanCreatedMessage( names ,new SportsmanDTO(sportsman));
         }

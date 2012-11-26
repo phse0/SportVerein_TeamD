@@ -53,6 +53,7 @@ public class MessageController extends AController implements IMessageController
         connection = connectionFactory.createConnection();
         connection.start();
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        connection.close();
         } catch (Exception e) {
         }
        
@@ -78,7 +79,10 @@ public class MessageController extends AController implements IMessageController
     @Override
     public List<IMessage> LoadMessages(String username) throws RemoteException, Exception {
         
-         
+         connection = connectionFactory.createConnection();
+        connection.start();
+        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        
         
         
         Destination dest = (Destination) initialContext.lookup("jms/" + username);
@@ -96,7 +100,7 @@ public class MessageController extends AController implements IMessageController
             msg = (ObjectMessage) consumer.receive(1000l);
         }
 
-         
+         connection.close();
         return messages;
     }
     //tinvite has a list of persons to invite
@@ -135,6 +139,12 @@ public class MessageController extends AController implements IMessageController
         try {
 // get the Destination used to send the message by JNDI name
             // connection.start();
+            
+              connection = connectionFactory.createConnection();
+        connection.start();
+        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        
+            
             destination = (Destination) initialContext.lookup("jms/" + username);
 // Create a connection
             MessageProducer producer = session.createProducer(destination);
@@ -142,7 +152,7 @@ public class MessageController extends AController implements IMessageController
             ObjectMessage msg = session.createObjectMessage(o);
 // send the message to the destination
             producer.send(msg);
-             
+             connection.close();
 // Close the connection
         } catch (Exception e) {
         }
