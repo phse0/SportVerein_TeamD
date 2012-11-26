@@ -5,6 +5,7 @@
 
 package business.controller.JMS;
 
+import business.controller.RMI.AController;
 import business.messages.jms.SportsmanAssignedMessage;
 import business.messages.jms.SportsmanCreatedMessage;
 import business.messages.jms.TournamentInviteMessage;
@@ -24,7 +25,7 @@ import javax.naming.*;
  *
  * @author Evgeniya Spiegel
  */
-public class MessageController implements IMessageController {
+public class MessageController extends AController implements IMessageController {
 
     private InitialContext initialContext;
     private ConnectionFactory connectionFactory;
@@ -34,7 +35,8 @@ public class MessageController implements IMessageController {
     private static MessageController instance;
 
 
-    private MessageController() throws Exception {
+    private MessageController() throws RemoteException {
+        super();
         Properties props = new Properties();
 
         props.setProperty("java.naming.factory.initial",
@@ -45,12 +47,15 @@ public class MessageController implements IMessageController {
 
         props.setProperty("java.naming.factory.state",
                 "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-        
-        initialContext = new InitialContext(props);
+        try {
+             initialContext = new InitialContext(props);
         connectionFactory = (ConnectionFactory) initialContext.lookup("jms/CF");
         connection = connectionFactory.createConnection();
         connection.start();
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        } catch (Exception e) {
+        }
+       
        
        
     }
