@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Media Markt
+ * @author Evgeniya Spiegel
  */
 public interface IMessageController {
 
