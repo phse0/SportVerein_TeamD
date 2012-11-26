@@ -22,6 +22,8 @@ import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -609,11 +611,21 @@ public class MainForm extends javax.swing.JFrame {
         btnEditTournamentTeam.addActionListener(new EditTournamentTeamListener(tournamentTeamTable, controllerFactory));
 
         // ################### INITIATE INBOX ############################
-        
+
         try {
-            List<IMessage> messages = messageController.LoadMessages(user);
-            messageTable.setModel(new MessageTableModel(messages));
             messageTable.setAutoCreateRowSorter(true);
+
+            btnRefresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        List<IMessage> messages = messageController.LoadMessages(user);
+                        messageTable.setModel(new MessageTableModel(messages));
+                    } catch (Exception asdf) {
+                        asdf.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
