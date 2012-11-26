@@ -23,7 +23,7 @@ import javax.naming.*;
  *
  * @author Evgeniya Spiegel
  */
-public class MessageController {
+public class MessageController implements IMessageController {
 
     private InitialContext initialContext;
     private ConnectionFactory connectionFactory;
@@ -123,7 +123,7 @@ public class MessageController {
     private void saveMessage(IMessage o, String username) {
         try {
 // get the Destination used to send the message by JNDI name
-             connection.start();
+            // connection.start();
             destination = (Destination) initialContext.lookup("jms/" + username);
 // Create a connection
             MessageProducer producer = session.createProducer(destination);
