@@ -37,6 +37,8 @@ import javax.swing.RowFilter.Entry;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
+import presentation.messageListener.AcceptListener;
+import presentation.messageListener.RefuseListener;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.EditPersonListener;
 import presentation.personListeners.EditRolesListener;
@@ -645,6 +647,9 @@ public class MainForm extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        btnAccept.addActionListener(new AcceptListener(tournamentTeamController, messageTable));
+        btnRefuse.addActionListener(new RefuseListener(tournamentTeamController, messageTable));
 
     }
 
