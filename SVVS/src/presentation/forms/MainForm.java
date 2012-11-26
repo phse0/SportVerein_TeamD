@@ -4,6 +4,7 @@
  */
 package presentation.forms;
 
+import business.controller.JMS.IMessageController;
 import business.controller.RMI.IControllerFactory;
 import business.controller.departments.IDepartmentController;
 import business.controller.person.IPersonController;
@@ -12,6 +13,7 @@ import business.controller.role.IRoleController;
 import business.controller.team.ITeamController;
 import business.controller.touramentTeam.ITournamentTeamController;
 import business.controller.tournament.ITournamentController;
+import business.messages.jms.interfaces.IMessage;
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
@@ -36,6 +38,7 @@ import javax.swing.table.TableRowSorter;
 import presentation.personListeners.CreateNewPersonListener;
 import presentation.personListeners.EditPersonListener;
 import presentation.personListeners.EditRolesListener;
+import presentation.tableModels.MessageTableModel;
 import presentation.tableModels.PersonTableModel;
 import presentation.tableModels.TournamentInviteTableModel;
 import presentation.tableModels.TournamentTableModel;
@@ -62,6 +65,8 @@ public class MainForm extends javax.swing.JFrame {
     IPersonDTO loggedUser;
     IEditPersonRole editPersonRoleController;
     ITournamentTeamController tournamentTeamController;
+    IMessageController messageController;
+    String user;
     List<IRoleDTO> managerRoles;
     List<IRoleDTO> coachRoles;
 
@@ -73,19 +78,20 @@ public class MainForm extends javax.swing.JFrame {
         try {
             loadControllers();
             initControls();
-        } catch (RemoteException | NotBoundException | MalformedURLException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public MainForm(String user) {
         initComponents();
+        this.user = user;
         try {
             loadControllers();
             loggedUser = personController.loadPersonWithUsername(user);
             checkRights();
             initControls();
-        } catch (RemoteException | NotBoundException | MalformedURLException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -129,6 +135,10 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tournamentTeamTable = new javax.swing.JTable();
         btnEditTournamentTeam = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        messageTable = new javax.swing.JTable();
+        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
@@ -376,6 +386,46 @@ public class MainForm extends javax.swing.JFrame {
 
         tpMain.addTab("Wettkampf Teams", jPanel4);
 
+        messageTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(messageTable);
+
+        btnRefresh.setText("Aktualisieren");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnRefresh)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRefresh)
+                .addContainerGap())
+        );
+
+        tpMain.addTab("Inbox", jPanel5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -549,7 +599,7 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         // ################### INITIATE TOURNAMENTTEAMS ############################
 
         List<ITournamentInviteDTO> tournamentTeams = tournamentTeamController.loadTournamentTeams();
@@ -557,10 +607,20 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTeamTable.setAutoCreateRowSorter(true);
 
         btnEditTournamentTeam.addActionListener(new EditTournamentTeamListener(tournamentTeamTable, controllerFactory));
+
+        // ################### INITIATE INBOX ############################
         
+        try {
+            List<IMessage> messages = messageController.LoadMessages(user);
+            messageTable.setModel(new MessageTableModel(messages));
+            messageTable.setAutoCreateRowSorter(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
-    private void loadControllers() throws RemoteException, NotBoundException, MalformedURLException {
+    private void loadControllers() throws RemoteException, NotBoundException, MalformedURLException, Exception {
         controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
         teamController = (ITeamController) controllerFactory.loadTeamController();
         personController = (IPersonController) controllerFactory.loadPersonController();
@@ -569,7 +629,7 @@ public class MainForm extends javax.swing.JFrame {
         roleController = (IRoleController) controllerFactory.loadRoleController();
         editPersonRoleController = (IEditPersonRole) controllerFactory.loadEditPersonRole();
         tournamentTeamController = (ITournamentTeamController) controllerFactory.loadTournamentTeamController();
-        
+        messageController = (IMessageController) controllerFactory.loadMessageController();
     }
 
     private void checkRights() throws RemoteException {
@@ -684,6 +744,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnEditTournament;
     private javax.swing.JButton btnEditTournamentTeam;
     private javax.swing.JButton btnFilter;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cobContribution;
     private javax.swing.JComboBox cobDepartment;
@@ -696,10 +757,13 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable messageTable;
     private javax.swing.JTable personTable;
     private javax.swing.JTable tournamentTable;
     private javax.swing.JTable tournamentTeamTable;

@@ -4,6 +4,7 @@
  */
 package business.controller.RMI;
 
+import business.controller.JMS.IMessageController;
 import business.controller.departments.IDepartmentController;
 import business.controller.person.IAuthentificationController;
 import business.controller.person.IPersonController;
@@ -57,4 +58,6 @@ public interface IControllerFactory extends Remote  {
     ITournamentTeamController loadTournamentTeamController() throws RemoteException;
     
     ITeamToPlayer loadTeamToPlayer() throws RemoteException;
+
+    IMessageController loadMessageController() throws RemoteException, Exception;
 }

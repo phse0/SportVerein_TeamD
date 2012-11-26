@@ -4,6 +4,8 @@
  */
 package business.controller.RMI;
 
+import business.controller.JMS.IMessageController;
+import business.controller.JMS.MessageController;
 import business.controller.departments.DepartmentController;
 import business.controller.departments.IDepartmentController;
 import business.controller.person.AuthentificationController;
@@ -34,6 +36,7 @@ import business.controller.tournament.ITournamentController;
 import business.controller.tournament.TournamentController;
 import business.controller.tournament.edit.ITournamentEdit;
 import business.controller.tournament.edit.TournamentEdit;
+import business.messages.jms.interfaces.IMessage;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -112,8 +115,14 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
         return new AuthentificationController();
     }
     
+    @Override
     public ITournamentTeamController loadTournamentTeamController() throws RemoteException {
         return TournamentTeamController.getInstance();
+    }
+    
+    @Override
+    public IMessageController loadMessageController() throws RemoteException, Exception {
+        return MessageController.getInstance();
     }
     
     @Override
