@@ -8,6 +8,8 @@
         
         <property name="name" column="name" not-null="true" type="string" />
         
+        <many-to-one column="roleID" name="manager" class="data.models.Manager" />
+        
         <bag name="roles" table="role" cascade="all">
             <key column="departmentID"></key>
             <one-to-many class="data.models.Role"/>

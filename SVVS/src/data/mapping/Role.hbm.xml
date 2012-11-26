@@ -31,6 +31,9 @@
 
         <joined-subclass name="data.models.Manager" table="manager">
             <key column="roleID"/>
+            
+            
+            
         </joined-subclass>
 
         <joined-subclass name="data.models.Sportsman" table="sportsman">

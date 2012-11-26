@@ -20,6 +20,8 @@ import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
 import data.interfaces.DTOs.IPersonDTO;
 import data.interfaces.DTOs.ISportDTO;
+import data.interfaces.models.IDepartment;
+import data.interfaces.models.IManager;
 import data.interfaces.models.IPerson;
 import data.interfaces.models.IRoleRights;
 import data.interfaces.models.ISport;
@@ -98,8 +100,7 @@ public class PersonCreateAssignSportState extends AController implements IPerson
             
             List<String> names = new LinkedList<>();
             
-            
-            names.add(SportDAO.getInstance().getByName(HibernateUtil.getCurrentSession(), sportname).getDepartment().getManager().getPerson().getUsername());
+            names.add(s.getDepartment().getManager().getPerson().getUsername());
             
             mc.createSportsmanCreatedMessage( names ,new SportsmanDTO(sportsman));
         }
