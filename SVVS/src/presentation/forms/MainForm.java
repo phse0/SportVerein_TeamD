@@ -141,6 +141,8 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         messageTable = new javax.swing.JTable();
         btnRefresh = new javax.swing.JButton();
+        btnRefuse = new javax.swing.JButton();
+        btnAccept = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sportverein-Verwaltungssystem");
@@ -399,9 +401,14 @@ public class MainForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        messageTable.setRowHeight(26);
         jScrollPane5.setViewportView(messageTable);
 
         btnRefresh.setText("Aktualisieren");
+
+        btnRefuse.setText("Absagen");
+
+        btnAccept.setText("Zusagen");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -413,6 +420,10 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(btnRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRefuse)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAccept)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -422,7 +433,10 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRefresh)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRefresh)
+                    .addComponent(btnRefuse)
+                    .addComponent(btnAccept))
                 .addContainerGap())
         );
 
@@ -614,6 +628,8 @@ public class MainForm extends javax.swing.JFrame {
 
         try {
             messageTable.setAutoCreateRowSorter(true);
+            List<IMessage> messages = messageController.LoadMessages(user);
+            messageTable.setModel(new MessageTableModel(messages));
 
             btnRefresh.addActionListener(new ActionListener() {
                 @Override
@@ -749,6 +765,7 @@ public class MainForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btRechte;
+    private javax.swing.JButton btnAccept;
     private javax.swing.JButton btnCreatePerson;
     private javax.swing.JButton btnCreateTournament;
     private javax.swing.JButton btnEditPerson;
@@ -757,6 +774,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnEditTournamentTeam;
     private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnRefuse;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cobContribution;
     private javax.swing.JComboBox cobDepartment;

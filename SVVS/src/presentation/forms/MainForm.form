@@ -488,6 +488,10 @@
                           <Component id="jScrollPane5" alignment="0" pref="1038" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnRefuse" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnAccept" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -501,7 +505,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane5" pref="456" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnRefresh" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRefuse" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAccept" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -525,6 +533,7 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="rowHeight" type="int" value="26"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -532,6 +541,16 @@
             <Component class="javax.swing.JButton" name="btnRefresh">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Aktualisieren"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnRefuse">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Absagen"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAccept">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Zusagen"/>
               </Properties>
             </Component>
           </SubComponents>
