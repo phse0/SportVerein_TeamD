@@ -7,6 +7,7 @@ package business.controller.touramentTeam;
 import business.controller.JMS.MessageController;
 import business.controller.RMI.AController;
 import business.controller.person.create.States.PersonCreateAssignSportState;
+import business.messages.jms.interfaces.ITournamentInviteMessage;
 import data.DAOs.SportsmanDAO;
 import data.DAOs.TournamentDAO;
 import data.DAOs.TournamentInviteDAO;
@@ -119,8 +120,8 @@ public class TournamentTeamController extends AController implements ITournament
 
         ITournamentInviteDTO dieter = new TournamentInviteDTO(ti);
         tx.commit();
-        
-         MessageController mc = null;
+
+        MessageController mc = null;
         try {
             mc = MessageController.getInstance();
             List<String> names = new LinkedList<>();
@@ -128,9 +129,9 @@ public class TournamentTeamController extends AController implements ITournament
         } catch (Exception ex) {
             Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
+
+
     }
 
     @Override
@@ -147,6 +148,30 @@ public class TournamentTeamController extends AController implements ITournament
         ITournamentInvite ti = TournamentInviteDAO.getInstance().getByAll(s, tournamentM, teamM, sportsmanM);
 
         TournamentInviteDAO.getInstance().remove(s, ti);
+        tx.commit();
+
+    }
+
+    @Override
+    public void acceptInvite(ITournamentInviteMessage tim, boolean accepted) throws RemoteException {
+
+        Session s = HibernateUtil.getCurrentSession();
+        Transaction tx = s.beginTransaction();
+
+        ITournament tournamentM = TournamentDAO.getInstance().getById(s, tim.getTournament().getId());
+        ITrainingTeam teamM = TrainingTeamDAO.getInstance().getById(s, tim.getTeam().getId());
+        ISportsman sportsmanM = SportsmanDAO.getInstance().getById(s, tim.getSportsman().getId());
+
+        ITournamentInvite ti;
+        ti = TournamentInviteDAO.getInstance().getByAll(s, tournamentM, teamM, sportsmanM);
+
+        if (accepted) {
+            ti.setAccepted(accepted);
+            TournamentInviteDAO.getInstance().add(s, ti);
+        } else {
+            TournamentInviteDAO.getInstance().remove(s, ti);
+        }
+
         tx.commit();
 
     }

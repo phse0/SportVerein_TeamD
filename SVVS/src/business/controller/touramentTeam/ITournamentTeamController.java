@@ -5,6 +5,7 @@
 package business.controller.touramentTeam;
 
 import business.controller.RMI.IController;
+import business.messages.jms.interfaces.ITournamentInviteMessage;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
@@ -28,5 +29,7 @@ public interface ITournamentTeamController extends Remote, IController{
     public void assignPlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException;
 
     void removePlayer(ITournamentDTO tournament, ITrainingTeamDTO team, ISportsmanDTO sportsman) throws RemoteException;
+
+    void acceptInvite(ITournamentInviteMessage tim, boolean accepted) throws RemoteException;
     
 }
