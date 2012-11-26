@@ -23,16 +23,16 @@ import javax.jms.*;
  *
  * @author Evgeniya Spiegel
  */
-public class MessageController {
+public class MessageController1 {
 
     private InitialContext initialContext;
     private ConnectionFactory connectionFactory;
     private Destination destination;
     private Session session;
     private Connection connection;
-    private static MessageController instance;
+    private static MessageController1 instance;
 
-    private MessageController() throws Exception {
+    private MessageController1() throws Exception {
         initialContext = new InitialContext();
         connectionFactory = (ConnectionFactory) initialContext.lookup("jms/ConnectionFactory");
         connection = connectionFactory.createConnection();
@@ -40,9 +40,9 @@ public class MessageController {
 
     }
 
-    public MessageController getInstance() throws Exception {
+    public MessageController1 getInstance() throws Exception {
         if (instance == null) {
-            instance = new MessageController();
+            instance = new MessageController1();
         }
         return instance;
     }
@@ -114,8 +114,8 @@ public class MessageController {
 // send the message to the destination
             producer.send(msg);
 // Close the connection
-            connection.close();
-            System.out.println("Connection closed");
+          // connection.close();
+           // System.out.println("Connection closed");
         } catch (Exception e) {
         }
     }
