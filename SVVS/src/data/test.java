@@ -8,6 +8,7 @@ import data.DAOs.AddressDAO;
 import data.DAOs.CoachDAO;
 import data.DAOs.CountryDAO;
 import data.DAOs.PersonDAO;
+import data.DAOs.SportDAO;
 import data.DAOs.SportsmanDAO;
 import data.DAOs.TeamDAO;
 import data.DAOs.TournamentDAO;
@@ -27,6 +28,7 @@ import data.interfaces.models.ICoach;
 import data.interfaces.models.ICountry;
 import data.interfaces.models.IMatch;
 import data.interfaces.models.IPerson;
+import data.interfaces.models.ISport;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITeam;
@@ -196,6 +198,12 @@ public class test {
                                
         }
          
+         
+        System.out.println("TEST");
+        
+        ISport sport = SportDAO.getInstance().getById(s, 1);
+        System.out.println(sport.getDepartment().getName());
+        System.out.println(sport.getDepartment().getManager().toString());
 //         ICountry testCountry = countryDAO.create();
 //         testCountry.setName("Test");
 //         testCountry.setCode("Test");
