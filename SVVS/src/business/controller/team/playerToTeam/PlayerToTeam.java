@@ -4,7 +4,9 @@
  */
 package business.controller.team.playerToTeam;
 
+import business.controller.JMS.MessageController;
 import business.controller.RMI.AController;
+import business.controller.person.create.States.PersonCreateAssignSportState;
 import business.controller.team.TeamController;
 import business.controller.team.playerToTeam.state.IPlayerToTeamState;
 import business.controller.team.playerToTeam.state.PlayerToTeamTeamLoadState;
@@ -24,6 +26,8 @@ import data.models.SportsmanTrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -104,6 +108,17 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
         
         SportsmanTrainingTeamDTO addedPlayer = new SportsmanTrainingTeamDTO(sttModel);
         tx.commit();
+        
+        MessageController mc = null;
+//         try {
+//             mc = MessageController.getInstance();
+//             
+//             mc.createSportsmanAssignedMessage(null, null, null);
+//        } catch (Exception ex) {
+//            Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        
         
         return addedPlayer;
         

@@ -4,6 +4,7 @@
  */
 package business.controller.person.create.States;
 
+import business.controller.JMS.MessageController;
 import business.controller.RMI.AController;
 import business.controller.person.PersonController;
 import business.controller.person.create.PersonCreation;
@@ -12,6 +13,7 @@ import data.DAOs.RoleDAO;
 import data.DAOs.RoleRightsDAO;
 import data.DAOs.SportsmanDAO;
 import data.DTOs.PersonDTO;
+import data.DTOs.SportsmanDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.IContributionDTO;
 import data.interfaces.DTOs.ICountryDTO;
@@ -26,6 +28,8 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.ehcache.distribution.RemoteCacheException;
 import org.hibernate.Transaction;
 
@@ -69,6 +73,15 @@ public class PersonCreateAssignSportState extends AController implements IPerson
     public void AssignToSport(LinkedList<String> sport, int personID) throws RemoteException {
 
         Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
+        
+        MessageController mc = null;
+        
+        try {
+             mc = MessageController.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         for (String sportname : sport) {
             //assigning values
             IPerson p = PersonController.getInstance().loadPersonWithIDNonDTO(personID);
@@ -81,6 +94,11 @@ public class PersonCreateAssignSportState extends AController implements IPerson
             sportsman.setSport(s);
             sportsman.setRoleRight(r);
             SportsmanDAO.getInstance().add(HibernateUtil.getCurrentSession(), sportsman);
+            
+            List<String> names = new LinkedList<>();
+            names.add(s.getDepartment().getManager().getPerson().toString());
+            
+            mc.createSportsmanCreatedMessage( names ,new SportsmanDTO(sportsman));
         }
 
         tx.commit();

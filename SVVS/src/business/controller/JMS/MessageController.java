@@ -15,9 +15,9 @@ import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.naming.*;
+import java.util.Properties;
 import javax.jms.*;
+import javax.naming.*;
 
 /**
  *
@@ -32,15 +32,29 @@ public class MessageController {
     private Connection connection;
     private static MessageController instance;
 
-    private MessageController() throws Exception {
-        initialContext = new InitialContext();
-        connectionFactory = (ConnectionFactory) initialContext.lookup("jms/ConnectionFactory");
-        connection = connectionFactory.createConnection();
-        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
+    private MessageController() throws Exception {
+        Properties props = new Properties();
+
+        props.setProperty("java.naming.factory.initial",
+                "com.sun.enterprise.naming.SerialInitContextFactory");
+
+        props.setProperty("java.naming.factory.url.pkgs",
+                "com.sun.enterprise.naming");
+
+        props.setProperty("java.naming.factory.state",
+                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+        
+        initialContext = new InitialContext(props);
+        connectionFactory = (ConnectionFactory) initialContext.lookup("jms/CF");
+        connection = connectionFactory.createConnection();
+        connection.start();
+        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+       
+       
     }
 
-    public MessageController getInstance() throws Exception {
+    public static MessageController getInstance() throws Exception {
         if (instance == null) {
             instance = new MessageController();
         }
@@ -48,32 +62,33 @@ public class MessageController {
     }
 
     public void createQueue(String username) throws Exception {
-        Queue queue = session.createQueue("jms/"+username);
-        initialContext.bind("jms/"+username, queue);
+        
+        Queue queue = session.createQueue("jms/" + username);
+        initialContext.bind("jms/" + username, queue);
     }
     //Consumer is a sportsman with username username, and he(she)should get the loaded messages  
 
     public List<IMessage> LoadMessages(String username) throws Exception {
+        
+         
+        
+        
         Destination dest = (Destination) initialContext.lookup("jms/" + username);
-        LinkedList<IMessage> messages = new LinkedList<IMessage>();
-
+        LinkedList<IMessage> messages = new LinkedList<>();
 
         // Create a MessageConsumer
         MessageConsumer consumer = session.createConsumer(dest);
-// Start the connection, causing message delivery to begin
-        connection.start();
-// Receive the messages sent to the destination
+        // Start the connection, causing message delivery to begin
+        // Receive the messages sent to the destination
 
 
-        ObjectMessage msg = (ObjectMessage) consumer.receiveNoWait();
+        ObjectMessage msg = (ObjectMessage) consumer.receive(1000l);
         while (msg != null) {
             messages.add((IMessage) msg.getObject());
-            msg = (ObjectMessage) consumer.receiveNoWait();
+            msg = (ObjectMessage) consumer.receive(1000l);
         }
-// Close the connection
-        connection.close();
-        System.out.println("Connection closed");
 
+         
         return messages;
     }
     //tinvite has a list of persons to invite
@@ -88,6 +103,7 @@ public class MessageController {
     }
 
     public boolean createSportsmanCreatedMessage(List<String> usernames, ISportsmanDTO sportsman) {
+        
         SportsmanCreatedMessage sportsmanCreateMessage = new SportsmanCreatedMessage(sportsman);
         for (String un : usernames) {
             saveMessage(sportsmanCreateMessage, un);
@@ -107,15 +123,16 @@ public class MessageController {
     private void saveMessage(IMessage o, String username) {
         try {
 // get the Destination used to send the message by JNDI name
+             connection.start();
             destination = (Destination) initialContext.lookup("jms/" + username);
 // Create a connection
             MessageProducer producer = session.createProducer(destination);
+            
             ObjectMessage msg = session.createObjectMessage(o);
 // send the message to the destination
             producer.send(msg);
+             
 // Close the connection
-            connection.close();
-            System.out.println("Connection closed");
         } catch (Exception e) {
         }
     }
