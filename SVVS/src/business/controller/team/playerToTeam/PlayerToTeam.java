@@ -15,10 +15,12 @@ import data.DAOs.SportsmanTrainingTeamDAO;
 import data.DAOs.TrainingTeamDAO;
 import data.DTOs.SportsmanDTO;
 import data.DTOs.SportsmanTrainingTeamDTO;
+import data.DTOs.TrainingTeamDTO;
 import data.hibernate.HibernateUtil;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.models.ICoach;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITrainingTeam;
@@ -32,19 +34,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- * First loadTeam
- * Second LoadSportsman
- * Third AddPlayerToTeam
+ * First loadTeam Second LoadSportsman Third AddPlayerToTeam
+ *
  * @author phil
  */
-public class PlayerToTeam extends AController implements IPlayerToTeam{
+public class PlayerToTeam extends AController implements IPlayerToTeam {
+
     IPlayerToTeamState _state;
 
     public PlayerToTeam() throws RemoteException {
         super();
         setState(new PlayerToTeamTeamLoadState(this));
     }
-    
+
     public void setState(IPlayerToTeamState state) {
         _state = state;
     }
@@ -63,19 +65,18 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
 //    public LinkedList<ISportsmanDTO> loadSportsman(String sportname) throws RemoteException {
 //        return  _state.loadSportsman(sportname);
 //    }
-    
     @Override
     public LinkedList<ISportsmanDTO> loadSportsman(String sportname, List<ISportsmanDTO> ignoreList) throws RemoteException {
-         
+
         LinkedList<ISportsmanDTO> sportsmen = new LinkedList<ISportsmanDTO>();
-        
+
         for (ISportsman iS : SportsmanDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             if (iS.getSport().getName().equals(sportname)) {
                 sportsmen.add(new SportsmanDTO(iS));
             }
         }
-        
-        for(ISportsmanDTO dto : ignoreList){
+
+        for (ISportsmanDTO dto : ignoreList) {
             sportsmen.remove(dto);
         }
         //_context.setState(new PlayerToTeamState(_context));
@@ -84,7 +85,7 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
 
     @Override
     public ISportsmanTrainingTeamDTO AddPlayerToTeam(int TrainingTeamID, int SportsmanID, String position) throws RemoteException {
-        
+
         ISportsman sm = null;
         ITrainingTeam t = null;
         for (ISportsman iS : SportsmanDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
@@ -93,48 +94,50 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
             }
         }
 
-        for(ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())){
+        for (ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
             if (iT.getTeamID() == TrainingTeamID) {
                 t = iT;
             }
         }
 
-        ISportsmanTrainingTeam sttModel = new SportsmanTrainingTeam(sm,t,position);
-    
+        ISportsmanTrainingTeam sttModel = new SportsmanTrainingTeam(sm, t, position);
+
         Session s = HibernateUtil.getCurrentSession();
         Transaction tx = s.getTransaction();
         tx.begin();
-        SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(),sttModel );
-        
+        SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(), sttModel);
+
         SportsmanTrainingTeamDTO addedPlayer = new SportsmanTrainingTeamDTO(sttModel);
         tx.commit();
-        
+
         MessageController mc = null;
-//         try {
-//             mc = MessageController.getInstance();
-//             
-//             mc.createSportsmanAssignedMessage(null, null, null);
-//        } catch (Exception ex) {
-//            Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
-        
-        
+        try {
+            mc = MessageController.getInstance();
+            List<String> names = new LinkedList<>();
+            for (ICoach c : t.getCoaches()) {
+                names.add(c.getPerson().getUsername());
+            }
+            mc.createSportsmanAssignedMessage(names, addedPlayer.getSportsman(), new TrainingTeamDTO(t));
+        } catch (Exception ex) {
+            Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+
         return addedPlayer;
-        
+
     }
-    
-   
+
     @Override
     public void RemovePlayerFromTeam(ISportsmanTrainingTeamDTO dto) throws RemoteException {
-        
+
         Session s = HibernateUtil.getCurrentSession();
         ISportsmanTrainingTeam sttModel = SportsmanTrainingTeamDAO.getInstance().getById(s, dto.getId());
         Transaction tx = s.getTransaction();
-        
+
         tx.begin();
-        SportsmanTrainingTeamDAO.getInstance().remove(HibernateUtil.getCurrentSession(),sttModel );
-        tx.commit();  
+        SportsmanTrainingTeamDAO.getInstance().remove(HibernateUtil.getCurrentSession(), sttModel);
+        tx.commit();
     }
 
     @Override
@@ -142,7 +145,4 @@ public class PlayerToTeam extends AController implements IPlayerToTeam{
         // _context.setState(new PlayerToTeamLoadSportmanState(_context));
         return TeamController.getInstance().loadPlayersOfTeam(TeamName);
     }
-
-    
-    
 }
