@@ -13,6 +13,7 @@ import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -54,21 +55,23 @@ public class MessageController implements IMessageController {
        
     }
 
-    public static MessageController getInstance() throws Exception {
+    public static MessageController getInstance() throws RemoteException, Exception {
         if (instance == null) {
             instance = new MessageController();
         }
         return instance;
     }
 
-    public void createQueue(String username) throws Exception {
+    @Override
+    public void createQueue(String username) throws RemoteException, Exception {
         
         Queue queue = session.createQueue("jms/" + username);
         initialContext.bind("jms/" + username, queue);
     }
     //Consumer is a sportsman with username username, and he(she)should get the loaded messages  
 
-    public List<IMessage> LoadMessages(String username) throws Exception {
+    @Override
+    public List<IMessage> LoadMessages(String username) throws RemoteException, Exception {
         
          
         
@@ -93,7 +96,8 @@ public class MessageController implements IMessageController {
     }
     //tinvite has a list of persons to invite
 
-    public boolean createInviteMessage(ITournamentInviteDTO tinvite) {
+    @Override
+    public boolean createInviteMessage(ITournamentInviteDTO tinvite) throws RemoteException {
         ISportsmanDTO sportsman = tinvite.getSportsman();
         ITournamentDTO tournament = tinvite.getTournament();
         ITrainingTeamDTO team = tinvite.getTeam();
@@ -102,7 +106,8 @@ public class MessageController implements IMessageController {
         return true;
     }
 
-    public boolean createSportsmanCreatedMessage(List<String> usernames, ISportsmanDTO sportsman) {
+    @Override
+    public boolean createSportsmanCreatedMessage(List<String> usernames, ISportsmanDTO sportsman) throws RemoteException {
         
         SportsmanCreatedMessage sportsmanCreateMessage = new SportsmanCreatedMessage(sportsman);
         for (String un : usernames) {
@@ -111,7 +116,8 @@ public class MessageController implements IMessageController {
         return true;
     }
 
-    public boolean createSportsmanAssignedMessage(List<String> usernames, ISportsmanDTO sportsman, ITrainingTeamDTO team) {
+    @Override
+    public boolean createSportsmanAssignedMessage(List<String> usernames, ISportsmanDTO sportsman, ITrainingTeamDTO team) throws RemoteException {
         SportsmanAssignedMessage sportsmanAssignedMessage = new SportsmanAssignedMessage(team, sportsman);
         for (String un : usernames) {
             saveMessage(sportsmanAssignedMessage, un);
@@ -120,7 +126,7 @@ public class MessageController implements IMessageController {
         return true;
     }
 
-    private void saveMessage(IMessage o, String username) {
+    private void saveMessage(IMessage o, String username) throws RemoteException {
         try {
 // get the Destination used to send the message by JNDI name
             // connection.start();
