@@ -38,7 +38,8 @@ public class RefuseListener implements ActionListener {
             try {
                 controller.acceptInvite(message, false);
 
-                model.removeRow(index);
+                model.removeMessage(message);
+                model.fireTableDataChanged();
             } catch (RemoteException ex) {
                 Logger.getLogger(AcceptListener.class.getName()).log(Level.SEVERE, null, ex);
             }

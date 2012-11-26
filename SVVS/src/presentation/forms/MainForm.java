@@ -14,6 +14,7 @@ import business.controller.team.ITeamController;
 import business.controller.touramentTeam.ITournamentTeamController;
 import business.controller.tournament.ITournamentController;
 import business.messages.jms.interfaces.IMessage;
+import business.messages.jms.interfaces.ITournamentInviteMessage;
 import data.interfaces.DTOs.ICoachDTO;
 import data.interfaces.DTOs.IDepartmentDTO;
 import data.interfaces.DTOs.IPersonDTO;
@@ -647,7 +648,23 @@ public class MainForm extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        messageTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                MessageTableModel model = (MessageTableModel) messageTable.getModel();
+                IMessage message = model.getMessage(messageTable.getSelectedRow());
+                
+                if(message instanceof ITournamentInviteMessage) {
+                    btnAccept.setEnabled(true);
+                    btnRefuse.setEnabled(true);
+                } else {
+                    btnAccept.setEnabled(false);
+                    btnRefuse.setEnabled(false);
+                }
+            }
+        });
+
         btnAccept.addActionListener(new AcceptListener(tournamentTeamController, messageTable));
         btnRefuse.addActionListener(new RefuseListener(tournamentTeamController, messageTable));
 

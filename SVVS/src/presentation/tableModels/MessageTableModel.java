@@ -55,6 +55,10 @@ public class MessageTableModel extends DefaultTableModel {
         this.messages.add(message);
     }
     
+    public void removeMessage(IMessage message) {
+        this.messages.remove(message);
+    }
+    
     public void updateMessage(int index, IMessage message) {
         this.messages.set(index, message);
     }
