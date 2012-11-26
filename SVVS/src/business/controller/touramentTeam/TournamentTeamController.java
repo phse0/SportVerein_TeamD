@@ -117,13 +117,14 @@ public class TournamentTeamController extends AController implements ITournament
             TournamentInviteDAO.getInstance().add(s, ti);
         }
 
+        ITournamentInviteDTO dieter = new TournamentInviteDTO(ti);
         tx.commit();
-
+        
          MessageController mc = null;
         try {
             mc = MessageController.getInstance();
             List<String> names = new LinkedList<>();
-            mc.createInviteMessage(new TournamentInviteDTO(ti));
+            mc.createInviteMessage(dieter);
         } catch (Exception ex) {
             Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
         }
