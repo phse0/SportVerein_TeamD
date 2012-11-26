@@ -4,6 +4,7 @@
  */
 package business.controller.person.create.States;
 
+import business.controller.JMS.MessageController;
 import business.controller.RMI.AController;
 import business.controller.person.create.PersonCreation;
 import data.DAOs.AddressDAO;
@@ -19,14 +20,14 @@ import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.models.IContribution;
 import data.interfaces.models.IContributionHistory;
 import data.interfaces.models.ICountry;
-import data.interfaces.models.IPerson;
 import data.models.Address;
 import data.models.ContributionHistory;
 import data.models.Person;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.joda.time.DateTime;
@@ -70,6 +71,7 @@ public class PersonCreateState extends AController implements IPersonCreateState
             String sex, String phone, String mail,
             String username, String password, Date birthday, int right,
             String street, String postcode, String city, String country, int contributionID) throws RemoteException {
+        
         Transaction tx = HibernateUtil.getCurrentSession().beginTransaction();
         
         Address address = new Address();
@@ -109,7 +111,7 @@ public class PersonCreateState extends AController implements IPersonCreateState
         
         PersonDTO createdPerson = new PersonDTO(person);
         tx.commit();
-        
+
         return createdPerson;
     }
 
