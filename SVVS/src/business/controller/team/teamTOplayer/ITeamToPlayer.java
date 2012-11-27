@@ -20,6 +20,7 @@ import java.util.List;
 public interface ITeamToPlayer extends Remote, IController {
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams() throws RemoteException;
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException;
+    public LinkedList<ITrainingTeamDTO> loadTrainingTeamsOfSportsman(ISportsmanDTO sportsman) throws RemoteException;
     public LinkedList<ISportsmanDTO> loadSportsman(String sportname, List<ISportsmanDTO> ignoreList) throws RemoteException;
     public ISportsmanTrainingTeamDTO AddTeamToPlayer(ITrainingTeamDTO TrainingTeam, ISportsmanDTO Sportsman, String position) throws RemoteException ;
 }

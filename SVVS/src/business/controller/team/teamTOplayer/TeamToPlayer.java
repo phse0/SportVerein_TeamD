@@ -49,6 +49,20 @@ public class TeamToPlayer extends AController implements ITeamToPlayer {
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException {
         return TeamController.getInstance().loadTrainingTeams(sportname);
     }
+    
+    @Override
+    public LinkedList<ITrainingTeamDTO> loadTrainingTeamsOfSportsman(ISportsmanDTO sportsman) throws RemoteException{
+    LinkedList<ITrainingTeamDTO> sportlerteams = null;
+    
+        for (ITrainingTeamDTO iTrainingTeamDTO : loadTrainingTeams()) {
+            for(ISportsmanTrainingTeamDTO ispttdto: iTrainingTeamDTO.getSportsmen()){
+                if (ispttdto.getSportsman().getId() == sportsman.getId()) {
+                    sportlerteams.add(iTrainingTeamDTO);
+                }
+            }
+        }
+    return sportlerteams;
+    }
 
     @Override
     public LinkedList<ISportsmanDTO> loadSportsman(String sportname, List<ISportsmanDTO> ignoreList) throws RemoteException {
