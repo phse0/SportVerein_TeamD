@@ -30,7 +30,8 @@ public interface ITeamController extends Remote, IController {
 
     public LinkedList<ITrainingTeamDTO> loadTrainingTeams() throws RemoteException;
 
-    public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException;
+    public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String name) throws RemoteException;
+    public LinkedList<ITrainingTeamDTO> loadTrainingTeamsWithSport(String sportname) throws RemoteException;
 
     public LinkedList<ISportsmanTrainingTeamDTO> loadPlayersOfTeam(String TeamName) throws RemoteException;
 

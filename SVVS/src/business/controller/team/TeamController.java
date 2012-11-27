@@ -97,10 +97,21 @@ public class TeamController extends AController implements ITeamController {
     }
 
     @Override
-    public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String sportname) throws RemoteException {
+    public LinkedList<ITrainingTeamDTO> loadTrainingTeams(String name) throws RemoteException {
         LinkedList<ITrainingTeamDTO> teams = new LinkedList<ITrainingTeamDTO>();
         for (ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
-            if (iT.getName().equals(sportname)) {
+            if (iT.getName().equals(name)) {
+                teams.add(new TrainingTeamDTO(iT));
+            }
+        }
+        return teams;
+    }
+    
+    @Override
+    public LinkedList<ITrainingTeamDTO> loadTrainingTeamsWithSport(String sportname) throws RemoteException{
+     LinkedList<ITrainingTeamDTO> teams = new LinkedList<ITrainingTeamDTO>();
+        for (ITrainingTeam iT : TrainingTeamDAO.getInstance().getAll(HibernateUtil.getCurrentSession())) {
+            if (iT.getSport().getName().equals(sportname)) {
                 teams.add(new TrainingTeamDTO(iT));
             }
         }
