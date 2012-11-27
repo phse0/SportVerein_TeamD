@@ -4,6 +4,7 @@
  */
 package business.controller.team.teamTOplayer;
 
+import business.controller.JMS.MessageController;
 import business.controller.RMI.AController;
 import business.controller.team.TeamController;
 import data.DAOs.SportsmanDAO;
@@ -16,6 +17,7 @@ import data.interfaces.DAOs.ITrainingTeamDAO;
 import data.interfaces.DTOs.ISportsmanDTO;
 import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITrainingTeamDTO;
+import data.interfaces.models.ICoach;
 import data.interfaces.models.ISportsman;
 import data.interfaces.models.ISportsmanTrainingTeam;
 import data.interfaces.models.ITrainingTeam;
@@ -23,6 +25,8 @@ import data.models.SportsmanTrainingTeam;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -77,8 +81,21 @@ public class TeamToPlayer extends AController implements ITeamToPlayer {
         SportsmanTrainingTeamDAO.getInstance().add(HibernateUtil.getCurrentSession(), sttModel);
 
         SportsmanTrainingTeamDTO addedPlayer = new SportsmanTrainingTeamDTO(sttModel);
+        
+        try {
+            MessageController mc = MessageController.getInstance();
+            List<String> coaches = new LinkedList<>();
+            
+            for(ICoach coach: t.getCoaches()){
+                coaches.add(coach.getPerson().getUsername());
+            }
+           
+            mc.createSportsmanAssignedMessage(coaches, Sportsman, TrainingTeam);
+        } catch (Exception ex) {
+            Logger.getLogger(TeamToPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
         tx.commit();
-
         return addedPlayer;
     }
 }
