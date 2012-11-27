@@ -5,7 +5,6 @@
 package presentation.forms;
 
 import business.controller.RMI.IControllerFactory;
-import business.controller.person.AuthentificationController;
 import business.controller.person.IAuthentificationController;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -82,7 +81,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         jUsernameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jUsernameLabel.setText("Benutzerername");
+        jUsernameLabel.setText("Benutzername");
 
         jUsernameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,9 +203,10 @@ public class LoginFrame extends javax.swing.JFrame {
             IControllerFactory controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
             IAuthentificationController ac = controllerFactory.loadAuthentificationController();
             String userid = jUsernameTextField.getText();
-            userright = ac.Authenticate(userid, jPasswordField.getText());
+            String password = new String(jPasswordField.getPassword());
+            userright = ac.Authenticate(userid, password);
             if (userright > 0) {
-                //   jLoginResultLabel.setText("Login success, userright = " + userright);
+                System.out.println("Login success, userright = " + userright);
                 openMainForm(userid);
                 this.dispose();
             } else {

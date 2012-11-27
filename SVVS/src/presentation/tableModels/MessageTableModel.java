@@ -8,6 +8,7 @@ import business.messages.jms.interfaces.IMessage;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author Michael
@@ -15,10 +16,11 @@ import javax.swing.table.DefaultTableModel;
 public class MessageTableModel extends DefaultTableModel {
 
     private List<IMessage> messages;
-    private String[] colNames = {"Text"};
+    private String[] colNames = {"Date","Author","Text"};
+   
 
-    public MessageTableModel(List<IMessage> matches) {
-        this.messages = matches;
+    public MessageTableModel(List<IMessage> messages) {
+        this.messages = messages;
     }
 
     @Override
@@ -37,6 +39,10 @@ public class MessageTableModel extends DefaultTableModel {
 
         switch (column) {
             case 0:
+                return message.getDate().toLocalDate();
+            case 1:
+                return message.getAuthorId();
+            case 2:
                 return message.getText();
             default:
                 return null;

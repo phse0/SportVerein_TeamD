@@ -33,10 +33,13 @@ public class MessageController extends AController implements IMessageController
     private Session session;
     private Connection connection;
     private static MessageController instance;
+  //  private String authorID;
 
 
     private MessageController() throws RemoteException {
         super();
+       // this.authorID = authorid;
+        //Diese Properties sind sehr wichtig, weil ohne dessen geht es nicht ??????
         Properties props = new Properties();
 
         props.setProperty("java.naming.factory.initial",
@@ -57,7 +60,7 @@ public class MessageController extends AController implements IMessageController
         } catch (Exception e) {
         }
        
-       
+    
        
     }
 
@@ -93,7 +96,7 @@ public class MessageController extends AController implements IMessageController
         // Start the connection, causing message delivery to begin
         // Receive the messages sent to the destination
 
-
+//Mit receiveNoWait hat nicht funktioniert und mit receive(1000l) funktioniert es
         ObjectMessage msg = (ObjectMessage) consumer.receive(1000l);
         while (msg != null) {
             messages.add((IMessage) msg.getObject());
@@ -110,7 +113,7 @@ public class MessageController extends AController implements IMessageController
         ISportsmanDTO sportsman = tinvite.getSportsman();
         ITournamentDTO tournament = tinvite.getTournament();
         ITrainingTeamDTO team = tinvite.getTeam();
-        IMessage inviteMessage = new TournamentInviteMessage(sportsman, tournament, team);
+        IMessage inviteMessage = new TournamentInviteMessage( sportsman, tournament, team);
         saveMessage(inviteMessage, sportsman.getPerson().getUsername());
         return true;
     }

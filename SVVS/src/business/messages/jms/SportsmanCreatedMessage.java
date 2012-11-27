@@ -11,22 +11,24 @@ import data.interfaces.DTOs.ISportsmanDTO;
  *
  * @author uubu
  */
-public class SportsmanCreatedMessage implements ISportsmanCreatedMessage {
+public class SportsmanCreatedMessage extends GeneralMessage implements ISportsmanCreatedMessage {
 
     private ISportsmanDTO sportsman;
-    
+
     public SportsmanCreatedMessage(ISportsmanDTO sportsman) {
+        super();
         this.sportsman = sportsman;
+        this.text = getSportsman().getPerson() + " wurde der Abteilung " + getSportsman().getDepartment() + " und der Sportart " + getSportsman().getSport() + " zugewiesen!";
     }
 
     @Override
     public ISportsmanDTO getSportsman() {
         return this.sportsman;
     }
-
-    @Override
-    public String getText() {
-        return getSportsman().getPerson() + " wurde der Abteilung " + getSportsman().getDepartment() + " und der Sportart " + getSportsman().getSport() + " zugewiesen!";
-    }
-    
+    /*
+     @Override
+     public String getText() {
+     return getSportsman().getPerson() + " wurde der Abteilung " + getSportsman().getDepartment() + " und der Sportart " + getSportsman().getSport() + " zugewiesen!";
+     }
+     */
 }

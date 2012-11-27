@@ -5,6 +5,7 @@
 package business.messages.jms.interfaces;
 
 import java.io.Serializable;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -13,4 +14,6 @@ import java.io.Serializable;
 public interface IMessage extends Serializable{
     
     String getText();
+    DateTime getDate();
+    String getAuthorId();
 }

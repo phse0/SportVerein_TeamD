@@ -14,16 +14,18 @@ import data.interfaces.DTOs.ITrainingTeamDTO;
  *
  * @author uubu
  */
-public class TournamentInviteMessage implements ITournamentInviteMessage {
+public class TournamentInviteMessage extends GeneralMessage implements ITournamentInviteMessage {
 
     private ISportsmanDTO sportsman;
     private ITournamentDTO tournament;
     private ITrainingTeamDTO team;
 
-    public TournamentInviteMessage(ISportsmanDTO sportsman, ITournamentDTO tournament, ITrainingTeamDTO team) {
+    public TournamentInviteMessage( ISportsmanDTO sportsman, ITournamentDTO tournament, ITrainingTeamDTO team) {
+        super();
         this.sportsman = sportsman;
         this.tournament = tournament;
         this.team = team;
+        this.text = "Sie wurden mit dem Team " + getTeam() +" zum Wettkampf " + getTournament() + " eingeladen!";
     }
 
     @Override
@@ -40,9 +42,9 @@ public class TournamentInviteMessage implements ITournamentInviteMessage {
     public ITournamentDTO getTournament() {
         return this.tournament;
     }
-
+/*
     @Override
     public String getText() {
         return "Sie wurden mit dem Team " + getTeam() +" zum Wettkampf " + getTournament() + " eingeladen!";
-    }
+    }*/
 }
