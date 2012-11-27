@@ -23,6 +23,7 @@ import data.interfaces.DTOs.IRightDTO;
 import data.interfaces.DTOs.IRoleDTO;
 import data.interfaces.DTOs.ISportDTO;
 import data.interfaces.DTOs.ISportsmanDTO;
+import data.interfaces.DTOs.ISportsmanTrainingTeamDTO;
 import data.interfaces.DTOs.ITeamDTO;
 import data.interfaces.DTOs.ITournamentDTO;
 import data.interfaces.DTOs.ITournamentInviteDTO;
@@ -68,7 +69,7 @@ import presentation.trainingTeamListener.EditTeamListener;
  * @author Michael
  */
 public class MainForm extends javax.swing.JFrame {
-    
+
     TableRowSorter<PersonTableModel> personSorter;
     IControllerFactory controllerFactory;
     IPersonController personController;
@@ -96,7 +97,7 @@ public class MainForm extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public MainForm(String user) {
         initComponents();
         this.user = user;
@@ -588,66 +589,66 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        
+
         personSorter = new TableRowSorter<>((PersonTableModel) personTable.getModel());
         RowFilter<Object, Object> filter = new RowFilter<Object, Object>() {
             @Override
             public boolean include(Entry<? extends Object, ? extends Object> entry) {
-                
+
                 String lastname = entry.getValue(0).toString().toLowerCase();
                 String firstname = entry.getValue(1).toString().toLowerCase();
                 String nameTxt = txtName.getText().toLowerCase();
                 String abteilungen = entry.getValue(5).toString().toLowerCase();
                 String contStatus;
-                
+
                 if (entry.getValue(8) != null) {
                     contStatus = entry.getValue(8).toString().toLowerCase();
                 } else {
                     contStatus = "";
                 }
-                
+
                 String abteilungenTxt = "";
                 if (cobDepartment.getSelectedItem() instanceof IDepartmentDTO) {
                     abteilungenTxt = ((IDepartmentDTO) cobDepartment.getSelectedItem()).getName().toLowerCase();
                 }
-                
+
                 if (nameTxt.isEmpty() && cobDepartment.getSelectedIndex() == 0 && cobContribution.getSelectedIndex() == 0) {
                     return true;
                 }
-                
+
                 if ((lastname.contains(nameTxt) || firstname.contains(nameTxt)) && abteilungen.contains(abteilungenTxt)) {
-                    
+
                     if (cobContribution.getSelectedIndex() == 0) {
                         return true;
                     }
-                    
+
                     if (("1".equals(contStatus) && cobContribution.getSelectedIndex() == 1)
                             || ("0".equals(contStatus) && cobContribution.getSelectedIndex() == 2)) {
                         return true;
                     } else {
                         return false;
                     }
-                    
+
                 }
-                
+
                 return false;
             }
         };
-        
+
         personSorter.setRowFilter(filter);
         personTable.setRowSorter(personSorter);
     }//GEN-LAST:event_btnFilterActionPerformed
-    
+
     private void btnEditPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPersonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditPersonActionPerformed
-    
+
     private void btRechteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRechteActionPerformed
     }//GEN-LAST:event_btRechteActionPerformed
-    
+
     private void _teamsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__teamsMouseClicked
     }//GEN-LAST:event__teamsMouseClicked
-    
+
     private void _sportartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__sportartActionPerformed
         try {
             if (_sportart.getSelectedItem() == null) {
@@ -659,7 +660,7 @@ public class MainForm extends javax.swing.JFrame {
                 x.removeAllElements();
                 String sportsname = ((ISportDTO) _sportart.getSelectedItem()).getName();
                 LinkedList<ISportsmanDTO> list = new LinkedList<ISportsmanDTO>();
-                
+
                 LinkedList<ISportsmanDTO> team = controllerFactory.loadPlayerToTeamController().loadSportsman(sportsname, list);
                 _person.removeAllItems();
                 for (ISportsmanDTO is : team) {
@@ -669,7 +670,7 @@ public class MainForm extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event__sportartActionPerformed
-    
+
     private void _personActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__personActionPerformed
         try {
             _team.removeAllItems();
@@ -680,26 +681,35 @@ public class MainForm extends javax.swing.JFrame {
                 x.addElement("X");
                 _teams.setModel(x);
                 x.removeAllElements();
-                
+
                 String trainingteamname = ((ISportDTO) _sportart.getSelectedItem()).getName();
                 System.out.println(trainingteamname);
-                LinkedList<ITrainingTeamDTO> list = controllerFactory.loadTeamController().loadTrainingTeams(trainingteamname);
-                System.out.println(list.size());
+                LinkedList<ITrainingTeamDTO> list = controllerFactory.loadTeamController().loadTrainingTeamsWithSport(trainingteamname);
                 DefaultListModel<ITrainingTeamDTO> model = new DefaultListModel<>();
+                boolean xx = false;
                 for (ITrainingTeamDTO o : list) {
-                    System.out.println("__");
-                    model.addElement(o);
-                    _team.addItem(o);
+
+                    for (ISportsmanTrainingTeamDTO a : o.getSportsmen()) {
+                        if (a.getSportsman().getId() == ((ISportsmanDTO) _person.getSelectedItem()).getId()) {
+                            xx = true;
+                        }
+                    }
+                    if (xx) {
+                        model.addElement(o);
+                    } else {
+                        _team.addItem(o);
+                    }
+                    xx = false;
                 }
                 _teams.setModel(model);
             }
         } catch (Exception e) {
         }
     }//GEN-LAST:event__personActionPerformed
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            
+
             if (_team.getSelectedItem() == null) {
             } else {
                 int trainingteamid = ((ITrainingTeamDTO) _team.getSelectedItem()).getId();
@@ -709,11 +719,11 @@ public class MainForm extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     private void _positionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__positionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event__positionActionPerformed
-    
+
     private void initControls() throws RemoteException, NotBoundException, MalformedURLException {
         _sportart.removeAllItems();
         _person.removeAllItems();
@@ -728,20 +738,20 @@ public class MainForm extends javax.swing.JFrame {
 
         List<IPersonDTO> personsDTO = personController.loadPersons();
         List<IDepartmentDTO> depts = departmentController.loadDepartments();
-        
+
         cobDepartment.addItem("");
         for (IDepartmentDTO d : depts) {
             cobDepartment.addItem(d);
         }
-        
+
         cobContribution.addItem("");
         cobContribution.addItem("Ja");
         cobContribution.addItem("Nein");
-        
+
         this.personTable.setModel(new PersonTableModel(personsDTO));
         personSorter = new TableRowSorter<PersonTableModel>();
         personTable.setAutoCreateRowSorter(true);
-        
+
         btnCreatePerson.addActionListener(new CreateNewPersonListener(personTable, controllerFactory));
         btnEditPerson.addActionListener(new EditPersonListener(personTable, controllerFactory));
         btRechte.addActionListener(new EditRolesListener(personTable, controllerFactory, roleController, editPersonRoleController));
@@ -752,11 +762,11 @@ public class MainForm extends javax.swing.JFrame {
 
         // ################### INITIATE TOURNAMENTS ############################
 
-        
+
         List<ITournamentDTO> tournamentsDTO = tournamentController.loadTournaments();
         tournamentTable.setModel(new TournamentTableModel(tournamentsDTO));
         tournamentTable.setAutoCreateRowSorter(true);
-        
+
         btnCreateTournament.addActionListener(new CreateNewTournamentListener(tournamentTable, controllerFactory, managerRoles));
         btnEditTournament.addActionListener(new EditTournamentListener(tournamentTable, controllerFactory));
         jButton1.addActionListener(new ShowTournamentListener(tournamentTable, controllerFactory, teamController));
@@ -764,15 +774,15 @@ public class MainForm extends javax.swing.JFrame {
 
         //controllerFactory.loadPlayerToTeamController().
 
-        
+
         tournamentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                
+
                 if (managerRoles != null) {
                     TournamentTableModel model = (TournamentTableModel) tournamentTable.getModel();
                     ITournamentDTO tournament = model.getTournamentDTO(tournamentTable.getSelectedRow());
-                    
+
                     for (IRoleDTO r : managerRoles) {
                         try {
                             if (departmentController.isSportInDepartment(r.getDepartment(), tournament.getSport())) {
@@ -780,8 +790,8 @@ public class MainForm extends javax.swing.JFrame {
                                 break;
                             } else {
                                 btnEditTournament.setEnabled(false);
-                                
-                                
+
+
                             }
                         } catch (RemoteException ex) {
                             Logger.getLogger(MainForm.class
@@ -797,16 +807,16 @@ public class MainForm extends javax.swing.JFrame {
         List<ITrainingTeamDTO> trainingTeams = teamController.loadTrainingTeams();
         trainingTeamTable.setModel(new TrainingTeamTableModel(trainingTeams));
         trainingTeamTable.setAutoCreateRowSorter(true);
-        
+
         btnEditTeam.addActionListener(new EditTeamListener(trainingTeamTable, controllerFactory));
-        
+
         trainingTeamTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (coachRoles != null) {
                     TrainingTeamTableModel model = (TrainingTeamTableModel) trainingTeamTable.getModel();
                     ITrainingTeamDTO team = model.getTrainingTeamDTO(trainingTeamTable.getSelectedRow());
-                    
+
                     for (ICoachDTO coach : team.getCoaches()) {
                         for (IRoleDTO r : coachRoles) {
                             if (coach.getId() == r.getId()) {
@@ -815,9 +825,9 @@ public class MainForm extends javax.swing.JFrame {
                             }
                         }
                     }
-                    
+
                     btnEditTeam.setEnabled(false);
-                    
+
                 }
             }
         });
@@ -827,7 +837,7 @@ public class MainForm extends javax.swing.JFrame {
         List<ITournamentInviteDTO> tournamentTeams = tournamentTeamController.loadTournamentTeams();
         tournamentTeamTable.setModel(new TournamentInviteTableModel(tournamentTeams));
         tournamentTeamTable.setAutoCreateRowSorter(true);
-        
+
         btnEditTournamentTeam.addActionListener(new EditTournamentTeamListener(tournamentTeamTable, controllerFactory));
 
         // ################### INITIATE INBOX ############################
@@ -836,7 +846,7 @@ public class MainForm extends javax.swing.JFrame {
             messageTable.setAutoCreateRowSorter(true);
             List<IMessage> messages = messageController.LoadMessages(user);
             messageTable.setModel(new MessageTableModel(messages));
-            
+
             btnRefresh.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -848,20 +858,20 @@ public class MainForm extends javax.swing.JFrame {
                     }
                 }
             });
-            
-            
+
+
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         messageTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 MessageTableModel model = (MessageTableModel) messageTable.getModel();
                 if (messageTable.getSelectedRow() != -1) {
                     IMessage message = model.getMessage(messageTable.getSelectedRow());
-                    
+
                     if (message instanceof ITournamentInviteMessage) {
                         btnAccept.setEnabled(true);
                         btnRefuse.setEnabled(true);
@@ -874,9 +884,9 @@ public class MainForm extends javax.swing.JFrame {
         });
         btnAccept.addActionListener(new AcceptListener(tournamentTeamController, messageTable));
         btnRefuse.addActionListener(new RefuseListener(tournamentTeamController, messageTable));
-        
+
     }
-    
+
     private void loadControllers() throws RemoteException, NotBoundException, MalformedURLException, Exception {
         controllerFactory = (IControllerFactory) Naming.lookup("rmi://localhost/SVVS");
         teamController = (ITeamController) controllerFactory.loadTeamController();
@@ -888,23 +898,23 @@ public class MainForm extends javax.swing.JFrame {
         tournamentTeamController = (ITournamentTeamController) controllerFactory.loadTournamentTeamController();
         messageController = (IMessageController) controllerFactory.loadMessageController();
     }
-    
+
     private void checkRights() throws RemoteException {
-        
+
         List<IRightDTO> rights = null;
-        
+
         try {
             rights = controllerFactory.loadAuthentificationController().getAllRights();
         } catch (RemoteException e) {
             System.out.println("Couldnt connect to Authentifaction Controller");
         }
-        
+
         if (loggedUser.getRight() < 1L) {
             loggedUser.setRight(1L);
         }
-        
+
         List<IRightDTO> missingRights = new LinkedList<>();
-        
+
         for (IRightDTO r : rights) {
             if (!loggedUser.hasRight(r.getValue())) {
                 missingRights.add(r);
@@ -913,54 +923,54 @@ public class MainForm extends javax.swing.JFrame {
                         && !roleController.hasRole(loggedUser, "Admin")) {
                     managerRoles = roleController.getRole(loggedUser, "Manager");
                 }
-                
+
                 if (r.getName().equals("Teams verwalten") && roleController.hasRole(loggedUser, "Trainer")
                         && !roleController.hasRole(loggedUser, "Admin")) {
                     coachRoles = roleController.getRole(loggedUser, "Trainer");
                 }
             }
         }
-        
+
         for (IRightDTO r : missingRights) {
-            
+
             if (r.getName().equals("Rechte verwalten")) {
                 btRechte.setEnabled(false);
             }
-            
+
             if (r.getName().equals("Teams anzeigen")) {
                 tpMain.setEnabledAt(2, false);
             }
-            
+
             if (r.getName().equals("Teams verwalten")) {
                 btnEditTeam.setEnabled(false);
             }
-            
+
             if (r.getName().equals("Wettkampf anzeigen")) {
                 tpMain.setEnabledAt(1, false);
             }
-            
+
             if (r.getName().equals("Wettkampf verwalten")) {
                 btnCreateTournament.setEnabled(false);
                 btnEditTournament.setEnabled(false);
             }
-            
+
             if (r.getName().equals("Mitglied anzeigen")) {
                 tpMain.setEnabledAt(0, false);
             }
-            
+
             if (r.getName().equals("Mitglied verwalten")) {
                 btnCreatePerson.setEnabled(false);
                 btnEditPerson.setEnabled(false);
             }
         }
-        
+
         for (int i = 0; i < tpMain.getTabCount(); i++) {
             if (tpMain.isEnabledAt(i)) {
                 tpMain.setSelectedIndex(i);
                 break;
             }
         }
-        
+
     }
 
     /**
@@ -977,8 +987,8 @@ public class MainForm extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
-                    
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
