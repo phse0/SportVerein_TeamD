@@ -681,7 +681,7 @@ public class MainForm1 extends javax.swing.JFrame {
         roleController = (IRoleController) controllerFactory.loadRoleController();
         editPersonRoleController = (IEditPersonRole) controllerFactory.loadEditPersonRole();
         tournamentTeamController = (ITournamentTeamController) controllerFactory.loadTournamentTeamController();
-        messageController = (IMessageController) controllerFactory.loadMessageController();
+        messageController = (IMessageController) controllerFactory.loadMessageController(user);
     }
 
     private void checkRights() throws RemoteException {

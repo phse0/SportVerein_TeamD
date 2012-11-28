@@ -121,8 +121,8 @@ public class ControllerFactory extends UnicastRemoteObject implements IControlle
     }
     
     @Override
-    public IMessageController loadMessageController() throws RemoteException, Exception {
-        return MessageController.getInstance();
+    public IMessageController loadMessageController(String authorid) throws RemoteException, Exception {
+        return MessageController.getInstance(authorid);
     }
     
     @Override

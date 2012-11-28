@@ -20,8 +20,8 @@ public class TournamentInviteMessage extends GeneralMessage implements ITourname
     private ITournamentDTO tournament;
     private ITrainingTeamDTO team;
 
-    public TournamentInviteMessage( ISportsmanDTO sportsman, ITournamentDTO tournament, ITrainingTeamDTO team) {
-        super();
+    public TournamentInviteMessage(String authorID, ISportsmanDTO sportsman, ITournamentDTO tournament, ITrainingTeamDTO team) {
+        super(authorID);
         this.sportsman = sportsman;
         this.tournament = tournament;
         this.team = team;

@@ -41,7 +41,8 @@ import org.hibernate.Transaction;
 public class TournamentTeamController extends AController implements ITournamentTeamController {
 
     private static TournamentTeamController instance;
-
+    private static String authorid;
+  
     private TournamentTeamController() throws RemoteException {
         super();
     }
@@ -49,6 +50,17 @@ public class TournamentTeamController extends AController implements ITournament
     public static TournamentTeamController getInstance() throws RemoteException {
         if (instance == null) {
             return (instance = new TournamentTeamController());
+        }
+        return instance;
+    }
+   private TournamentTeamController(String authorid) throws RemoteException {
+        super();
+        this.authorid = authorid;
+    }
+
+    public static TournamentTeamController getInstance(String authorid) throws RemoteException {
+        if (instance == null) {
+            return (instance = new TournamentTeamController(authorid));
         }
         return instance;
     }
@@ -123,7 +135,7 @@ public class TournamentTeamController extends AController implements ITournament
 
         MessageController mc = null;
         try {
-            mc = MessageController.getInstance();
+            mc = MessageController.getInstance(authorid);
             List<String> names = new LinkedList<>();
             mc.createInviteMessage(dieter);
         } catch (Exception ex) {

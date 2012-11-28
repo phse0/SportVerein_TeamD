@@ -43,9 +43,15 @@ import org.hibernate.Transaction;
 public class PersonCreateAssignSportState extends AController implements IPersonCreateState {
 
     PersonCreation _creator;
+    String authorID;
 
     public PersonCreateAssignSportState(PersonCreation creator) throws RemoteException {
         super();
+        _creator = creator;
+    }
+   public PersonCreateAssignSportState(String authorid,PersonCreation creator) throws RemoteException {
+        super();
+        this.authorID = authorid;
         _creator = creator;
     }
 
@@ -80,7 +86,7 @@ public class PersonCreateAssignSportState extends AController implements IPerson
         MessageController mc = null;
         
         try {
-             mc = MessageController.getInstance();
+             mc = MessageController.getInstance(authorID);
         } catch (Exception ex) {
             Logger.getLogger(PersonCreateAssignSportState.class.getName()).log(Level.SEVERE, null, ex);
         }

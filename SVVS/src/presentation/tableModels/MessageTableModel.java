@@ -5,6 +5,12 @@
 package presentation.tableModels;
 
 import business.messages.jms.interfaces.IMessage;
+import data.DTOs.PersonDTO;
+import data.DataFacade;
+import data.hibernate.HibernateUtil;
+import data.interfaces.DAOs.IPersonDAO;
+import data.interfaces.DTOs.IPersonDTO;
+import data.interfaces.models.IPerson;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,12 +42,13 @@ public class MessageTableModel extends DefaultTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         IMessage message = messages.get(row);
-
-        switch (column) {
+        IPersonDAO personDao = DataFacade.getPersonDAO();
+         switch (column) {
             case 0:
                 return message.getDate().toLocalDate();
             case 1:
-                return message.getAuthorId();
+                 IPersonDTO person = new PersonDTO(personDao.getUserByUserName(message.getAuthorId(), HibernateUtil.getCurrentSession()));
+                 return person.getFirstname()+" "+person.getLastname();
             case 2:
                 return message.getText();
             default:

@@ -59,5 +59,5 @@ public interface IControllerFactory extends Remote  {
     
     ITeamToPlayer loadTeamToPlayer() throws RemoteException;
 
-    IMessageController loadMessageController() throws RemoteException, Exception;
+    IMessageController loadMessageController(String authorID) throws RemoteException, Exception;
 }

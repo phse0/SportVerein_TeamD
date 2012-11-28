@@ -18,8 +18,8 @@ public class SportsmanAssignedMessage extends GeneralMessage implements ISportsm
     private ISportsmanDTO sportsman;
     private ITrainingTeamDTO team;
 
-    public SportsmanAssignedMessage(ITrainingTeamDTO team, ISportsmanDTO sportsman) {
-        super();
+    public SportsmanAssignedMessage(String authorID, ITrainingTeamDTO team, ISportsmanDTO sportsman) {
+        super(authorID);
         if (team == null || sportsman == null) {
             return;
         }

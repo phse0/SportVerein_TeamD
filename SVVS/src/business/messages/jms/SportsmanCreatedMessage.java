@@ -15,8 +15,8 @@ public class SportsmanCreatedMessage extends GeneralMessage implements ISportsma
 
     private ISportsmanDTO sportsman;
 
-    public SportsmanCreatedMessage(ISportsmanDTO sportsman) {
-        super();
+    public SportsmanCreatedMessage(String authorID, ISportsmanDTO sportsman) {
+        super(authorID);
         this.sportsman = sportsman;
         this.text = getSportsman().getPerson() + " wurde der Abteilung " + getSportsman().getDepartment() + " und der Sportart " + getSportsman().getSport() + " zugewiesen!";
     }

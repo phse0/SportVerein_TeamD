@@ -17,9 +17,9 @@ public class GeneralMessage implements IMessage {
     protected DateTime sendDate;
     protected String authorID;
 
-    public GeneralMessage() {
+    public GeneralMessage(String authorID) {
         sendDate = new DateTime();
-        authorID = "Someone whom we know";
+        this.authorID = authorID;
     }
 
     @Override

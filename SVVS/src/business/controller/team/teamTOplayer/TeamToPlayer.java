@@ -35,9 +35,13 @@ import org.hibernate.Transaction;
  * @author phil
  */
 public class TeamToPlayer extends AController implements ITeamToPlayer {
-
+    private String authorID;
     public TeamToPlayer() throws RemoteException {
         super();
+    }
+  public TeamToPlayer(String authorid) throws RemoteException {
+        super();
+        this.authorID = authorid;
     }
 
     @Override
@@ -97,7 +101,7 @@ public class TeamToPlayer extends AController implements ITeamToPlayer {
         SportsmanTrainingTeamDTO addedPlayer = new SportsmanTrainingTeamDTO(sttModel);
         
         try {
-            MessageController mc = MessageController.getInstance();
+            MessageController mc = MessageController.getInstance(authorID);
             List<String> coaches = new LinkedList<>();
             
             for(ICoach coach: t.getCoaches()){

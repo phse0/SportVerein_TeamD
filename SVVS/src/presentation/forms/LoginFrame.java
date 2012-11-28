@@ -16,7 +16,7 @@ import java.rmi.RemoteException;
  * @author Evgeniya Spiegel
  */
 public class LoginFrame extends javax.swing.JFrame {
-
+public String userID = null; 
     /**
      * Creates new form LoginFrame
      */
@@ -206,9 +206,10 @@ public class LoginFrame extends javax.swing.JFrame {
             String password = new String(jPasswordField.getPassword());
             userright = ac.Authenticate(userid, password);
             if (userright > 0) {
+                userID = userid;
                 System.out.println("Login success, userright = " + userright);
-                openMainForm(userid);
-                this.dispose();
+                openMainForm();
+                this.setVisible(false);
             } else {
                 jLoginResultLabel.setText("Login failed");
             }
@@ -220,13 +221,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void jLookMatchResultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLookMatchResultsButtonActionPerformed
         // TODO add your handling code here:
-        openMainForm("");
+        openMainForm();
 
     }//GEN-LAST:event_jLookMatchResultsButtonActionPerformed
 
-    private void openMainForm(String userid) {
-        System.out.println("OpenMainForm, userid=" + userid);
-        MainForm mainForm = new MainForm(userid);
+    private void openMainForm() {
+        System.out.println("OpenMainForm, userid=" + userID);
+        MainForm mainForm = new MainForm(userID);
         mainForm.setVisible(true);
 
     }

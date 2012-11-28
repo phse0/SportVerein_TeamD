@@ -33,12 +33,12 @@ public class MessageController extends AController implements IMessageController
     private Session session;
     private Connection connection;
     private static MessageController instance;
-  //  private String authorID;
+    private String authorID;
 
 
-    private MessageController() throws RemoteException {
+    private MessageController(String authorid) throws RemoteException {
         super();
-       // this.authorID = authorid;
+        this.authorID = authorid;
         //Diese Properties sind sehr wichtig, weil ohne dessen geht es nicht ??????
         Properties props = new Properties();
 
@@ -64,9 +64,9 @@ public class MessageController extends AController implements IMessageController
        
     }
 
-    public static MessageController getInstance() throws RemoteException, Exception {
+    public static MessageController getInstance(String authorid) throws RemoteException, Exception {
         if (instance == null) {
-            instance = new MessageController();
+            instance = new MessageController(authorid);
         }
         return instance;
     }
@@ -113,7 +113,7 @@ public class MessageController extends AController implements IMessageController
         ISportsmanDTO sportsman = tinvite.getSportsman();
         ITournamentDTO tournament = tinvite.getTournament();
         ITrainingTeamDTO team = tinvite.getTeam();
-        IMessage inviteMessage = new TournamentInviteMessage( sportsman, tournament, team);
+        IMessage inviteMessage = new TournamentInviteMessage(authorID, sportsman, tournament, team);
         saveMessage(inviteMessage, sportsman.getPerson().getUsername());
         return true;
     }
@@ -121,7 +121,7 @@ public class MessageController extends AController implements IMessageController
     @Override
     public boolean createSportsmanCreatedMessage(List<String> usernames, ISportsmanDTO sportsman) throws RemoteException {
         
-        SportsmanCreatedMessage sportsmanCreateMessage = new SportsmanCreatedMessage(sportsman);
+        SportsmanCreatedMessage sportsmanCreateMessage = new SportsmanCreatedMessage(authorID, sportsman);
         for (String un : usernames) {
             saveMessage(sportsmanCreateMessage, un);
         }
@@ -130,7 +130,7 @@ public class MessageController extends AController implements IMessageController
 
     @Override
     public boolean createSportsmanAssignedMessage(List<String> usernames, ISportsmanDTO sportsman, ITrainingTeamDTO team) throws RemoteException {
-        SportsmanAssignedMessage sportsmanAssignedMessage = new SportsmanAssignedMessage(team, sportsman);
+        SportsmanAssignedMessage sportsmanAssignedMessage = new SportsmanAssignedMessage(authorID, team, sportsman);
         for (String un : usernames) {
             saveMessage(sportsmanAssignedMessage, un);
         }

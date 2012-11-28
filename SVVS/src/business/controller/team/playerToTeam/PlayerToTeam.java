@@ -41,9 +41,15 @@ import org.hibernate.Transaction;
 public class PlayerToTeam extends AController implements IPlayerToTeam {
 
     IPlayerToTeamState _state;
+    String authorID;
 
     public PlayerToTeam() throws RemoteException {
         super();
+        setState(new PlayerToTeamTeamLoadState(this));
+    }
+   public PlayerToTeam(String authorID) throws RemoteException {
+        super();
+        this.authorID = authorID;
         setState(new PlayerToTeamTeamLoadState(this));
     }
 
@@ -112,7 +118,7 @@ public class PlayerToTeam extends AController implements IPlayerToTeam {
 
         MessageController mc = null;
         try {
-            mc = MessageController.getInstance();
+            mc = MessageController.getInstance(authorID);
             List<String> names = new LinkedList<>();
             for (ICoach c : t.getCoaches()) {
                 names.add(c.getPerson().getUsername());
