@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package business.controller.JMS;
 
 import business.controller.RMI.AController;
@@ -35,7 +34,6 @@ public class MessageController extends AController implements IMessageController
     private static MessageController instance;
     private String authorID;
 
-
     private MessageController(String authorid) throws RemoteException {
         super();
         this.authorID = authorid;
@@ -51,17 +49,17 @@ public class MessageController extends AController implements IMessageController
         props.setProperty("java.naming.factory.state",
                 "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
         try {
-             initialContext = new InitialContext(props);
-        connectionFactory = (ConnectionFactory) initialContext.lookup("jms/CF");
-        connection = connectionFactory.createConnection();
-        connection.start();
-        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        connection.close();
+            initialContext = new InitialContext(props);
+            connectionFactory = (ConnectionFactory) initialContext.lookup("jms/CF");
+            connection = connectionFactory.createConnection();
+            connection.start();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            connection.close();
         } catch (Exception e) {
         }
-       
-    
-       
+
+
+
     }
 
     public static MessageController getInstance(String authorid) throws RemoteException, Exception {
@@ -73,7 +71,7 @@ public class MessageController extends AController implements IMessageController
 
     @Override
     public void createQueue(String username) throws RemoteException, Exception {
-        
+
         Queue queue = session.createQueue("jms/" + username);
         initialContext.bind("jms/" + username, queue);
     }
@@ -81,13 +79,13 @@ public class MessageController extends AController implements IMessageController
 
     @Override
     public List<IMessage> LoadMessages(String username) throws RemoteException, Exception {
-        
-         connection = connectionFactory.createConnection();
+
+        connection = connectionFactory.createConnection();
         connection.start();
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        
-        
-        
+
+
+
         Destination dest = (Destination) initialContext.lookup("jms/" + username);
         LinkedList<IMessage> messages = new LinkedList<>();
 
@@ -103,7 +101,7 @@ public class MessageController extends AController implements IMessageController
             msg = (ObjectMessage) consumer.receive(1000l);
         }
 
-         connection.close();
+        connection.close();
         return messages;
     }
     //tinvite has a list of persons to invite
@@ -120,7 +118,7 @@ public class MessageController extends AController implements IMessageController
 
     @Override
     public boolean createSportsmanCreatedMessage(List<String> usernames, ISportsmanDTO sportsman) throws RemoteException {
-        
+
         SportsmanCreatedMessage sportsmanCreateMessage = new SportsmanCreatedMessage(authorID, sportsman);
         for (String un : usernames) {
             saveMessage(sportsmanCreateMessage, un);
@@ -142,20 +140,20 @@ public class MessageController extends AController implements IMessageController
         try {
 // get the Destination used to send the message by JNDI name
             // connection.start();
-            
-              connection = connectionFactory.createConnection();
-        connection.start();
-        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        
-            
+
+            connection = connectionFactory.createConnection();
+            connection.start();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+
             destination = (Destination) initialContext.lookup("jms/" + username);
 // Create a connection
             MessageProducer producer = session.createProducer(destination);
-            
+
             ObjectMessage msg = session.createObjectMessage(o);
 // send the message to the destination
             producer.send(msg);
-             connection.close();
+            connection.close();
 // Close the connection
         } catch (Exception e) {
         }

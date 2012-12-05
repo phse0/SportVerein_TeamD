@@ -19,14 +19,19 @@ import java.util.List;
  */
 public interface IMessageController extends Remote, IController {
 
-    List<IMessage> LoadMessages(String username) throws RemoteException, Exception;
-
-    boolean createInviteMessage(ITournamentInviteDTO tinvite) throws RemoteException;
-
+    /**
+     *
+     * @param username
+     * @throws RemoteException
+     * @throws Exception
+     */
     void createQueue(String username) throws RemoteException, Exception;
+
+    List<IMessage> LoadMessages(String username) throws RemoteException, Exception;
 
     boolean createSportsmanAssignedMessage(List<String> usernames, ISportsmanDTO sportsman, ITrainingTeamDTO team) throws RemoteException;
 
     boolean createSportsmanCreatedMessage(List<String> usernames, ISportsmanDTO sportsman) throws RemoteException;
-    
+
+    boolean createInviteMessage(ITournamentInviteDTO tinvite) throws RemoteException;
 }

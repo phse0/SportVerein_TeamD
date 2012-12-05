@@ -209,7 +209,7 @@ public String userID = null;
                 userID = userid;
                 System.out.println("Login success, userright = " + userright);
                 openMainForm();
-                this.setVisible(false);
+              //  this.setVisible(false);
             } else {
                 jLoginResultLabel.setText("Login failed");
             }
